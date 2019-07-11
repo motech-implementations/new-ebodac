@@ -1,0 +1,55 @@
+{
+  "name": "new-ebodac",
+  "version": "1.0.0",
+  "description": "New EBODAC Module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --config webpack/webpack.dev.js",
+    "watch": "webpack --watch --config webpack/webpack.dev.js",
+    "prod": "webpack --config webpack/webpack.prod.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/motech-implementations/new-ebodac.git"
+  },
+  "keywords": [],
+  "author": "GF",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/motech-implementations/new-ebodac/issues"
+  },
+  "homepage": "https://github.com/motech-implementations/new-ebodac#readme",
+  "devDependencies": {
+    "@babel/core": "7.5.0",
+    "@babel/preset-env": "7.5.0",
+    "@babel/preset-react": "7.0.0",
+    "@babel/preset-stage-2": "7.0.0",
+    "babel-eslint": "10.0.2",
+    "babel-loader": "8.0.6",
+    "clean-webpack-plugin": "3.0.0",
+    "css-loader": "3.0.0",
+    "eslint": "5.3.0",
+    "eslint-config-airbnb": "17.1.1",
+    "eslint-loader": "2.2.1",
+    "eslint-plugin-import": "2.18.0",
+    "eslint-plugin-jsx-a11y": "6.2.3",
+    "eslint-plugin-react": "7.14.2",
+    "html-webpack-plugin": "3.2.0",
+    "mini-css-extract-plugin": "0.7.0",
+    "node-sass": "4.12.0",
+    "optimize-css-assets-webpack-plugin": "5.0.3",
+    "react-hot-loader": "4.12.6",
+    "sass-loader": "7.1.0",
+    "style-loader": "0.23.1",
+    "terser-webpack-plugin": "1.3.0",
+    "webpack": "4.35.2",
+    "webpack-cli": "3.3.5",
+    "webpack-dev-server": "3.7.2",
+    "webpack-merge": "4.2.1"
+  },
+  "dependencies": {
+    "react": "16.8.6",
+    "react-dom": "16.8.6"
+  }
+}

@@ -1,0 +1,36 @@
+newebodac:
+  resourceId: newebodac
+
+token:
+  validitySeconds: ${tokenValiditySeconds}
+
+server:
+  port: ${tomcatServerPort}
+  ssl:
+    enabled: ${sslEnabled}
+    key-alias: ${keyAlias}
+    key-store: ${keyStore}
+    key-store-password: ${keyStorePassword}
+  compression:
+    enabled: true
+    mime-types: application/json,application/xml,text/html,text/xml,text/plain,application/javascript,text/css
+
+spring:
+  security:
+    oauth2:
+      client:
+        authentication-scheme: header
+  liquibase:
+    change-log: classpath:liquibase/master.xml
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    password: ${databasePassword}
+    url: ${databaseUrl}
+    username: ${databaseUser}
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5Dialect
+    show-sql: false
