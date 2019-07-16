@@ -1,0 +1,124 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+    <changeSet author="pmuchowski (generated)" id="1563286443812-3">
+        <createTable tableName="campaign_message">
+            <column name="id" type="VARCHAR(255)">
+                <constraints primaryKey="true" primaryKeyName="campaign_messagePK"/>
+            </column>
+            <column name="message_key" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="time_offset" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="visit_type_id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1563286443812-4">
+        <createTable tableName="extra_field">
+            <column name="id" type="VARCHAR(255)">
+                <constraints primaryKey="true" primaryKeyName="extra_fieldPK"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="value" type="VARCHAR(255)"/>
+            <column name="vaccinee_id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1563286443812-5">
+        <createTable tableName="language">
+            <column name="id" type="VARCHAR(255)">
+                <constraints primaryKey="true" primaryKeyName="languagePK"/>
+            </column>
+            <column name="code" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1563286443812-6">
+        <createTable tableName="vaccinee">
+            <column name="id" type="VARCHAR(255)">
+                <constraints primaryKey="true" primaryKeyName="vaccineePK"/>
+            </column>
+            <column name="address" type="VARCHAR(255)"/>
+            <column name="age" type="INT"/>
+            <column name="alternate_phone_number" type="VARCHAR(255)"/>
+            <column name="gender" type="VARCHAR(255)"/>
+            <column name="group" type="VARCHAR(255)"/>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="phone_number" type="VARCHAR(255)"/>
+            <column name="site_id" type="VARCHAR(255)"/>
+            <column name="vaccinee_id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="year_of_birth" type="INT"/>
+            <column name="language_id" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1563286443812-7">
+        <createTable tableName="visit">
+            <column name="id" type="VARCHAR(255)">
+                <constraints primaryKey="true" primaryKeyName="visitPK"/>
+            </column>
+            <column name="date" type="date"/>
+            <column name="planned_date" type="date"/>
+            <column name="status" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="visit_type_id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="vaccinee_id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1563286443812-8">
+        <createTable tableName="visit_type">
+            <column name="id" type="VARCHAR(255)">
+                <constraints primaryKey="true" primaryKeyName="visit_typePK"/>
+            </column>
+            <column name="display_name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1563286443812-9">
+        <addUniqueConstraint columnNames="code" constraintName="UC_LANGUAGECODE_COL" tableName="language"/>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1563286443812-10">
+        <addUniqueConstraint columnNames="name" constraintName="UC_LANGUAGENAME_COL" tableName="language"/>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1563286443812-11">
+        <addUniqueConstraint columnNames="name" constraintName="UC_VISIT_TYPENAME_COL" tableName="visit_type"/>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1563286443812-12">
+        <addForeignKeyConstraint baseColumnNames="vaccinee_id" baseTableName="visit" constraintName="FK39rd9xdfe4x8fwep9miqii5fd" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="vaccinee" validate="true"/>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1563286443812-13">
+        <addForeignKeyConstraint baseColumnNames="language_id" baseTableName="vaccinee" constraintName="FK49lk80pk20f50v1lkqm4g84hb" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="language" validate="true"/>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1563286443812-14">
+        <addForeignKeyConstraint baseColumnNames="visit_type_id" baseTableName="visit" constraintName="FK51h8dijyd5o96fsf0tx9jorn4" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="visit_type" validate="true"/>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1563286443812-15">
+        <addForeignKeyConstraint baseColumnNames="visit_type_id" baseTableName="campaign_message" constraintName="FK7fufki5r4al68sw3dwctx4x11" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="visit_type" validate="true"/>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1563286443812-16">
+        <addForeignKeyConstraint baseColumnNames="vaccinee_id" baseTableName="extra_field" constraintName="FKri2psii5wuu0uvn2vxaeuwvl1" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="vaccinee" validate="true"/>
+    </changeSet>
+</databaseChangeLog>
