@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+
 import '../../css/main.scss';
 
 class SideBar extends Component {

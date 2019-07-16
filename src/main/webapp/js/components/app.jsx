@@ -1,7 +1,9 @@
 import React from 'react';
-// eslint-disable-next-line import/extensions
-import Navbar from './navbar.jsx';
+
+import 'bootstrap/dist/css/bootstrap.min.css';
 import '../../css/main.scss';
+
+import Navbar from './navbar';
 
 export default () => (
   <div>
