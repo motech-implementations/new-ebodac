@@ -3,14 +3,21 @@ Clone this repository from GitHub:
  ```shell
  git clone https://github.com/motech-implementations/new-ebodac.git
  ```
-1. Start the service with `./gradlew` or `gradle`. On first run it installs all 
+1. Install MySql with
+<pre>
+$ sudo apt-get update
+$ sudo apt-get install mysql-server
+</pre>
+
+2. Start the service with `./gradlew` or `gradle`. On first run it installs all 
 dependencies like NPM, node modules etc. Once it is running, you should see 'Started Application in NN seconds'. 
 Your console will not return to a prompt as long as the service is running. 
 The service may write errors and other output to your console.
-2. Best way for speed development is to add a `bootRun` Gradle configuration to IntelliJ Idea, and
+3. Best way for speed development is to add a `bootRun` Gradle configuration to IntelliJ Idea, and
 run it with `Debug` option.
-3. Hot-swapping Java classes without rerunning `./gradlew`: try clicking CTRL+F9 to build project (ie. all Java classes in classpath),
+4. Hot-swapping Java classes without rerunning `./gradlew`: try clicking CTRL+F9 to build project (ie. all Java classes in classpath),
 and accept a prompt asking about reloading changed classes.
+5. Go to localhost:8080
 
 ## Frontend Hot-Reload with Webpack watch
 1. Start Java server with `./gradlew` or `gradle` (if you want run local environment gradle).
