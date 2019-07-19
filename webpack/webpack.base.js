@@ -7,6 +7,7 @@ const DEST = path.resolve(__dirname, '../build/resources/main/static');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const WorkboxWebpackPlugin = require('workbox-webpack-plugin');
 
 module.exports = {
   entry: `${SRC}/index.jsx`,
@@ -29,6 +30,10 @@ module.exports = {
       filename: `${DEST}/index.html`,
       template: `${SRC_ROOT}/template.html`,
     }),
+    new WorkboxWebpackPlugin.InjectManifest({
+      swSrc: `${SRC_ROOT}/src-sw.js`,
+      swDest: `${DEST}/sw.js`
+    })
   ],
   module: {
     rules: [

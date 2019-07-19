@@ -38,3 +38,10 @@ Under File -> Settings -> Editor -> Code Style import the google-styleguide (gea
 
 ## Stopping the Service
 To stop the service (when it is running with `./gradlew`) use Control-C.
+
+## Testing PWA features
+When testing locally you need to use https. For develop purposes self-signed certificate is used.
+To accept self-signed certificate on chrome you need to create risk accepting chrome. 
+On Ubuntu: `google-chrome --user-da-dir=/tmp/foo --ignore-certificate-errors --unsafely-treat-insecure-origin-as-secure=https://localhost:8443`
+(Tip: This chrome instance may need to be only one working)
+`

@@ -11,6 +11,7 @@ server:
     key-alias: ${keyAlias}
     key-store: ${keyStore}
     key-store-password: ${keyStorePassword}
+    key-store-type: ${keyStoreType}
   compression:
     enabled: true
     mime-types: application/json,application/xml,text/html,text/xml,text/plain,application/javascript,text/css

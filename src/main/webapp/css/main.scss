@@ -268,7 +268,6 @@ sidebar-collapse {
 
   li {
     display: inline-block;
-    float: left;
 
     a {
       @extend .padding-top-md;
@@ -303,7 +302,7 @@ sidebar-collapse {
     li {
       a {
         width: 16em;
-
+        margin-left: 20px;
         &:hover, &:focus {
           outline: none;
         }
@@ -330,7 +329,7 @@ sidebar-collapse {
       background-color: $gray-lighter;
       color: $blue-mid !important;
       display: table;
-
+      margin-left: 20px;
       &:hover, &:focus {
         color: $dark-navy !important;
         background: $gray-light !important;
@@ -346,7 +345,7 @@ sidebar-collapse {
           display: block;
           padding-left: 2.5em;
           text-decoration: none;
-
+          margin-left: 20px;
           &:hover, &:focus {
             color: $dark-navy;
             background: $gray-light;
