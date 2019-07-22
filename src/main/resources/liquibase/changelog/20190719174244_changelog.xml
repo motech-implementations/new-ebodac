@@ -1,0 +1,138 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+    <changeSet author="pmuchowski (generated)" id="1563550969560-7">
+        <createTable tableName="enrollment_group">
+            <column name="id" type="VARCHAR(255)">
+                <constraints primaryKey="true" primaryKeyName="enrollment_groupPK"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1563550969560-8">
+        <createTable tableName="field_config">
+            <column name="id" type="VARCHAR(255)">
+                <constraints primaryKey="true" primaryKeyName="field_configPK"/>
+            </column>
+            <column name="base" type="BIT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="display_name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="entity" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="format" type="VARCHAR(255)"/>
+            <column name="hidden" type="BIT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="order" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="required" type="BIT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="type" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1563550969560-9">
+        <createTable tableName="key_community_person">
+            <column name="id" type="VARCHAR(255)">
+                <constraints primaryKey="true" primaryKeyName="key_community_personPK"/>
+            </column>
+            <column name="community" type="VARCHAR(255)"/>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="phone" type="VARCHAR(255)"/>
+            <column name="language_id" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1563550969560-10">
+        <createTable tableName="site">
+            <column name="id" type="VARCHAR(255)">
+                <constraints primaryKey="true" primaryKeyName="sitePK"/>
+            </column>
+            <column name="description" type="VARCHAR(255)"/>
+            <column name="site_id" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1563550969560-11">
+        <addColumn tableName="visit_type">
+            <column name="earliest_offset" type="integer"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1563550969560-12">
+        <addColumn tableName="extra_field">
+            <column name="group_id" type="varchar(255)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1563550969560-13">
+        <addColumn tableName="vaccinee">
+            <column name="group_id" type="varchar(255)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1563550969560-14">
+        <addColumn tableName="visit_type">
+            <column name="latest_offset" type="integer"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1563550969560-15">
+        <addColumn tableName="extra_field">
+            <column name="person_id" type="varchar(255)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1563550969560-16">
+        <addColumn tableName="extra_field">
+            <column name="site_id" type="varchar(255)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1563550969560-17">
+        <addColumn tableName="visit">
+            <column name="site_id" type="varchar(255)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1563550969560-18">
+        <addColumn tableName="visit_type">
+            <column name="time_offset" type="integer"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1563550969560-19">
+        <addColumn tableName="extra_field">
+            <column name="visit_id" type="varchar(255)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1563550969560-20">
+        <addForeignKeyConstraint baseColumnNames="group_id" baseTableName="extra_field" constraintName="FK3hrhq6134m3qu6mna785c9ayl" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="enrollment_group" validate="true"/>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1563550969560-21">
+        <addForeignKeyConstraint baseColumnNames="visit_id" baseTableName="extra_field" constraintName="FK7hgouia7gfh98xe58wvfyts" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="visit" validate="true"/>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1563550969560-22">
+        <addForeignKeyConstraint baseColumnNames="site_id" baseTableName="visit" constraintName="FK9m0bwosee5tkxe0hrsqksrfwa" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="site" validate="true"/>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1563550969560-23">
+        <addForeignKeyConstraint baseColumnNames="site_id" baseTableName="extra_field" constraintName="FKnes9eqllqsne2pkkd9m5jel16" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="site" validate="true"/>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1563550969560-24">
+        <addForeignKeyConstraint baseColumnNames="person_id" baseTableName="extra_field" constraintName="FKqdol3k3kih1xrk7f7ksth8xmw" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="key_community_person" validate="true"/>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1563550969560-25">
+        <addForeignKeyConstraint baseColumnNames="language_id" baseTableName="key_community_person" constraintName="FKtmxm1o4myivd7vmli42e87u06" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="language" validate="true"/>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1563550969560-26">
+        <addForeignKeyConstraint baseColumnNames="group_id" baseTableName="vaccinee" constraintName="FKto02nyrfpp339r9p0kpa2rgwh" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="enrollment_group" validate="true"/>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1563550969560-27">
+        <dropColumn columnName="group" tableName="vaccinee"/>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1563550969560-28">
+        <dropColumn columnName="site_id" tableName="vaccinee"/>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1563550969560-1">
+        <dropNotNullConstraint columnDataType="varchar(255)" columnName="vaccinee_id" tableName="extra_field"/>
+    </changeSet>
+</databaseChangeLog>
