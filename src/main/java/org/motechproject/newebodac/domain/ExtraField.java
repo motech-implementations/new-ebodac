@@ -6,7 +6,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,8 +22,23 @@ public class ExtraField extends BaseEntity {
   @Column(name = "value")
   private String value;
 
-  @NotNull
   @ManyToOne
-  @JoinColumn(name = "vaccinee_id", nullable = false)
+  @JoinColumn(name = "vaccinee_id")
   private Vaccinee vaccinee;
+
+  @ManyToOne
+  @JoinColumn(name = "visit_id")
+  private Visit visit;
+
+  @ManyToOne
+  @JoinColumn(name = "site_id")
+  private Site site;
+
+  @ManyToOne
+  @JoinColumn(name = "group_id")
+  private EnrollmentGroup group;
+
+  @ManyToOne
+  @JoinColumn(name = "person_id")
+  private KeyCommunityPerson person;
 }

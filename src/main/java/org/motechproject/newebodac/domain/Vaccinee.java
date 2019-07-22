@@ -50,11 +50,11 @@ public class Vaccinee extends BaseEntity {
   @Column(name = "address")
   private String address;
 
-  @Column(name = "enrollment_group")
-  private String enrollmentGroup;
-
   @Column(name = "site_id")
   private String siteId;
+  @ManyToOne
+  @JoinColumn(name = "group_id")
+  private EnrollmentGroup group;
 
   @OneToMany(mappedBy = "vaccinee")
   private Set<Visit> visits;

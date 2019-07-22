@@ -23,6 +23,15 @@ public class VisitType extends BaseEntity {
   @Column(name = "display_name", nullable = false)
   private String displayName;
 
+  @Column(name = "time_offset")
+  private Integer timeOffset;
+
+  @Column(name = "earliest_offset")
+  private Integer earliestOffset;
+
+  @Column(name = "latest_offset")
+  private Integer latestOffset;
+
   @OneToMany(mappedBy = "visitType")
   private Set<CampaignMessage> messages;
 }
