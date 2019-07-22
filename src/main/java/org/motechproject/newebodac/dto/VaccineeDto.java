@@ -13,6 +13,10 @@ public class VaccineeDto {
 
   @Getter
   @Setter
+  private String vaccineeId;
+
+  @Getter
+  @Setter
   private String name;
 
   @Getter
@@ -21,5 +25,29 @@ public class VaccineeDto {
 
   @Getter
   @Setter
+  private Integer age;
+
+  @Getter
+  @Setter
   private Integer yearOfBirth;
+
+  @Getter
+  @Setter
+  private String phoneNumber;
+
+  @Getter
+  @Setter
+  private String alternatePhoneNumber;
+
+  @Getter
+  @Setter
+  private String preferredLanguage;
+
+  @Getter
+  @Setter
+  private String address;
+
+  @Getter
+  @Setter
+  private String group;
 }

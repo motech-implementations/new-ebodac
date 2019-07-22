@@ -1,6 +1,7 @@
 package org.motechproject.newebodac.web;
 
 import java.util.List;
+import java.util.UUID;
 import org.motechproject.newebodac.domain.Language;
 import org.motechproject.newebodac.domain.mapper.LanguageMapper;
 import org.motechproject.newebodac.dto.LanguageDto;
@@ -8,6 +9,7 @@ import org.motechproject.newebodac.service.LanguageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,22 +33,27 @@ public class LanguageController extends BaseController{
 
     return languageMapper.toDtos(languages);
   }
+
   @RequestMapping(value = "/languages/create", method = RequestMethod.GET)
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
-  public List<LanguageDto> createLanguage(@RequestParam(value = "name", required = false) String name,
+  public LanguageDto createLanguage(@RequestParam(value = "name", required = false) String name,
       @RequestParam(value = "code", required = false) String code) {
 
     Language language = new Language();
-
     language.setCode(code);
-
     language.setName(name);
 
     languageService.createLanguage(language);
 
-    Iterable<Language> languages = languageService.getLanguages();
+    return languageMapper.toDto(language);
+  }
 
-    return languageMapper.toDtos(languages);
+  @RequestMapping(value = "/languages/{id}", method = RequestMethod.GET)
+  @ResponseStatus(HttpStatus.OK)
+  @ResponseBody
+  public LanguageDto findById(@PathVariable(value = "id") UUID id) {
+
+    return languageMapper.toDto(languageService.findById(id));
   }
 }

@@ -50,8 +50,6 @@ public class Vaccinee extends BaseEntity {
   @Column(name = "address")
   private String address;
 
-  @Column(name = "site_id")
-  private String siteId;
   @ManyToOne
   @JoinColumn(name = "group_id")
   private EnrollmentGroup group;

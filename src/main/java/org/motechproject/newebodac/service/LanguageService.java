@@ -1,5 +1,6 @@
 package org.motechproject.newebodac.service;
 
+import java.util.UUID;
 import org.motechproject.newebodac.domain.Language;
 import org.motechproject.newebodac.repository.LanguageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,4 +19,6 @@ public class LanguageService {
   public Language createLanguage(Language language) {
     return languageRepository.save(language);
   }
+
+  public Language findById(UUID id) { return languageRepository.getOne(id); }
 }

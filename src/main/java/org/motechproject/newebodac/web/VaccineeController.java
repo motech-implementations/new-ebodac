@@ -1,11 +1,8 @@
 package org.motechproject.newebodac.web;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
-import org.motechproject.newebodac.domain.Language;
-import org.motechproject.newebodac.domain.Vaccinee;
-import org.motechproject.newebodac.domain.enums.Gender;
+import org.motechproject.newebodac.domain.Vaccinee;;
 import org.motechproject.newebodac.domain.mapper.VaccineeMapper;
 import org.motechproject.newebodac.dto.VaccineeDto;
 import org.motechproject.newebodac.service.LanguageService;
@@ -34,12 +31,6 @@ public class VaccineeController extends BaseController{
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   public List<VaccineeDto> getVaccinees() {
-
-    Vaccinee vaccinee = new Vaccinee();
-    vaccinee.setVaccineeId("name1");
-
-    vaccineeService.createVaccinee(vaccinee);
-    System.out.println("AAABBCC");
     Iterable<Vaccinee> vaccinees = vaccineeService.getVaccinees();
 
     return vaccineeMapper.toDtos(vaccinees);
@@ -48,12 +39,8 @@ public class VaccineeController extends BaseController{
   @RequestMapping(value = "/vaccinee/{vaccineeId}", method = RequestMethod.GET)
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
-  public VaccineeDto getVaccinee(@PathVariable("vaccineeId") Integer vaccineeId) {
-    List<VaccineeDto> vaccinees = new LinkedList<>();
-    VaccineeDto v1 = new VaccineeDto();
-    v1.setGender("male");
-    v1.setName("name1");
-    v1.setYearOfBirth(vaccineeId);
-    return v1;
+  public VaccineeDto getVaccinee(@PathVariable("vaccineeId") UUID vaccineeId) {
+
+    return vaccineeMapper.toDto(vaccineeService.findById(vaccineeId));
   }
 }

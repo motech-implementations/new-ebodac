@@ -1,6 +1,7 @@
 package org.motechproject.newebodac.service;
 
 
+import java.util.UUID;
 import org.motechproject.newebodac.domain.Vaccinee;
 import org.motechproject.newebodac.repository.VaccineeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,4 +20,6 @@ public class VaccineeService {
   public Vaccinee createVaccinee(Vaccinee vaccinee) {
     return vaccineeRepository.save(vaccinee);
   }
+
+  public Vaccinee findById(UUID id) { return vaccineeRepository.getOne(id); }
 }
