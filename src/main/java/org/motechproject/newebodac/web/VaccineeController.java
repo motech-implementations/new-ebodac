@@ -22,12 +22,9 @@ public class VaccineeController extends BaseController{
   @Autowired
   private VaccineeService vaccineeService;
 
-  @Autowired
-  private LanguageService languageService;
-
   private VaccineeMapper vaccineeMapper = VaccineeMapper.INSTANCE;
 
-  @RequestMapping(value = "/vaccinees", method = RequestMethod.GET)
+  @RequestMapping(value = "/vaccinee", method = RequestMethod.GET)
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   public List<VaccineeDto> getVaccinees() {

@@ -12,7 +12,7 @@ public class EnrollmentGroupService {
   @Autowired
   private EnrollmentGroupRepository enrollmentGroupRepository;
 
-  public Iterable<EnrollmentGroup> getLanguages() {
+  public Iterable<EnrollmentGroup> getEnrollmentGroups() {
     return enrollmentGroupRepository.findAll();
   }
 

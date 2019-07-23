@@ -12,7 +12,7 @@ public class CampaignMessageService {
   @Autowired
   private CampaignMessageRepository campaignMessageRepository;
 
-  public Iterable<CampaignMessage> getLanguages() {
+  public Iterable<CampaignMessage> getCampaignMessages() {
     return campaignMessageRepository.findAll();
   }
 

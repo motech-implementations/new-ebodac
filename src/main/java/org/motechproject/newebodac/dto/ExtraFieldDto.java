@@ -4,8 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.motechproject.newebodac.validate.Uuid;
 
-public class CampaignMessageDto {
-
+public class ExtraFieldDto {
   @Getter
   @Setter
   @Uuid
@@ -17,13 +16,25 @@ public class CampaignMessageDto {
 
   @Getter
   @Setter
-  private String messageKey;
+  private String value;
 
   @Getter
   @Setter
-  private String timeOffset;
+  private String vaccineeId;
 
- /* @Getter
+  @Getter
   @Setter
-  private String visitType;*/
+  private String visitId;
+
+  @Getter
+  @Setter
+  private String siteId;
+
+  @Getter
+  @Setter
+  private String groupId;
+
+  @Getter
+  @Setter
+  private String personId;
 }

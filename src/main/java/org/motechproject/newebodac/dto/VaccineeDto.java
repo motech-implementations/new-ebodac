@@ -1,7 +1,9 @@
 package org.motechproject.newebodac.dto;
 
+import java.util.Set;
 import lombok.Getter;
 import lombok.Setter;
+import org.motechproject.newebodac.domain.Visit;
 import org.motechproject.newebodac.validate.Uuid;
 
 public class VaccineeDto {
@@ -41,7 +43,11 @@ public class VaccineeDto {
 
   @Getter
   @Setter
-  private String preferredLanguage;
+  private String preferredLanguageName;
+
+  @Getter
+  @Setter
+  private String preferredLanguageId;
 
   @Getter
   @Setter
@@ -49,5 +55,13 @@ public class VaccineeDto {
 
   @Getter
   @Setter
-  private String group;
+  private String groupName;
+
+  @Getter
+  @Setter
+  private String groupId;
+
+  @Getter
+  @Setter
+  private Set<Visit> visits;
 }

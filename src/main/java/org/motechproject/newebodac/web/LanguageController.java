@@ -24,7 +24,7 @@ public class LanguageController extends BaseController{
 
   private LanguageMapper languageMapper = LanguageMapper.INSTANCE;
 
-  @RequestMapping(value = "/languages", method = RequestMethod.GET)
+  @RequestMapping(value = "/language", method = RequestMethod.GET)
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   public List<LanguageDto> getLanguages() {
@@ -34,7 +34,7 @@ public class LanguageController extends BaseController{
     return languageMapper.toDtos(languages);
   }
 
-  @RequestMapping(value = "/languages/create", method = RequestMethod.GET)
+  @RequestMapping(value = "/language/create", method = RequestMethod.GET)
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   public LanguageDto createLanguage(@RequestParam(value = "name", required = false) String name,
@@ -49,7 +49,7 @@ public class LanguageController extends BaseController{
     return languageMapper.toDto(language);
   }
 
-  @RequestMapping(value = "/languages/{id}", method = RequestMethod.GET)
+  @RequestMapping(value = "/language/{id}", method = RequestMethod.GET)
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   public LanguageDto findById(@PathVariable(value = "id") UUID id) {
