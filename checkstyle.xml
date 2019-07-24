@@ -312,5 +312,6 @@
         <module name="SuppressWarningsHolder"/>
     </module>
 
+    <module name="NewlineAtEndOfFile"/>
     <module name="SuppressWarningsFilter"/>
 </module>
