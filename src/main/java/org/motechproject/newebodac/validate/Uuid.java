@@ -14,14 +14,14 @@ import org.motechproject.newebodac.validate.constraintvalidators.UuidValidator;
 public @interface Uuid {
 
   /**
-   * Specify the message in case of a validation error
+   * Specify the message in case of a validation error.
    *
    * @return the message about the error
    */
   String message() default "Uuid not valid";
 
   /**
-   * Specify validation groups, to which this constraint belongs
+   * Specify validation groups, to which this constraint belongs.
    *
    * @return array with group classes
    */
@@ -29,7 +29,7 @@ public @interface Uuid {
   };
 
   /**
-   * Specify custom payload objects
+   * Specify custom payload objects.
    *
    * @return array with payload classes
    */

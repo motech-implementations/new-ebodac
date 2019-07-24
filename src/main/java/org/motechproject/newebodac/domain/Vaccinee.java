@@ -63,7 +63,7 @@ public class Vaccinee extends BaseEntity {
   @OneToMany(mappedBy = "vaccinee")
   private Set<ExtraField> extraFields;
 
-  public Vaccinee(UUID id){
+  public Vaccinee(UUID id) {
     super(id);
   }
 }

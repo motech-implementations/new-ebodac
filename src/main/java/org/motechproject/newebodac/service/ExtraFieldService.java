@@ -20,5 +20,7 @@ public class ExtraFieldService {
     return extraFieldRepository.save(extraField);
   }
 
-  public ExtraField findById(UUID id) { return extraFieldRepository.getOne(id); }
+  public ExtraField findById(UUID id) {
+    return extraFieldRepository.getOne(id);
+  }
 }

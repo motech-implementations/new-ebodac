@@ -1,6 +1,7 @@
 package org.motechproject.newebodac.domain.mapper;
 
 import java.util.UUID;
+import org.apache.commons.lang3.StringUtils;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
@@ -12,7 +13,7 @@ public class UuidMapper {
    * @return UUID created from String
    */
   public UUID toUuid(String id) {
-    if (id == null || id.isEmpty()) {
+    if (StringUtils.isBlank(id)) {
       return null;
     }
 

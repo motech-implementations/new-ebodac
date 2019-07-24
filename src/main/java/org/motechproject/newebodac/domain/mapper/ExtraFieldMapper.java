@@ -2,6 +2,7 @@ package org.motechproject.newebodac.domain.mapper;
 
 import java.util.List;
 import java.util.UUID;
+import org.apache.commons.lang3.StringUtils;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
@@ -29,8 +30,14 @@ public interface ExtraFieldMapper {
   @Mapping(target = "personId", source = "person.id")
   ExtraFieldDto toDto(ExtraField extraField);
 
+
+  /**
+   * Create Vaccinee object with given id.
+   * @param vaccineeId id of vaccinee to create.
+   * @return Vaccinee object with given id
+   */
   default Vaccinee toVaccinee(String vaccineeId) {
-    if (vaccineeId == null || vaccineeId.isEmpty()) {
+    if (StringUtils.isBlank(vaccineeId)) {
       return null;
     }
 

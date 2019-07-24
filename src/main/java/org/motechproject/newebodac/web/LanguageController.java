@@ -3,7 +3,6 @@ package org.motechproject.newebodac.web;
 import java.util.List;
 import java.util.UUID;
 import org.motechproject.newebodac.domain.Language;
-import org.motechproject.newebodac.domain.mapper.LanguageMapper;
 import org.motechproject.newebodac.dto.LanguageDto;
 import org.motechproject.newebodac.service.LanguageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,13 +16,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @Controller
-public class LanguageController extends BaseController{
+public class LanguageController extends BaseController {
 
   @Autowired
   private LanguageService languageService;
 
-  private LanguageMapper languageMapper = LanguageMapper.INSTANCE;
-
+  /**
+   * Returns List of language Dtos loaded from the database.
+   * @return List of language Dtos.
+   */
   @RequestMapping(value = "/language", method = RequestMethod.GET)
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
@@ -31,9 +32,23 @@ public class LanguageController extends BaseController{
 
     Iterable<Language> languages = languageService.getLanguages();
 
-    return languageMapper.toDtos(languages);
+    return languageService.getLanguagesDtos(languages);
   }
 
+  @RequestMapping(value = "/language/{languageId}", method = RequestMethod.GET)
+  @ResponseStatus(HttpStatus.OK)
+  @ResponseBody
+  public LanguageDto findById(@PathVariable(value = "languageId") UUID languageId) {
+
+    return languageService.getLanguageDto(languageService.findById(languageId));
+  }
+
+  /**
+   * Creates language with given name and code and saves it into the database.
+   * @param name Name of language.
+   * @param code Code of language.
+   * @return Dto of created language.
+   */
   @RequestMapping(value = "/language/create", method = RequestMethod.GET)
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
@@ -44,16 +59,6 @@ public class LanguageController extends BaseController{
     language.setCode(code);
     language.setName(name);
 
-    languageService.createLanguage(language);
-
-    return languageMapper.toDto(language);
-  }
-
-  @RequestMapping(value = "/language/{id}", method = RequestMethod.GET)
-  @ResponseStatus(HttpStatus.OK)
-  @ResponseBody
-  public LanguageDto findById(@PathVariable(value = "id") UUID id) {
-
-    return languageMapper.toDto(languageService.findById(id));
+    return languageService.getLanguageDto(languageService.createLanguage(language));
   }
 }
