@@ -48,7 +48,7 @@ public class VaccineeController extends BaseController {
    * @param vaccineeDto Dto of created vaccinee.
    * @return Dto of created vaccinee.
    */
-  @RequestMapping(value = "/vaccinee/create", method = RequestMethod.GET)
+  @RequestMapping(value = "/vaccinee/create", method = RequestMethod.POST)
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   public VaccineeDto createVaccinee(

@@ -48,7 +48,7 @@ public class VisitTypeController extends BaseController {
    * @param visitTypeDto Dto of created visit type.
    * @return Dto of created visit type.
    */
-  @RequestMapping(value = "/visitType/create", method = RequestMethod.GET)
+  @RequestMapping(value = "/visitType/create", method = RequestMethod.POST)
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   public VisitTypeDto createVisitType(

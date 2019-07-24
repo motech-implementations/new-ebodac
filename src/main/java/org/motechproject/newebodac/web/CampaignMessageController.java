@@ -48,7 +48,7 @@ public class CampaignMessageController extends BaseController {
    * @param campaignMessageDto Dto of created campaign message.
    * @return Dto of created campaign message.
    */
-  @RequestMapping(value = "/enrollmentGroup/create", method = RequestMethod.GET)
+  @RequestMapping(value = "/campaignMessage/create", method = RequestMethod.POST)
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   public CampaignMessageDto createEnrollmentGroup(

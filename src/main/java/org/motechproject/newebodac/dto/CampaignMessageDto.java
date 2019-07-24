@@ -23,7 +23,7 @@ public class CampaignMessageDto {
   @Setter
   private String timeOffset;
 
- /* @Getter
+  @Getter
   @Setter
-  private String visitType;*/
+  private String visitTypeId;
 }

@@ -6,6 +6,7 @@ import lombok.Setter;
 import org.motechproject.newebodac.validate.Uuid;
 
 public class VisitTypeDto {
+
   @Getter
   @Setter
   @Uuid
@@ -34,8 +35,4 @@ public class VisitTypeDto {
   @Getter
   @Setter
   private Set<CampaignMessageDto> messages;
-
-  @Getter
-  @Setter
-  private Set<ExtraFieldDto> extraFields;
 }

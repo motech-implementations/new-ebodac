@@ -5,7 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 import org.motechproject.newebodac.validate.Uuid;
 
-public class EnrollmentGroupDto {
+public class VisitDto {
+
   @Getter
   @Setter
   @Uuid
@@ -13,11 +14,27 @@ public class EnrollmentGroupDto {
 
   @Getter
   @Setter
-  private String name;
+  private String date;
 
   @Getter
   @Setter
-  private Set<VaccineeDto> vaccinees;
+  private String plannedDate;
+
+  @Getter
+  @Setter
+  private String visitTypeId;
+
+  @Getter
+  @Setter
+  private String vaccineeId;
+
+  @Getter
+  @Setter
+  private String status;
+
+  @Getter
+  @Setter
+  private String siteId;
 
   @Getter
   @Setter

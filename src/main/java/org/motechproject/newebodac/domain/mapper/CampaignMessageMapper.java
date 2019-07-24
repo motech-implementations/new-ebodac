@@ -14,10 +14,11 @@ public interface CampaignMessageMapper {
 
   CampaignMessageMapper INSTANCE = Mappers.getMapper(CampaignMessageMapper.class);
 
+  @Mapping(target = "visitTypeId", source = "visitType.id")
+  CampaignMessageDto toDto(CampaignMessage campaignMessage);
+
   List<CampaignMessageDto> toDtos(Iterable<CampaignMessage> languages);
 
   @Mapping(target = "id", ignore = true)
   CampaignMessage fromDto(CampaignMessageDto campaignMessageDto);
-
-  CampaignMessageDto toDto(CampaignMessage campaignMessage);
 }

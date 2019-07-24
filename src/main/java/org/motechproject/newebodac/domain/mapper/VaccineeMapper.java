@@ -14,7 +14,6 @@ public interface VaccineeMapper {
 
   VaccineeMapper INSTANCE = Mappers.getMapper(VaccineeMapper.class);
 
-
   @Mapping(target = "groupName", source = "group.name")
   @Mapping(target = "groupId", source = "group.id")
   @Mapping(target = "preferredLanguageName", source = "preferredLanguage.name")
@@ -25,6 +24,4 @@ public interface VaccineeMapper {
   Vaccinee fromDto(VaccineeDto vaccineeDto);
 
   List<VaccineeDto> toDtos(Iterable<Vaccinee> incharges);
-
-
 }
