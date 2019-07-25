@@ -63,8 +63,4 @@ public class VaccineeDto {
   @Getter
   @Setter
   private Set<ExtraFieldDto> extraFields;
-
-  @Getter
-  @Setter
-  private Set<VisitDto> visits;
 }

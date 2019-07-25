@@ -2,16 +2,16 @@ package org.motechproject.newebodac.web;
 
 import java.util.List;
 import java.util.UUID;
-import org.motechproject.newebodac.domain.Language;
+import javax.validation.Valid;
 import org.motechproject.newebodac.dto.LanguageDto;
 import org.motechproject.newebodac.service.LanguageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
@@ -30,9 +30,7 @@ public class LanguageController extends BaseController {
   @ResponseBody
   public List<LanguageDto> getLanguages() {
 
-    Iterable<Language> languages = languageService.getLanguages();
-
-    return languageService.getLanguagesDtos(languages);
+    return languageService.getLanguagesDtos();
   }
 
   @RequestMapping(value = "/language/{languageId}", method = RequestMethod.GET)
@@ -40,25 +38,19 @@ public class LanguageController extends BaseController {
   @ResponseBody
   public LanguageDto findById(@PathVariable(value = "languageId") UUID languageId) {
 
-    return languageService.getLanguageDto(languageService.findById(languageId));
+    return languageService.findById(languageId);
   }
 
   /**
    * Creates language with given name and code and saves it into the database.
-   * @param name Name of language.
-   * @param code Code of language.
+   * @param languageDto Dto of created language.
    * @return Dto of created language.
    */
-  @RequestMapping(value = "/language/create", method = RequestMethod.GET)
+  @RequestMapping(value = "/language/create", method = RequestMethod.POST)
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
-  public LanguageDto createLanguage(@RequestParam(value = "name", required = false) String name,
-      @RequestParam(value = "code", required = false) String code) {
+  public LanguageDto createLanguage(@RequestBody @Valid LanguageDto languageDto) {
 
-    Language language = new Language();
-    language.setCode(code);
-    language.setName(name);
-
-    return languageService.getLanguageDto(languageService.createLanguage(language));
+    return languageService.createLanguage(languageDto);
   }
 }

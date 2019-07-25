@@ -15,12 +15,4 @@ public final class ValidationUtils {
     Pattern pattern = Pattern.compile(stringPattern);
     return pattern.matcher(value).matches();
   }
-
-  /**
-   * Add the custom violation message as the error message for a inner field.
-   *
-   * @param context is the validation context
-   * @param fieldName is the name of the field inner the object to which the annotation was applied
-   * @param message is the violation message that will be reported as the error message
-   */
 }

@@ -2,7 +2,6 @@ package org.motechproject.newebodac.web;
 
 import java.util.List;
 import java.util.UUID;
-import org.motechproject.newebodac.domain.EnrollmentGroup;
 import org.motechproject.newebodac.dto.EnrollmentGroupDto;
 import org.motechproject.newebodac.service.EnrollmentGroupService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,9 +29,7 @@ public class EnrollmentGroupController extends BaseController {
   @ResponseBody
   public List<EnrollmentGroupDto> getEnrollmentGroups() {
 
-    Iterable<EnrollmentGroup> enrollmentGroups = enrollmentGroupService.getEnrollmentGroups();
-
-    return enrollmentGroupService.getEnrollmentGroupsDtos(enrollmentGroups);
+    return enrollmentGroupService.getEnrollmentGroupsDtos();
   }
 
   @RequestMapping(value = "/enrollmentGroup/{enrollmentGroupId}", method = RequestMethod.GET)
@@ -49,17 +46,12 @@ public class EnrollmentGroupController extends BaseController {
    * @param name Name of the enrollment group.
    * @return Dto of the saved enrollment group.
    */
-  @RequestMapping(value = "/enrollmentGroup/create", method = RequestMethod.GET)
+  @RequestMapping(value = "/enrollmentGroup/create", method = RequestMethod.POST)
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   public EnrollmentGroupDto createEnrollmentGroup(
       @RequestParam(value = "name", required = false) String name) {
 
-    EnrollmentGroup enrollmentGroup = new EnrollmentGroup();
-    enrollmentGroup.setName(name);
-
-    enrollmentGroupService.createEnrollmentGroup(enrollmentGroup);
-
-    return enrollmentGroupService.getEnrollmentGroupDto(enrollmentGroup);
+    return enrollmentGroupService.createEnrollmentGroup(name);
   }
 }

@@ -3,7 +3,6 @@ package org.motechproject.newebodac.web;
 import java.util.List;
 import java.util.UUID;
 import javax.validation.Valid;
-import org.motechproject.newebodac.domain.Vaccinee;
 import org.motechproject.newebodac.dto.VaccineeDto;
 import org.motechproject.newebodac.service.VaccineeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,9 +29,8 @@ public class VaccineeController extends BaseController {
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   public List<VaccineeDto> getVaccinees() {
-    Iterable<Vaccinee> vaccinees = vaccineeService.getVaccinees();
 
-    return vaccineeService.getVaccineesDtos(vaccinees);
+    return vaccineeService.getVaccineesDtos();
   }
 
   @RequestMapping(value = "/vaccinee/{vaccineeId}", method = RequestMethod.GET)
@@ -40,7 +38,7 @@ public class VaccineeController extends BaseController {
   @ResponseBody
   public VaccineeDto getVaccinee(@PathVariable("vaccineeId") UUID vaccineeId) {
 
-    return vaccineeService.getVaccineeDto(vaccineeService.findById(vaccineeId));
+    return vaccineeService.findByIdDto(vaccineeId);
   }
 
   /**
@@ -54,11 +52,6 @@ public class VaccineeController extends BaseController {
   public VaccineeDto createVaccinee(
       @RequestBody @Valid VaccineeDto vaccineeDto) {
 
-    Vaccinee vaccinee =
-        vaccineeService.getVaccineeFromDto(vaccineeDto);
-
-    return vaccineeService.getVaccineeDto(
-        vaccineeService.createVaccinee(vaccinee)
-    );
+    return vaccineeService.createVaccinee(vaccineeDto);
   }
 }

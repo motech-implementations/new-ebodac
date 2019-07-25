@@ -3,7 +3,7 @@ package org.motechproject.newebodac.service;
 import java.util.List;
 import java.util.UUID;
 import org.motechproject.newebodac.domain.VisitType;
-import org.motechproject.newebodac.domain.mapper.VisitTypeMapper;
+import org.motechproject.newebodac.mapper.VisitTypeMapper;
 import org.motechproject.newebodac.dto.VisitTypeDto;
 import org.motechproject.newebodac.repository.VisitTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;

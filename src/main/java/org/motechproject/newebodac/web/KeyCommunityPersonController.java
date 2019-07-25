@@ -3,7 +3,6 @@ package org.motechproject.newebodac.web;
 import java.util.List;
 import java.util.UUID;
 import javax.validation.Valid;
-import org.motechproject.newebodac.domain.KeyCommunityPerson;
 import org.motechproject.newebodac.dto.KeyCommunityPersonDto;
 import org.motechproject.newebodac.service.KeyCommunityPersonService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,10 +30,7 @@ public class KeyCommunityPersonController {
   @ResponseBody
   public List<KeyCommunityPersonDto> getKeyCommunityPeople() {
 
-    Iterable<KeyCommunityPerson> keyCommunityPeople =
-        keyCommunityPersonService.getKeyCommunityPeople();
-
-    return keyCommunityPersonService.getKeyCommunityPeopleDtos(keyCommunityPeople);
+    return keyCommunityPersonService.getKeyCommunityPeopleDtos();
   }
 
   @RequestMapping(value = "/keyCommunityPerson/{keyCommunityPersonId}", method = RequestMethod.GET)
@@ -51,15 +47,12 @@ public class KeyCommunityPersonController {
    * @param keyCommunityPersonDto Dto of created key community person.
    * @return Dto of created key community person.
    */
-  @RequestMapping(value = "/language/create", method = RequestMethod.POST)
+  @RequestMapping(value = "/keyCommunityPerson/create", method = RequestMethod.POST)
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
-  public KeyCommunityPersonDto createLanguage(
+  public KeyCommunityPersonDto createKeyCommunityPerson(
       @RequestBody @Valid KeyCommunityPersonDto keyCommunityPersonDto) {
 
-    KeyCommunityPerson keyCommunityPerson =
-        keyCommunityPersonService.getKeyCommunityPersonFromDto(keyCommunityPersonDto);
-
-    return keyCommunityPersonService.getKeyCommunityPersonDto(keyCommunityPerson);
+    return keyCommunityPersonService.createKeyCommunityPerson(keyCommunityPersonDto);
   }
 }

@@ -3,7 +3,6 @@ package org.motechproject.newebodac.web;
 import java.util.List;
 import java.util.UUID;
 import javax.validation.Valid;
-import org.motechproject.newebodac.domain.CampaignMessage;
 import org.motechproject.newebodac.dto.CampaignMessageDto;
 import org.motechproject.newebodac.service.CampaignMessageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,14 +50,9 @@ public class CampaignMessageController extends BaseController {
   @RequestMapping(value = "/campaignMessage/create", method = RequestMethod.POST)
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
-  public CampaignMessageDto createEnrollmentGroup(
+  public CampaignMessageDto createCampaignMessage(
       @RequestBody @Valid CampaignMessageDto campaignMessageDto) {
 
-    CampaignMessage campaignMessage =
-        campaignMessageService.getCampaignMessageFromDto(campaignMessageDto);
-
-    return campaignMessageService.getCampaignMessageDto(
-        campaignMessageService.createCampaignMessage(campaignMessage)
-    );
+    return campaignMessageService.createCampaignMessage(campaignMessageDto);
   }
 }

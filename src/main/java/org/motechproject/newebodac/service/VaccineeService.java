@@ -2,8 +2,7 @@ package org.motechproject.newebodac.service;
 
 import java.util.List;
 import java.util.UUID;
-import org.motechproject.newebodac.domain.Vaccinee;
-import org.motechproject.newebodac.domain.mapper.VaccineeMapper;
+import org.motechproject.newebodac.mapper.VaccineeMapper;
 import org.motechproject.newebodac.dto.VaccineeDto;
 import org.motechproject.newebodac.repository.VaccineeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,27 +16,16 @@ public class VaccineeService {
 
   private static final VaccineeMapper VACCINEE_MAPPER = VaccineeMapper.INSTANCE;
 
-  public Iterable<Vaccinee> getVaccinees() {
-    return vaccineeRepository.findAll();
+  public VaccineeDto createVaccinee(VaccineeDto vaccinee) {
+    return VACCINEE_MAPPER.toDto(
+        vaccineeRepository.save(VACCINEE_MAPPER.fromDto(vaccinee)));
   }
 
-  public Vaccinee createVaccinee(Vaccinee vaccinee) {
-    return vaccineeRepository.save(vaccinee);
+  public VaccineeDto findByIdDto(UUID id) {
+    return VACCINEE_MAPPER.toDto(vaccineeRepository.getOne(id));
   }
 
-  public Vaccinee findById(UUID id) {
-    return vaccineeRepository.getOne(id);
-  }
-
-  public Vaccinee getVaccineeFromDto(VaccineeDto vaccineeDto) {
-    return VACCINEE_MAPPER.fromDto(vaccineeDto);
-  }
-
-  public VaccineeDto getVaccineeDto(Vaccinee vaccinee) {
-    return VACCINEE_MAPPER.toDto(vaccinee);
-  }
-
-  public List<VaccineeDto> getVaccineesDtos(Iterable<Vaccinee> vaccinees) {
-    return VACCINEE_MAPPER.toDtos(vaccinees);
+  public List<VaccineeDto> getVaccineesDtos() {
+    return VACCINEE_MAPPER.toDtos(vaccineeRepository.findAll());
   }
 }

@@ -49,7 +49,7 @@ public class VisitController {
    * @param visitDto Dto of created visit.
    * @return Dto od created visit.
    */
-  @RequestMapping(value = "/visit/create", method = RequestMethod.GET)
+  @RequestMapping(value = "/visit/create", method = RequestMethod.POST)
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   public VisitDto createVisit(@RequestBody @Valid VisitDto visitDto) {

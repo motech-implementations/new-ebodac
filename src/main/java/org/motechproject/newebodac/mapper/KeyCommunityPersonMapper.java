@@ -1,4 +1,4 @@
-package org.motechproject.newebodac.domain.mapper;
+package org.motechproject.newebodac.mapper;
 
 import java.util.List;
 import org.mapstruct.Mapper;

@@ -17,9 +17,5 @@ public class EnrollmentGroupDto {
 
   @Getter
   @Setter
-  private Set<VaccineeDto> vaccinees;
-
-  @Getter
-  @Setter
   private Set<ExtraFieldDto> extraFields;
 }
