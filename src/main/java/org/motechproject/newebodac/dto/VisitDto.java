@@ -3,7 +3,7 @@ package org.motechproject.newebodac.dto;
 import java.util.Set;
 import lombok.Getter;
 import lombok.Setter;
-import org.motechproject.newebodac.validate.Uuid;
+import org.motechproject.newebodac.validate.annotations.Uuid;
 
 public class VisitDto {
 

@@ -1,4 +1,4 @@
-package org.motechproject.newebodac.validate;
+package org.motechproject.newebodac.validate.annotations;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

@@ -11,6 +11,7 @@ public final class ValidationUtils {
     return matchPattern(UUID_PATTERN, string);
   }
 
+  @SuppressWarnings("PMD")
   public static boolean matchPattern(String stringPattern, String value) {
     Pattern pattern = Pattern.compile(stringPattern);
     return pattern.matcher(value).matches();

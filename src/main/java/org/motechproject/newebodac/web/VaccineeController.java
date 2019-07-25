@@ -28,17 +28,15 @@ public class VaccineeController extends BaseController {
   @RequestMapping(value = "/vaccinee", method = RequestMethod.GET)
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
-  public List<VaccineeDto> getVaccinees() {
-
-    return vaccineeService.getVaccineesDtos();
+  public List<VaccineeDto> getAll() {
+    return vaccineeService.getAll();
   }
 
-  @RequestMapping(value = "/vaccinee/{vaccineeId}", method = RequestMethod.GET)
+  @RequestMapping(value = "/vaccinee/{id}", method = RequestMethod.GET)
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
-  public VaccineeDto getVaccinee(@PathVariable("vaccineeId") UUID vaccineeId) {
-
-    return vaccineeService.findByIdDto(vaccineeId);
+  public VaccineeDto findById(@PathVariable("id") UUID id) {
+    return vaccineeService.findById(id);
   }
 
   /**
@@ -49,9 +47,7 @@ public class VaccineeController extends BaseController {
   @RequestMapping(value = "/vaccinee/create", method = RequestMethod.POST)
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
-  public VaccineeDto createVaccinee(
-      @RequestBody @Valid VaccineeDto vaccineeDto) {
-
-    return vaccineeService.createVaccinee(vaccineeDto);
+  public VaccineeDto create(@RequestBody @Valid VaccineeDto vaccineeDto) {
+    return vaccineeService.create(vaccineeDto);
   }
 }

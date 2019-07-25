@@ -11,22 +11,20 @@ import org.springframework.stereotype.Service;
 @Service
 public class LanguageService {
 
+  private static final LanguageMapper MAPPER = LanguageMapper.INSTANCE;
+
   @Autowired
   private LanguageRepository languageRepository;
 
-  private static final LanguageMapper LANGUAGE_MAPPER = LanguageMapper.INSTANCE;
-
-  public LanguageDto createLanguage(LanguageDto languageDto) {
-    return LANGUAGE_MAPPER.toDto(
-        languageRepository.save(LANGUAGE_MAPPER.fromDto(languageDto))
-    );
+  public List<LanguageDto> getAll() {
+    return MAPPER.toDtos(languageRepository.findAll());
   }
 
   public LanguageDto findById(UUID id) {
-    return LANGUAGE_MAPPER.toDto(languageRepository.getOne(id));
+    return MAPPER.toDto(languageRepository.getOne(id));
   }
 
-  public List<LanguageDto> getLanguagesDtos() {
-    return LANGUAGE_MAPPER.toDtos(languageRepository.findAll());
+  public LanguageDto create(LanguageDto languageDto) {
+    return MAPPER.toDto(languageRepository.save(MAPPER.fromDto(languageDto)));
   }
 }

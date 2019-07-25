@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @Controller
-public class KeyCommunityPersonController {
+public class KeyCommunityPersonController extends BaseController {
 
   @Autowired
   private KeyCommunityPersonService keyCommunityPersonService;
@@ -28,18 +28,15 @@ public class KeyCommunityPersonController {
   @RequestMapping(value = "/keyCommunityPerson", method = RequestMethod.GET)
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
-  public List<KeyCommunityPersonDto> getKeyCommunityPeople() {
-
-    return keyCommunityPersonService.getKeyCommunityPeopleDtos();
+  public List<KeyCommunityPersonDto> getAll() {
+    return keyCommunityPersonService.getAll();
   }
 
-  @RequestMapping(value = "/keyCommunityPerson/{keyCommunityPersonId}", method = RequestMethod.GET)
+  @RequestMapping(value = "/keyCommunityPerson/{id}", method = RequestMethod.GET)
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
-  public KeyCommunityPersonDto findById(
-      @PathVariable(value = "keyCommunityPersonId") UUID keyCommunityPersonId) {
-
-    return keyCommunityPersonService.findByIdDto(keyCommunityPersonId);
+  public KeyCommunityPersonDto findById(@PathVariable("id") UUID id) {
+    return keyCommunityPersonService.findById(id);
   }
 
   /**
@@ -50,9 +47,8 @@ public class KeyCommunityPersonController {
   @RequestMapping(value = "/keyCommunityPerson/create", method = RequestMethod.POST)
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
-  public KeyCommunityPersonDto createKeyCommunityPerson(
+  public KeyCommunityPersonDto create(
       @RequestBody @Valid KeyCommunityPersonDto keyCommunityPersonDto) {
-
-    return keyCommunityPersonService.createKeyCommunityPerson(keyCommunityPersonDto);
+    return keyCommunityPersonService.create(keyCommunityPersonDto);
   }
 }

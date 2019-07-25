@@ -11,20 +11,20 @@ import org.springframework.stereotype.Service;
 @Service
 public class SiteService {
 
+  private static final SiteMapper MAPPER = SiteMapper.INSTANCE;
+
   @Autowired
   private SiteRepository siteRepository;
 
-  public static final SiteMapper SITE_MAPPER = SiteMapper.INSTANCE;
-
-  public List<SiteDto> getSitesDtos() {
-    return SITE_MAPPER.toDtos(siteRepository.findAll());
+  public List<SiteDto> getAll() {
+    return MAPPER.toDtos(siteRepository.findAll());
   }
 
-  public SiteDto createSite(SiteDto siteDto) {
-    return SITE_MAPPER.toDto(siteRepository.save(SITE_MAPPER.fromDto(siteDto)));
+  public SiteDto findById(UUID id) {
+    return MAPPER.toDto(siteRepository.getOne(id));
   }
 
-  public SiteDto findByIdDto(UUID id) {
-    return SITE_MAPPER.toDto(siteRepository.getOne(id));
+  public SiteDto create(SiteDto siteDto) {
+    return MAPPER.toDto(siteRepository.save(MAPPER.fromDto(siteDto)));
   }
 }

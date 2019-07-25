@@ -1,6 +1,5 @@
 package org.motechproject.newebodac.mapper;
 
-import java.util.List;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
@@ -10,15 +9,16 @@ import org.motechproject.newebodac.dto.KeyCommunityPersonDto;
 
 @Mapper(uses = { UuidMapper.class },
     unmappedTargetPolicy = ReportingPolicy.IGNORE)
-public interface KeyCommunityPersonMapper {
+public interface KeyCommunityPersonMapper
+    extends EntityMapper<KeyCommunityPersonDto, KeyCommunityPerson> {
 
   KeyCommunityPersonMapper INSTANCE = Mappers.getMapper(KeyCommunityPersonMapper.class);
 
+  @Override
   @Mapping(target = "languageId", source = "language.id")
   KeyCommunityPersonDto toDto(KeyCommunityPerson keyCommunityPerson);
 
-  List<KeyCommunityPersonDto> toDtos(Iterable<KeyCommunityPerson> keyCommunityPeople);
-
+  @Override
   @Mapping(target = "id", ignore = true)
   KeyCommunityPerson fromDto(KeyCommunityPersonDto keyCommunityPersonDto);
 }

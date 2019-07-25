@@ -11,30 +11,20 @@ import org.springframework.stereotype.Service;
 @Service
 public class KeyCommunityPersonService {
 
+  private static final KeyCommunityPersonMapper MAPPER = KeyCommunityPersonMapper.INSTANCE;
+
   @Autowired
   private KeyCommunityPersonRepository keyCommunityPersonRepository;
 
-  public static final KeyCommunityPersonMapper KEY_COMMUNITY_PERSON_MAPPER =
-      KeyCommunityPersonMapper.INSTANCE;
-
-  public List<KeyCommunityPersonDto> getKeyCommunityPeopleDtos() {
-    return KEY_COMMUNITY_PERSON_MAPPER.toDtos(
-        keyCommunityPersonRepository.findAll()
-    );
+  public List<KeyCommunityPersonDto> getAll() {
+    return MAPPER.toDtos(keyCommunityPersonRepository.findAll());
   }
 
-  public KeyCommunityPersonDto findByIdDto(UUID id) {
-    return KEY_COMMUNITY_PERSON_MAPPER.toDto(
-        keyCommunityPersonRepository.getOne(id)
-    );
+  public KeyCommunityPersonDto findById(UUID id) {
+    return MAPPER.toDto(keyCommunityPersonRepository.getOne(id));
   }
 
-  public KeyCommunityPersonDto createKeyCommunityPerson(
-      KeyCommunityPersonDto keyCommunityPersonDto) {
-    return KEY_COMMUNITY_PERSON_MAPPER.toDto(
-        keyCommunityPersonRepository.save(
-            KEY_COMMUNITY_PERSON_MAPPER.fromDto(keyCommunityPersonDto)
-        )
-    );
+  public KeyCommunityPersonDto create(KeyCommunityPersonDto keyCommunityPersonDto) {
+    return MAPPER.toDto(keyCommunityPersonRepository.save(MAPPER.fromDto(keyCommunityPersonDto)));
   }
 }

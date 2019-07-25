@@ -3,8 +3,9 @@ package org.motechproject.newebodac.validate.constraintvalidators;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import org.apache.commons.lang3.StringUtils;
-import org.motechproject.newebodac.validate.Uuid;
 import org.motechproject.newebodac.validate.ValidationUtils;
+import org.motechproject.newebodac.validate.annotations.Uuid;
+
 
 public class UuidValidator implements ConstraintValidator<Uuid, String> {
 

@@ -28,18 +28,15 @@ public class CampaignMessageController extends BaseController {
   @RequestMapping(value = "/campaignMessage", method = RequestMethod.GET)
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
-  public List<CampaignMessageDto> getCampaignMessages() {
-
-    return campaignMessageService.getCampaignMessagesDtos();
+  public List<CampaignMessageDto> getAll() {
+    return campaignMessageService.getAll();
   }
 
-  @RequestMapping(value = "/campaignMessage/{campaignMessageId}", method = RequestMethod.GET)
+  @RequestMapping(value = "/campaignMessage/{id}", method = RequestMethod.GET)
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
-  public CampaignMessageDto getCampaignMessage(
-      @PathVariable("campaignMessageId") UUID campaignMessageId) {
-
-    return campaignMessageService.findByIdDto(campaignMessageId);
+  public CampaignMessageDto findById(@PathVariable("id") UUID id) {
+    return campaignMessageService.findById(id);
   }
 
   /**
@@ -50,9 +47,7 @@ public class CampaignMessageController extends BaseController {
   @RequestMapping(value = "/campaignMessage/create", method = RequestMethod.POST)
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
-  public CampaignMessageDto createCampaignMessage(
-      @RequestBody @Valid CampaignMessageDto campaignMessageDto) {
-
-    return campaignMessageService.createCampaignMessage(campaignMessageDto);
+  public CampaignMessageDto create(@RequestBody @Valid CampaignMessageDto campaignMessageDto) {
+    return campaignMessageService.create(campaignMessageDto);
   }
 }

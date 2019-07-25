@@ -3,7 +3,7 @@ package org.motechproject.newebodac.dto;
 import java.util.Set;
 import lombok.Getter;
 import lombok.Setter;
-import org.motechproject.newebodac.validate.Uuid;
+import org.motechproject.newebodac.validate.annotations.Uuid;
 
 public class SiteDto {
 
@@ -15,10 +15,6 @@ public class SiteDto {
   @Getter
   @Setter
   private String description;
-
-  @Getter
-  @Setter
-  private Set<VisitDto> visits;
 
   @Getter
   @Setter

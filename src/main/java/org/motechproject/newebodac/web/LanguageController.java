@@ -28,17 +28,15 @@ public class LanguageController extends BaseController {
   @RequestMapping(value = "/language", method = RequestMethod.GET)
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
-  public List<LanguageDto> getLanguages() {
-
-    return languageService.getLanguagesDtos();
+  public List<LanguageDto> getAll() {
+    return languageService.getAll();
   }
 
-  @RequestMapping(value = "/language/{languageId}", method = RequestMethod.GET)
+  @RequestMapping(value = "/language/{id}", method = RequestMethod.GET)
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
-  public LanguageDto findById(@PathVariable(value = "languageId") UUID languageId) {
-
-    return languageService.findById(languageId);
+  public LanguageDto findById(@PathVariable("id") UUID id) {
+    return languageService.findById(id);
   }
 
   /**
@@ -49,8 +47,7 @@ public class LanguageController extends BaseController {
   @RequestMapping(value = "/language/create", method = RequestMethod.POST)
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
-  public LanguageDto createLanguage(@RequestBody @Valid LanguageDto languageDto) {
-
-    return languageService.createLanguage(languageDto);
+  public LanguageDto create(@RequestBody @Valid LanguageDto languageDto) {
+    return languageService.create(languageDto);
   }
 }

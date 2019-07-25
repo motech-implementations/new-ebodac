@@ -3,7 +3,6 @@ package org.motechproject.newebodac.web;
 import java.util.List;
 import java.util.UUID;
 import javax.validation.Valid;
-import org.motechproject.newebodac.domain.VisitType;
 import org.motechproject.newebodac.dto.VisitTypeDto;
 import org.motechproject.newebodac.service.VisitTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,18 +28,15 @@ public class VisitTypeController extends BaseController {
   @RequestMapping(value = "/visitType", method = RequestMethod.GET)
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
-  public List<VisitTypeDto> getVisitTypes() {
-    Iterable<VisitType> visitTypes = visitTypeService.getVisitTypes();
-
-    return visitTypeService.getVisitTypesDtos(visitTypes);
+  public List<VisitTypeDto> getAll() {
+    return visitTypeService.getAll();
   }
 
-  @RequestMapping(value = "/visitType/{visitTypeId}", method = RequestMethod.GET)
+  @RequestMapping(value = "/visitType/{id}", method = RequestMethod.GET)
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
-  public VisitTypeDto getVisitType(@PathVariable("visitTypeId") UUID visitTypeId) {
-
-    return visitTypeService.findByIdDto(visitTypeId);
+  public VisitTypeDto findById(@PathVariable("id") UUID id) {
+    return visitTypeService.findById(id);
   }
 
   /**
@@ -51,14 +47,7 @@ public class VisitTypeController extends BaseController {
   @RequestMapping(value = "/visitType/create", method = RequestMethod.POST)
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
-  public VisitTypeDto createVisitType(
-      @RequestBody @Valid VisitTypeDto visitTypeDto) {
-
-    VisitType visitType =
-        visitTypeService.getVisitTypeFromDto(visitTypeDto);
-
-    return visitTypeService.getVisitTypeDto(
-        visitTypeService.createVisitType(visitType)
-    );
+  public VisitTypeDto create(@RequestBody @Valid VisitTypeDto visitTypeDto) {
+    return visitTypeService.create(visitTypeDto);
   }
 }

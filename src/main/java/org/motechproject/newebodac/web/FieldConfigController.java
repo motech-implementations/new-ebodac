@@ -1,10 +1,9 @@
 package org.motechproject.newebodac.web;
 
 import java.util.List;
-import java.util.UUID;
 import javax.validation.Valid;
-import org.motechproject.newebodac.dto.SiteDto;
-import org.motechproject.newebodac.service.SiteService;
+import org.motechproject.newebodac.dto.FieldConfigDto;
+import org.motechproject.newebodac.service.FieldConfigService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -16,29 +15,22 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @Controller
-public class SiteController extends BaseController {
+public class FieldConfigController extends BaseController {
 
   @Autowired
-  private SiteService siteService;
+  private FieldConfigService fieldConfigService;
 
-  @RequestMapping(value = "/site", method = RequestMethod.GET)
+  @RequestMapping(value = "/fieldConfig/{name}", method = RequestMethod.GET)
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
-  public List<SiteDto> getAll() {
-    return siteService.getAll();
+  public List<FieldConfigDto> findByEntityName(@PathVariable("name") String name) {
+    return fieldConfigService.getByEntityName(name);
   }
 
-  @RequestMapping(value = "/site/{id}", method = RequestMethod.GET)
+  @RequestMapping(value = "/fieldConfig/create", method = RequestMethod.POST)
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
-  public SiteDto findById(@PathVariable("id") UUID siteId) {
-    return siteService.findById(siteId);
-  }
-
-  @RequestMapping(value = "/site/create", method = RequestMethod.POST)
-  @ResponseStatus(HttpStatus.OK)
-  @ResponseBody
-  public SiteDto create(@RequestBody @Valid SiteDto siteDto) {
-    return siteService.create(siteDto);
+  public FieldConfigDto create(@RequestBody @Valid FieldConfigDto fieldConfigDto) {
+    return fieldConfigService.create(fieldConfigDto);
   }
 }

@@ -1,6 +1,5 @@
 package org.motechproject.newebodac.mapper;
 
-import java.util.List;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
@@ -10,16 +9,11 @@ import org.motechproject.newebodac.dto.VisitTypeDto;
 
 @Mapper(uses = { UuidMapper.class },
     unmappedTargetPolicy = ReportingPolicy.IGNORE)
-public interface VisitTypeMapper {
+public interface VisitTypeMapper extends EntityMapper<VisitTypeDto, VisitType> {
 
   VisitTypeMapper INSTANCE = Mappers.getMapper(VisitTypeMapper.class);
 
+  @Override
   @Mapping(target = "id", ignore = true)
   VisitType fromDto(VisitTypeDto visitTypeDto);
-
-  VisitTypeDto toDto(VisitType visitType);
-
-  List<VisitTypeDto> toDtos(Iterable<VisitType> visitTypes);
-
-
 }

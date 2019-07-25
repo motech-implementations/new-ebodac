@@ -3,7 +3,6 @@ package org.motechproject.newebodac.web;
 import java.util.List;
 import java.util.UUID;
 import javax.validation.Valid;
-import org.motechproject.newebodac.domain.Visit;
 import org.motechproject.newebodac.dto.VisitDto;
 import org.motechproject.newebodac.service.VisitService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @Controller
-public class VisitController {
+public class VisitController extends BaseController {
 
   @Autowired
   private VisitService visitService;
@@ -29,19 +28,15 @@ public class VisitController {
   @RequestMapping(value = "/visit", method = RequestMethod.GET)
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
-  public List<VisitDto> getVisits() {
-
-    Iterable<Visit> visits = visitService.getVisits();
-
-    return visitService.getVisitsDtos(visits);
+  public List<VisitDto> getAll() {
+    return visitService.getAll();
   }
 
-  @RequestMapping(value = "/visit/{visitId}", method = RequestMethod.GET)
+  @RequestMapping(value = "/visit/{id}", method = RequestMethod.GET)
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
-  public VisitDto findById(@PathVariable(value = "visitId") UUID visitId) {
-
-    return visitService.findByIdDto(visitId);
+  public VisitDto findById(@PathVariable("id") UUID id) {
+    return visitService.findById(id);
   }
 
   /**
@@ -52,10 +47,7 @@ public class VisitController {
   @RequestMapping(value = "/visit/create", method = RequestMethod.POST)
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
-  public VisitDto createVisit(@RequestBody @Valid VisitDto visitDto) {
-
-    Visit visit = visitService.getVisitFromDto(visitDto);
-
-    return visitService.getVisitDto(visitService.createVisit(visit));
+  public VisitDto create(@RequestBody @Valid VisitDto visitDto) {
+    return visitService.create(visitDto);
   }
 }

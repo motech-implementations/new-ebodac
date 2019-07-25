@@ -11,25 +11,20 @@ import org.springframework.stereotype.Service;
 @Service
 public class CampaignMessageService {
 
+  private static final CampaignMessageMapper MAPPER = CampaignMessageMapper.INSTANCE;
+
   @Autowired
   private CampaignMessageRepository campaignMessageRepository;
 
-  private static final CampaignMessageMapper CAMPAIGN_MESSAGE_MAPPER =
-      CampaignMessageMapper.INSTANCE;
-
-  public List<CampaignMessageDto> getCampaignMessagesDtos() {
-    return CAMPAIGN_MESSAGE_MAPPER.toDtos(
-        campaignMessageRepository.findAll()
-    );
+  public List<CampaignMessageDto> getAll() {
+    return MAPPER.toDtos(campaignMessageRepository.findAll());
   }
 
-  public CampaignMessageDto createCampaignMessage(CampaignMessageDto campaignMessageDto) {
-    return CAMPAIGN_MESSAGE_MAPPER.toDto(
-        campaignMessageRepository.save(CAMPAIGN_MESSAGE_MAPPER.fromDto(campaignMessageDto))
-    );
+  public CampaignMessageDto findById(UUID id) {
+    return MAPPER.toDto(campaignMessageRepository.getOne(id));
   }
 
-  public CampaignMessageDto findByIdDto(UUID id) {
-    return CAMPAIGN_MESSAGE_MAPPER.toDto(campaignMessageRepository.getOne(id));
+  public CampaignMessageDto create(CampaignMessageDto campaignMessageDto) {
+    return MAPPER.toDto(campaignMessageRepository.save(MAPPER.fromDto(campaignMessageDto)));
   }
 }

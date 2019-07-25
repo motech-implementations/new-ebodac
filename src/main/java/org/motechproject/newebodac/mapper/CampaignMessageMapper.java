@@ -1,6 +1,5 @@
 package org.motechproject.newebodac.mapper;
 
-import java.util.List;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
@@ -10,15 +9,15 @@ import org.motechproject.newebodac.dto.CampaignMessageDto;
 
 @Mapper(uses = { UuidMapper.class },
     unmappedTargetPolicy = ReportingPolicy.IGNORE)
-public interface CampaignMessageMapper {
+public interface CampaignMessageMapper extends EntityMapper<CampaignMessageDto, CampaignMessage> {
 
   CampaignMessageMapper INSTANCE = Mappers.getMapper(CampaignMessageMapper.class);
 
+  @Override
   @Mapping(target = "visitTypeId", source = "visitType.id")
   CampaignMessageDto toDto(CampaignMessage campaignMessage);
 
-  List<CampaignMessageDto> toDtos(Iterable<CampaignMessage> languages);
-
+  @Override
   @Mapping(target = "id", ignore = true)
   CampaignMessage fromDto(CampaignMessageDto campaignMessageDto);
 }

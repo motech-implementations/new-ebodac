@@ -1,6 +1,5 @@
 package org.motechproject.newebodac.mapper;
 
-import java.util.List;
 import java.util.UUID;
 import org.apache.commons.lang3.StringUtils;
 import org.mapstruct.Mapper;
@@ -13,16 +12,16 @@ import org.motechproject.newebodac.dto.ExtraFieldDto;
 
 @Mapper(uses = { UuidMapper.class },
     unmappedTargetPolicy = ReportingPolicy.IGNORE)
-public interface ExtraFieldMapper {
+public interface ExtraFieldMapper extends EntityMapper<ExtraFieldDto, ExtraField> {
 
   ExtraFieldMapper INSTANCE = Mappers.getMapper(ExtraFieldMapper.class);
 
-  List<ExtraFieldDto> toDtos(Iterable<ExtraField> extraFields);
-
+  @Override
   @Mapping(target = "id", ignore = true)
   @Mapping(target = "vaccinee", source = "vaccineeId")
   ExtraField fromDto(ExtraFieldDto extraFieldDto);
 
+  @Override
   @Mapping(target = "vaccineeId", source = "vaccinee.id")
   @Mapping(target = "visitId", source = "visit.id")
   @Mapping(target = "siteId", source = "site.id")
