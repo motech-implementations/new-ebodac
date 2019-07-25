@@ -69,6 +69,7 @@ pmd {
     toolVersion = '6.16.0'
     consoleOutput= true
     ignoreFailures = false
+    ruleSets = []
     ruleSetFiles = files("ruleset.xml")
     reportsDir = file("build/reports/pmd")
 }
