@@ -1,6 +1,7 @@
 package org.motechproject.newebodac.domain;
 
 import java.util.Set;
+import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -11,6 +12,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.motechproject.newebodac.domain.enums.Gender;
 
@@ -18,6 +20,7 @@ import org.motechproject.newebodac.domain.enums.Gender;
 @Setter
 @Entity
 @Table(name = "vaccinee")
+@NoArgsConstructor
 public class Vaccinee extends BaseEntity {
 
   @NotBlank
@@ -59,4 +62,8 @@ public class Vaccinee extends BaseEntity {
 
   @OneToMany(mappedBy = "vaccinee")
   private Set<ExtraField> extraFields;
+
+  public Vaccinee(UUID id) {
+    super(id);
+  }
 }

@@ -27,9 +27,9 @@ public class FieldConfig extends BaseEntity {
   private String displayName;
 
   @NotNull
-  @Column(name = "type", nullable = false)
+  @Column(name = "field_type", nullable = false)
   @Enumerated(EnumType.STRING)
-  private FieldType type;
+  private FieldType fieldType;
 
   @NotNull
   @Column(name = "entity", nullable = false)
@@ -49,8 +49,8 @@ public class FieldConfig extends BaseEntity {
   private Boolean hidden = false;
 
   @NotNull
-  @Column(name = "order", nullable = false)
-  private Integer order;
+  @Column(name = "sort_order", nullable = false)
+  private Integer sortOrder;
 
   @Column(name = "format")
   private String format;
