@@ -288,21 +288,23 @@ sidebar-collapse {
 @media(min-width: $r-small-min) {
   .side-nav {
     position: fixed;
+    z-index: 1000;
     top: 54px;
     left: 16em;
-    width: 16em;
     margin-left: -16em;
     border-right: 1px solid $gray-mid;
+
     border-radius: 0;
     overflow-y: auto;
     bottom: 0;
-    overflow-x: hidden;
+    overflow-x: auto;
     padding-bottom: 3em;
+    display: block;
     transition-duration: 0.5s;
+
     li {
       a {
         width: 16em;
-        margin-left: 20px;
         &:hover, &:focus {
           outline: none;
         }
@@ -319,7 +321,11 @@ sidebar-collapse {
   background-color: $gray-lighter;
   color: $blue-mid;
   transition-duration: 0.5s;
-
+  display: block;
+  bottom: 0;
+  overflow-y: auto;
+  overflow-x: auto;
+  height: 100vh;
   li {
     border-bottom: 1px solid $gray-mid;
 
@@ -329,7 +335,7 @@ sidebar-collapse {
       background-color: $gray-lighter;
       color: $blue-mid !important;
       display: table;
-      margin-left: 20px;
+      padding-left: 20px;
       &:hover, &:focus {
         color: $dark-navy !important;
         background: $gray-light !important;
@@ -338,17 +344,24 @@ sidebar-collapse {
 
     ul {
       padding: 0;
-
+      display: block;
       li {
         a {
           @extend .padding-md;
           display: block;
           padding-left: 2.5em;
           text-decoration: none;
-          margin-left: 20px;
           &:hover, &:focus {
             color: $dark-navy;
             background: $gray-light;
+          }
+        }
+        ul {
+          li {
+            &:hover, &:focus {
+              color: $dark-navy !important;
+              background: $gray-light !important;
+            }
           }
         }
       }
@@ -356,6 +369,11 @@ sidebar-collapse {
 
     &.border-none {
       border: none;
+      .third-level-item {
+        a {
+          padding-left: 60px;
+        }
+      }
     }
   }
 }
@@ -480,4 +498,8 @@ select.form-control {
 
 .img-responsive {
   margin-bottom: 10px;
+}
+
+.menu-icon {
+  margin-right: 10px;
 }
