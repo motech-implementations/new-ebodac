@@ -32,13 +32,13 @@ module.exports = {
     }),
     new WorkboxWebpackPlugin.InjectManifest({
       swSrc: `${SRC_ROOT}/src-sw.js`,
-      swDest: `${DEST}/sw.js`
-    })
+      swDest: `${DEST}/sw.js`,
+    }),
   ],
   module: {
     rules: [
       {
-        test: /\.jsx$/,
+        test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: ['babel-loader'],
       },
