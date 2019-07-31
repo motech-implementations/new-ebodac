@@ -137,12 +137,6 @@ a, a:hover, a:focus, a:active, a:visited {
     vertical-align: middle;
   }
 
-  .icon-text {
-    display: table-cell;
-    vertical-align: middle;
-    padding-left: 0.5em;
-  }
-
   .counter-logout {
     color: #9d9d9d;
     text-align: center;
@@ -291,7 +285,6 @@ sidebar-collapse {
     z-index: 1000;
     top: 54px;
     left: 16em;
-    width: 18em;
     margin-left: -16em;
     border-right: 1px solid $gray-mid;
 
@@ -327,6 +320,7 @@ sidebar-collapse {
   overflow-y: auto;
   overflow-x: auto;
   height: 100vh;
+
   li {
     border-bottom: 1px solid $gray-mid;
 
@@ -336,7 +330,7 @@ sidebar-collapse {
       background-color: $gray-lighter;
       color: $blue-mid !important;
       display: table;
-      margin-left: 20px;
+      padding-left: 20px;
       &:hover, &:focus {
         color: $dark-navy !important;
         background: $gray-light !important;
@@ -352,10 +346,17 @@ sidebar-collapse {
           display: block;
           padding-left: 2.5em;
           text-decoration: none;
-          margin-left: 20px;
           &:hover, &:focus {
             color: $dark-navy;
             background: $gray-light;
+          }
+        }
+        ul {
+          li {
+            &:hover, &:focus {
+              color: $dark-navy !important;
+              background: $gray-light !important;
+            }
           }
         }
       }
@@ -363,6 +364,11 @@ sidebar-collapse {
 
     &.border-none {
       border: none;
+      .third-level-item {
+        a {
+          padding-left: 60px;
+        }
+      }
     }
   }
 }
@@ -487,4 +493,8 @@ select.form-control {
 
 .img-responsive {
   margin-bottom: 10px;
+}
+
+.icon-text {
+  margin-left: 10px;
 }

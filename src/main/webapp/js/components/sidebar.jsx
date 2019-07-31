@@ -232,28 +232,36 @@ class SideBar extends Component {
     return (
       <ul className="nav nav-third-level">
         <li className="border-none">
-          <Link to="/vaccineeFields">
-            <FontAwesomeIcon icon="hand-point-right" />
-            <span className="icon-text">Vaccinee</span>
-          </Link>
+          <div className="third-level-item">
+            <Link to="/vaccineeFields">
+              <FontAwesomeIcon icon="hand-point-right" />
+              <span className="icon-text">Vaccinee</span>
+            </Link>
+          </div>
         </li>
         <li className="border-none">
-          <Link to="/keyCommunityPersonFields">
-            <FontAwesomeIcon icon="hand-point-right" />
-            <span className="icon-text">Key Community Persons</span>
-          </Link>
+          <div className="third-level-item">
+            <Link to="/keyCommunityPersonFields">
+              <FontAwesomeIcon icon="hand-point-right" />
+              <span className="icon-text">Key Community Persons</span>
+            </Link>
+          </div>
         </li>
         <li className="border-none">
-          <Link to="/sitesFields">
-            <FontAwesomeIcon icon="hand-point-right" />
-            <span className="icon-text">Sites</span>
-          </Link>
+          <div className="third-level-item">
+            <Link to="/sitesFields">
+              <FontAwesomeIcon icon="hand-point-right" />
+              <span className="icon-text">Sites</span>
+            </Link>
+          </div>
         </li>
         <li className="border-none">
-          <Link to="/visitScheduleFields">
-            <FontAwesomeIcon icon="hand-point-right" />
-            <span className="icon-text">Visit Schedule</span>
-          </Link>
+          <div className="third-level-item">
+            <Link to="/visitScheduleFields">
+              <FontAwesomeIcon icon="hand-point-right" />
+              <span className="icon-text">Visit Schedule</span>
+            </Link>
+          </div>
         </li>
       </ul>
     );
