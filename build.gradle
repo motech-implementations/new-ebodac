@@ -117,5 +117,8 @@ task webpackProd(type: NpmTask, dependsOn: 'npmInstall') {
     args = ['run-script', 'prod']
 }
 
+task dbDiff() {}
+
 jar.dependsOn 'webpackProd'
 bootRun.dependsOn 'webpack'
+dbDiff.dependsOn 'diffChangeLog'

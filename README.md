@@ -33,7 +33,7 @@ Under File -> Settings -> Editor -> Code Style import the google-styleguide (gea
 (you need to run `gradle build` or `./gradlew build` before this to install gradle and npm dependencies)
 
 ## Data model changes
-1. Generate the migration using the gradle task (`./gradlew diffChangeLog`), the migration file will be saved at /resources/liquibase/changelog and have the following format yyyyMMddHHmmSS_changelog.xml (e.g. 20190101163444_changelog.xml)
+1. Generate the migration using the gradle task (`./gradlew dbDiff`), the migration file will be saved at /resources/liquibase/changelog and have the following format yyyyMMddHHmmSS_changelog.xml (e.g. 20190101163444_changelog.xml)
 2. Include the generated migration in the changelog by adding the following line to the liquibase-changelog.xml file: `<include file="{migration file name}" relativeToChangelogFile="false" />`
 
 ## Stopping the Service
