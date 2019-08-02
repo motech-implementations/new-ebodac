@@ -10,11 +10,11 @@ import {
   faLayerGroup,
   faCog,
   faHandPointRight,
-  faSyringe
+  faSyringe,
 } from '@fortawesome/free-solid-svg-icons';
-import {library} from '@fortawesome/fontawesome-svg-core';
+import { library } from '@fortawesome/fontawesome-svg-core';
 
-export const loadIcons = () => {
+const loadIcons = () => {
   library.add(
     faCoffee,
     faCheckSquare,
@@ -27,6 +27,8 @@ export const loadIcons = () => {
     faLayerGroup,
     faCog,
     faHandPointRight,
-    faSyringe
+    faSyringe,
   );
 };
+
+export default loadIcons;
