@@ -1,10 +1,12 @@
-import React from "react";
+import React from 'react';
 
 const VisitTypes = () => (
   <div className="container-fluid">
     <h1>
-      VisitTypes VisitTypes VisitTypes VisitTypes <br/>
-      Placeholder Placeholder Placeholder Placeholder <br/>
+      VisitTypes VisitTypes VisitTypes VisitTypes
+      <br />
+      Placeholder Placeholder Placeholder Placeholder
+      <br />
     </h1>
   </div>
 );

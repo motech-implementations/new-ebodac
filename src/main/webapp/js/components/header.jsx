@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import '../../css/main.scss';
 
+/* eslint-disable jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */
 class Header extends Component {
   constructor(props) {
     super(props);
@@ -13,7 +14,9 @@ class Header extends Component {
   }
 
   collapseSideBar() {
-    this.props.toggleSidebarMenu();
+    const { toggleSidebarMenu } = this.props;
+
+    toggleSidebarMenu();
     this.setState(prevState => ({ toggleButtonToggled: !prevState.toggleButtonToggled }));
   }
 

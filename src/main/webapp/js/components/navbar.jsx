@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { HashRouter as Router, Route } from "react-router-dom";
+import { HashRouter as Router, Route } from 'react-router-dom';
 
 import '../../css/main.scss';
 
@@ -34,7 +34,7 @@ import RoutePrivate from './helpers/RoutePrivate';
 import MessageCampaign from './message-campaign';
 
 class Navbar extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
       sidebarVisible: false,
@@ -43,7 +43,7 @@ class Navbar extends Component {
   }
 
   collapseSideBar() {
-    this.setState({ sidebarVisible: !this.state.sidebarVisible });
+    this.setState(prevState => ({ sidebarVisible: !prevState.sidebarVisible }));
   }
 
   render() {
