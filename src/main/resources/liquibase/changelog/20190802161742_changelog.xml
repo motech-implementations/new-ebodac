@@ -1,0 +1,49 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+    <changeSet author="pmuchowski (generated)" id="1564755472643-1">
+        <insert tableName="client">
+            <column name="client_id" value="trusted-client"/>
+            <column name="client_secret" value="{noop}secret"/>
+            <column name="authorities" value="TRUSTED_CLIENT"/>
+            <column name="authorized_grant_types" value="password,refresh_token"/>
+            <column name="resource_ids" value="newebodac"/>
+            <column name="scope" value="read,write"/>
+        </insert>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1564755472643-2">
+        <insert tableName="user">
+            <column name="id" value="51f6bdc1-4932-4bc3-9589-368646ef7ad3"/>
+            <column name="enabled" valueBoolean="true"/>
+            <column name="password" value="{bcrypt}$2a$10$4IZfidcJzbR5Krvj87ZJdOZvuQoD/kvPAJe549rUNoP3N3uH0Lq2G"/>
+            <column name="username" value="admin"/>
+            <column name="email" value="admin@newebodac.org"/>
+        </insert>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1564755472643-3">
+        <insert tableName="user_role">
+            <column name="id" value="d892e3c6-25eb-4291-abfc-b379aa502bc3"/>
+            <column name="name" value="Admin"/>
+            <column name="readonly" valueBoolean="true"/>
+        </insert>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1564755472643-4">
+        <insert tableName="users_roles">
+            <column name="user_id" value="51f6bdc1-4932-4bc3-9589-368646ef7ad3"/>
+            <column name="role_id" value="d892e3c6-25eb-4291-abfc-b379aa502bc3"/>
+        </insert>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1564755472643-5">
+        <insert tableName="user_permission">
+            <column name="id" value="0bb95c4e-9e1a-40cd-8fa0-9879c419a507"/>
+            <column name="name" value="ROLE_ADMIN"/>
+            <column name="display_name" value="Admin"/>
+            <column name="readonly" valueBoolean="true"/>
+        </insert>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1564755472643-6">
+        <insert tableName="user_role_permissions">
+            <column name="role_id" value="d892e3c6-25eb-4291-abfc-b379aa502bc3"/>
+            <column name="permission_id" value="0bb95c4e-9e1a-40cd-8fa0-9879c419a507"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>
