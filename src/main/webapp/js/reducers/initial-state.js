@@ -1,5 +1,5 @@
 const initialState = {
-  vaccineeList: []
+  vaccineeList: [],
 };
 
 export default initialState;

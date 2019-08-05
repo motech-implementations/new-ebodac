@@ -1,57 +1,61 @@
-import React, { Component }  from "react";
+import React, { Component } from 'react';
 import ReactTable from 'react-table';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import 'react-table/react-table.css'
+import 'react-table/react-table.css';
 
-import { fetchVaccinees } from '../actions/index';
+import fetchVaccinees from '../actions/index';
 
 class Vaccinee extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      loading: true
-    }
+      loading: true,
+    };
   }
-
-  getTableColumns() {
-    return [{
-      Header: 'Name',
-      accessor: 'vaccineeId' // String-based value accessors!
-    }, {
-      Header: 'Age',
-      accessor: 'age'
-    }]
-  };
 
   componentDidMount() {
     this.setState({ loading: true });
-    this.props.fetchVaccinees()
-    .then(() => this.setState({ loading: false }));
+    this.props.fetchVaccinees() //eslint-disable-line
+      .then(() => this.setState({ loading: false }));
+  }
+
+  static getTableColumns() {
+    return [{
+      Header: 'Name',
+      accessor: 'vaccineeId',
+    }, {
+      Header: 'Age',
+      accessor: 'age',
+    }];
   }
 
   render() {
-
-    return  <div className="container-fluid">
-      <ReactTable
-        data={this.props.vaccineeList}
-        columns={this.getTableColumns()}
-        loading={this.state.loading}
-      />
-    </div>
+    const { vaccineeList } = this.props;
+    const { loading } = this.state;
+    return (
+      <div className="container-fluid">
+        <ReactTable
+          data={vaccineeList}
+          columns={Vaccinee.getTableColumns()}
+          loading={loading}
+        />
+      </div>
+    );
   }
 }
 
-const mapStateToProps = state => {
+function mapStateToProps(state) {
   return {
-    vaccineeList: state.vaccineReducer.vaccineeList
+    vaccineeList: state.vaccineReducer.vaccineeList,
   };
-};
+}
 
 export default connect(mapStateToProps, { fetchVaccinees })(Vaccinee);
 
 Vaccinee.propTypes = {
+  fetchVaccinees: PropTypes.func.isRequired,
   vaccineeList: PropTypes.arrayOf(PropTypes.shape({
-  })).isRequired
+  })).isRequired,
 };

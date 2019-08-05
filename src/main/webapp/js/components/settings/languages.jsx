@@ -1,10 +1,12 @@
-import React from "react";
+import React from 'react';
 
 const Languages = () => (
   <div className="container-fluid">
     <h1>
-      Languages Languages Languages Languages <br/>
-      Placeholder Placeholder Placeholder Placeholder <br/>
+      Languages Languages Languages Languages
+      <br />
+      Placeholder Placeholder Placeholder Placeholder
+      <br />
     </h1>
   </div>
 );

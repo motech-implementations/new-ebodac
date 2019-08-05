@@ -1,10 +1,12 @@
-import React from "react";
+import React from 'react';
 
 const Roles = () => (
   <div className="container-fluid">
     <h1>
-      Roles Roles Roles Roles <br/>
-      Placeholder Placeholder Placeholder Placeholder <br/>
+      Roles Roles Roles Roles
+      <br />
+      Placeholder Placeholder Placeholder Placeholder
+      <br />
     </h1>
   </div>
 );

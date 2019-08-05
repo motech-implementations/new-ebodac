@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from "react-router-dom";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import '../../css/main.scss';
 
@@ -30,8 +30,40 @@ class SideBar extends Component {
     return false;
   }
 
+  toggleVisitsCollapsedMenu(event) {
+    event.preventDefault();
+    this.setState(prevState => ({ visitsCollapsed: !prevState.visitsCollapsed }));
+    return false;
+  }
+
+  toggleReportsCollapsedMenu(event) {
+    event.preventDefault();
+    this.setState(prevState => ({ reportsCollapsed: !prevState.reportsCollapsed }));
+    return false;
+  }
+
+  toggleUserManagementCollapsedMenu(event) {
+    event.preventDefault();
+    this.setState(prevState => ({ userManagmentCollapsed: !prevState.userManagmentCollapsed }));
+    return false;
+  }
+
+  toggleSettingsCollapsedMenu(event) {
+    event.preventDefault();
+    this.setState(prevState => ({ settingsCollapsed: !prevState.settingsCollapsed }));
+    return false;
+  }
+
+  toggleFieldsCollapsedMenu(event) {
+    event.preventDefault();
+    this.setState(prevState => ({ fieldsCollapsed: !prevState.fieldsCollapsed }));
+    return false;
+  }
+
   renderEnrollmentCollapsedMenu() {
-    if (this.state.enrollmentCollapsed) {
+    const { enrollmentCollapsed } = this.state;
+
+    if (enrollmentCollapsed) {
       return '';
     }
 
@@ -53,14 +85,10 @@ class SideBar extends Component {
     );
   }
 
-  toggleVisitsCollapsedMenu(event) {
-    event.preventDefault();
-    this.setState(prevState => ({ visitsCollapsed: !prevState.visitsCollapsed }));
-    return false;
-  }
-
   renderVisitsCollapsedMenu() {
-    if (this.state.visitsCollapsed) {
+    const { visitsCollapsed } = this.state;
+
+    if (visitsCollapsed) {
       return '';
     }
 
@@ -88,14 +116,10 @@ class SideBar extends Component {
     );
   }
 
-  toggleReportsCollapsedMenu(event) {
-    event.preventDefault();
-    this.setState(prevState => ({ reportsCollapsed: !prevState.reportsCollapsed }));
-    return false;
-  }
-
   renderReportsCollapsedMenu() {
-    if (this.state.reportsCollapsed) {
+    const { reportsCollapsed } = this.state;
+
+    if (reportsCollapsed) {
       return '';
     }
 
@@ -147,14 +171,10 @@ class SideBar extends Component {
     );
   }
 
-  toggleUserManagementCollapsedMenu(event) {
-    event.preventDefault();
-    this.setState(prevState => ({ userManagmentCollapsed: !prevState.userManagmentCollapsed }));
-    return false;
-  }
-
   renderUserManagementCollapsedMenu() {
-    if (this.state.userManagmentCollapsed) {
+    const { userManagmentCollapsed } = this.state;
+
+    if (userManagmentCollapsed) {
       return '';
     }
 
@@ -176,14 +196,10 @@ class SideBar extends Component {
     );
   }
 
-  toggleSettingsCollapsedMenu(event) {
-    event.preventDefault();
-    this.setState(prevState => ({ settingsCollapsed: !prevState.settingsCollapsed }));
-    return false;
-  }
-
   renderSettingsCollapsedMenu() {
-    if (this.state.settingsCollapsed) {
+    const { settingsCollapsed } = this.state;
+
+    if (settingsCollapsed) {
       return '';
     }
 
@@ -218,50 +234,56 @@ class SideBar extends Component {
     );
   }
 
-  toggleFieldsCollapsedMenu(event) {
-    event.preventDefault();
-    this.setState(prevState => ({ fieldsCollapsed: !prevState.fieldsCollapsed }));
-    return false;
-  }
-
   renderFieldsCollapsedMenu() {
-    if (this.state.fieldsCollapsed) {
+    const { fieldsCollapsed } = this.state;
+
+    if (fieldsCollapsed) {
       return '';
     }
 
     return (
       <ul className="nav nav-third-level">
         <li className="border-none">
-          <Link to="/vaccineeFields">
-            <FontAwesomeIcon icon="hand-point-right" />
-            <span className="icon-text">Vaccinee</span>
-          </Link>
+          <div className="third-level-item">
+            <Link to="/vaccineeFields">
+              <FontAwesomeIcon icon="hand-point-right" />
+              <span className="icon-text">Vaccinee</span>
+            </Link>
+          </div>
         </li>
         <li className="border-none">
-          <Link to="/keyCommunityPersonFields">
-            <FontAwesomeIcon icon="hand-point-right" />
-            <span className="icon-text">Key Community Persons</span>
-          </Link>
+          <div className="third-level-item">
+            <Link to="/keyCommunityPersonFields">
+              <FontAwesomeIcon icon="hand-point-right" />
+              <span className="icon-text">Key Community Persons</span>
+            </Link>
+          </div>
         </li>
         <li className="border-none">
-          <Link to="/sitesFields">
-            <FontAwesomeIcon icon="hand-point-right" />
-            <span className="icon-text">Sites</span>
-          </Link>
+          <div className="third-level-item">
+            <Link to="/sitesFields">
+              <FontAwesomeIcon icon="hand-point-right" />
+              <span className="icon-text">Sites</span>
+            </Link>
+          </div>
         </li>
         <li className="border-none">
-          <Link to="/visitScheduleFields">
-            <FontAwesomeIcon icon="hand-point-right" />
-            <span className="icon-text">Visit Schedule</span>
-          </Link>
+          <div className="third-level-item">
+            <Link to="/visitScheduleFields">
+              <FontAwesomeIcon icon="hand-point-right" />
+              <span className="icon-text">Visit Schedule</span>
+            </Link>
+          </div>
         </li>
       </ul>
     );
   }
 
   render() {
+    const { sidebarVisible } = this.props;
+
     return (
-      <div className={`sidebar-collapse ${this.props.sidebarVisible ? 'collapse' : ''}`}>
+      <div className={`sidebar-collapse ${sidebarVisible ? 'collapse' : ''}`}>
         <div>
           <ul className="nav navbar-nav side-nav">
             <li>
