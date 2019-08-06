@@ -1,0 +1,107 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+    <changeSet author="pmuchowski (generated)" id="1564677652684-6">
+        <createTable tableName="client">
+            <column name="client_id" type="VARCHAR(255)">
+                <constraints primaryKey="true" primaryKeyName="clientPK"/>
+            </column>
+            <column name="access_token_validity_seconds" type="INT"/>
+            <column name="additional_information" type="VARCHAR(255)"/>
+            <column name="authorities" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="authorized_grant_types" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="client_secret" type="VARCHAR(255)"/>
+            <column name="refresh_token_validity_seconds" type="INT"/>
+            <column name="registered_redirect_uris" type="VARCHAR(255)"/>
+            <column name="resource_ids" type="VARCHAR(255)"/>
+            <column name="scope" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1564677652684-8">
+        <createTable tableName="user_log">
+            <column name="id" type="VARCHAR(255)">
+                <constraints primaryKey="true" primaryKeyName="user_logPK"/>
+            </column>
+            <column name="login_date" type="datetime"/>
+            <column name="logout_date" type="datetime"/>
+            <column name="user_id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1564677652684-9">
+        <createTable tableName="user_permission">
+            <column name="id" type="VARCHAR(255)">
+                <constraints primaryKey="true" primaryKeyName="user_permissionPK"/>
+            </column>
+            <column name="display_name" type="VARCHAR(255)"/>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="readonly" type="BIT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1564677652684-10">
+        <createTable tableName="user_role">
+            <column name="id" type="VARCHAR(255)">
+                <constraints primaryKey="true" primaryKeyName="user_rolePK"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="readonly" type="BIT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1564677652684-11">
+        <createTable tableName="user_role_permissions">
+            <column name="role_id" type="VARCHAR(255)">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="permission_id" type="VARCHAR(255)">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1564677652684-12">
+        <createTable tableName="users_roles">
+            <column name="user_id" type="VARCHAR(255)">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="role_id" type="VARCHAR(255)">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1564677652684-13">
+        <addColumn tableName="user">
+            <column name="enabled" type="bit">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1564677652684-14">
+        <addUniqueConstraint columnNames="name" constraintName="UC_USER_ROLENAME_COL" tableName="user_role"/>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1564677652684-15">
+        <addForeignKeyConstraint baseColumnNames="permission_id" baseTableName="user_role_permissions" constraintName="FK4ol1yjwd29gjey9t05pi704qs" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="user_permission" validate="true"/>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1564677652684-16">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="users_roles" constraintName="FKgd3iendaoyh04b95ykqise6qh" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="user" validate="true"/>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1564677652684-17">
+        <addForeignKeyConstraint baseColumnNames="role_id" baseTableName="user_role_permissions" constraintName="FKjkt2u4oxtuxwh5ibl4tbpif2u" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="user_role" validate="true"/>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1564677652684-18">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="user_log" constraintName="FKmd6gmr2tvduf9qvif1nchhqfm" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="user" validate="true"/>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1564677652684-19">
+        <addForeignKeyConstraint baseColumnNames="role_id" baseTableName="users_roles" constraintName="FKmknhyioq8hh8seoxe1fy6qo86" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="user_role" validate="true"/>
+    </changeSet>
+</databaseChangeLog>
