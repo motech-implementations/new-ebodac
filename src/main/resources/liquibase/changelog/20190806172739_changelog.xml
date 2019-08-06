@@ -1,0 +1,143 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+    <changeSet author="pmuchowski (generated)" id="1565105266135-7">
+        <addColumn tableName="campaign_message">
+            <column name="create_date" type="datetime"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1565105266135-8">
+        <addColumn tableName="enrollment_group">
+            <column name="create_date" type="datetime"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1565105266135-9">
+        <addColumn tableName="extra_field">
+            <column name="create_date" type="datetime"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1565105266135-10">
+        <addColumn tableName="field_config">
+            <column name="create_date" type="datetime"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1565105266135-11">
+        <addColumn tableName="key_community_person">
+            <column name="create_date" type="datetime"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1565105266135-12">
+        <addColumn tableName="language">
+            <column name="create_date" type="datetime"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1565105266135-13">
+        <addColumn tableName="site">
+            <column name="create_date" type="datetime"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1565105266135-14">
+        <addColumn tableName="user">
+            <column name="create_date" type="datetime"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1565105266135-15">
+        <addColumn tableName="user_log">
+            <column name="create_date" type="datetime"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1565105266135-16">
+        <addColumn tableName="user_permission">
+            <column name="create_date" type="datetime"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1565105266135-17">
+        <addColumn tableName="user_role">
+            <column name="create_date" type="datetime"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1565105266135-18">
+        <addColumn tableName="vaccinee">
+            <column name="create_date" type="datetime"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1565105266135-19">
+        <addColumn tableName="visit">
+            <column name="create_date" type="datetime"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1565105266135-20">
+        <addColumn tableName="visit_type">
+            <column name="create_date" type="datetime"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1565105266135-21">
+        <addColumn tableName="campaign_message">
+            <column name="update_date" type="datetime"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1565105266135-22">
+        <addColumn tableName="enrollment_group">
+            <column name="update_date" type="datetime"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1565105266135-23">
+        <addColumn tableName="extra_field">
+            <column name="update_date" type="datetime"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1565105266135-24">
+        <addColumn tableName="field_config">
+            <column name="update_date" type="datetime"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1565105266135-25">
+        <addColumn tableName="key_community_person">
+            <column name="update_date" type="datetime"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1565105266135-26">
+        <addColumn tableName="language">
+            <column name="update_date" type="datetime"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1565105266135-27">
+        <addColumn tableName="site">
+            <column name="update_date" type="datetime"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1565105266135-28">
+        <addColumn tableName="user">
+            <column name="update_date" type="datetime"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1565105266135-29">
+        <addColumn tableName="user_log">
+            <column name="update_date" type="datetime"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1565105266135-30">
+        <addColumn tableName="user_permission">
+            <column name="update_date" type="datetime"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1565105266135-31">
+        <addColumn tableName="user_role">
+            <column name="update_date" type="datetime"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1565105266135-32">
+        <addColumn tableName="vaccinee">
+            <column name="update_date" type="datetime"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1565105266135-33">
+        <addColumn tableName="visit">
+            <column name="update_date" type="datetime"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1565105266135-34">
+        <addColumn tableName="visit_type">
+            <column name="update_date" type="datetime"/>
+        </addColumn>
+    </changeSet>
+</databaseChangeLog>
