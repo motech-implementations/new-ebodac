@@ -15,21 +15,20 @@ import lombok.Getter;
 import lombok.Setter;
 import org.motechproject.newebodac.domain.BaseEntity;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "user_role")
 public class UserRole extends BaseEntity {
 
-  @Column(name = "name", nullable = false, unique = true)
-  @Getter
-  @Setter
   @NotBlank
+  @Column(name = "name", nullable = false, unique = true)
   private String name;
 
   @Column(name = "readonly", nullable = false)
-  @Getter
-  @Setter
   private Boolean readonly = false;
 
+  @Valid
   @ManyToMany(fetch = FetchType.EAGER)
   @JoinTable(
       name = "user_role_permissions",
@@ -37,8 +36,5 @@ public class UserRole extends BaseEntity {
           name = "role_id", referencedColumnName = "id"),
       inverseJoinColumns = @JoinColumn(
           name = "permission_id", referencedColumnName = "id"))
-  @Getter
-  @Setter
-  @Valid
   private Set<UserPermission> permissions = new HashSet<>();
 }

@@ -1,0 +1,41 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+    <changeSet author="pmuchowski (generated)" id="1565186949278-6">
+        <addColumn tableName="extra_field">
+            <column name="bool_val" type="bit"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1565186949278-7">
+        <addColumn tableName="extra_field">
+            <column name="date_val" type="date"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1565186949278-8">
+        <addColumn tableName="extra_field">
+            <column name="datetime_val" type="datetime"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1565186949278-9">
+        <addColumn tableName="extra_field">
+            <column name="float_val" type="double precision"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1565186949278-10">
+        <addColumn tableName="extra_field">
+            <column name="int_val" type="integer"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1565186949278-11">
+        <addColumn tableName="extra_field">
+            <column name="long_text_val" type="longtext"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1565186949278-14">
+        <addColumn tableName="extra_field">
+            <column name="text_val" type="varchar(255)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1565186949278-15">
+        <dropColumn columnName="value" tableName="extra_field"/>
+    </changeSet>
+</databaseChangeLog>
