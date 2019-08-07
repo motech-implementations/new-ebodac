@@ -16,6 +16,8 @@ public class VisitTypeDto {
 
   private String displayName;
 
+  private String category;
+
   private Integer timeOffset;
 
   private Integer earliestOffset;
