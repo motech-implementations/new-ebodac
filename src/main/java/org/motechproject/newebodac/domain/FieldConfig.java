@@ -36,6 +36,13 @@ public class FieldConfig extends BaseEntity {
   @Enumerated(EnumType.STRING)
   private EntityType entity;
 
+  @Column(name = "related_entity")
+  @Enumerated(EnumType.STRING)
+  private EntityType relatedEntity;
+
+  @Column(name = "related_field")
+  private String relatedField;
+
   @NotNull
   @Column(name = "base", nullable = false)
   private Boolean base = false;

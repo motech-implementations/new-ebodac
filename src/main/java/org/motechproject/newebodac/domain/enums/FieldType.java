@@ -2,11 +2,14 @@ package org.motechproject.newebodac.domain.enums;
 
 public enum FieldType {
   TEXT,
+  LONG_TEXT,
   INTEGER,
   FLOAT,
+  BOOLEAN,
   DATE,
   DATE_TIME,
+  ENUM,
   RELATION,
-  VACCINATION_DATE,
-  SITE
+  COLLECTION,
+  VACCINATION_DATE
 }
