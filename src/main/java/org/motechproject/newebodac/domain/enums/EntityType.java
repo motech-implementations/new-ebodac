@@ -5,5 +5,7 @@ public enum EntityType {
   VISIT,
   SITE,
   GROUP,
-  PERSON
+  PERSON,
+  LANGUAGE,
+  VISIT_TYPE
 }
