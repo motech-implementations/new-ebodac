@@ -30,6 +30,7 @@
       "components": [ "Label" ],
       "required": "id",
       "allowChildren": false
-    }]
+    }],
+    "react/destructuring-assignment": 0
   }
 }
