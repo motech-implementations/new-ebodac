@@ -4,37 +4,36 @@ import lombok.Getter;
 import lombok.Setter;
 import org.motechproject.newebodac.validate.annotations.Uuid;
 
+@Getter
+@Setter
 public class ExtraFieldDto {
-  @Getter
-  @Setter
+
   @Uuid
   private String id;
 
-  @Getter
-  @Setter
   private String name;
 
-  @Getter
-  @Setter
-  private String value;
+  private String textVal;
 
-  @Getter
-  @Setter
+  private String longTextVal;
+
+  private Integer intVal;
+
+  private Double floatVal;
+
+  private Boolean boolVal;
+
+  private String dateVal;
+
+  private String datetimeVal;
+
   private String vaccineeId;
 
-  @Getter
-  @Setter
   private String visitId;
 
-  @Getter
-  @Setter
   private String siteId;
 
-  @Getter
-  @Setter
   private String groupId;
 
-  @Getter
-  @Setter
   private String personId;
 }

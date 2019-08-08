@@ -4,26 +4,18 @@ import lombok.Getter;
 import lombok.Setter;
 import org.motechproject.newebodac.validate.annotations.Uuid;
 
+@Getter
+@Setter
 public class CampaignMessageDto {
 
-  @Getter
-  @Setter
   @Uuid
   private String id;
 
-  @Getter
-  @Setter
   private String name;
 
-  @Getter
-  @Setter
   private String messageKey;
 
-  @Getter
-  @Setter
   private String timeOffset;
 
-  @Getter
-  @Setter
   private String visitTypeId;
 }
