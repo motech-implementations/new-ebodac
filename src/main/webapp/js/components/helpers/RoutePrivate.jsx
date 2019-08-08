@@ -1,10 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Route, Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import authenticate from '../auth/authenticate-token';
 
-const PrivateRoute = ({ component: Component, ...props }) => {
+const PrivateRoute = ({ component: Component, authenticated, ...props }) => {
   function isAuthenticated() {
-    return true; // Placeholder
+    authenticate();
+    return authenticated; // Placeholder
   }
 
   return (
@@ -12,14 +15,24 @@ const PrivateRoute = ({ component: Component, ...props }) => {
       {...props}
       render={() => (isAuthenticated()
         ? <Component />
-        : <Redirect to="/" />)
+        : <Redirect to="/login" />)
       }
     />
   );
 };
 
-export default PrivateRoute;
+
+function mapStateToProps(state) {
+  return { authenticated: state.auth.authenticated };
+}
 
 PrivateRoute.propTypes = {
   component: PropTypes.elementType.isRequired,
+  authenticated: PropTypes.bool,
 };
+
+PrivateRoute.defaultProps = {
+  authenticated: false,
+};
+
+export default connect(mapStateToProps)(PrivateRoute);

@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import '../../css/main.scss';
+import { signoutUser } from '../actions';
+import CounterLogout from './counter-logout';
 
 /* eslint-disable jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */
 class Header extends Component {
@@ -11,6 +15,12 @@ class Header extends Component {
       toggleButtonToggled: true,
     };
     this.collapseSideBar = this.collapseSideBar.bind(this);
+    this.onSignout = this.onSignout.bind(this);
+  }
+
+  onSignout(event) {
+    this.props.signoutUser();
+    event.preventDefault();
   }
 
   collapseSideBar() {
@@ -25,6 +35,15 @@ class Header extends Component {
     return (
       <div>
         <div className="topnav">
+          <div className="d-flex float-right">
+            <CounterLogout />
+            <div>
+              <a href="" onClick={() => this.onSignout()}>
+                <FontAwesomeIcon icon="sign-out-alt" />
+                <span className="icon-text"> Logout </span>
+              </a>
+            </div>
+          </div>
           <div
             style={{ verticalAlign: 'text-top' }}
             className={toggleButtonToggled ? 'menu-button change' : 'menu-button'}
@@ -43,6 +62,7 @@ class Header extends Component {
 }
 Header.propTypes = {
   toggleSidebarMenu: PropTypes.func.isRequired,
+  signoutUser: PropTypes.func.isRequired,
 };
 
-export default Header;
+export default connect(null, { signoutUser })(Header);

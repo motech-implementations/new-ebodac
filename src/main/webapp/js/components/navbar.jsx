@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { HashRouter as Router, Route } from 'react-router-dom';
+import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 
 import '../../css/main.scss';
 
@@ -32,6 +32,7 @@ import VaccineeFields from './fields/vaccinee-fields';
 import VisitScheduleFields from './fields/visit-schedule-fields';
 import RoutePrivate from './helpers/RoutePrivate';
 import MessageCampaign from './message-campaign';
+import Login from './auth/login';
 
 class Navbar extends Component {
   constructor(props) {
@@ -51,40 +52,45 @@ class Navbar extends Component {
     return (
       <Router>
         <div>
-          <Header toggleSidebarMenu={this.collapseSideBar} className="navbar navbar-inverse navbar-fixed-top" />
-          <SideBar sidebarVisible={sidebarVisible} />
-          <div id="wrapper">
-            <div id="page-wrapper">
-              <div className="container-wrapper">
-                <Route exact path="/" component={Home} />
-                <RoutePrivate path="/vaccinee" component={Vaccinee} />
-                <RoutePrivate path="/keyCommunityPerson" component={KeyCommunityPerson} />
-                <RoutePrivate path="/keyCommunityPersonEnrollment" component={KeyCommunityPersonEnrollment} />
-                <RoutePrivate path="/vaccineeEnrollment" component={VaccineeEnrollment} />
-                <RoutePrivate path="/visitSchedule" component={VisitSchedule} />
-                <RoutePrivate path="/visitTypes" component={VisitTypes} />
-                <RoutePrivate path="/boosterVisitGenerator" component={BoosterVisitGenerator} />
-                <RoutePrivate path="/userLogs" component={UserLogs} />
-                <RoutePrivate path="/primeVaccination" component={PrimeVaccination} />
-                <RoutePrivate path="/clinicVisit" component={ClinicVisit} />
-                <RoutePrivate path="/callLogVaccinees" component={CallLogVaccinees} />
-                <RoutePrivate path="/callLogCommunityPerson" component={CallLogCommunityPerson} />
-                <RoutePrivate path="/smsLogVaccinees" component={SmsLogVaccinees} />
-                <RoutePrivate path="/smsLogCommunityPerson" component={SmsLogCommunityPerson} />
-                <RoutePrivate path="/roles" component={Roles} />
-                <RoutePrivate path="/users" component={Users} />
-                <RoutePrivate path="/enrollmentGroup" component={Enrollment} />
-                <RoutePrivate path="/messaging" component={Messaging} />
-                <RoutePrivate path="/languages" component={Languages} />
-                <RoutePrivate path="/sites" component={Sites} />
-                <RoutePrivate path="/vaccineeFields" component={VaccineeFields} />
-                <RoutePrivate path="/keyCommunityPersonFields" component={KeyCommunityPersonFields} />
-                <RoutePrivate path="/sitesFields" component={SiteFields} />
-                <RoutePrivate path="/visitScheduleFields" component={VisitScheduleFields} />
-                <RoutePrivate path="/messageCampaign" component={MessageCampaign} />
+          <Switch>
+            <Route path="/login" component={Login} />
+            <div>
+              <Header toggleSidebarMenu={this.collapseSideBar} className="navbar navbar-inverse navbar-fixed-top" />
+              <SideBar sidebarVisible={sidebarVisible} />
+              <div id="wrapper">
+                <div id="page-wrapper">
+                  <div className="container-wrapper">
+                    <RoutePrivate exact path="/" component={Home} />
+                    <RoutePrivate path="/vaccinee" component={Vaccinee} />
+                    <RoutePrivate path="/keyCommunityPerson" component={KeyCommunityPerson} />
+                    <RoutePrivate path="/keyCommunityPersonEnrollment" component={KeyCommunityPersonEnrollment} />
+                    <RoutePrivate path="/vaccineeEnrollment" component={VaccineeEnrollment} />
+                    <RoutePrivate path="/visitSchedule" component={VisitSchedule} />
+                    <RoutePrivate path="/visitTypes" component={VisitTypes} />
+                    <RoutePrivate path="/boosterVisitGenerator" component={BoosterVisitGenerator} />
+                    <RoutePrivate path="/userLogs" component={UserLogs} />
+                    <RoutePrivate path="/primeVaccination" component={PrimeVaccination} />
+                    <RoutePrivate path="/clinicVisit" component={ClinicVisit} />
+                    <RoutePrivate path="/callLogVaccinees" component={CallLogVaccinees} />
+                    <RoutePrivate path="/callLogCommunityPerson" component={CallLogCommunityPerson} />
+                    <RoutePrivate path="/smsLogVaccinees" component={SmsLogVaccinees} />
+                    <RoutePrivate path="/smsLogCommunityPerson" component={SmsLogCommunityPerson} />
+                    <RoutePrivate path="/roles" component={Roles} />
+                    <RoutePrivate path="/users" component={Users} />
+                    <RoutePrivate path="/enrollmentGroup" component={Enrollment} />
+                    <RoutePrivate path="/messaging" component={Messaging} />
+                    <RoutePrivate path="/languages" component={Languages} />
+                    <RoutePrivate path="/sites" component={Sites} />
+                    <RoutePrivate path="/vaccineeFields" component={VaccineeFields} />
+                    <RoutePrivate path="/keyCommunityPersonFields" component={KeyCommunityPersonFields} />
+                    <RoutePrivate path="/sitesFields" component={SiteFields} />
+                    <RoutePrivate path="/visitScheduleFields" component={VisitScheduleFields} />
+                    <RoutePrivate path="/messageCampaign" component={MessageCampaign} />
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
+          </Switch>
         </div>
       </Router>
     );
