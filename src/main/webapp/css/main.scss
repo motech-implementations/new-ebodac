@@ -7,6 +7,9 @@ $gray-dark: #999;
 $blue-mid: #337ab7;
 $dark-navy: #23527c;
 $red: #f00;
+$red-dark: #843534;
+$red-mid: #a94442;
+$red-light: #ce8483;
 
 /* Global Styles */
 
@@ -409,16 +412,42 @@ sidebar-collapse {
   opacity: 0.5 !important;
 }
 
-/* Other Styles */
-
+/* Forms */
 .form-group {
   &.required {
-    .control-label:after {
+    .col-form-label:after {
       content: "*";
       color: $red;
     }
   }
 }
+
+.help-block {
+  display: block;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  color: $gray-dark;
+}
+
+.has-error .help-block,
+.has-error .col-form-label {
+  color: $red-mid;
+}
+
+.has-error .form-control {
+  border-color: $red-mid;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+}
+
+.has-error .form-control:focus {
+  border-color: $red-dark;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 6px $red-light;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 6px $red-light;
+}
+
+
+/* Other Styles */
 
 .form-horizontal {
   input[type=checkbox] {
