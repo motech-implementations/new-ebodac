@@ -136,17 +136,15 @@ a, a:hover, a:focus, a:active, a:visited {
     display: table-cell;
     vertical-align: middle;
   }
+}
 
-  .counter-logout {
-    color: #9d9d9d;
-    text-align: center;
-    padding-top: 0.3em;
-    padding-left: 1em;
-    display: inline-block;
+.counter-logout {
+  color: #9d9d9d;
+  text-align: center;
+  display: inline-block;
 
-    .counter-text {
-      font-size: 0.7em;
-    }
+  .counter-text {
+    font-size: 0.7em;
   }
 }
 

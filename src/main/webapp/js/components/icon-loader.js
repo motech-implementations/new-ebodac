@@ -11,6 +11,9 @@ import {
   faCog,
   faHandPointRight,
   faSyringe,
+  faUser,
+  faLock,
+  faSignOutAlt,
 } from '@fortawesome/free-solid-svg-icons';
 import { library } from '@fortawesome/fontawesome-svg-core';
 
@@ -28,6 +31,9 @@ const loadIcons = () => {
     faCog,
     faHandPointRight,
     faSyringe,
+    faUser,
+    faLock,
+    faSignOutAlt,
   );
 };
 
