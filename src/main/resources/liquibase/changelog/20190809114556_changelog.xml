@@ -1,0 +1,671 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+    <changeSet author="user (generated)" id="1565335160588-1">
+        <insert tableName="field_config">
+            <column name="id" value="83e52443-3a96-474c-8103-ce7c2cd68ea4"/>
+            <column name="base" valueBoolean="true"/>
+            <column name="display_name" value="ID"/>
+            <column name="entity" value="VACCINEE"/>
+            <column name="format" value="null"/>
+            <column name="hidden" valueBoolean="false"/>
+            <column name="name" value="id"/>
+            <column name="required" valueBoolean="false"/>
+            <column name="field_type" value="TEXT"/>
+            <column name="field_order" valueNumeric="0"/>
+            <column name="create_date" value="2019-08-08 15:28:20"/>
+            <column name="update_date" value="2019-08-08 15:28:20"/>
+            <column name="related_entity" value="null"/>
+            <column name="related_field" value="null"/>
+            <column name="editable" valueBoolean="false"/>
+            <column name="filterable" valueBoolean="true"/>
+        </insert>
+        <insert tableName="field_config">
+            <column name="id" value="1caa5c25-0860-4a70-b37c-66c64776c064"/>
+            <column name="base" valueBoolean="true"/>
+            <column name="display_name" value="Vaccinee Id"/>
+            <column name="entity" value="VACCINEE"/>
+            <column name="format" value="null"/>
+            <column name="hidden" valueBoolean="false"/>
+            <column name="name" value="vaccineeId"/>
+            <column name="required" valueBoolean="false"/>
+            <column name="field_type" value="TEXT"/>
+            <column name="field_order" valueNumeric="1"/>
+            <column name="create_date" value="2019-08-08 15:28:20"/>
+            <column name="update_date" value="2019-08-08 15:28:20"/>
+            <column name="related_entity" value="null"/>
+            <column name="related_field" value="null"/>
+            <column name="editable" valueBoolean="true"/>
+            <column name="filterable" valueBoolean="true"/>
+        </insert>
+        <insert tableName="field_config">
+            <column name="id" value="ca620d2e-cf22-484f-8ab5-49f3d9bbb23a"/>
+            <column name="base" valueBoolean="true"/>
+            <column name="display_name" value="Name"/>
+            <column name="entity" value="VACCINEE"/>
+            <column name="format" value="null"/>
+            <column name="hidden" valueBoolean="false"/>
+            <column name="name" value="name"/>
+            <column name="required" valueBoolean="false"/>
+            <column name="field_type" value="TEXT"/>
+            <column name="field_order" valueNumeric="2"/>
+            <column name="create_date" value="2019-08-08 15:28:20"/>
+            <column name="update_date" value="2019-08-08 15:28:20"/>
+            <column name="related_entity" value="null"/>
+            <column name="related_field" value="null"/>
+            <column name="editable" valueBoolean="true"/>
+            <column name="filterable" valueBoolean="true"/>
+        </insert>
+        <insert tableName="field_config">
+            <column name="id" value="96ca07dc-5ce5-4664-a9e1-51a94dbe55b9"/>
+            <column name="base" valueBoolean="true"/>
+            <column name="display_name" value="Gender"/>
+            <column name="entity" value="VACCINEE"/>
+            <column name="format" value="MALE:Male,FEMALE:Female,UNKNOWN:Unknown'"/>
+            <column name="hidden" valueBoolean="false"/>
+            <column name="name" value="gender"/>
+            <column name="required" valueBoolean="false"/>
+            <column name="field_type" value="ENUM"/>
+            <column name="field_order" valueNumeric="3"/>
+            <column name="create_date" value="2019-08-08 15:28:20"/>
+            <column name="update_date" value="2019-08-08 15:28:20"/>
+            <column name="related_entity" value="null"/>
+            <column name="related_field" value="null"/>
+            <column name="editable" valueBoolean="true"/>
+            <column name="filterable" valueBoolean="true"/>
+        </insert>
+        <insert tableName="field_config">
+            <column name="id" value="94050a63-23e8-41f8-8ab3-2b94f912c948"/>
+            <column name="base" valueBoolean="true"/>
+            <column name="display_name" value="Age"/>
+            <column name="entity" value="VACCINEE"/>
+            <column name="format" value="null"/>
+            <column name="hidden" valueBoolean="false"/>
+            <column name="name" value="age"/>
+            <column name="required" valueBoolean="false"/>
+            <column name="field_type" value="INTEGER"/>
+            <column name="field_order" valueNumeric="4"/>
+            <column name="create_date" value="2019-08-08 15:28:20"/>
+            <column name="update_date" value="2019-08-08 15:28:20"/>
+            <column name="related_entity" value="null"/>
+            <column name="related_field" value="null"/>
+            <column name="editable" valueBoolean="true"/>
+            <column name="filterable" valueBoolean="true"/>
+        </insert>
+        <insert tableName="field_config">
+            <column name="id" value="9eecadf9-21f9-4f04-bebe-e96908201a45"/>
+            <column name="base" valueBoolean="true"/>
+            <column name="display_name" value="Year of birth"/>
+            <column name="entity" value="VACCINEE"/>
+            <column name="format" value="null"/>
+            <column name="hidden" valueBoolean="false"/>
+            <column name="name" value="yearOfBirth"/>
+            <column name="required" valueBoolean="false"/>
+            <column name="field_type" value="INTEGER"/>
+            <column name="field_order" valueNumeric="5"/>
+            <column name="create_date" value="2019-08-08 15:28:20"/>
+            <column name="update_date" value="2019-08-08 15:28:20"/>
+            <column name="related_entity" value="null"/>
+            <column name="related_field" value="null"/>
+            <column name="editable" valueBoolean="true"/>
+            <column name="filterable" valueBoolean="true"/>
+        </insert>
+        <insert tableName="field_config">
+            <column name="id" value="a05292d0-430d-4403-9b9f-e9f3f831a0ca"/>
+            <column name="base" valueBoolean="true"/>
+            <column name="display_name" value="Phone Number"/>
+            <column name="entity" value="VACCINEE"/>
+            <column name="format" value="null"/>
+            <column name="hidden" valueBoolean="false"/>
+            <column name="name" value="phoneNumber"/>
+            <column name="required" valueBoolean="false"/>
+            <column name="field_type" value="TEXT"/>
+            <column name="field_order" valueNumeric="6"/>
+            <column name="create_date" value="2019-08-08 15:28:20"/>
+            <column name="update_date" value="2019-08-08 15:28:20"/>
+            <column name="related_entity" value="null"/>
+            <column name="related_field" value="null"/>
+            <column name="editable" valueBoolean="true"/>
+            <column name="filterable" valueBoolean="true"/>
+        </insert>
+        <insert tableName="field_config">
+            <column name="id" value="cd98a8e9-04bf-41eb-b49a-9557089a3231"/>
+            <column name="base" valueBoolean="true"/>
+            <column name="display_name" value="Alternate Phone Number"/>
+            <column name="entity" value="VACCINEE"/>
+            <column name="format" value="null"/>
+            <column name="hidden" valueBoolean="false"/>
+            <column name="name" value="alternatePhoneNumber"/>
+            <column name="required" valueBoolean="false"/>
+            <column name="field_type" value="TEXT"/>
+            <column name="field_order" valueNumeric="7"/>
+            <column name="create_date" value="2019-08-08 15:28:20"/>
+            <column name="update_date" value="2019-08-08 15:28:20"/>
+            <column name="related_entity" value="null"/>
+            <column name="related_field" value="null"/>
+            <column name="editable" valueBoolean="true"/>
+            <column name="filterable" valueBoolean="true"/>
+        </insert>
+        <insert tableName="field_config">
+            <column name="id" value="942c7144-1c09-4ab7-80e8-0f52454234d1"/>
+            <column name="base" valueBoolean="true"/>
+            <column name="display_name" value="Preferred language"/>
+            <column name="entity" value="VACCINEE"/>
+            <column name="format" value="null"/>
+            <column name="hidden" valueBoolean="false"/>
+            <column name="name" value="preferredLanguageId"/>
+            <column name="required" valueBoolean="false"/>
+            <column name="field_type" value="RELATION"/>
+            <column name="field_order" valueNumeric="8"/>
+            <column name="create_date" value="2019-08-08 15:28:20"/>
+            <column name="update_date" value="2019-08-08 15:28:20"/>
+            <column name="related_entity" value="LANGUAGE"/>
+            <column name="related_field" value="name"/>
+            <column name="editable" valueBoolean="true"/>
+            <column name="filterable" valueBoolean="false"/>
+        </insert>
+        <insert tableName="field_config">
+            <column name="id" value="8ea9c4fe-5e6f-4685-9894-2971bb1ba990"/>
+            <column name="base" valueBoolean="true"/>
+            <column name="display_name" value="Address"/>
+            <column name="entity" value="VACCINEE"/>
+            <column name="format" value="null"/>
+            <column name="hidden" valueBoolean="false"/>
+            <column name="name" value="address"/>
+            <column name="required" valueBoolean="false"/>
+            <column name="field_type" value="TEXT"/>
+            <column name="field_order" valueNumeric="9"/>
+            <column name="create_date" value="2019-08-08 15:28:20"/>
+            <column name="update_date" value="2019-08-08 15:28:20"/>
+            <column name="related_entity" value="null"/>
+            <column name="related_field" value="null"/>
+            <column name="editable" valueBoolean="true"/>
+            <column name="filterable" valueBoolean="true"/>
+        </insert>
+        <insert tableName="field_config">
+            <column name="id" value="c0cd4bf2-05b5-4c1a-931a-722a5d759a89"/>
+            <column name="base" valueBoolean="true"/>
+            <column name="display_name" value="Enrollment group"/>
+            <column name="entity" value="VACCINEE"/>
+            <column name="format" value="null"/>
+            <column name="hidden" valueBoolean="false"/>
+            <column name="name" value="groupId"/>
+            <column name="required" valueBoolean="false"/>
+            <column name="field_type" value="RELATION"/>
+            <column name="field_order" valueNumeric="10"/>
+            <column name="create_date" value="2019-08-08 15:28:20"/>
+            <column name="update_date" value="2019-08-08 15:28:20"/>
+            <column name="related_entity" value="GROUP"/>
+            <column name="related_field" value="name"/>
+            <column name="editable" valueBoolean="true"/>
+            <column name="filterable" valueBoolean="false"/>
+        </insert>
+        <insert tableName="field_config">
+            <column name="id" value="67113cdf-476f-4284-b502-ae5d44148319"/>
+            <column name="base" valueBoolean="true"/>
+            <column name="display_name" value="Create date"/>
+            <column name="entity" value="VACCINEE"/>
+            <column name="format" value="yyyy-MM-dd HH:mm:ss"/>
+            <column name="hidden" valueBoolean="false"/>
+            <column name="name" value="createDate"/>
+            <column name="required" valueBoolean="false"/>
+            <column name="field_type" value="DATE_TIME"/>
+            <column name="field_order" valueNumeric="11"/>
+            <column name="create_date" value="2019-08-08 15:28:20"/>
+            <column name="update_date" value="2019-08-08 15:28:20"/>
+            <column name="related_entity" value="null"/>
+            <column name="related_field" value="null"/>
+            <column name="editable" valueBoolean="true"/>
+            <column name="filterable" valueBoolean="true"/>
+        </insert>
+        <insert tableName="field_config">
+            <column name="id" value="df806b3e-af3f-4027-9633-0b2554343672"/>
+            <column name="base" valueBoolean="true"/>
+            <column name="display_name" value="Update date"/>
+            <column name="entity" value="VACCINEE"/>
+            <column name="format" value="yyyy-MM-dd HH:mm:ss"/>
+            <column name="hidden" valueBoolean="false"/>
+            <column name="name" value="updateDate"/>
+            <column name="required" valueBoolean="false"/>
+            <column name="field_type" value="DATE_TIME"/>
+            <column name="field_order" valueNumeric="12"/>
+            <column name="create_date" value="2019-08-08 15:28:20"/>
+            <column name="update_date" value="2019-08-08 15:28:20"/>
+            <column name="related_entity" value="null"/>
+            <column name="related_field" value="null"/>
+            <column name="editable" valueBoolean="true"/>
+            <column name="filterable" valueBoolean="true"/>
+        </insert>
+        <insert tableName="field_config">
+            <column name="id" value="d09bcbc1-3d9a-46bc-b56f-6a2e3c2ae78b"/>
+            <column name="base" valueBoolean="true"/>
+            <column name="display_name" value="ID"/>
+            <column name="entity" value="VISIT"/>
+            <column name="format" value="null"/>
+            <column name="hidden" valueBoolean="false"/>
+            <column name="name" value="id"/>
+            <column name="required" valueBoolean="false"/>
+            <column name="field_type" value="TEXT"/>
+            <column name="field_order" valueNumeric="0"/>
+            <column name="create_date" value="2019-08-08 15:28:20"/>
+            <column name="update_date" value="2019-08-08 15:28:20"/>
+            <column name="related_entity" value="null"/>
+            <column name="related_field" value="null"/>
+            <column name="editable" valueBoolean="false"/>
+            <column name="filterable" valueBoolean="true"/>
+        </insert>
+        <insert tableName="field_config">
+            <column name="id" value="285e8b18-c833-4dcb-89bd-848be5655d4b"/>
+            <column name="base" valueBoolean="true"/>
+            <column name="display_name" value="Date"/>
+            <column name="entity" value="VISIT"/>
+            <column name="format" value="yyyy-MM-dd"/>
+            <column name="hidden" valueBoolean="false"/>
+            <column name="name" value="date"/>
+            <column name="required" valueBoolean="false"/>
+            <column name="field_type" value="DATE"/>
+            <column name="field_order" valueNumeric="1"/>
+            <column name="create_date" value="2019-08-08 15:28:20"/>
+            <column name="update_date" value="2019-08-08 15:28:20"/>
+            <column name="related_entity" value="null"/>
+            <column name="related_field" value="null"/>
+            <column name="editable" valueBoolean="true"/>
+            <column name="filterable" valueBoolean="true"/>
+        </insert>
+        <insert tableName="field_config">
+            <column name="id" value="da57f274-b8b0-4db6-abd5-e984a32e9e0b"/>
+            <column name="base" valueBoolean="true"/>
+            <column name="display_name" value="Planned date"/>
+            <column name="entity" value="VISIT"/>
+            <column name="format" value="yyyy-MM-dd"/>
+            <column name="hidden" valueBoolean="false"/>
+            <column name="name" value="plannedDate"/>
+            <column name="required" valueBoolean="false"/>
+            <column name="field_type" value="DATE"/>
+            <column name="field_order" valueNumeric="2"/>
+            <column name="create_date" value="2019-08-08 15:28:20"/>
+            <column name="update_date" value="2019-08-08 15:28:20"/>
+            <column name="related_entity" value="null"/>
+            <column name="related_field" value="null"/>
+            <column name="editable" valueBoolean="true"/>
+            <column name="filterable" valueBoolean="true"/>
+        </insert>
+        <insert tableName="field_config">
+            <column name="id" value="f7710716-77d9-4a3c-b832-53c119c6f497"/>
+            <column name="base" valueBoolean="true"/>
+            <column name="display_name" value="Type"/>
+            <column name="entity" value="VISIT"/>
+            <column name="format" value="null"/>
+            <column name="hidden" valueBoolean="false"/>
+            <column name="name" value="typeId"/>
+            <column name="required" valueBoolean="false"/>
+            <column name="field_type" value="RELATION"/>
+            <column name="field_order" valueNumeric="3"/>
+            <column name="create_date" value="2019-08-08 15:28:20"/>
+            <column name="update_date" value="2019-08-08 15:28:20"/>
+            <column name="related_entity" value="VISIT_TYPE"/>
+            <column name="related_field" value="name"/>
+            <column name="editable" valueBoolean="true"/>
+            <column name="filterable" valueBoolean="false"/>
+        </insert>
+        <insert tableName="field_config">
+            <column name="id" value="257672ac-fbe1-43e7-9bc5-73bd28e1e978"/>
+            <column name="base" valueBoolean="true"/>
+            <column name="display_name" value="Vaccinee"/>
+            <column name="entity" value="VISIT"/>
+            <column name="format" value="null"/>
+            <column name="hidden" valueBoolean="false"/>
+            <column name="name" value="vaccineeId"/>
+            <column name="required" valueBoolean="false"/>
+            <column name="field_type" value="RELATION"/>
+            <column name="field_order" valueNumeric="4"/>
+            <column name="create_date" value="2019-08-08 15:28:20"/>
+            <column name="update_date" value="2019-08-08 15:28:20"/>
+            <column name="related_entity" value="VACCINEE"/>
+            <column name="related_field" value="name"/>
+            <column name="editable" valueBoolean="true"/>
+            <column name="filterable" valueBoolean="false"/>
+        </insert>
+        <insert tableName="field_config">
+            <column name="id" value="32334325-2663-4144-8c45-199a76c380d1"/>
+            <column name="base" valueBoolean="true"/>
+            <column name="display_name" value="Site"/>
+            <column name="entity" value="VISIT"/>
+            <column name="format" value="null"/>
+            <column name="hidden" valueBoolean="false"/>
+            <column name="name" value="siteId"/>
+            <column name="required" valueBoolean="false"/>
+            <column name="field_type" value="RELATION"/>
+            <column name="field_order" valueNumeric="6"/>
+            <column name="create_date" value="2019-08-08 15:28:20"/>
+            <column name="update_date" value="2019-08-08 15:28:20"/>
+            <column name="related_entity" value="SITE"/>
+            <column name="related_field" value="siteId"/>
+            <column name="editable" valueBoolean="true"/>
+            <column name="filterable" valueBoolean="false"/>
+        </insert>
+        <insert tableName="field_config">
+            <column name="id" value="7c427b5e-9a89-44f3-a56e-2b764f645ef3"/>
+            <column name="base" valueBoolean="true"/>
+            <column name="display_name" value="Create date"/>
+            <column name="entity" value="VISIT"/>
+            <column name="format" value="yyyy-MM-dd HH:mm:ss"/>
+            <column name="hidden" valueBoolean="false"/>
+            <column name="name" value="createDate"/>
+            <column name="required" valueBoolean="false"/>
+            <column name="field_type" value="DATE_TIME"/>
+            <column name="field_order" valueNumeric="7"/>
+            <column name="create_date" value="2019-08-08 15:28:20"/>
+            <column name="update_date" value="2019-08-08 15:28:20"/>
+            <column name="related_entity" value="null"/>
+            <column name="related_field" value="null"/>
+            <column name="editable" valueBoolean="true"/>
+            <column name="filterable" valueBoolean="true"/>
+        </insert>
+        <insert tableName="field_config">
+            <column name="id" value="b397ba7a-100b-4e5d-88da-07fd33eb88d0"/>
+            <column name="base" valueBoolean="true"/>
+            <column name="display_name" value="Update date"/>
+            <column name="entity" value="VISIT"/>
+            <column name="format" value="yyyy-MM-dd HH:mm:ss"/>
+            <column name="hidden" valueBoolean="false"/>
+            <column name="name" value="updateDate"/>
+            <column name="required" valueBoolean="false"/>
+            <column name="field_type" value="DATE_TIME"/>
+            <column name="field_order" valueNumeric="8"/>
+            <column name="create_date" value="2019-08-08 15:28:20"/>
+            <column name="update_date" value="2019-08-08 15:28:20"/>
+            <column name="related_entity" value="null"/>
+            <column name="related_field" value="null"/>
+            <column name="editable" valueBoolean="true"/>
+            <column name="filterable" valueBoolean="true"/>
+        </insert>
+        <insert tableName="field_config">
+            <column name="id" value="78b305ee-045e-4304-9fe1-ce6f4aa489d3"/>
+            <column name="base" valueBoolean="true"/>
+            <column name="display_name" value="ID"/>
+            <column name="entity" value="SITE"/>
+            <column name="format" value="null"/>
+            <column name="hidden" valueBoolean="false"/>
+            <column name="name" value="id"/>
+            <column name="required" valueBoolean="false"/>
+            <column name="field_type" value="TEXT"/>
+            <column name="field_order" valueNumeric="0"/>
+            <column name="create_date" value="2019-08-08 15:28:20"/>
+            <column name="update_date" value="2019-08-08 15:28:20"/>
+            <column name="related_entity" value="null"/>
+            <column name="related_field" value="null"/>
+            <column name="editable" valueBoolean="false"/>
+            <column name="filterable" valueBoolean="true"/>
+        </insert>
+        <insert tableName="field_config">
+            <column name="id" value="569f9112-e159-404b-a35c-115b6b815343"/>
+            <column name="base" valueBoolean="true"/>
+            <column name="display_name" value="Site"/>
+            <column name="entity" value="SITE"/>
+            <column name="format" value="null"/>
+            <column name="hidden" valueBoolean="false"/>
+            <column name="name" value="siteId"/>
+            <column name="required" valueBoolean="false"/>
+            <column name="field_type" value="TEXT"/>
+            <column name="field_order" valueNumeric="1"/>
+            <column name="create_date" value="2019-08-08 15:28:20"/>
+            <column name="update_date" value="2019-08-08 15:28:20"/>
+            <column name="related_entity" value="null"/>
+            <column name="related_field" value="null"/>
+            <column name="editable" valueBoolean="true"/>
+            <column name="filterable" valueBoolean="true"/>
+        </insert>
+        <insert tableName="field_config">
+            <column name="id" value="ed61261d-805f-48b0-b148-476d43a4b120"/>
+            <column name="base" valueBoolean="true"/>
+            <column name="display_name" value="Description"/>
+            <column name="entity" value="SITE"/>
+            <column name="format" value="null"/>
+            <column name="hidden" valueBoolean="false"/>
+            <column name="name" value="description"/>
+            <column name="required" valueBoolean="false"/>
+            <column name="field_type" value="TEXT"/>
+            <column name="field_order" valueNumeric="2"/>
+            <column name="create_date" value="2019-08-08 15:28:20"/>
+            <column name="update_date" value="2019-08-08 15:28:20"/>
+            <column name="related_entity" value="null"/>
+            <column name="related_field" value="null"/>
+            <column name="editable" valueBoolean="true"/>
+            <column name="filterable" valueBoolean="true"/>
+        </insert>
+        <insert tableName="field_config">
+            <column name="id" value="b5c5d5f3-ad67-4475-9927-8b4687308bcf"/>
+            <column name="base" valueBoolean="true"/>
+            <column name="display_name" value="Create date"/>
+            <column name="entity" value="SITE"/>
+            <column name="format" value="yyyy-MM-dd HH:mm:ss"/>
+            <column name="hidden" valueBoolean="false"/>
+            <column name="name" value="createDate"/>
+            <column name="required" valueBoolean="false"/>
+            <column name="field_type" value="DATE_TIME"/>
+            <column name="field_order" valueNumeric="3"/>
+            <column name="create_date" value="2019-08-08 15:28:20"/>
+            <column name="update_date" value="2019-08-08 15:28:20"/>
+            <column name="related_entity" value="null"/>
+            <column name="related_field" value="null"/>
+            <column name="editable" valueBoolean="true"/>
+            <column name="filterable" valueBoolean="true"/>
+        </insert>
+        <insert tableName="field_config">
+            <column name="id" value="fc530533-7620-4393-abcd-981986f9428a"/>
+            <column name="base" valueBoolean="true"/>
+            <column name="display_name" value="Update date"/>
+            <column name="entity" value="SITE"/>
+            <column name="format" value="yyyy-MM-dd HH:mm:ss"/>
+            <column name="hidden" valueBoolean="false"/>
+            <column name="name" value="updateDate"/>
+            <column name="required" valueBoolean="false"/>
+            <column name="field_type" value="DATE_TIME"/>
+            <column name="field_order" valueNumeric="4"/>
+            <column name="create_date" value="2019-08-08 15:28:20"/>
+            <column name="update_date" value="2019-08-08 15:28:20"/>
+            <column name="related_entity" value="null"/>
+            <column name="related_field" value="null"/>
+            <column name="editable" valueBoolean="true"/>
+            <column name="filterable" valueBoolean="true"/>
+        </insert>
+        <insert tableName="field_config">
+            <column name="id" value="b95ae619-88d6-473b-96b2-b649213c7be3"/>
+            <column name="base" valueBoolean="true"/>
+            <column name="display_name" value="ID"/>
+            <column name="entity" value="GROUP"/>
+            <column name="format" value="null"/>
+            <column name="hidden" valueBoolean="false"/>
+            <column name="name" value="id"/>
+            <column name="required" valueBoolean="false"/>
+            <column name="field_type" value="TEXT"/>
+            <column name="field_order" valueNumeric="0"/>
+            <column name="create_date" value="2019-08-08 15:28:20"/>
+            <column name="update_date" value="2019-08-08 15:28:20"/>
+            <column name="related_entity" value="null"/>
+            <column name="related_field" value="null"/>
+            <column name="editable" valueBoolean="false"/>
+            <column name="filterable" valueBoolean="true"/>
+        </insert>
+        <insert tableName="field_config">
+            <column name="id" value="4405cbc9-751b-47f2-9703-4cbb75269833"/>
+            <column name="base" valueBoolean="true"/>
+            <column name="display_name" value="Name"/>
+            <column name="entity" value="GROUP"/>
+            <column name="format" value="null"/>
+            <column name="hidden" valueBoolean="false"/>
+            <column name="name" value="name"/>
+            <column name="required" valueBoolean="false"/>
+            <column name="field_type" value="TEXT"/>
+            <column name="field_order" valueNumeric="1"/>
+            <column name="create_date" value="2019-08-08 15:28:20"/>
+            <column name="update_date" value="2019-08-08 15:28:20"/>
+            <column name="related_entity" value="null"/>
+            <column name="related_field" value="null"/>
+            <column name="editable" valueBoolean="true"/>
+            <column name="filterable" valueBoolean="true"/>
+        </insert>
+        <insert tableName="field_config">
+            <column name="id" value="a68f32fd-f6ee-4c65-a63b-9757b8b3f97a"/>
+            <column name="base" valueBoolean="true"/>
+            <column name="display_name" value="Create date"/>
+            <column name="entity" value="GROUP"/>
+            <column name="format" value="yyyy-MM-dd HH:mm:ss"/>
+            <column name="hidden" valueBoolean="false"/>
+            <column name="name" value="createDate"/>
+            <column name="required" valueBoolean="false"/>
+            <column name="field_type" value="DATE_TIME"/>
+            <column name="field_order" valueNumeric="2"/>
+            <column name="create_date" value="2019-08-08 15:28:20"/>
+            <column name="update_date" value="2019-08-08 15:28:20"/>
+            <column name="related_entity" value="null"/>
+            <column name="related_field" value="null"/>
+            <column name="editable" valueBoolean="true"/>
+            <column name="filterable" valueBoolean="true"/>
+        </insert>
+        <insert tableName="field_config">
+            <column name="id" value="bcc72680-4500-4786-b585-4bc9d89567b7"/>
+            <column name="base" valueBoolean="true"/>
+            <column name="display_name" value="Update date"/>
+            <column name="entity" value="GROUP"/>
+            <column name="format" value="yyyy-MM-dd HH:mm:ss"/>
+            <column name="hidden" valueBoolean="false"/>
+            <column name="name" value="updateDate"/>
+            <column name="required" valueBoolean="false"/>
+            <column name="field_type" value="DATE_TIME"/>
+            <column name="field_order" valueNumeric="3"/>
+            <column name="create_date" value="2019-08-08 15:28:20"/>
+            <column name="update_date" value="2019-08-08 15:28:20"/>
+            <column name="related_entity" value="null"/>
+            <column name="related_field" value="null"/>
+            <column name="editable" valueBoolean="true"/>
+            <column name="filterable" valueBoolean="true"/>
+        </insert>
+        <insert tableName="field_config">
+            <column name="id" value="9872e496-1829-4381-a6b9-73fe3f76ae55"/>
+            <column name="base" valueBoolean="true"/>
+            <column name="display_name" value="ID"/>
+            <column name="entity" value="PERSON"/>
+            <column name="format" value="null"/>
+            <column name="hidden" valueBoolean="false"/>
+            <column name="name" value="id"/>
+            <column name="required" valueBoolean="false"/>
+            <column name="field_type" value="TEXT"/>
+            <column name="field_order" valueNumeric="0"/>
+            <column name="create_date" value="2019-08-08 15:28:20"/>
+            <column name="update_date" value="2019-08-08 15:28:20"/>
+            <column name="related_entity" value="null"/>
+            <column name="related_field" value="null"/>
+            <column name="editable" valueBoolean="false"/>
+            <column name="filterable" valueBoolean="true"/>
+        </insert>
+        <insert tableName="field_config">
+            <column name="id" value="a21cc7ef-56a5-432c-9854-cb8b4809c094"/>
+            <column name="base" valueBoolean="true"/>
+            <column name="display_name" value="Name"/>
+            <column name="entity" value="PERSON"/>
+            <column name="format" value="null"/>
+            <column name="hidden" valueBoolean="false"/>
+            <column name="name" value="name"/>
+            <column name="required" valueBoolean="false"/>
+            <column name="field_type" value="TEXT"/>
+            <column name="field_order" valueNumeric="1"/>
+            <column name="create_date" value="2019-08-08 15:28:20"/>
+            <column name="update_date" value="2019-08-08 15:28:20"/>
+            <column name="related_entity" value="null"/>
+            <column name="related_field" value="null"/>
+            <column name="editable" valueBoolean="true"/>
+            <column name="filterable" valueBoolean="true"/>
+        </insert>
+        <insert tableName="field_config">
+            <column name="id" value="007a7a40-89e3-439b-839b-a35d380c387b"/>
+            <column name="base" valueBoolean="true"/>
+            <column name="display_name" value="Phone"/>
+            <column name="entity" value="PERSON"/>
+            <column name="format" value="null"/>
+            <column name="hidden" valueBoolean="false"/>
+            <column name="name" value="phone"/>
+            <column name="required" valueBoolean="false"/>
+            <column name="field_type" value="TEXT"/>
+            <column name="field_order" valueNumeric="2"/>
+            <column name="create_date" value="2019-08-08 15:28:20"/>
+            <column name="update_date" value="2019-08-08 15:28:20"/>
+            <column name="related_entity" value="null"/>
+            <column name="related_field" value="null"/>
+            <column name="editable" valueBoolean="true"/>
+            <column name="filterable" valueBoolean="true"/>
+        </insert>
+        <insert tableName="field_config">
+            <column name="id" value="b556142d-40c9-467c-b046-a9e2e99e74cc"/>
+            <column name="base" valueBoolean="true"/>
+            <column name="display_name" value="Community"/>
+            <column name="entity" value="PERSON"/>
+            <column name="format" value="null"/>
+            <column name="hidden" valueBoolean="false"/>
+            <column name="name" value="community"/>
+            <column name="required" valueBoolean="false"/>
+            <column name="field_type" value="TEXT"/>
+            <column name="field_order" valueNumeric="3"/>
+            <column name="create_date" value="2019-08-08 15:28:20"/>
+            <column name="update_date" value="2019-08-08 15:28:20"/>
+            <column name="related_entity" value="null"/>
+            <column name="related_field" value="null"/>
+            <column name="editable" valueBoolean="true"/>
+            <column name="filterable" valueBoolean="true"/>
+        </insert>
+        <insert tableName="field_config">
+            <column name="id" value="ccf0e30e-5af1-475a-b238-a8c63e5d20b8"/>
+            <column name="base" valueBoolean="true"/>
+            <column name="display_name" value="Language"/>
+            <column name="entity" value="PERSON"/>
+            <column name="format" value="null"/>
+            <column name="hidden" valueBoolean="false"/>
+            <column name="name" value="languageId"/>
+            <column name="required" valueBoolean="false"/>
+            <column name="field_type" value="RELATION"/>
+            <column name="field_order" valueNumeric="4"/>
+            <column name="create_date" value="2019-08-08 15:28:20"/>
+            <column name="update_date" value="2019-08-08 15:28:20"/>
+            <column name="related_entity" value="LANGUAGE"/>
+            <column name="related_field" value="name"/>
+            <column name="editable" valueBoolean="true"/>
+            <column name="filterable" valueBoolean="false"/>
+        </insert>
+        <insert tableName="field_config">
+            <column name="id" value="efc1c266-983f-4b64-8bf8-6d242dfdcc35"/>
+            <column name="base" valueBoolean="true"/>
+            <column name="display_name" value="Create date"/>
+            <column name="entity" value="PERSON"/>
+            <column name="format" value="yyyy-MM-dd HH:mm:ss"/>
+            <column name="hidden" valueBoolean="false"/>
+            <column name="name" value="createDate"/>
+            <column name="required" valueBoolean="false"/>
+            <column name="field_type" value="DATE_TIME"/>
+            <column name="field_order" valueNumeric="5"/>
+            <column name="create_date" value="2019-08-08 15:28:20"/>
+            <column name="update_date" value="2019-08-08 15:28:20"/>
+            <column name="related_entity" value="null"/>
+            <column name="related_field" value="null"/>
+            <column name="editable" valueBoolean="true"/>
+            <column name="filterable" valueBoolean="true"/>
+        </insert>
+        <insert tableName="field_config">
+            <column name="id" value="64a527c6-36ab-44f4-b7c9-6e2c7df96c92"/>
+            <column name="base" valueBoolean="true"/>
+            <column name="display_name" value="Update date"/>
+            <column name="entity" value="PERSON"/>
+            <column name="format" value="yyyy-MM-dd HH:mm:ss"/>
+            <column name="hidden" valueBoolean="false"/>
+            <column name="name" value="updateDate"/>
+            <column name="required" valueBoolean="false"/>
+            <column name="field_type" value="DATE_TIME"/>
+            <column name="field_order" valueNumeric="6"/>
+            <column name="create_date" value="2019-08-08 15:28:20"/>
+            <column name="update_date" value="2019-08-08 15:28:20"/>
+            <column name="related_entity" value="null"/>
+            <column name="related_field" value="null"/>
+            <column name="editable" valueBoolean="true"/>
+            <column name="filterable" valueBoolean="true"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

@@ -61,11 +61,11 @@ public class FieldConfig extends BaseEntity {
 
   @NotNull
   @Column(name = "editable", nullable = false)
-  private Boolean editable = false;
+  private Boolean editable = true;
 
   @NotNull
-  @Column(name = "sort_order", nullable = false)
-  private Integer sortOrder;
+  @Column(name = "field_order", nullable = false)
+  private Integer fieldOrder;
 
   @Column(name = "format")
   private String format;

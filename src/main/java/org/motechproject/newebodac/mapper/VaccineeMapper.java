@@ -14,9 +14,7 @@ public interface VaccineeMapper extends EntityMapper<VaccineeDto, Vaccinee> {
   VaccineeMapper INSTANCE = Mappers.getMapper(VaccineeMapper.class);
 
   @Override
-  @Mapping(target = "groupName", source = "group.name")
   @Mapping(target = "groupId", source = "group.id")
-  @Mapping(target = "preferredLanguageName", source = "preferredLanguage.name")
   @Mapping(target = "preferredLanguageId", source = "preferredLanguage.id")
   VaccineeDto toDto(Vaccinee vaccinee);
 

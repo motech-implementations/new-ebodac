@@ -25,7 +25,7 @@ public class FieldConfigDto {
 
   private Boolean hidden;
 
-  private Integer order;
+  private Integer fieldOrder;
 
   private String format;
 }
