@@ -56,8 +56,16 @@ public class FieldConfig extends BaseEntity {
   private Boolean hidden = false;
 
   @NotNull
-  @Column(name = "sort_order", nullable = false)
-  private Integer sortOrder;
+  @Column(name = "filterable", nullable = false)
+  private Boolean filterable = true;
+
+  @NotNull
+  @Column(name = "editable", nullable = false)
+  private Boolean editable = true;
+
+  @NotNull
+  @Column(name = "field_order", nullable = false)
+  private Integer fieldOrder;
 
   @Column(name = "format")
   private String format;

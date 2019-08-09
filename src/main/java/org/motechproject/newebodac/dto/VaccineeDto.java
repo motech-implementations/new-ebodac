@@ -26,13 +26,9 @@ public class VaccineeDto {
 
   private String alternatePhoneNumber;
 
-  private String preferredLanguageName;
-
   private String preferredLanguageId;
 
   private String address;
-
-  private String groupName;
 
   private String groupId;
 
