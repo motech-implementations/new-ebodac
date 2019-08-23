@@ -12,14 +12,9 @@ class CounterLogout extends Component {
     return (str.length < 2 ? '0' : '') + str;
   }
 
-  constructor(props) {
-    super(props);
-    this.logoutUser = this.logoutUser.bind(this);
-  }
-
-  logoutUser() {
+  logoutUser = () => {
     this.props.signoutUser();
-  }
+  };
 
   static renderCountdown({ minutes, seconds }) {
     return (

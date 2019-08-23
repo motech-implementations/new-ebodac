@@ -29,7 +29,7 @@ import Sites from './settings/sites';
 import KeyCommunityPersonFields from './fields/key-community-person-fields';
 import SiteFields from './fields/site-fields';
 import VaccineeFields from './fields/vaccinee-fields';
-import VisitScheduleFields from './fields/visit-schedule-fields';
+import VisitFields from './fields/visit-fields';
 import RoutePrivate from './helpers/RoutePrivate';
 import MessageCampaign from './message-campaign';
 import Login from './auth/login';
@@ -40,12 +40,11 @@ class Navbar extends Component {
     this.state = {
       sidebarVisible: false,
     };
-    this.collapseSideBar = this.collapseSideBar.bind(this);
   }
 
-  collapseSideBar() {
+  collapseSideBar = () => {
     this.setState(prevState => ({ sidebarVisible: !prevState.sidebarVisible }));
-  }
+  };
 
   render() {
     const { sidebarVisible } = this.state;
@@ -84,7 +83,7 @@ class Navbar extends Component {
                     <RoutePrivate path="/vaccineeFields" component={VaccineeFields} />
                     <RoutePrivate path="/keyCommunityPersonFields" component={KeyCommunityPersonFields} />
                     <RoutePrivate path="/sitesFields" component={SiteFields} />
-                    <RoutePrivate path="/visitScheduleFields" component={VisitScheduleFields} />
+                    <RoutePrivate path="/visitScheduleFields" component={VisitFields} />
                     <RoutePrivate path="/messageCampaign" component={MessageCampaign} />
                   </div>
                 </div>

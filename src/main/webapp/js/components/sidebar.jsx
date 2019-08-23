@@ -16,51 +16,45 @@ class SideBar extends Component {
       settingsCollapsed: true,
       fieldsCollapsed: true,
     };
-    this.toggleEnrollmentCollapsedMenu = this.toggleEnrollmentCollapsedMenu.bind(this);
-    this.toggleVisitsCollapsedMenu = this.toggleVisitsCollapsedMenu.bind(this);
-    this.toggleReportsCollapsedMenu = this.toggleReportsCollapsedMenu.bind(this);
-    this.toggleUserManagementCollapsedMenu = this.toggleUserManagementCollapsedMenu.bind(this);
-    this.toggleSettingsCollapsedMenu = this.toggleSettingsCollapsedMenu.bind(this);
-    this.toggleFieldsCollapsedMenu = this.toggleFieldsCollapsedMenu.bind(this);
   }
 
-  toggleEnrollmentCollapsedMenu(event) {
+  toggleEnrollmentCollapsedMenu = (event) => {
     event.preventDefault();
     this.setState(prevState => ({ enrollmentCollapsed: !prevState.enrollmentCollapsed }));
     return false;
-  }
+  };
 
-  toggleVisitsCollapsedMenu(event) {
+  toggleVisitsCollapsedMenu = (event) => {
     event.preventDefault();
     this.setState(prevState => ({ visitsCollapsed: !prevState.visitsCollapsed }));
     return false;
-  }
+  };
 
-  toggleReportsCollapsedMenu(event) {
+  toggleReportsCollapsedMenu = (event) => {
     event.preventDefault();
     this.setState(prevState => ({ reportsCollapsed: !prevState.reportsCollapsed }));
     return false;
-  }
+  };
 
-  toggleUserManagementCollapsedMenu(event) {
+  toggleUserManagementCollapsedMenu = (event) => {
     event.preventDefault();
     this.setState(prevState => ({ userManagmentCollapsed: !prevState.userManagmentCollapsed }));
     return false;
-  }
+  };
 
-  toggleSettingsCollapsedMenu(event) {
+  toggleSettingsCollapsedMenu = (event) => {
     event.preventDefault();
     this.setState(prevState => ({ settingsCollapsed: !prevState.settingsCollapsed }));
     return false;
-  }
+  };
 
-  toggleFieldsCollapsedMenu(event) {
+  toggleFieldsCollapsedMenu = (event) => {
     event.preventDefault();
     this.setState(prevState => ({ fieldsCollapsed: !prevState.fieldsCollapsed }));
     return false;
-  }
+  };
 
-  renderEnrollmentCollapsedMenu() {
+  renderEnrollmentCollapsedMenu = () => {
     const { enrollmentCollapsed } = this.state;
 
     if (enrollmentCollapsed) {
@@ -83,9 +77,9 @@ class SideBar extends Component {
         </li>
       </ul>
     );
-  }
+  };
 
-  renderVisitsCollapsedMenu() {
+  renderVisitsCollapsedMenu = () => {
     const { visitsCollapsed } = this.state;
 
     if (visitsCollapsed) {
@@ -114,9 +108,9 @@ class SideBar extends Component {
         </li>
       </ul>
     );
-  }
+  };
 
-  renderReportsCollapsedMenu() {
+  renderReportsCollapsedMenu = () => {
     const { reportsCollapsed } = this.state;
 
     if (reportsCollapsed) {
@@ -171,7 +165,7 @@ class SideBar extends Component {
     );
   }
 
-  renderUserManagementCollapsedMenu() {
+  renderUserManagementCollapsedMenu = () => {
     const { userManagmentCollapsed } = this.state;
 
     if (userManagmentCollapsed) {
@@ -194,9 +188,9 @@ class SideBar extends Component {
         </li>
       </ul>
     );
-  }
+  };
 
-  renderSettingsCollapsedMenu() {
+  renderSettingsCollapsedMenu = () => {
     const { settingsCollapsed } = this.state;
 
     if (settingsCollapsed) {
@@ -232,9 +226,9 @@ class SideBar extends Component {
         </li>
       </ul>
     );
-  }
+  };
 
-  renderFieldsCollapsedMenu() {
+  renderFieldsCollapsedMenu = () => {
     const { fieldsCollapsed } = this.state;
 
     if (fieldsCollapsed) {
@@ -277,7 +271,7 @@ class SideBar extends Component {
         </li>
       </ul>
     );
-  }
+  };
 
   render() {
     const { sidebarVisible } = this.props;
