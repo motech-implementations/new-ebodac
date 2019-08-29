@@ -82,6 +82,20 @@ const renderFormField = (props) => {
   );
 };
 
+export const validate = fieldConfigs => (values) => {
+  const errors = {};
+
+  _.forEach(fieldConfigs, (config) => {
+    const val = values[config.name];
+
+    if (config.required && (_.isNil(val) || val === '')) {
+      errors[config.name] = `${config.displayName} is required`;
+    }
+  });
+
+  return errors;
+};
+
 export default renderFormField;
 
 renderFormField.propTypes = {
