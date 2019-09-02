@@ -8,29 +8,29 @@ import {
 } from '../../actions/index';
 
 import {
-  FETCH_SITE_CONFIG,
-  CREATE_SITE_CONFIG,
-  SAVE_SITE_CONFIG,
-  DELETE_SITE_CONFIG,
+  FETCH_VISIT_CONFIG,
+  CREATE_VISIT_CONFIG,
+  SAVE_VISIT_CONFIG,
+  DELETE_VISIT_CONFIG,
 } from '../../actions/types';
 
-const SITE = 'SITE';
+const VISIT = 'VISIT';
 
-class SiteFields extends Component {
+class VisitFields extends Component {
   fetchFieldConfig = (callback) => {
-    this.props.fetchFieldConfig(SITE, FETCH_SITE_CONFIG, callback);
+    this.props.fetchFieldConfig(VISIT, FETCH_VISIT_CONFIG, callback);
   };
 
   createFieldConfig = (item) => {
-    this.props.createFieldConfig(CREATE_SITE_CONFIG, item);
+    this.props.createFieldConfig(CREATE_VISIT_CONFIG, item);
   };
 
   saveFieldConfig = (item) => {
-    this.props.saveFieldConfig(SAVE_SITE_CONFIG, item);
+    this.props.saveFieldConfig(SAVE_VISIT_CONFIG, item);
   };
 
   deleteFieldConfig = (item, callback) => {
-    this.props.deleteFieldConfig(DELETE_SITE_CONFIG, item, callback);
+    this.props.deleteFieldConfig(DELETE_VISIT_CONFIG, item, callback);
   };
 
   render() {
@@ -51,19 +51,16 @@ class SiteFields extends Component {
 
 function mapStateToProps(state) {
   return {
-    fieldConfigs: state.fieldConfigs.site,
+    fieldConfigs: state.fieldConfigs.visit,
   };
 }
 
 export default connect(mapStateToProps,
   {
-    fetchFieldConfig,
-    saveFieldConfig,
-    deleteFieldConfig,
-    createFieldConfig,
-  })(SiteFields);
+    fetchFieldConfig, saveFieldConfig, deleteFieldConfig, createFieldConfig,
+  })(VisitFields);
 
-SiteFields.propTypes = {
+VisitFields.propTypes = {
   fetchFieldConfig: PropTypes.func.isRequired,
   createFieldConfig: PropTypes.func.isRequired,
   saveFieldConfig: PropTypes.func.isRequired,

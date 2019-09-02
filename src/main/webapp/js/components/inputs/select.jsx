@@ -7,7 +7,7 @@ const Select = ({
   onChange, options, value, ...props
 }) => {
   const handleChange = (val) => {
-    if (val) {
+    if (val && 'value' in val) {
       onChange(val.value);
     } else {
       onChange(val);
@@ -19,7 +19,7 @@ const Select = ({
       return null;
     }
 
-    return _.find(options, option => _.isEqual(option, value));
+    return _.find(options, option => _.isEqual(option.value, value));
   };
 
   return (

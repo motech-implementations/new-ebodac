@@ -1,5 +1,8 @@
-import initialState from './initial-state';
 import { FETCH_VACCINEES } from '../actions/types';
+
+const initialState = {
+  vaccineeList: [],
+};
 
 export default (state = initialState, action) => {
   switch (action.type) {

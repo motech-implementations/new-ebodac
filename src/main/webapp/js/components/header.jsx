@@ -14,21 +14,19 @@ class Header extends Component {
     this.state = {
       toggleButtonToggled: true,
     };
-    this.collapseSideBar = this.collapseSideBar.bind(this);
-    this.onSignout = this.onSignout.bind(this);
   }
 
-  onSignout(event) {
+  onSignout = (event) => {
     this.props.signoutUser();
     event.preventDefault();
-  }
+  };
 
-  collapseSideBar() {
+  collapseSideBar = () => {
     const { toggleSidebarMenu } = this.props;
 
     toggleSidebarMenu();
     this.setState(prevState => ({ toggleButtonToggled: !prevState.toggleButtonToggled }));
-  }
+  };
 
   render() {
     const { toggleButtonToggled } = this.state;

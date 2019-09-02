@@ -1,6 +1,7 @@
 package org.motechproject.newebodac.web;
 
 import java.util.List;
+import java.util.UUID;
 import javax.validation.Valid;
 import org.motechproject.newebodac.dto.FieldConfigDto;
 import org.motechproject.newebodac.service.FieldConfigService;
@@ -27,10 +28,25 @@ public class FieldConfigController extends BaseController {
     return fieldConfigService.getByEntityName(name);
   }
 
-  @RequestMapping(value = "/fieldConfig/create", method = RequestMethod.POST)
+  @RequestMapping(value = "/fieldConfig", method = RequestMethod.POST)
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   public FieldConfigDto create(@RequestBody @Valid FieldConfigDto fieldConfigDto) {
     return fieldConfigService.create(fieldConfigDto);
+  }
+
+  @RequestMapping(value = "/fieldConfig/{id}", method = RequestMethod.PUT)
+  @ResponseStatus(HttpStatus.OK)
+  @ResponseBody
+  public FieldConfigDto update(@PathVariable("id") UUID id,
+      @RequestBody @Valid FieldConfigDto fieldConfigDto) {
+    return fieldConfigService.updateFromDto(id, fieldConfigDto);
+  }
+
+  @RequestMapping(value = "/fieldConfig/{id}", method = RequestMethod.DELETE)
+  @ResponseStatus(HttpStatus.OK)
+  @ResponseBody
+  public void delete(@PathVariable("id") UUID id) {
+    fieldConfigService.delete(id);
   }
 }

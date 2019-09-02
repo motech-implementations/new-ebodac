@@ -2,6 +2,7 @@ package org.motechproject.newebodac.mapper;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 import org.motechproject.newebodac.domain.FieldConfig;
@@ -16,4 +17,10 @@ public interface FieldConfigMapper extends EntityMapper<FieldConfigDto, FieldCon
   @Override
   @Mapping(target = "id", ignore = true)
   FieldConfig fromDto(FieldConfigDto fieldConfigDto);
+
+  @Mapping(target = "updateDate", ignore = true)
+  @Mapping(target = "createDate", ignore = true)
+  @Mapping(target = "id", ignore = true)
+  void updateFromDto(FieldConfigDto fieldConfigDto,
+      @MappingTarget FieldConfig fieldConfig);
 }

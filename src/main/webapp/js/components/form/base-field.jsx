@@ -13,16 +13,17 @@ const renderField = ({
     ...config, id: input.name, value: input.value, onChange,
   };
 
-  const className = `form-group ${required ? 'required' : ''} ${touched && error ? 'has-error' : ''}`;
+  const className = `input-row ${required ? 'required' : ''} ${touched && error ? 'has-error' : ''}`;
+
   return (
-    <div className={`mt-2 ${className}`}>
-      <div className="row">
-        <label htmlFor={attr.id} className="col-md-2 col-form-label">{ displayName }</label>
-        <div className="col-md-4">
+    <div className={className}>
+      <div>
+        <span htmlFor={attr.id} className="col-md-2 col-form-label">{ displayName }</span>
+        <span className="col-md-4">
           {renderInput(attr)}
-        </div>
+        </span>
       </div>
-      <div className="row">
+      <div>
         <div className="col-md-2" />
         <div className="help-block col-md-4" style={{ float: 'left' }}>
           { touched ? error : '' }

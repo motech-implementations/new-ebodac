@@ -16,6 +16,7 @@ const AUTH_URL = `${BASE_URL}/oauth/token`;
 const CLIENT_ID = 'trusted-client';
 const CLIENT_SECRET = 'secret';
 const VACCINEES = `${BASE_URL}/vaccinee`;
+const FIELD_CONFIG = `${BASE_URL}/fieldConfig`;
 
 const authClient = new Client({
   clientId: CLIENT_ID,
@@ -81,7 +82,7 @@ export function signoutUser() {
   return { type: UNAUTH_USER };
 }
 
-export default function (callback) {
+export function fetchVaccinees(callback) {
   return function action(dispatch) {
     const request = apiClient.get(VACCINEES);
     return request.then(
@@ -89,6 +90,52 @@ export default function (callback) {
         dispatch({
           type: FETCH_VACCINEES,
           payload: response,
+        });
+        callback();
+      },
+    );
+  };
+}
+
+export function fetchFieldConfig(entity, type, callback) {
+  return function action(dispatch) {
+    const request = apiClient.get(`${FIELD_CONFIG}/${entity}`);
+    return request.then(
+      (response) => {
+        dispatch({
+          type,
+          payload: response,
+        });
+        callback();
+      },
+    );
+  };
+}
+
+export function createFieldConfig(type, item) {
+  const request = apiClient.post(`${FIELD_CONFIG}`, item);
+  return {
+    type,
+    payload: request,
+  };
+}
+
+export function saveFieldConfig(type, item) {
+  const request = apiClient.put(`${FIELD_CONFIG}/${item.id}`, item);
+  return {
+    type,
+    payload: request,
+  };
+}
+
+export function deleteFieldConfig(type, item, callback) {
+  return function action(dispatch) {
+    const request = apiClient.delete(`${FIELD_CONFIG}/${item.id}`);
+    return request.then(
+      () => {
+        dispatch({
+          type,
+          payload: item.id,
         });
         callback();
       },

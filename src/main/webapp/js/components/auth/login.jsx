@@ -21,18 +21,12 @@ function validate(values) {
 }
 
 class Login extends Component {
-  constructor(props) {
-    super(props);
-
-    this.onSubmit = this.onSubmit.bind(this);
-  }
-
-  onSubmit(values) {
+  onSubmit = (values) => {
     const { history } = this.props;
     this.props.signinUser(values, () => {
       history.push('/');
     });
-  }
+  };
 
   static renderField(field) {
     const {
@@ -51,7 +45,7 @@ class Login extends Component {
     );
   }
 
-  renderAlert() {
+  renderAlert = () => {
     const { errorMessage } = this.props;
     if (errorMessage) {
       return (
@@ -62,7 +56,7 @@ class Login extends Component {
     }
 
     return null;
-  }
+  };
 
   render() {
     return (
@@ -102,7 +96,7 @@ class Login extends Component {
                           icon="lock"
                           component={Login.renderField}
                         />
-                        <div className="form-group text-center">
+                        <div className="input-row text-center">
                           <div className="col-sm-12">
                             <button type="submit" className="btn btn-secondary" disabled={invalid}>Login</button>
                           </div>

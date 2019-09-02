@@ -379,7 +379,7 @@ sidebar-collapse {
   position: absolute !important;
   z-index: 10;
 
-  .mots-confirm-modal {
+  .nebodac-confirm-modal {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -413,7 +413,10 @@ sidebar-collapse {
 }
 
 /* Forms */
-.form-group {
+.input-row {
+  padding-top: 2px;
+  padding-bottom: 2px;
+
   &.required {
     .col-form-label:after {
       content: "*";
@@ -423,9 +426,9 @@ sidebar-collapse {
 }
 
 .help-block {
-  display: block;
-  margin-top: 5px;
-  margin-bottom: 10px;
+  display: contents;
+  margin-top: 3px;
+  margin-bottom: 5px;
   color: $gray-dark;
 }
 
@@ -524,4 +527,25 @@ select.form-control {
 
 .icon-text {
   margin-left: 10px;
+}
+
+.two-coll-dnd {
+  display: inline-flex;
+  overflow-y: auto;
+}
+
+.modal-fields {
+  display: grid;
+}
+
+.config-modal-form {
+  span[for] {
+    color: #337ab7;
+    font-weight: bold;
+  }
+  [type=checkbox] {
+    width: 1.4em;
+    height: 1.4em;
+    float: right;
+  }
 }

@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 import 'react-table/react-table.css';
 
-import fetchVaccinees from '../actions/index';
+import { fetchVaccinees } from '../actions/index';
 
 class Vaccinee extends Component {
   constructor(props) {
