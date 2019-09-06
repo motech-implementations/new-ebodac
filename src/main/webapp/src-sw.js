@@ -11,6 +11,10 @@ workbox.routing.registerRoute(
   new workbox.strategies.StaleWhileRevalidate()
 );
 workbox.routing.registerRoute(
+  new RegExp('/api/.*'),
+  new workbox.strategies.NetworkOnly()
+);
+workbox.routing.registerRoute(
   new RegExp('/'),
   new workbox.strategies.NetworkFirst()
 );

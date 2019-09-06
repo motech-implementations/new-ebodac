@@ -3,11 +3,30 @@ import Modal from 'react-modal';
 import PropTypes from 'prop-types';
 import { Form } from 'react-final-form';
 import _ from 'lodash';
+import { connect } from 'react-redux';
 
 import ConfirmModal from '../comfirm-modal';
 import renderFormField from '../form/form-utils';
+import { getFieldConfigById } from '../../selectors';
+import { createFieldConfig, deleteFieldConfig, saveFieldConfig } from '../../actions';
+import { getEntityTypeName } from '../../utils/entity-types';
 
 Modal.setAppElement(document.getElementById('root'));
+
+const defaultConfig = {
+  base: false,
+  editable: true,
+  filterable: true,
+  required: false,
+  hidden: false,
+  fieldType: null,
+  entity: null,
+  displayName: '',
+  name: '',
+  relatedEntity: null,
+  relatedField: null,
+  format: '',
+};
 
 const customStyles = {
   content: {
@@ -29,27 +48,26 @@ const FIELD_TYPE_OPTIONS = [
   { label: 'Integer', value: 'INTEGER' },
   { label: 'Float', value: 'FLOAT' },
   { label: 'Boolean', value: 'BOOLEAN' },
-  { label: 'Data', value: 'DATE' },
+  { label: 'Date', value: 'DATE' },
   { label: 'Date time', value: 'DATE_TIME' },
   { label: 'Enum', value: 'ENUM' },
-  { label: 'Relation', value: 'RELATION' },
-  { label: 'Collection', value: 'COLLECTION' },
-  { label: 'Vaccination date', value: 'VACCINATION_DATE' },
-];
-
-const ENTITY_TYPE_OPTION = [
-  { label: 'Vaccinee', value: 'VACCINEE' },
-  { label: 'Visit', value: 'VISIT' },
-  { label: 'Site', value: 'SITE' },
-  { label: 'Group', value: 'GROUP' },
-  { label: 'Person', value: 'PERSON' },
-  { label: 'Language', value: 'LANGUAGE' },
-  { label: 'Visit type', value: 'VISIT_TYPE' },
+  { label: 'Relation', value: 'RELATION', isDisabled: true },
+  { label: 'Collection', value: 'COLLECTION', isDisabled: true },
+  { label: 'Vaccination date', value: 'VACCINATION_DATE', isDisabled: true },
 ];
 
 const FIELDS = [
   {
-    name: 'base', fieldType: 'BOOLEAN', displayName: 'Base', required: true,
+    name: 'name', fieldType: 'TEXT', displayName: 'Name', required: true,
+  },
+  {
+    name: 'fieldType', fieldType: 'RELATION', displayName: 'Field type', required: true, options: FIELD_TYPE_OPTIONS,
+  },
+  {
+    name: 'displayName', fieldType: 'TEXT', displayName: 'Display name', required: true,
+  },
+  {
+    name: 'required', fieldType: 'BOOLEAN', displayName: 'Required', required: true,
   },
   {
     name: 'editable', fieldType: 'BOOLEAN', displayName: 'Editable', required: true,
@@ -58,28 +76,7 @@ const FIELDS = [
     name: 'filterable', fieldType: 'BOOLEAN', displayName: 'Filterable', required: true,
   },
   {
-    name: 'required', fieldType: 'BOOLEAN', displayName: 'Required', required: true,
-  },
-  {
-    name: 'fieldType', fieldType: 'RELATION', displayName: 'Field type', required: true, options: FIELD_TYPE_OPTIONS,
-  },
-  {
-    name: 'entity', fieldType: 'RELATION', displayName: 'Entity', required: true, options: ENTITY_TYPE_OPTION,
-  },
-  {
-    name: 'relatedEntity', fieldType: 'RELATION', displayName: 'Related entity', required: false, options: ENTITY_TYPE_OPTION,
-  },
-  {
-    name: 'displayName', fieldType: 'TEXT', displayName: 'Display name', required: true,
-  },
-  {
-    name: 'name', fieldType: 'TEXT', displayName: 'Name', required: true,
-  },
-  {
     name: 'format', fieldType: 'TEXT', displayName: 'Format', required: false,
-  },
-  {
-    name: 'relatedField', fieldType: 'TEXT', displayName: 'Related field', required: false,
   },
 ];
 
@@ -93,12 +90,15 @@ class FieldConfigModal extends React.Component {
   }
 
   onSubmit = (values) => {
-    const { modalType } = this.props;
-    if (modalType === 'update') {
-      this.props.updateConfig(values);
+    const { fieldId, entityType, newItemOrder } = this.props;
+
+    if (!fieldId) {
+      this.props.createFieldConfig(entityType,
+        { ...values, fieldOrder: newItemOrder, entity: getEntityTypeName(entityType) });
     } else {
-      this.props.createConfig(values);
+      this.props.saveFieldConfig(entityType, values);
     }
+
     this.props.hideModal();
   };
 
@@ -106,13 +106,12 @@ class FieldConfigModal extends React.Component {
     this.setState({ openConfirmModal: false });
   };
 
-  hideConfigModal = () => {
+  deleteConfig = () => {
+    const { fieldConfig, entityType } = this.props;
+
+    this.props.deleteFieldConfig(entityType, fieldConfig);
     this.hideConfirmModal();
     this.props.hideModal();
-  };
-
-  deleteConfig = () => {
-    this.props.deleteConfig(this.props.item, () => this.hideConfigModal());
   };
 
   validate = (values) => {
@@ -127,28 +126,36 @@ class FieldConfigModal extends React.Component {
     this.setState({ openConfirmModal: true });
   };
 
-  displayFields = () => {
+  renderFields = () => {
     const { openConfirmModal } = this.state;
-    const { modalType } = this.props;
-    const { base } = this.props.item;
+    const { fieldConfig, fieldId } = this.props;
+    let config = fieldConfig;
+
+    if (!fieldId) {
+      config = defaultConfig;
+    }
+
     return (
       <div className="config-modal-form">
         <Form
           onSubmit={this.onSubmit}
           validate={this.validate}
-          initialValues={this.props.item}
+          initialValues={config}
           render={({ handleSubmit, invalid }) => (
             <form onSubmit={handleSubmit} className="modal-fields">
-              {_.map(FIELDS, elem => renderFormField(elem))}
+              {_.map(FIELDS, elem => renderFormField({ ...elem, editable: (elem.name !== 'name' && elem.name !== 'fieldType') || !fieldId }))}
               <div>
                 <span>
-                  <button type="submit" disabled={invalid} className="btn btn-primary">Save</button>
+                  <button type="submit" disabled={invalid} className="btn btn-primary mr-1">Save</button>
+                </span>
+                <span>
+                  <button type="button" onClick={this.props.hideModal} className="btn btn-secondary">Cancel</button>
                 </span>
                 <span style={{ float: 'right' }}>
                   <button
                     type="button"
                     className="btn btn-danger"
-                    disabled={base || modalType === 'create'}
+                    disabled={config.base || !fieldId}
                     onClick={this.openConfirmModal}
                   >
                     Delete
@@ -193,33 +200,33 @@ class FieldConfigModal extends React.Component {
             </div>
             <h2>Field Config</h2>
           </div>
-          {this.displayFields()}
+          {this.renderFields()}
         </Modal>
       </div>
     );
   }
 }
 
-export default FieldConfigModal;
+const mapStateToProps = (state, props) => ({
+  fieldConfig: getFieldConfigById(state, props),
+});
+
+export default connect(mapStateToProps,
+  { saveFieldConfig, deleteFieldConfig, createFieldConfig })(FieldConfigModal);
 
 FieldConfigModal.propTypes = {
   modalIsOpen: PropTypes.bool.isRequired,
   hideModal: PropTypes.func.isRequired,
-  createConfig: PropTypes.func.isRequired,
-  deleteConfig: PropTypes.func.isRequired,
-  updateConfig: PropTypes.func.isRequired,
-  modalType: PropTypes.string.isRequired,
-  item: PropTypes.shape({
-    base: PropTypes.bool,
-    editable: PropTypes.bool,
-    filterable: PropTypes.bool,
-    required: PropTypes.bool,
-    fieldType: PropTypes.string,
-    entity: PropTypes.string,
-    displayName: PropTypes.string,
-    name: PropTypes.string,
-    relatedEntity: PropTypes.string,
-    relatedField: PropTypes.string,
-    format: PropTypes.string,
-  }).isRequired,
+  entityType: PropTypes.string.isRequired,
+  newItemOrder: PropTypes.number.isRequired,
+  createFieldConfig: PropTypes.func.isRequired,
+  saveFieldConfig: PropTypes.func.isRequired,
+  deleteFieldConfig: PropTypes.func.isRequired,
+  fieldId: PropTypes.string,
+  fieldConfig: PropTypes.shape({}),
+};
+
+FieldConfigModal.defaultProps = {
+  fieldId: null,
+  fieldConfig: null,
 };

@@ -20,7 +20,7 @@
   ],
   "rules": {
     "import/named": 2,
-    "react/jsx-filename-extension": 0,
+    "react/jsx-filename-extension": 2,
     "jsx-a11y/anchor-is-valid": [ "error", {
       "components": [ "Link" ],
       "specialLink": [ "to", "hrefLeft", "hrefRight" ],

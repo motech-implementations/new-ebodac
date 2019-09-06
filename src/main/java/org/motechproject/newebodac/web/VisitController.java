@@ -44,7 +44,7 @@ public class VisitController extends BaseController {
    * @param visitDto Dto of created visit.
    * @return Dto od created visit.
    */
-  @RequestMapping(value = "/visit/create", method = RequestMethod.POST)
+  @RequestMapping(value = "/visit", method = RequestMethod.POST)
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   public VisitDto create(@RequestBody @Valid VisitDto visitDto) {

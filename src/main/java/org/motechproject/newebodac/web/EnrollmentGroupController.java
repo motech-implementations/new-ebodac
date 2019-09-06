@@ -39,7 +39,7 @@ public class EnrollmentGroupController extends BaseController {
     return enrollmentGroupService.findById(id);
   }
 
-  @RequestMapping(value = "/enrollmentGroup/create", method = RequestMethod.POST)
+  @RequestMapping(value = "/enrollmentGroup", method = RequestMethod.POST)
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   public EnrollmentGroupDto create(@RequestBody @Valid EnrollmentGroupDto enrollmentGroupDto) {

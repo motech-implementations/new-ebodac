@@ -45,11 +45,9 @@ class Vaccinee extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    vaccineeList: state.vaccinee.vaccineeList,
-  };
-}
+const mapStateToProps = state => ({
+  vaccineeList: state.vaccinee.vaccineeList,
+});
 
 export default connect(mapStateToProps, { fetchVaccinees })(Vaccinee);
 

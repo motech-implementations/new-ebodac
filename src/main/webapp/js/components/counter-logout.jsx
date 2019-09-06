@@ -39,12 +39,10 @@ class CounterLogout extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    counterLogoutTime: state.auth.counterLogoutTime,
-    resetCounter: state.auth.resetCounter,
-  };
-}
+const mapStateToProps = state => ({
+  counterLogoutTime: state.auth.counterLogoutTime,
+  resetCounter: state.auth.resetCounter,
+});
 
 export default connect(mapStateToProps, { signoutUser })(CounterLogout);
 

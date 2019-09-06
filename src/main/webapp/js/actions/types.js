@@ -4,19 +4,11 @@ export const AUTH_USER = 'auth_user';
 export const UNAUTH_USER = 'unauth_user';
 export const AUTH_ERROR = 'auth_error';
 export const SET_COUNTER_LOGOUT_TIME = 'set_counter_logout_time';
-export const FETCH_VACCINEE_CONFIG = 'fetch_vaccinee_config';
-export const CREATE_VACCINEE_CONFIG = 'create_vaccinee_config';
-export const SAVE_VACCINEE_CONFIG = 'save_vaccinee_config';
-export const DELETE_VACCINEE_CONFIG = 'delete_vaccinee_config';
-export const FETCH_KCP_CONFIG = 'fetch_kcp_config';
-export const CREATE_KCP_CONFIG = 'create_kcp_config';
-export const SAVE_KCP_CONFIG = 'save_kcp_config';
-export const DELETE_KCP_CONFIG = 'delete_kcp_config';
-export const FETCH_SITE_CONFIG = 'fetch_site_config';
-export const CREATE_SITE_CONFIG = 'create_site_config';
-export const SAVE_SITE_CONFIG = 'save_site_config';
-export const DELETE_SITE_CONFIG = 'delete_site_config';
-export const FETCH_VISIT_CONFIG = 'fetch_visit_config';
-export const CREATE_VISIT_CONFIG = 'create_visit_config';
-export const SAVE_VISIT_CONFIG = 'save_visit_config';
-export const DELETE_VISIT_CONFIG = 'delete_visit_config';
+
+export const FETCH_FIELD_CONFIG = 'fetch_field_config';
+export const CREATE_FIELD_CONFIG = 'create_field_config';
+export const SAVE_FIELD_CONFIG = 'save_field_config';
+export const DELETE_FIELD_CONFIG = 'delete_field_config';
+
+export const CHANGE_FIELD_VISIBILITY = 'change_field_visibility';
+export const CHANGE_FIELD_ORDER = 'change_field_order';

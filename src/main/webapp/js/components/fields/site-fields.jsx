@@ -1,73 +1,14 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import React from 'react';
 
 import FieldConfigPage from './field-config-page';
-import {
-  fetchFieldConfig, saveFieldConfig, deleteFieldConfig, createFieldConfig,
-} from '../../actions/index';
+import { SITE_ENTITY } from '../../utils/entity-types';
 
-import {
-  FETCH_SITE_CONFIG,
-  CREATE_SITE_CONFIG,
-  SAVE_SITE_CONFIG,
-  DELETE_SITE_CONFIG,
-} from '../../actions/types';
+const SiteFields = () => (
+  <div className="container-fluid">
+    <FieldConfigPage
+      entityType={SITE_ENTITY}
+    />
+  </div>
+);
 
-const SITE = 'SITE';
-
-class SiteFields extends Component {
-  fetchFieldConfig = (callback) => {
-    this.props.fetchFieldConfig(SITE, FETCH_SITE_CONFIG, callback);
-  };
-
-  createFieldConfig = (item) => {
-    this.props.createFieldConfig(CREATE_SITE_CONFIG, item);
-  };
-
-  saveFieldConfig = (item) => {
-    this.props.saveFieldConfig(SAVE_SITE_CONFIG, item);
-  };
-
-  deleteFieldConfig = (item, callback) => {
-    this.props.deleteFieldConfig(DELETE_SITE_CONFIG, item, callback);
-  };
-
-  render() {
-    const { fieldConfigs } = this.props;
-    return (
-      <div className="container-fluid">
-        <FieldConfigPage
-          fetchFieldConfig={this.fetchFieldConfig}
-          createFieldConfig={this.createFieldConfig}
-          saveFieldConfig={this.saveFieldConfig}
-          deleteFieldConfig={this.deleteFieldConfig}
-          fieldConfigs={fieldConfigs}
-        />
-      </div>
-    );
-  }
-}
-
-function mapStateToProps(state) {
-  return {
-    fieldConfigs: state.fieldConfigs.site,
-  };
-}
-
-export default connect(mapStateToProps,
-  {
-    fetchFieldConfig,
-    saveFieldConfig,
-    deleteFieldConfig,
-    createFieldConfig,
-  })(SiteFields);
-
-SiteFields.propTypes = {
-  fetchFieldConfig: PropTypes.func.isRequired,
-  createFieldConfig: PropTypes.func.isRequired,
-  saveFieldConfig: PropTypes.func.isRequired,
-  deleteFieldConfig: PropTypes.func.isRequired,
-  fieldConfigs: PropTypes.arrayOf(PropTypes.shape({
-  })).isRequired,
-};
+export default SiteFields;

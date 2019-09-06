@@ -8,8 +8,13 @@ import {
   UNAUTH_USER,
   AUTH_ERROR,
   SET_COUNTER_LOGOUT_TIME,
+  FETCH_FIELD_CONFIG,
+  CREATE_FIELD_CONFIG,
+  SAVE_FIELD_CONFIG,
+  DELETE_FIELD_CONFIG,
+  CHANGE_FIELD_VISIBILITY,
+  CHANGE_FIELD_ORDER,
 } from './types';
-
 
 const BASE_URL = '/api';
 const AUTH_URL = `${BASE_URL}/oauth/token`;
@@ -24,121 +29,126 @@ const authClient = new Client({
   accessTokenUri: AUTH_URL,
 });
 
-export function authError(error) {
-  return {
-    type: AUTH_ERROR,
-    payload: error,
-  };
-}
+export const authError = error => ({
+  type: AUTH_ERROR,
+  payload: error,
+});
 
-export function signinUser({ username, password }, callback) {
-  return (dispatch) => {
-    authClient.owner.getToken(username, password)
-      .then((response) => {
-        dispatch({ type: AUTH_USER });
-        const tokenDecoded = jwtDecode(response.accessToken);
-        dispatch({
-          type: SET_COUNTER_LOGOUT_TIME,
-          payload: tokenDecoded.exp_period,
-        });
-        localStorage.setItem('refresh_token', response.refreshToken);
-        localStorage.setItem('token', response.accessToken);
-        callback();
-      })
-      .catch(() => {
-        dispatch(authError('Wrong username or password. Please try again.'));
-      });
-  };
-}
-
-export function useRefreshToken(refreshToken, callback) {
-  return dispatch => axios({
-    method: 'post',
-    url: AUTH_URL,
-    auth: {
-      username: CLIENT_ID,
-      password: CLIENT_SECRET,
-    },
-    params: {
-      grant_type: 'refresh_token',
-      refresh_token: refreshToken,
-    },
-  })
-    .catch(() => {
-      dispatch(authError('Error occurred when refreshing the user session'));
-    })
+export const signinUser = ({ username, password }, callback) => (dispatch) => {
+  authClient.owner.getToken(username, password)
     .then((response) => {
-      localStorage.setItem('token', response.data.access_token);
-      localStorage.setItem('refresh_token', response.data.refresh_token);
       dispatch({ type: AUTH_USER });
-      if (callback) {
-        return callback();
-      }
-      return null;
+      const tokenDecoded = jwtDecode(response.accessToken);
+      dispatch({
+        type: SET_COUNTER_LOGOUT_TIME,
+        payload: tokenDecoded.exp_period,
+      });
+      localStorage.setItem('refresh_token', response.refreshToken);
+      localStorage.setItem('token', response.accessToken);
+      callback();
+    })
+    .catch(() => {
+      dispatch(authError('Wrong username or password. Please try again.'));
     });
-}
+};
 
-export function signoutUser() {
-  return { type: UNAUTH_USER };
-}
+export const useRefreshToken = (refreshToken, callback) => dispatch => axios({
+  method: 'post',
+  url: AUTH_URL,
+  auth: {
+    username: CLIENT_ID,
+    password: CLIENT_SECRET,
+  },
+  params: {
+    grant_type: 'refresh_token',
+    refresh_token: refreshToken,
+  },
+})
+  .catch(() => {
+    dispatch(authError('Error occurred when refreshing the user session'));
+  })
+  .then((response) => {
+    localStorage.setItem('token', response.data.access_token);
+    localStorage.setItem('refresh_token', response.data.refresh_token);
+    dispatch({ type: AUTH_USER });
+    if (callback) {
+      return callback();
+    }
+    return null;
+  });
 
-export function fetchVaccinees(callback) {
-  return function action(dispatch) {
-    const request = apiClient.get(VACCINEES);
-    return request.then(
-      (response) => {
-        dispatch({
-          type: FETCH_VACCINEES,
-          payload: response,
-        });
-        callback();
-      },
-    );
+export const signoutUser = () => ({ type: UNAUTH_USER });
+
+export const fetchVaccinees = callback => (dispatch) => {
+  const request = apiClient.get(VACCINEES);
+  return request.then(
+    (response) => {
+      dispatch({
+        type: FETCH_VACCINEES,
+        payload: response,
+      });
+      callback();
+    },
+  );
+};
+
+export const fetchFieldConfig = (entityType) => {
+  const request = apiClient.get(`${FIELD_CONFIG}/${entityType}`);
+  return {
+    type: FETCH_FIELD_CONFIG,
+    payload: request,
+    meta: {
+      entityType,
+    },
   };
-}
+};
 
-export function fetchFieldConfig(entity, type, callback) {
-  return function action(dispatch) {
-    const request = apiClient.get(`${FIELD_CONFIG}/${entity}`);
-    return request.then(
-      (response) => {
-        dispatch({
-          type,
-          payload: response,
-        });
-        callback();
-      },
-    );
-  };
-}
-
-export function createFieldConfig(type, item) {
+export const createFieldConfig = (entityType, item) => {
   const request = apiClient.post(`${FIELD_CONFIG}`, item);
   return {
-    type,
+    type: CREATE_FIELD_CONFIG,
     payload: request,
+    meta: {
+      entityType,
+    },
   };
-}
+};
 
-export function saveFieldConfig(type, item) {
+export const saveFieldConfig = (entityType, item) => {
   const request = apiClient.put(`${FIELD_CONFIG}/${item.id}`, item);
   return {
-    type,
+    type: SAVE_FIELD_CONFIG,
     payload: request,
+    meta: {
+      entityType,
+    },
   };
-}
+};
 
-export function deleteFieldConfig(type, item, callback) {
-  return function action(dispatch) {
-    const request = apiClient.delete(`${FIELD_CONFIG}/${item.id}`);
-    return request.then(
-      () => {
-        dispatch({
-          type,
-          payload: item.id,
-        });
-        callback();
-      },
-    );
+export const deleteFieldConfig = (entityType, fieldConfig) => {
+  const request = apiClient.delete(`${FIELD_CONFIG}/${fieldConfig.id}`);
+  return {
+    type: DELETE_FIELD_CONFIG,
+    payload: request,
+    meta: {
+      entityType,
+      fieldConfig,
+    },
   };
-}
+};
+
+export const changeFieldVisibility = (entityType, item) => ({
+  type: CHANGE_FIELD_VISIBILITY,
+  payload: item,
+  meta: {
+    entityType,
+  },
+});
+
+export const changeFieldOrder = (entityType, item) => ({
+  type: CHANGE_FIELD_ORDER,
+  payload: item,
+  meta: {
+    entityType,
+  },
+});
