@@ -9,7 +9,7 @@ const initialState = {
   resetCounter: false,
 };
 
-export default function (state = initialState, action) {
+export default (state = initialState, action) => {
   switch (action.type) {
     case AUTH_USER:
       return { ...state, error: '', authenticated: true };
@@ -25,4 +25,4 @@ export default function (state = initialState, action) {
   }
 
   return state;
-}
+};

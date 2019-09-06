@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 
 import { signinUser } from '../../actions';
 
-function validate(values) {
+const validate = (values) => {
   const error = {};
 
   if (!values.username) {
@@ -18,7 +18,7 @@ function validate(values) {
   }
 
   return error;
-}
+};
 
 class Login extends Component {
   onSubmit = (values) => {
@@ -114,9 +114,7 @@ class Login extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return { errorMessage: state.auth.error };
-}
+const mapStateToProps = state => ({ errorMessage: state.auth.error });
 
 export default connect(mapStateToProps, { signinUser })(Login);
 

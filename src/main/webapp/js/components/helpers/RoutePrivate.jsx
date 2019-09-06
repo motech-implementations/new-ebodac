@@ -5,10 +5,10 @@ import { connect } from 'react-redux';
 import authenticate from '../auth/authenticate-token';
 
 const PrivateRoute = ({ component: Component, authenticated, ...props }) => {
-  function isAuthenticated() {
+  const isAuthenticated = () => {
     authenticate();
     return authenticated; // Placeholder
-  }
+  };
 
   return (
     <Route
@@ -21,10 +21,7 @@ const PrivateRoute = ({ component: Component, authenticated, ...props }) => {
   );
 };
 
-
-function mapStateToProps(state) {
-  return { authenticated: state.auth.authenticated };
-}
+const mapStateToProps = state => ({ authenticated: state.auth.authenticated });
 
 PrivateRoute.propTypes = {
   component: PropTypes.elementType.isRequired,
