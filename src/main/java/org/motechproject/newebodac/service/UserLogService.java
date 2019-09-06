@@ -39,7 +39,9 @@ public class UserLogService {
   public void createOrUpdateUserLog(User user, Date expirationDate) {
     userLogRepository.findFirstByUserOrderByLoginDateDesc(user).ifPresentOrElse(
         userLog -> {
-          userLog.setLogoutDate(LocalDateTime.from(expirationDate.toInstant()));
+          userLog.setLogoutDate(LocalDateTime.from(expirationDate.toInstant()
+              .atZone(ZoneId.systemDefault())
+              .toLocalDateTime()));
           userLogRepository.save(userLog);
         },
         () -> createNewUserLog(user, expirationDate));

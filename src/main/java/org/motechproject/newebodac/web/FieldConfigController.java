@@ -45,8 +45,14 @@ public class FieldConfigController extends BaseController {
 
   @RequestMapping(value = "/fieldConfig/{id}", method = RequestMethod.DELETE)
   @ResponseStatus(HttpStatus.OK)
-  @ResponseBody
   public void delete(@PathVariable("id") UUID id) {
     fieldConfigService.delete(id);
+  }
+
+  @RequestMapping(value = "/fieldConfig/saveOrder", method = RequestMethod.POST)
+  @ResponseStatus(HttpStatus.OK)
+  @ResponseBody
+  public List<FieldConfigDto> saveOrder(@RequestBody @Valid List<FieldConfigDto> fieldConfigDtos) {
+    return fieldConfigService.saveOrder(fieldConfigDtos);
   }
 }

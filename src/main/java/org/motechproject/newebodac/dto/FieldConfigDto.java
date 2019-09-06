@@ -1,15 +1,14 @@
 package org.motechproject.newebodac.dto;
 
+import java.util.UUID;
 import lombok.Getter;
 import lombok.Setter;
-import org.motechproject.newebodac.validate.annotations.Uuid;
 
 @Getter
 @Setter
 public class FieldConfigDto {
 
-  @Uuid
-  private String id;
+  private UUID id;
 
   private String name;
 

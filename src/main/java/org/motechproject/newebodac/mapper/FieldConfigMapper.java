@@ -34,6 +34,16 @@ public interface FieldConfigMapper extends EntityMapper<FieldConfigDto, FieldCon
   @Mapping(target = "createDate", ignore = true)
   @Mapping(target = "hidden", ignore = true)
   @Mapping(target = "fieldOrder", ignore = true)
-  void updateFromDto(FieldConfigDto fieldConfigDto,
-      @MappingTarget FieldConfig fieldConfig);
+  void updateFromDto(FieldConfigDto fieldConfigDto, @MappingTarget FieldConfig fieldConfig);
+
+  @Mapping(target = "id", ignore = true)
+  @Mapping(target = "base", ignore = true)
+  @Mapping(target = "name", ignore = true)
+  @Mapping(target = "entity", ignore = true)
+  @Mapping(target = "fieldType", ignore = true)
+  @Mapping(target = "relatedEntity", ignore = true)
+  @Mapping(target = "relatedField", ignore = true)
+  @Mapping(target = "updateDate", ignore = true)
+  @Mapping(target = "createDate", ignore = true)
+  void updateOrderFromDto(FieldConfigDto fieldConfigDto, @MappingTarget FieldConfig fieldConfig);
 }
