@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import TextField from './text-field';
 import TextareaField from './textarea-field';
 import CheckboxField from './checkbox-field';
-import DatePicker from '../inputs/date-picker';
+import DateField from './date-field';
 import SelectField from './select-field';
 import NonEditableField from './non-editable-field';
 
@@ -27,7 +27,7 @@ const getOptionsFromEnum = (format) => {
 
 const renderFormField = (props) => {
   const {
-    name, fieldType, displayName, required, format, options,
+    name, fieldType, displayName, required, format, options, editable,
   } = props;
 
   let FieldType;
@@ -50,11 +50,11 @@ const renderFormField = (props) => {
       FieldType = CheckboxField;
       break;
     case 'DATE':
-      FieldType = DatePicker;
+      FieldType = DateField;
       attr = { dateFormat: format };
       break;
     case 'DATE_TIME':
-      FieldType = DatePicker;
+      FieldType = DateField;
       attr = { dateFormat: format, showTimeSelect: true };
       break;
     case 'ENUM':
@@ -76,7 +76,7 @@ const renderFormField = (props) => {
     <FieldType
       key={props.name}
       fieldConfig={{
-        name, displayName, required, ...attr,
+        name, displayName, required, editable, ...attr,
       }}
     />
   );
@@ -103,6 +103,7 @@ renderFormField.propTypes = {
   fieldType: PropTypes.string.isRequired,
   displayName: PropTypes.string.isRequired,
   required: PropTypes.bool.isRequired,
+  editable: PropTypes.bool.isRequired,
   format: PropTypes.string,
   options: PropTypes.arrayOf(PropTypes.shape({})),
 };

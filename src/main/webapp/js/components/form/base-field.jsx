@@ -3,14 +3,16 @@ import PropTypes from 'prop-types';
 import { Field } from 'react-final-form';
 
 const renderField = ({
-  renderInput, fieldConfig: { required, displayName, ...config }, input, meta: { touched, error },
+  renderInput, fieldConfig: {
+    required, editable = true, displayName, ...config
+  }, input, meta: { touched, error },
 }) => {
   const onChange = (value) => {
     input.onChange(value);
   };
 
   const attr = {
-    ...config, id: input.name, value: input.value, onChange,
+    ...config, disabled: !editable, id: input.name, value: input.value, onChange,
   };
 
   const className = `input-row ${required ? 'required' : ''} ${touched && error ? 'has-error' : ''}`;
@@ -18,7 +20,7 @@ const renderField = ({
   return (
     <div className={className}>
       <div>
-        <span htmlFor={attr.id} className="col-md-2 col-form-label">{ displayName }</span>
+        <span className="col-md-2 col-form-label"><label htmlFor={attr.id}>{ displayName }</label></span>
         <span className="col-md-4">
           {renderInput(attr)}
         </span>
@@ -49,6 +51,7 @@ renderField.propTypes = {
   fieldConfig: PropTypes.shape({
     displayName: PropTypes.string,
     required: PropTypes.bool,
+    editable: PropTypes.bool,
   }).isRequired,
   input: PropTypes.shape({
     name: PropTypes.string,
