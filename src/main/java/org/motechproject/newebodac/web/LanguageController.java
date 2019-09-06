@@ -44,7 +44,7 @@ public class LanguageController extends BaseController {
    * @param languageDto Dto of created language.
    * @return Dto of created language.
    */
-  @RequestMapping(value = "/language/create", method = RequestMethod.POST)
+  @RequestMapping(value = "/language", method = RequestMethod.POST)
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   public LanguageDto create(@RequestBody @Valid LanguageDto languageDto) {

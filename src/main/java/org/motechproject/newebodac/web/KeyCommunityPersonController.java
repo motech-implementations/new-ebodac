@@ -44,7 +44,7 @@ public class KeyCommunityPersonController extends BaseController {
    * @param keyCommunityPersonDto Dto of created key community person.
    * @return Dto of created key community person.
    */
-  @RequestMapping(value = "/keyCommunityPerson/create", method = RequestMethod.POST)
+  @RequestMapping(value = "/keyCommunityPerson", method = RequestMethod.POST)
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   public KeyCommunityPersonDto create(

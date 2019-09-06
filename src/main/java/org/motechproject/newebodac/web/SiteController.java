@@ -35,7 +35,7 @@ public class SiteController extends BaseController {
     return siteService.findById(siteId);
   }
 
-  @RequestMapping(value = "/site/create", method = RequestMethod.POST)
+  @RequestMapping(value = "/site", method = RequestMethod.POST)
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   public SiteDto create(@RequestBody @Valid SiteDto siteDto) {
