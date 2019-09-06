@@ -40,7 +40,7 @@ public class FieldConfigController extends BaseController {
   @ResponseBody
   public FieldConfigDto update(@PathVariable("id") UUID id,
       @RequestBody @Valid FieldConfigDto fieldConfigDto) {
-    return fieldConfigService.updateFromDto(id, fieldConfigDto);
+    return fieldConfigService.update(id, fieldConfigDto);
   }
 
   @RequestMapping(value = "/fieldConfig/{id}", method = RequestMethod.DELETE)

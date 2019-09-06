@@ -20,7 +20,7 @@ public class FieldConfigService {
   private FieldConfigRepository fieldConfigRepository;
 
   public List<FieldConfigDto> getByEntityName(String entityName) {
-    return MAPPER.toDtos(fieldConfigRepository.findByEntity(EntityType.valueOf(entityName)));
+    return MAPPER.toDtos(fieldConfigRepository.findByEntity(EntityType.getByName(entityName)));
   }
 
   public FieldConfigDto findById(UUID id) {
@@ -32,12 +32,12 @@ public class FieldConfigService {
   }
 
   /**
-   * Updates data from dto to config object, saves it and returns dto of it.
-   * @param id ID of object to update.
+   * Updates config with given id.
+   * @param id ID of config to update.
    * @param fieldConfigDto Dto of config to update.
-   * @return Dto of of updated config
+   * @return the updated config
    */
-  public FieldConfigDto updateFromDto(UUID id, FieldConfigDto fieldConfigDto) {
+  public FieldConfigDto update(UUID id, FieldConfigDto fieldConfigDto) {
     FieldConfig fieldConfig = fieldConfigRepository.findById(id).orElseThrow(() ->
         new EntityNotFoundException("Field config with id: {0} not found", id.toString()));
     MAPPER.updateFromDto(fieldConfigDto, fieldConfig);

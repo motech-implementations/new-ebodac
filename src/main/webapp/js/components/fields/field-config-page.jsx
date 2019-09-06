@@ -1,41 +1,18 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import PropTypes from 'prop-types';
-import update from 'immutability-helper';
-import _ from 'lodash';
 
+import { getVisibleFields, getHiddenFields } from '../../selectors';
 import FieldConfigModal from './field-config-modal';
+import { fetchFieldConfig, changeFieldVisibility, changeFieldOrder } from '../../actions';
 
-const defaultItem = {
-  base: false,
-  editable: false,
-  filterable: false,
-  required: false,
-  hidden: false,
-  fieldType: '',
-  entity: '',
-  displayName: '',
-  name: '',
-  relatedEntity: '',
-  relatedField: '',
-  format: '',
-};
+const VISIBLE_FIELDS = 'visible';
+const HIDDEN_FIELDS = 'hidden';
 
-const reorder = (list, startIndex, endIndex) => {
-  const listClone = Array.from(list);
-  const [removed] = listClone.splice(startIndex, 1);
-  return update(listClone, { $splice: [[endIndex, 0, removed]] });
-};
-
-const move = (source, destination, droppableSource, droppableDestination) => {
-  const [removed] = source.splice(droppableSource.index, 1);
-  const destClone = update(destination, { $splice: [[droppableDestination.index, 0, removed]] });
-  return update({}, {
-    $merge: {
-      [droppableSource.droppableId]: source,
-      [droppableDestination.droppableId]: destClone,
-    },
-  });
+const LIST_NAMES = {
+  [VISIBLE_FIELDS]: 'Visible',
+  [HIDDEN_FIELDS]: 'Hidden',
 };
 
 const grid = 8;
@@ -63,68 +40,17 @@ const getListStyle = isDraggingOver => ({
 class FieldConfigPage extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
-      visible: [],
-      hidden: [],
       isModalOpen: false,
-      currentItem: defaultItem,
-      modalType: 'update',
+      selectedFieldId: null,
     };
-    this.id2List = {
-      visible: 'visible',
-      hidden: 'hidden',
-    };
-    this.props.fetchFieldConfig(() => {
-      const { fieldConfigs } = this.props;
-      this.mapFieldsToDnDItem(fieldConfigs);
-    });
+
+    this.props.fetchFieldConfig(props.entityType);
   }
 
-  componentDidUpdate(prevProps) {
-    if (this.props.fieldConfigs !== prevProps.fieldConfigs) {
-      const { fieldConfigs } = this.props;
-      this.mapFieldsToDnDItem(fieldConfigs);
-    }
-  }
-
-  setFieldOrder = () => {
-    const { visible, hidden } = this.state;
-    visible.forEach((item, index) => {
-      const field = this.getItemFromId(item.id);
-      field.fieldOrder = index;
-      field.hidden = false;
-    });
-    hidden.forEach((item) => {
-      const field = this.getItemFromId(item.id);
-      field.fieldOrder = 9999;
-      field.hidden = true;
-    });
-  };
-
-  mapFieldsToDnDItem = (fieldConfigs) => {
-    const visible = [];
-    const hidden = [];
-
-    fieldConfigs.forEach((item) => {
-      if (!item.hidden) {
-        visible.push({ id: item.id, content: item.displayName, fieldOrder: item.fieldOrder });
-      } else {
-        hidden.push({ id: item.id, content: item.displayName, fieldOrder: item.fieldOrder });
-      }
-    });
-    visible.sort((a, b) => a.fieldOrder - b.fieldOrder);
-    this.setState({ visible, hidden });
-  };
-
-  getItemFromId = (id) => {
-    const { fieldConfigs } = this.props;
-    return fieldConfigs.find(element => element.id === id);
-  };
-
-  getList = id => this.state[this.id2List[id]];
-
-  onDragEnd = (result) => {
-    const { source, destination } = result;
+  onDragEnd = ({ draggableId, source, destination }) => {
+    const { entityType } = this.props;
 
     // dropped outside the list
     if (!destination) {
@@ -132,61 +58,25 @@ class FieldConfigPage extends Component {
     }
 
     if (source.droppableId === destination.droppableId) {
-      const items = reorder(
-        this.getList(source.droppableId),
-        source.index,
-        destination.index,
-      );
-
-      const newState = { items };
-
-      newState[source.droppableId] = items;
-
-      this.setState(newState);
+      this.props.changeFieldOrder(entityType, {
+        id: draggableId,
+        oldOrder: source.index,
+        newOrder: destination.index,
+        hidden: destination.droppableId === HIDDEN_FIELDS,
+      });
     } else {
-      const movementResult = move(
-        this.getList(source.droppableId),
-        this.getList(destination.droppableId),
-        source,
-        destination,
-      );
-
-      this.setState({
-        visible: movementResult.visible,
-        hidden: movementResult.hidden,
+      this.props.changeFieldVisibility(entityType, {
+        id: draggableId,
+        oldOrder: source.index,
+        newOrder: destination.index,
+        hidden: destination.droppableId === HIDDEN_FIELDS,
       });
     }
   };
 
   setConfigToEdit = (item) => {
-    const editFieldConfig = this.getItemFromId(item.id);
     this.openModal();
-    this.setState({ currentItem: editFieldConfig, modalType: 'update' });
-  };
-
-  editConfig = (config) => {
-    const { currentItem } = this.state;
-    Object.assign(currentItem, config);
-    this.setState({ currentItem });
-    const { fieldConfigs } = this.props;
-    this.mapFieldsToDnDItem(fieldConfigs);
-  };
-
-  deleteConfig = (config, callback) => {
-    this.props.deleteFieldConfig(config, () => {
-      callback();
-      const { fieldConfigs } = this.props;
-      this.mapFieldsToDnDItem(fieldConfigs);
-    });
-  };
-
-  createConfig = (config) => {
-    const newConfig = { ...config };
-    newConfig.hidden = true;
-    newConfig.fieldOrder = 9999;
-    this.props.createFieldConfig(newConfig);
-    const { fieldConfigs } = this.props;
-    this.mapFieldsToDnDItem(fieldConfigs);
+    this.setState({ selectedFieldId: item.id });
   };
 
   openModal = () => {
@@ -198,110 +88,72 @@ class FieldConfigPage extends Component {
   };
 
   saveConfigs = () => {
-    this.setFieldOrder();
-    const { fieldConfigs } = this.props;
-    _.forEach(fieldConfigs, (item) => {
-      this.props.saveFieldConfig(item);
-    });
-    this.mapFieldsToDnDItem(fieldConfigs);
   };
 
   addConfig = () => {
-    this.setState({ modalType: 'create', currentItem: defaultItem });
+    this.setState({ selectedFieldId: null });
     this.openModal();
   };
 
+  renderDroppableList = (droppableId, items) => (
+    <Droppable droppableId={droppableId}>
+      {(provided, snapshot) => (
+        <div
+          ref={provided.innerRef}
+          style={getListStyle(snapshot.isDraggingOver)}
+        >
+          {LIST_NAMES[droppableId]}
+          {items.map((item, index) => (
+            <Draggable
+              key={item.id}
+              draggableId={item.id}
+              index={index}
+            >
+              {(prov, snap) => (
+                <div
+                  role="button"
+                  tabIndex="0"
+                  onClick={() => this.setConfigToEdit(item)}
+                  onKeyUp={() => {}}
+                  ref={prov.innerRef}
+                  {...prov.draggableProps}
+                  {...prov.dragHandleProps}
+                  style={getItemStyle(
+                    snap.isDragging,
+                    prov.draggableProps.style,
+                  )}
+                >
+                  {item.displayName}
+                </div>
+              )}
+            </Draggable>
+          ))}
+          {provided.placeholder}
+        </div>
+      )}
+    </Droppable>
+  );
+
   render() {
-    const { isModalOpen, currentItem, modalType } = this.state;
+    const { entityType, visibleFields, hiddenFields } = this.props;
+    const { isModalOpen, selectedFieldId } = this.state;
     return (
       <div className="container-fluid">
         <FieldConfigModal
           modalIsOpen={isModalOpen}
           hideModal={this.hideModal}
-          updateConfig={this.editConfig}
-          deleteConfig={this.deleteConfig}
-          createConfig={this.createConfig}
-          modalType={modalType}
-          item={currentItem}
+          entityType={entityType}
+          fieldId={selectedFieldId}
+          newItemOrder={visibleFields.length}
         />
         <div>
-          <button type="submit" className="btn btn-primary" onClick={this.saveConfigs}>Save</button>
-          <button type="submit" className="btn btn-success" onClick={this.addConfig} style={{ marginLeft: '20px' }}>Add</button>
+          <button type="button" className="btn btn-primary" onClick={this.saveConfigs}>Save</button>
+          <button type="button" className="btn btn-success" onClick={this.addConfig} style={{ marginLeft: '20px' }}>Add</button>
         </div>
         <div className="two-coll-dnd">
           <DragDropContext onDragEnd={this.onDragEnd}>
-            <Droppable droppableId="visible">
-              {(provided, snapshot) => (
-                <div
-                  ref={provided.innerRef}
-                  style={getListStyle(snapshot.isDraggingOver)}
-                >
-                  Visible
-                  {this.state.visible.map((item, index) => (
-                    <Draggable
-                      key={item.id}
-                      draggableId={item.id}
-                      index={index}
-                    >
-                      {(prov, snap) => (
-                        <div
-                          role="button"
-                          tabIndex="0"
-                          onClick={() => this.setConfigToEdit(item)}
-                          onKeyUp={() => {}}
-                          ref={prov.innerRef}
-                          {...prov.draggableProps}
-                          {...prov.dragHandleProps}
-                          style={getItemStyle(
-                            snap.isDragging,
-                            prov.draggableProps.style,
-                          )}
-                        >
-                          {item.content}
-                        </div>
-                      )}
-                    </Draggable>
-                  ))}
-                  {provided.placeholder}
-                </div>
-              )}
-            </Droppable>
-            <Droppable droppableId="hidden">
-              {(provided, snapshot) => (
-                <div
-                  ref={provided.innerRef}
-                  style={getListStyle(snapshot.isDraggingOver)}
-                >
-                  Hidden
-                  {this.state.hidden.map((item, index) => (
-                    <Draggable
-                      key={item.id}
-                      draggableId={item.id}
-                      index={index}
-                    >
-                      {(prov, snap) => (
-                        <div
-                          role="button"
-                          tabIndex="0"
-                          onClick={() => this.setConfigToEdit(item)}
-                          onKeyUp={() => {}}
-                          ref={prov.innerRef}
-                          {...prov.draggableProps}
-                          {...prov.dragHandleProps}
-                          style={getItemStyle(
-                            snap.isDragging,
-                            prov.draggableProps.style,
-                          )}
-                        >
-                          {item.content}
-                        </div>
-                      )}
-                    </Draggable>
-                  ))}
-                  {provided.placeholder}
-                </div>
-              )}
-            </Droppable>
+            {this.renderDroppableList(VISIBLE_FIELDS, visibleFields)}
+            {this.renderDroppableList(HIDDEN_FIELDS, hiddenFields)}
           </DragDropContext>
         </div>
       </div>
@@ -309,13 +161,19 @@ class FieldConfigPage extends Component {
   }
 }
 
-export default FieldConfigPage;
+const mapStateToProps = (state, props) => ({
+  visibleFields: getVisibleFields(state, props),
+  hiddenFields: getHiddenFields(state, props),
+});
+
+export default connect(mapStateToProps,
+  { fetchFieldConfig, changeFieldVisibility, changeFieldOrder })(FieldConfigPage);
 
 FieldConfigPage.propTypes = {
+  entityType: PropTypes.string.isRequired,
   fetchFieldConfig: PropTypes.func.isRequired,
-  createFieldConfig: PropTypes.func.isRequired,
-  saveFieldConfig: PropTypes.func.isRequired,
-  deleteFieldConfig: PropTypes.func.isRequired,
-  fieldConfigs: PropTypes.arrayOf(PropTypes.shape({
-  })).isRequired,
+  changeFieldVisibility: PropTypes.func.isRequired,
+  changeFieldOrder: PropTypes.func.isRequired,
+  visibleFields: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  hiddenFields: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
 };
