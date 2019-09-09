@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
@@ -5,7 +6,9 @@ import PropTypes from 'prop-types';
 
 import { getVisibleFields, getHiddenFields } from '../../selectors';
 import FieldConfigModal from './field-config-modal';
-import { fetchFieldConfig, changeFieldVisibility, changeFieldOrder } from '../../actions';
+import {
+  fetchFieldConfig, changeFieldVisibility, changeFieldOrder, saveFieldConfigOrder,
+} from '../../actions';
 
 const VISIBLE_FIELDS = 'visible';
 const HIDDEN_FIELDS = 'hidden';
@@ -87,7 +90,12 @@ class FieldConfigPage extends Component {
     this.setState({ isModalOpen: false });
   };
 
+  getChangedFields = fields => _.filter(fields, field => field.changed);
+
   saveConfigs = () => {
+    const { entityType, visibleFields, hiddenFields } = this.props;
+    this.props.saveFieldConfigOrder(entityType,
+      [...this.getChangedFields(visibleFields), ...this.getChangedFields(hiddenFields)]);
   };
 
   addConfig = () => {
@@ -166,14 +174,16 @@ const mapStateToProps = (state, props) => ({
   hiddenFields: getHiddenFields(state, props),
 });
 
-export default connect(mapStateToProps,
-  { fetchFieldConfig, changeFieldVisibility, changeFieldOrder })(FieldConfigPage);
+export default connect(mapStateToProps, {
+  fetchFieldConfig, changeFieldVisibility, changeFieldOrder, saveFieldConfigOrder,
+})(FieldConfigPage);
 
 FieldConfigPage.propTypes = {
   entityType: PropTypes.string.isRequired,
   fetchFieldConfig: PropTypes.func.isRequired,
   changeFieldVisibility: PropTypes.func.isRequired,
   changeFieldOrder: PropTypes.func.isRequired,
+  saveFieldConfigOrder: PropTypes.func.isRequired,
   visibleFields: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   hiddenFields: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
 };

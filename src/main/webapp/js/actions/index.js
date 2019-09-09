@@ -14,6 +14,7 @@ import {
   DELETE_FIELD_CONFIG,
   CHANGE_FIELD_VISIBILITY,
   CHANGE_FIELD_ORDER,
+  SAVE_FIELD_CONFIG_ORDER,
 } from './types';
 
 const BASE_URL = '/api';
@@ -118,6 +119,17 @@ export const saveFieldConfig = (entityType, item) => {
   const request = apiClient.put(`${FIELD_CONFIG}/${item.id}`, item);
   return {
     type: SAVE_FIELD_CONFIG,
+    payload: request,
+    meta: {
+      entityType,
+    },
+  };
+};
+
+export const saveFieldConfigOrder = (entityType, items) => {
+  const request = apiClient.post(`${FIELD_CONFIG}/saveOrder`, items);
+  return {
+    type: SAVE_FIELD_CONFIG_ORDER,
     payload: request,
     meta: {
       entityType,

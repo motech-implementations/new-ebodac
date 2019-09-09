@@ -8,6 +8,7 @@ import {
   DELETE_FIELD_CONFIG,
   CHANGE_FIELD_VISIBILITY,
   CHANGE_FIELD_ORDER,
+  SAVE_FIELD_CONFIG_ORDER,
 } from '../actions/types';
 
 const initialState = {
@@ -36,6 +37,10 @@ export default (state = initialState, action) => {
           [payload.data.id]:
               item => ({ ...payload.data, hidden: item.hidden, fieldOrder: item.fieldOrder }),
         },
+      });
+    case SAVE_FIELD_CONFIG_ORDER:
+      return update(state, {
+        [entityType]: { $merge: _.keyBy(payload.data, 'id') },
       });
     case DELETE_FIELD_CONFIG:
       return update(state, {

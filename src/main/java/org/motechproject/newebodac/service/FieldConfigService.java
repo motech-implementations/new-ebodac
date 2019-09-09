@@ -1,5 +1,6 @@
 package org.motechproject.newebodac.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import org.motechproject.newebodac.domain.FieldConfig;
@@ -42,6 +43,26 @@ public class FieldConfigService {
         new EntityNotFoundException("Field config with id: {0} not found", id.toString()));
     MAPPER.updateFromDto(fieldConfigDto, fieldConfig);
     return MAPPER.toDto(fieldConfigRepository.save(fieldConfig));
+  }
+
+  /**
+   * Update list of field configs.
+   * @param fieldConfigDtos list of field configs to update
+   * @return updated field configs
+   */
+  public List<FieldConfigDto> saveOrder(List<FieldConfigDto> fieldConfigDtos) {
+    List<FieldConfig> fieldConfigs = new ArrayList<>();
+
+    fieldConfigDtos.forEach(fieldConfigDto -> {
+      FieldConfig fieldConfig = fieldConfigRepository.findById(fieldConfigDto.getId())
+          .orElseThrow(() -> new EntityNotFoundException("Field config with id: {0} not found",
+              fieldConfigDto.getId().toString()));
+
+      MAPPER.updateOrderFromDto(fieldConfigDto, fieldConfig);
+      fieldConfigs.add(fieldConfigRepository.save(fieldConfig));
+    });
+
+    return MAPPER.toDtos(fieldConfigs);
   }
 
   /**
