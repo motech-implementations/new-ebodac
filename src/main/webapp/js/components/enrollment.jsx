@@ -3,9 +3,9 @@ import React from 'react';
 const Enrollment = () => (
   <div className="container-fluid">
     <h1>
-      Enrollment Enrollment Enrollment Enrollment
+      Enrollment placeholder
       <br />
-      Placeholder Placeholder Placeholder Placeholder
+      Enrollment placeholder
       <br />
     </h1>
   </div>

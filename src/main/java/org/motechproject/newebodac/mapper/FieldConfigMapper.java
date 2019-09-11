@@ -6,6 +6,7 @@ import org.mapstruct.MappingTarget;
 import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 import org.motechproject.newebodac.domain.FieldConfig;
+import org.motechproject.newebodac.domain.enums.EntityType;
 import org.motechproject.newebodac.dto.FieldConfigDto;
 
 @Mapper(uses = { UuidMapper.class },
@@ -46,4 +47,20 @@ public interface FieldConfigMapper extends EntityMapper<FieldConfigDto, FieldCon
   @Mapping(target = "updateDate", ignore = true)
   @Mapping(target = "createDate", ignore = true)
   void updateOrderFromDto(FieldConfigDto fieldConfigDto, @MappingTarget FieldConfig fieldConfig);
+  
+  /**
+   * Create String form EntityType.
+   * @param entityType EntityType.
+   * @return String representation of EntityType;
+   */
+  default String fromEntityType(EntityType entityType) {
+    if (entityType == null) {
+      return null;
+    }
+    return entityType.getName();
+  }
+
+  default EntityType toEntityType(String entityType) {
+    return EntityType.getByName(entityType);
+  }
 }

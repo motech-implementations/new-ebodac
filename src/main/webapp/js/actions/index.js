@@ -3,7 +3,10 @@ import jwtDecode from 'jwt-decode';
 import axios from 'axios';
 import apiClient from '../utils/api-client';
 import {
-  FETCH_VACCINEES,
+  FETCH_ENTITY,
+  UPDATE_ENTITY,
+  DELETE_ENTITY,
+  CREATE_ENTITY,
   AUTH_USER,
   UNAUTH_USER,
   AUTH_ERROR,
@@ -21,7 +24,6 @@ const BASE_URL = '/api';
 const AUTH_URL = `${BASE_URL}/oauth/token`;
 const CLIENT_ID = 'trusted-client';
 const CLIENT_SECRET = 'secret';
-const VACCINEES = `${BASE_URL}/vaccinee`;
 const FIELD_CONFIG = `${BASE_URL}/fieldConfig`;
 
 const authClient = new Client({
@@ -80,17 +82,49 @@ export const useRefreshToken = (refreshToken, callback) => dispatch => axios({
 
 export const signoutUser = () => ({ type: UNAUTH_USER });
 
-export const fetchVaccinees = callback => (dispatch) => {
-  const request = apiClient.get(VACCINEES);
-  return request.then(
-    (response) => {
-      dispatch({
-        type: FETCH_VACCINEES,
-        payload: response,
-      });
-      callback();
+export const fetchEntity = (entityType) => {
+  const request = apiClient.get(`${BASE_URL}/${entityType}`);
+  return {
+    type: FETCH_ENTITY,
+    payload: request,
+    meta: {
+      entityType,
     },
-  );
+  };
+};
+
+export const deleteEntity = (entityType, entityId) => {
+  const request = apiClient.delete(`${BASE_URL}/${entityType}/${entityId}`);
+  return {
+    type: DELETE_ENTITY,
+    payload: request,
+    meta: {
+      entityType,
+      entityId,
+    },
+  };
+};
+
+export const updateEntity = (entityType, entity) => {
+  const request = apiClient.put(`${BASE_URL}/${entityType}/${entity.id}`, entity);
+  return {
+    type: UPDATE_ENTITY,
+    payload: request,
+    meta: {
+      entityType,
+    },
+  };
+};
+
+export const createEntity = (entityType, entity) => {
+  const request = apiClient.post(`${BASE_URL}/${entityType}`, entity);
+  return {
+    type: CREATE_ENTITY,
+    payload: request,
+    meta: {
+      entityType,
+    },
+  };
 };
 
 export const fetchFieldConfig = (entityType) => {
