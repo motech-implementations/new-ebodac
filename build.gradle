@@ -119,6 +119,6 @@ task webpackProd(type: NpmTask, dependsOn: 'npmInstall') {
 
 task dbDiff() {}
 
-processResources.dependsOn 'webpackProd'
+bootJar.dependsOn 'webpackProd'
 bootRun.dependsOn 'webpack'
 dbDiff.dependsOn 'diffChangeLog'
