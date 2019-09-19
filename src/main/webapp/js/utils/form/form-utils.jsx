@@ -8,6 +8,7 @@ import CheckboxField from './checkbox-field';
 import DateField from './date-field';
 import SelectField from './select-field';
 import NonEditableField from './non-editable-field';
+import RelationField from './relation-field';
 
 const getOptionsFromEnum = (format) => {
   if (!format) {
@@ -27,9 +28,8 @@ const getOptionsFromEnum = (format) => {
 
 const renderFormField = (props) => {
   const {
-    name, fieldType, displayName, required, format, options, editable,
+    name, fieldType, displayName, required, format, editable, relatedEntity, relatedField,
   } = props;
-
   let FieldType;
   let attr = {};
 
@@ -62,8 +62,8 @@ const renderFormField = (props) => {
       attr = { options: getOptionsFromEnum(format) };
       break;
     case 'RELATION':
-      FieldType = SelectField;
-      attr = { options };
+      FieldType = RelationField;
+      attr = { entityType: relatedEntity, relatedField };
       break;
     case 'VACCINATION_DATE':
       FieldType = NonEditableField;
@@ -74,7 +74,7 @@ const renderFormField = (props) => {
 
   return (
     <FieldType
-      key={props.name}
+      key={name}
       fieldConfig={{
         name, displayName, required, editable, ...attr,
       }}
@@ -105,10 +105,12 @@ renderFormField.propTypes = {
   required: PropTypes.bool.isRequired,
   editable: PropTypes.bool.isRequired,
   format: PropTypes.string,
-  options: PropTypes.arrayOf(PropTypes.shape({})),
+  relatedEntity: PropTypes.string,
+  relatedField: PropTypes.string,
 };
 
 renderFormField.defaultProps = {
   format: null,
-  options: [],
+  relatedEntity: null,
+  relatedField: null,
 };

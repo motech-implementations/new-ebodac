@@ -48,8 +48,10 @@ class FieldConfigPage extends Component {
       isModalOpen: false,
       selectedFieldId: null,
     };
+  }
 
-    this.props.fetchFieldConfig(props.entityType);
+  componentDidMount() {
+    this.props.fetchFieldConfig(this.props.entityType);
   }
 
   onDragEnd = ({ draggableId, source, destination }) => {

@@ -6,10 +6,9 @@ import _ from 'lodash';
 import { connect } from 'react-redux';
 
 import ConfirmModal from '../comfirm-modal';
-import renderFormField from '../form/form-utils';
+import renderFormField from '../../utils/form/form-utils';
 import { getFieldConfigById } from '../../selectors';
 import { createFieldConfig, deleteFieldConfig, saveFieldConfig } from '../../actions';
-import { getEntityTypeName } from '../../utils/entity-types';
 
 Modal.setAppElement(document.getElementById('root'));
 
@@ -94,7 +93,7 @@ class FieldConfigModal extends React.Component {
 
     if (!fieldId) {
       this.props.createFieldConfig(entityType,
-        { ...values, fieldOrder: newItemOrder, entity: getEntityTypeName(entityType) });
+        { ...values, fieldOrder: newItemOrder, entity: entityType });
     } else {
       this.props.saveFieldConfig(entityType, values);
     }

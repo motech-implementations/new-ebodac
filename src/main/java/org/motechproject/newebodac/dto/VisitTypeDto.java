@@ -3,14 +3,10 @@ package org.motechproject.newebodac.dto;
 import java.util.Set;
 import lombok.Getter;
 import lombok.Setter;
-import org.motechproject.newebodac.validate.annotations.Uuid;
 
 @Getter
 @Setter
-public class VisitTypeDto {
-
-  @Uuid
-  private String id;
+public class VisitTypeDto extends BaseDto {
 
   private String name;
 

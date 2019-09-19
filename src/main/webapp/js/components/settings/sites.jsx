@@ -1,13 +1,13 @@
 import React from 'react';
 
+import EntityTable from '../entity-table';
+import { SITE_ENTITY } from '../../utils/entity-types';
+
 const Sites = () => (
   <div className="container-fluid">
-    <h1>
-      Sites Sites Sites Sites
-      <br />
-      Placeholder Placeholder Placeholder Placeholder
-      <br />
-    </h1>
+    <EntityTable
+      entityType={SITE_ENTITY}
+    />
   </div>
 );
 

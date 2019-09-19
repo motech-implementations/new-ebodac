@@ -1,20 +1,17 @@
 package org.motechproject.newebodac.dto;
 
+import java.time.LocalDate;
 import java.util.Set;
 import lombok.Getter;
 import lombok.Setter;
-import org.motechproject.newebodac.validate.annotations.Uuid;
 
 @Getter
 @Setter
-public class VisitDto {
+public class VisitDto extends BaseDto {
 
-  @Uuid
-  private String id;
+  private LocalDate date;
 
-  private String date;
-
-  private String plannedDate;
+  private LocalDate plannedDate;
 
   private String visitTypeId;
 

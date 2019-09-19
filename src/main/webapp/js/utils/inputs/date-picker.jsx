@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ReactDatePicker from 'react-datepicker';
-
 import 'react-datepicker/dist/react-datepicker.css';
+import { parseISO } from 'date-fns';
 
 const DatePicker = ({
   onChange, value, dateFormat, ...props
@@ -15,9 +15,9 @@ const DatePicker = ({
     <ReactDatePicker
       className="form-control"
       {...props}
-      selected={value}
-      onChange={handleChange}
+      selected={parseISO(value)}
       dateFormat={dateFormat}
+      onChange={handleChange}
       timeFormat="HH:mm"
       timeIntervals={15}
     />

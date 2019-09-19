@@ -1,14 +1,13 @@
 import React from 'react';
 
+import EntityTable from './entity-table';
+import { KEY_COMMUNITY_PERSON_ENTITY } from '../utils/entity-types';
+
 const KeyCommunityPerson = () => (
   <div className="container-fluid">
-    <h1>
-      KeyCommunityPerson KeyCommunityPerson KeyCommunityPerson
-      KeyCommunityPerson
-      <br />
-      Placeholder Placeholder Placeholder Placeholder
-      <br />
-    </h1>
+    <EntityTable
+      entityType={KEY_COMMUNITY_PERSON_ENTITY}
+    />
   </div>
 );
 

@@ -1,5 +1,8 @@
-export const FETCH_VACCINEES = 'fetch_vaccinees';
-export const CREATE_VACCINEE = 'create_vaccinees';
+export const FETCH_ENTITY = 'fetch_entity';
+export const CREATE_ENTITY = 'create_entity';
+export const DELETE_ENTITY = 'delete_entity';
+export const UPDATE_ENTITY = 'update_entity';
+
 export const AUTH_USER = 'auth_user';
 export const UNAUTH_USER = 'unauth_user';
 export const AUTH_ERROR = 'auth_error';

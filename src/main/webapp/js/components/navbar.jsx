@@ -33,6 +33,7 @@ import VisitFields from './fields/visit-fields';
 import RoutePrivate from './helpers/RoutePrivate';
 import MessageCampaign from './message-campaign';
 import Login from './auth/login';
+import EntityEdit from './entity-edit';
 
 class Navbar extends Component {
   constructor(props) {
@@ -85,6 +86,7 @@ class Navbar extends Component {
                     <RoutePrivate path="/sitesFields" component={SiteFields} />
                     <RoutePrivate path="/visitScheduleFields" component={VisitFields} />
                     <RoutePrivate path="/messageCampaign" component={MessageCampaign} />
+                    <RoutePrivate path="/entityEdit/:entity/:id" component={EntityEdit} />
                   </div>
                 </div>
               </div>

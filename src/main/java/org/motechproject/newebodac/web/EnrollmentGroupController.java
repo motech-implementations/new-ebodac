@@ -25,21 +25,21 @@ public class EnrollmentGroupController extends BaseController {
    * Returns List of enrollment group Dtos loaded from the database.
    * @return List of enrollment group Dtos.
    */
-  @RequestMapping(value = "/enrollmentGroup", method = RequestMethod.GET)
+  @RequestMapping(value = "/group", method = RequestMethod.GET)
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   public List<EnrollmentGroupDto> getAll() {
     return enrollmentGroupService.getAll();
   }
 
-  @RequestMapping(value = "/enrollmentGroup/{id}", method = RequestMethod.GET)
+  @RequestMapping(value = "/group/{id}", method = RequestMethod.GET)
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   public EnrollmentGroupDto findById(@PathVariable("id") UUID id) {
     return enrollmentGroupService.findById(id);
   }
 
-  @RequestMapping(value = "/enrollmentGroup", method = RequestMethod.POST)
+  @RequestMapping(value = "/group", method = RequestMethod.POST)
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   public EnrollmentGroupDto create(@RequestBody @Valid EnrollmentGroupDto enrollmentGroupDto) {

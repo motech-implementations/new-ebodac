@@ -10,6 +10,10 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const WorkboxWebpackPlugin = require('workbox-webpack-plugin');
 
 module.exports = {
+  watchOptions: {
+    aggregateTimeout: 300,
+    poll: 1000,
+  },
   entry: `${SRC}/index.jsx`,
   output: {
     path: DEST,

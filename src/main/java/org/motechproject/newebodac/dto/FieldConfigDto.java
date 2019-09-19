@@ -1,14 +1,11 @@
 package org.motechproject.newebodac.dto;
 
-import java.util.UUID;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class FieldConfigDto {
-
-  private UUID id;
+public class FieldConfigDto extends BaseDto {
 
   private String name;
 

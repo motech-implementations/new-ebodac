@@ -1,15 +1,13 @@
 package org.motechproject.newebodac.dto;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.Setter;
-import org.motechproject.newebodac.validate.annotations.Uuid;
 
 @Getter
 @Setter
-public class ExtraFieldDto {
-
-  @Uuid
-  private String id;
+public class ExtraFieldDto extends BaseDto {
 
   private String name;
 
@@ -23,9 +21,9 @@ public class ExtraFieldDto {
 
   private Boolean boolVal;
 
-  private String dateVal;
+  private LocalDate dateVal;
 
-  private String datetimeVal;
+  private LocalDateTime datetimeVal;
 
   private String vaccineeId;
 
