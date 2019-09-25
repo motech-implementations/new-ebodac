@@ -14,6 +14,9 @@ import {
   faUser,
   faLock,
   faSignOutAlt,
+  faTrash,
+  faPencilAlt,
+  faPlus,
 } from '@fortawesome/free-solid-svg-icons';
 import { library } from '@fortawesome/fontawesome-svg-core';
 
@@ -34,6 +37,9 @@ const loadIcons = () => {
     faUser,
     faLock,
     faSignOutAlt,
+    faTrash,
+    faPencilAlt,
+    faPlus,
   );
 };
 

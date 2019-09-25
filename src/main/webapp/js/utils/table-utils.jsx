@@ -4,6 +4,7 @@ import React from 'react';
 import RelationCell from './table-cells/relation-cell';
 import EnumCell from './table-cells/enum-cell';
 import DateCell from './table-cells/date-cell';
+import CollectionCell from './table-cells/collection-cell';
 import TextCell from './table-cells/text-cell';
 
 const getTableCell = (item, props) => {
@@ -30,6 +31,10 @@ const getTableCell = (item, props) => {
     case 'ENUM':
       Cell = EnumCell;
       attr = { format };
+      break;
+    case 'COLLECTION':
+      Cell = CollectionCell;
+      attr = { entityType: relatedEntity, relatedField };
       break;
     default:
       Cell = TextCell;
