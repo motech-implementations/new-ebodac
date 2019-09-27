@@ -87,10 +87,10 @@ const renderFormField = (props) => {
   );
 };
 
-export const validate = fieldConfigs => (values) => {
+export const validate = fieldConfig => (values) => {
   const errors = {};
 
-  _.forEach(fieldConfigs, (config) => {
+  _.forEach(fieldConfig, (config) => {
     const val = values[config.name];
 
     if (config.required && (_.isNil(val) || val === '')) {

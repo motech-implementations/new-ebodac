@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import { Form } from 'react-final-form';
-import { getVisibleFields, getEntityMemberById } from '../selectors/index';
-import renderFormField from '../utils/form/form-utils';
+import { getVisibleFields, getEntityMemberById } from '../../selectors';
+import renderFormField from '../../utils/form/form-utils';
 
 class EntityEdit extends Component {
   componentDidMount() {
@@ -37,10 +37,10 @@ class EntityEdit extends Component {
 
 const mapStateToProps = (state, props) => ({
   entityToEdit: getEntityMemberById(state, {
-    entityType: props.match.params.entity,
+    entityType: props.match.params.entityType,
     id: props.match.params.id,
   }),
-  entityToEditConfig: getVisibleFields(state, { entityType: props.match.params.entity }),
+  entityToEditConfig: getVisibleFields(state, { entityType: props.match.params.entityType }),
 });
 
 export default connect(mapStateToProps)(EntityEdit);
@@ -50,7 +50,7 @@ EntityEdit.propTypes = {
   entityToEditConfig: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape({
-      entity: PropTypes.string,
+      entityType: PropTypes.string,
       id: PropTypes.string,
     }),
   }).isRequired,
