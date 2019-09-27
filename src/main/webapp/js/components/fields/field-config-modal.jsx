@@ -60,7 +60,7 @@ const FIELDS = [
     name: 'name', fieldType: 'TEXT', displayName: 'Name', required: true,
   },
   {
-    name: 'fieldType', fieldType: 'RELATION', displayName: 'Field type', required: true, options: FIELD_TYPE_OPTIONS,
+    name: 'fieldType', fieldType: 'ENUM', displayName: 'Field type', required: true, options: FIELD_TYPE_OPTIONS,
   },
   {
     name: 'displayName', fieldType: 'TEXT', displayName: 'Display name', required: true,

@@ -25,7 +25,7 @@ const filterAndMapFields = (fields, isHidden) => (
     .value()
 );
 
-const mapToArray = object => Object.values(object);
+const mapToArray = object => (object ? Object.values(object) : []);
 
 const getRelatedField = (state, { relatedField }) => relatedField;
 
