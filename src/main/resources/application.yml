@@ -17,6 +17,12 @@ server:
     mime-types: application/json,application/xml,text/html,text/xml,text/plain,application/javascript,text/css
 
 spring:
+  quartz:
+    job-store-type: jdbc
+    jdbc:
+      initialize-schema: always
+      comment-prefix: '#'
+      properties.org.quartz.jobStore.driverDelegateClass: org.quartz.impl.jdbcjobstore.StdJDBCDelegate
   security:
     oauth2:
       client:
@@ -35,3 +41,7 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQL5Dialect
     show-sql: false
+
+scheduled-tasks:
+  demo-task:
+    cron-expression: '0 0 9 * * *'
