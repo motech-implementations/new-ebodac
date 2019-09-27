@@ -3,21 +3,17 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import { Form } from 'react-final-form';
-import { getVisibleFields, getEntityMemberById } from '../../selectors';
-import renderFormField from '../../utils/form/form-utils';
+import { getEntityMemberById } from '../../selectors';
+import renderFormField, { validate } from '../../utils/form/form-utils';
 
 class EntityEdit extends Component {
-  componentDidMount() {
-  }
-
   onSubmit = () => {
   };
 
-  validate = () => {
-  };
+  validate = values => validate(this.props.fieldConfig)(values);
 
   render() {
-    const { entityToEdit, entityToEditConfig } = this.props;
+    const { entityToEdit, fieldConfig } = this.props;
     return (
       <div className="container-fluid">
         <Form
@@ -26,7 +22,7 @@ class EntityEdit extends Component {
           initialValues={entityToEdit}
           render={({ handleSubmit }) => (
             <form onSubmit={handleSubmit} className="modal-fields">
-              {_.map(entityToEditConfig, elem => renderFormField(elem))}
+              {_.map(fieldConfig, elem => renderFormField(elem))}
             </form>
           )}
         />
@@ -36,22 +32,12 @@ class EntityEdit extends Component {
 }
 
 const mapStateToProps = (state, props) => ({
-  entityToEdit: getEntityMemberById(state, {
-    entityType: props.match.params.entityType,
-    id: props.match.params.id,
-  }),
-  entityToEditConfig: getVisibleFields(state, { entityType: props.match.params.entityType }),
+  entityToEdit: getEntityMemberById(state, props),
 });
 
 export default connect(mapStateToProps)(EntityEdit);
 
 EntityEdit.propTypes = {
+  fieldConfig: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   entityToEdit: PropTypes.shape({}).isRequired,
-  entityToEditConfig: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
-  match: PropTypes.shape({
-    params: PropTypes.shape({
-      entityType: PropTypes.string,
-      id: PropTypes.string,
-    }),
-  }).isRequired,
 };
