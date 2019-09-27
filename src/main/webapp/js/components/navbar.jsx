@@ -6,8 +6,6 @@ import '../../css/main.scss';
 import Header from './header';
 import SideBar from './sidebar';
 import Home from './home';
-import Vaccinee from './vaccinee';
-import KeyCommunityPerson from './key-community-person';
 import KeyCommunityPersonEnrollment from './enrollment/key-community-person-enrollment';
 import VaccineeEnrollment from './enrollment/vaccinee-enrollment';
 import VisitSchedule from './visit/visit-schedule';
@@ -25,7 +23,6 @@ import Users from './user-managment/users';
 import Enrollment from './enrollment';
 import Messaging from './settings/messaging';
 import Languages from './settings/languages';
-import Sites from './settings/sites';
 import KeyCommunityPersonFields from './fields/key-community-person-fields';
 import SiteFields from './fields/site-fields';
 import VaccineeFields from './fields/vaccinee-fields';
@@ -33,7 +30,8 @@ import VisitFields from './fields/visit-fields';
 import RoutePrivate from './helpers/RoutePrivate';
 import MessageCampaign from './message-campaign';
 import Login from './auth/login';
-import EntityEdit from './entity-edit';
+import ViewEntity from './entities/view-entity';
+import EntityEdit from './entities/entity-edit';
 
 class Navbar extends Component {
   constructor(props) {
@@ -61,8 +59,6 @@ class Navbar extends Component {
                 <div id="page-wrapper">
                   <div className="container-wrapper">
                     <RoutePrivate exact path="/" component={Home} />
-                    <RoutePrivate path="/vaccinee" component={Vaccinee} />
-                    <RoutePrivate path="/keyCommunityPerson" component={KeyCommunityPerson} />
                     <RoutePrivate path="/keyCommunityPersonEnrollment" component={KeyCommunityPersonEnrollment} />
                     <RoutePrivate path="/vaccineeEnrollment" component={VaccineeEnrollment} />
                     <RoutePrivate path="/visitSchedule" component={VisitSchedule} />
@@ -80,13 +76,13 @@ class Navbar extends Component {
                     <RoutePrivate path="/enrollmentGroup" component={Enrollment} />
                     <RoutePrivate path="/messaging" component={Messaging} />
                     <RoutePrivate path="/languages" component={Languages} />
-                    <RoutePrivate path="/sites" component={Sites} />
                     <RoutePrivate path="/vaccineeFields" component={VaccineeFields} />
                     <RoutePrivate path="/keyCommunityPersonFields" component={KeyCommunityPersonFields} />
                     <RoutePrivate path="/sitesFields" component={SiteFields} />
                     <RoutePrivate path="/visitScheduleFields" component={VisitFields} />
                     <RoutePrivate path="/messageCampaign" component={MessageCampaign} />
-                    <RoutePrivate path="/entityEdit/:entity/:id" component={EntityEdit} />
+                    <RoutePrivate path="/viewEntity/:entityType" component={ViewEntity} />
+                    <RoutePrivate path="/entityEdit/:entityType/:id" component={EntityEdit} />
                   </div>
                 </div>
               </div>

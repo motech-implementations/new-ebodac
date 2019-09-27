@@ -5,6 +5,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import '../../css/main.scss';
 
+import { KEY_COMMUNITY_PERSON_ENTITY, SITE_ENTITY, VACCINEE_ENTITY } from '../utils/entity-types';
+
 class SideBar extends Component {
   constructor(props) {
     super(props);
@@ -163,7 +165,7 @@ class SideBar extends Component {
         </li>
       </ul>
     );
-  }
+  };
 
   renderUserManagementCollapsedMenu = () => {
     const { userManagmentCollapsed } = this.state;
@@ -219,7 +221,7 @@ class SideBar extends Component {
           {this.renderFieldsCollapsedMenu()}
         </li>
         <li className="border-none">
-          <Link to="/sites">
+          <Link to={`/viewEntity/${SITE_ENTITY}`}>
             <FontAwesomeIcon icon="hand-point-right" />
             <span className="icon-text">Sites</span>
           </Link>
@@ -281,13 +283,13 @@ class SideBar extends Component {
         <div>
           <ul className="nav navbar-nav side-nav">
             <li>
-              <Link to="/vaccinee">
+              <Link to={`/viewEntity/${VACCINEE_ENTITY}`}>
                 <FontAwesomeIcon icon="syringe" />
                 <span className="icon-text">Vaccinees</span>
               </Link>
             </li>
             <li>
-              <Link to="/keyCommunityPerson">
+              <Link to={`/viewEntity/${KEY_COMMUNITY_PERSON_ENTITY}`}>
                 <FontAwesomeIcon icon="key" />
                 <span className="icon-text">Key Community Persons</span>
               </Link>
