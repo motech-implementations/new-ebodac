@@ -5,12 +5,17 @@ import BaseField from './base-field';
 import Select from '../inputs/select';
 
 const SelectField = (props) => {
-  const renderInput = ({ disabled, ...attributes }) => (
-    <Select isDisabled={disabled} {...attributes} />
+  const renderInput = ({ disabled, multi = false, ...attributes }) => (
+    <Select isDisabled={disabled} isMulti={multi} {...attributes} />
   );
 
   renderInput.propTypes = {
     disabled: PropTypes.bool.isRequired,
+    multi: PropTypes.bool,
+  };
+
+  renderInput.defaultProps = {
+    multi: false,
   };
 
   return (

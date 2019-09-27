@@ -28,7 +28,8 @@ const getOptionsFromEnum = (format) => {
 
 const renderFormField = (props) => {
   const {
-    name, fieldType, displayName, required, format, editable, relatedEntity, relatedField,
+    name, fieldType, displayName, required, editable,
+    format, options = null, relatedEntity, relatedField,
   } = props;
   let FieldType;
   let attr = {};
@@ -59,11 +60,15 @@ const renderFormField = (props) => {
       break;
     case 'ENUM':
       FieldType = SelectField;
-      attr = { options: getOptionsFromEnum(format) };
+      attr = { options: options || getOptionsFromEnum(format) };
       break;
     case 'RELATION':
       FieldType = RelationField;
       attr = { entityType: relatedEntity, relatedField };
+      break;
+    case 'COLLECTION':
+      FieldType = RelationField;
+      attr = { entityType: relatedEntity, relatedField, multi: true };
       break;
     case 'VACCINATION_DATE':
       FieldType = NonEditableField;
@@ -105,12 +110,14 @@ renderFormField.propTypes = {
   required: PropTypes.bool.isRequired,
   editable: PropTypes.bool.isRequired,
   format: PropTypes.string,
+  options: PropTypes.arrayOf(PropTypes.shape({})),
   relatedEntity: PropTypes.string,
   relatedField: PropTypes.string,
 };
 
 renderFormField.defaultProps = {
   format: null,
+  options: null,
   relatedEntity: null,
   relatedField: null,
 };
