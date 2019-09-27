@@ -15,7 +15,7 @@ const DatePicker = ({
     <ReactDatePicker
       className="form-control"
       {...props}
-      selected={parseISO(value)}
+      selected={value ? parseISO(value) : null}
       dateFormat={dateFormat}
       onChange={handleChange}
       timeFormat="HH:mm"

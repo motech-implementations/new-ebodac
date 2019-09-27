@@ -6,7 +6,7 @@ import _ from 'lodash';
 import { connect } from 'react-redux';
 
 import ConfirmModal from '../comfirm-modal';
-import renderFormField from '../../utils/form/form-utils';
+import renderFormField, { validate } from '../../utils/form/form-utils';
 import { getFieldConfigById } from '../../selectors';
 import { createFieldConfig, deleteFieldConfig, saveFieldConfig } from '../../actions';
 
@@ -66,13 +66,13 @@ const FIELDS = [
     name: 'displayName', fieldType: 'TEXT', displayName: 'Display name', required: true,
   },
   {
-    name: 'required', fieldType: 'BOOLEAN', displayName: 'Required', required: true,
+    name: 'required', fieldType: 'BOOLEAN', displayName: 'Required', required: false,
   },
   {
-    name: 'editable', fieldType: 'BOOLEAN', displayName: 'Editable', required: true,
+    name: 'editable', fieldType: 'BOOLEAN', displayName: 'Editable', required: false,
   },
   {
-    name: 'filterable', fieldType: 'BOOLEAN', displayName: 'Filterable', required: true,
+    name: 'filterable', fieldType: 'BOOLEAN', displayName: 'Filterable', required: false,
   },
   {
     name: 'format', fieldType: 'TEXT', displayName: 'Format', required: false,
@@ -113,13 +113,7 @@ class FieldConfigModal extends React.Component {
     this.props.hideModal();
   };
 
-  validate = (values) => {
-    const error = {};
-    if (!values.displayName) {
-      error.name = 'Enter a display name!';
-    }
-    return error;
-  };
+  validate = values => validate(FIELDS)(values);
 
   openConfirmModal = () => {
     this.setState({ openConfirmModal: true });

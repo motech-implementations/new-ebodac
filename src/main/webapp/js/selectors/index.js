@@ -16,7 +16,8 @@ const getEntityByName = (state, { entityType }) => state.entity[entityType];
 const mapToOptions = (options,
   relatedField) => _.map(options, row => ({ label: row[relatedField], value: row.id }));
 
-export const getEntityMemberById = (state, { entityType, id }) => state.entity[entityType][id];
+export const getEntityMemberById = (state, { entityType, entityId }) => (
+  entityId ? state.entity[entityType][entityId] : {});
 
 const filterAndMapFields = (fields, isHidden) => (
   _.chain(fields).values()
