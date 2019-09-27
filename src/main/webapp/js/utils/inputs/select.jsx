@@ -4,22 +4,30 @@ import ReactSelect from 'react-select';
 import PropTypes from 'prop-types';
 
 const Select = ({
-  onChange, options, value, ...props
+  onChange, options, value, isMulti = false, ...props
 }) => {
   const handleChange = (val) => {
-    if (val && 'value' in val) {
+    if (val && isMulti) {
+      onChange(_.map(val, item => item.value));
+    } else if (val && 'value' in val) {
       onChange(val.value);
     } else {
       onChange(val);
     }
   };
 
+  const findValue = val => _.find(options, option => _.isEqual(option.value, val));
+
   const getValue = () => {
     if (!value) {
       return null;
     }
 
-    return _.find(options, option => _.isEqual(option.value, value));
+    if (isMulti) {
+      return _.map(value, val => findValue(val));
+    }
+
+    return findValue(value);
   };
 
   return (
@@ -28,6 +36,7 @@ const Select = ({
       options={options}
       onChange={handleChange}
       value={getValue()}
+      isMulti={isMulti}
     />
   );
 };
@@ -38,9 +47,12 @@ Select.propTypes = {
   options: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string,
     PropTypes.shape({})])).isRequired,
   onChange: PropTypes.func.isRequired,
-  value: PropTypes.oneOfType([PropTypes.string, PropTypes.shape({})]),
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.shape({}),
+    PropTypes.arrayOf(PropTypes.oneOfType(PropTypes.string, PropTypes.shape({})))]),
+  isMulti: PropTypes.bool,
 };
 
 Select.defaultProps = {
   value: null,
+  isMulti: false,
 };

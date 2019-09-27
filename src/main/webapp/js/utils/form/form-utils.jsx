@@ -66,6 +66,10 @@ const renderFormField = (props) => {
       FieldType = RelationField;
       attr = { entityType: relatedEntity, relatedField };
       break;
+    case 'COLLECTION':
+      FieldType = RelationField;
+      attr = { entityType: relatedEntity, relatedField, multi: true };
+      break;
     case 'VACCINATION_DATE':
       FieldType = NonEditableField;
       break;
