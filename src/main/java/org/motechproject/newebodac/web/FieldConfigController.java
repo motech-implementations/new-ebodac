@@ -21,6 +21,13 @@ public class FieldConfigController extends BaseController {
   @Autowired
   private FieldConfigService fieldConfigService;
 
+  @RequestMapping(value = "/fieldConfig", method = RequestMethod.GET)
+  @ResponseStatus(HttpStatus.OK)
+  @ResponseBody
+  public List<FieldConfigDto> getAll() {
+    return fieldConfigService.getAll();
+  }
+
   @RequestMapping(value = "/fieldConfig/{name}", method = RequestMethod.GET)
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody

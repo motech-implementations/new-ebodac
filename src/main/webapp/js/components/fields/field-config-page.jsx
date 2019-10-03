@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import { getVisibleFields, getHiddenFields } from '../../selectors';
 import FieldConfigModal from './field-config-modal';
 import {
-  fetchFieldConfig, changeFieldVisibility, changeFieldOrder, saveFieldConfigOrder,
+  changeFieldVisibility, changeFieldOrder, saveFieldConfigOrder,
 } from '../../actions';
 
 const VISIBLE_FIELDS = 'visible';
@@ -50,12 +50,8 @@ class FieldConfigPage extends Component {
     };
   }
 
-  componentDidMount() {
-    this.props.fetchFieldConfig(this.props.entityType);
-  }
-
   onDragEnd = ({ draggableId, source, destination }) => {
-    const { entityType } = this.props;
+    const { entityType } = this.props.match.params;
 
     // dropped outside the list
     if (!destination) {
@@ -95,7 +91,8 @@ class FieldConfigPage extends Component {
   getChangedFields = fields => _.filter(fields, field => field.changed);
 
   saveConfigs = () => {
-    const { entityType, visibleFields, hiddenFields } = this.props;
+    const { entityType } = this.props.match.params;
+    const { visibleFields, hiddenFields } = this.props;
     this.props.saveFieldConfigOrder(entityType,
       [...this.getChangedFields(visibleFields), ...this.getChangedFields(hiddenFields)]);
   };
@@ -145,7 +142,8 @@ class FieldConfigPage extends Component {
   );
 
   render() {
-    const { entityType, visibleFields, hiddenFields } = this.props;
+    const { entityType } = this.props.match.params;
+    const { visibleFields, hiddenFields } = this.props;
     const { isModalOpen, selectedFieldId } = this.state;
     return (
       <div className="container-fluid">
@@ -172,20 +170,23 @@ class FieldConfigPage extends Component {
 }
 
 const mapStateToProps = (state, props) => ({
-  visibleFields: getVisibleFields(state, props),
-  hiddenFields: getHiddenFields(state, props),
+  visibleFields: getVisibleFields(state, { entityType: props.match.params.entityType }),
+  hiddenFields: getHiddenFields(state, { entityType: props.match.params.entityType }),
 });
 
 export default connect(mapStateToProps, {
-  fetchFieldConfig, changeFieldVisibility, changeFieldOrder, saveFieldConfigOrder,
+  changeFieldVisibility, changeFieldOrder, saveFieldConfigOrder,
 })(FieldConfigPage);
 
 FieldConfigPage.propTypes = {
-  entityType: PropTypes.string.isRequired,
-  fetchFieldConfig: PropTypes.func.isRequired,
   changeFieldVisibility: PropTypes.func.isRequired,
   changeFieldOrder: PropTypes.func.isRequired,
   saveFieldConfigOrder: PropTypes.func.isRequired,
   visibleFields: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   hiddenFields: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      entityType: PropTypes.string,
+    }),
+  }).isRequired,
 };

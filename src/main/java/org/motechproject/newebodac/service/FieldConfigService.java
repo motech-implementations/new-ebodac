@@ -20,6 +20,10 @@ public class FieldConfigService {
   @Autowired
   private FieldConfigRepository fieldConfigRepository;
 
+  public List<FieldConfigDto> getAll() {
+    return MAPPER.toDtos(fieldConfigRepository.findAll());
+  }
+
   public List<FieldConfigDto> getByEntityName(String entityName) {
     return MAPPER.toDtos(fieldConfigRepository.findByEntity(EntityType.getByName(entityName)));
   }

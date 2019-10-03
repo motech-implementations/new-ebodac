@@ -16,3 +16,7 @@ export const SAVE_FIELD_CONFIG_ORDER = 'save_field_config_order';
 
 export const CHANGE_FIELD_VISIBILITY = 'change_field_visibility';
 export const CHANGE_FIELD_ORDER = 'change_field_order';
+
+export const FETCH_ALL_FIELD_CONFIGS = 'fetch_field_configs';
+export const START_FETCH_FIELD_CONFIG = 'start_fetch_field_config';
+export const START_FETCH_ENTITY = 'start_fetch_entity';

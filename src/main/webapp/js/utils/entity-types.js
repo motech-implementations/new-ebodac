@@ -6,3 +6,4 @@ export const GROUP_ENTITY = 'group';
 export const LANGUAGE_ENTITY = 'language';
 export const ROLE_ENTITY = 'role';
 export const PERMISSION_ENTITY = 'permission';
+export const VISIT_TYPE_ENTITY = 'visitType';
