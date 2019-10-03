@@ -7,12 +7,14 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.motechproject.newebodac.domain.BaseEntity;
 
 @Getter
 @Setter
 @Entity
+@NoArgsConstructor
 @Table(name = "user_permission")
 public class UserPermission extends BaseEntity {
 
