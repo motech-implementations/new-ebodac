@@ -9,7 +9,9 @@ public enum EntityType {
   GROUP("group"),
   PERSON("keyCommunityPerson"),
   LANGUAGE("language"),
-  VISIT_TYPE("visitType");
+  VISIT_TYPE("visitType"),
+  ROLE("role"),
+  PERMISSION("permission");
 
   @Getter
   private String name;

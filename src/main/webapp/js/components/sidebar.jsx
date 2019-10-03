@@ -177,7 +177,7 @@ class SideBar extends Component {
     return (
       <ul className="nav nav-second-level">
         <li className="border-none">
-          <Link to="/roles">
+          <Link to="/role">
             <FontAwesomeIcon icon="hand-point-right" />
             <span className="icon-text">Roles</span>
           </Link>

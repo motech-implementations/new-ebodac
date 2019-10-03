@@ -2,6 +2,8 @@ package org.motechproject.newebodac.domain.security;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,6 +14,7 @@ import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.motechproject.newebodac.domain.BaseEntity;
 
@@ -19,6 +22,7 @@ import org.motechproject.newebodac.domain.BaseEntity;
 @Setter
 @Entity
 @Table(name = "user_role")
+@NoArgsConstructor
 public class UserRole extends BaseEntity {
 
   @NotBlank
@@ -37,4 +41,8 @@ public class UserRole extends BaseEntity {
       inverseJoinColumns = @JoinColumn(
           name = "permission_id", referencedColumnName = "id"))
   private Set<UserPermission> permissions = new HashSet<>();
+
+  public UserRole(UUID id) {
+    super(id);
+  }
 }

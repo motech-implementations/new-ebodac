@@ -1,5 +1,7 @@
 package org.motechproject.newebodac.domain.security;
 
+import java.util.UUID;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -23,4 +25,8 @@ public class UserPermission extends BaseEntity {
 
   @Column(name = "readonly", nullable = false)
   private Boolean readonly = false;
+
+  public UserPermission(UUID id) {
+    super(id);
+  }
 }

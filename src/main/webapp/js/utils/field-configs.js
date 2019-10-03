@@ -1,0 +1,45 @@
+import { ROLE_ENTITY, PERMISSION_ENTITY } from './entity-types';
+
+const roleFieldConfig = [{
+  base: true,
+  editable: false,
+  filterable: true,
+  required: false,
+  hidden: true,
+  fieldType: 'TEXT',
+  entity: ROLE_ENTITY,
+  displayName: 'ID',
+  name: 'id',
+  relatedEntity: null,
+  relatedField: null,
+  format: '',
+}, {
+  base: true,
+  editable: true,
+  filterable: true,
+  required: true,
+  hidden: false,
+  fieldType: 'TEXT',
+  entity: ROLE_ENTITY,
+  displayName: 'Name',
+  name: 'name',
+  relatedEntity: null,
+  relatedField: null,
+  format: '',
+}, {
+  base: true,
+  editable: true,
+  filterable: true,
+  required: false,
+  hidden: false,
+  fieldType: 'COLLECTION',
+  entity: ROLE_ENTITY,
+  displayName: 'Permissions',
+  name: 'permissionIds',
+  relatedEntity: PERMISSION_ENTITY,
+  relatedField: 'displayName',
+  format: '',
+},
+];
+
+export default roleFieldConfig;

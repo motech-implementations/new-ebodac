@@ -19,6 +19,7 @@ import CallLogCommunityPerson from './reports/call-log-community-person';
 import SmsLogVaccinees from './reports/sms-log-vaccinees';
 import SmsLogCommunityPerson from './reports/sms-log-community-person';
 import Roles from './user-managment/roles';
+import RoleEditPage from './user-managment/role-edit-page';
 import Users from './user-managment/users';
 import Enrollment from './enrollment';
 import Messaging from './settings/messaging';
@@ -32,6 +33,7 @@ import MessageCampaign from './message-campaign';
 import Login from './auth/login';
 import ViewEntity from './entities/view-entity';
 import EditEntityPage from './entities/edit-entity-page';
+import { ROLE_ENTITY } from '../utils/entity-types';
 
 class Navbar extends Component {
   constructor(props) {
@@ -71,7 +73,7 @@ class Navbar extends Component {
                     <RoutePrivate path="/callLogCommunityPerson" component={CallLogCommunityPerson} />
                     <RoutePrivate path="/smsLogVaccinees" component={SmsLogVaccinees} />
                     <RoutePrivate path="/smsLogCommunityPerson" component={SmsLogCommunityPerson} />
-                    <RoutePrivate path="/roles" component={Roles} />
+                    <RoutePrivate path="/role" component={Roles} />
                     <RoutePrivate path="/users" component={Users} />
                     <RoutePrivate path="/enrollmentGroup" component={Enrollment} />
                     <RoutePrivate path="/messaging" component={Messaging} />
@@ -83,6 +85,7 @@ class Navbar extends Component {
                     <RoutePrivate path="/messageCampaign" component={MessageCampaign} />
                     <RoutePrivate path="/viewEntity/:entityType" component={ViewEntity} />
                     <RoutePrivate path="/entityEdit/:entityType" component={EditEntityPage} />
+                    <RoutePrivate path={`/entityEdit/${ROLE_ENTITY}/:id`} component={RoleEditPage} />
                     <RoutePrivate path="/entityEdit/:entityType/:id" component={EditEntityPage} />
                   </div>
                 </div>

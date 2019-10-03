@@ -13,6 +13,8 @@ const initialState = {
   site: {},
   visitType: {},
   group: {},
+  role: {},
+  permission: {},
 };
 
 export default (state = initialState, action) => {
