@@ -1,12 +1,12 @@
+import _ from 'lodash';
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { getEntityArrayByName } from '../../selectors';
+import { mapEntityToList } from '../../selectors';
 
-const CollectionCell = ({ entityArray, relatedField }) => {
-  const collectionCellValue = entityArray[0][relatedField];
-
+const CollectionCell = ({ values }) => {
+  const collectionCellValue = _.join(values, ', ');
   return (
     <div className="table-cell-text">
       {collectionCellValue}
@@ -15,17 +15,15 @@ const CollectionCell = ({ entityArray, relatedField }) => {
 };
 
 const mapStateToProps = (state, props) => ({
-  entityArray: getEntityArrayByName(state, props),
+  values: mapEntityToList(state, props),
 });
 
 export default connect(mapStateToProps)(CollectionCell);
 
 CollectionCell.propTypes = {
-  entityArray: PropTypes.arrayOf(PropTypes.shape({})),
-  relatedField: PropTypes.string,
+  values: PropTypes.arrayOf(PropTypes.string),
 };
 
 CollectionCell.defaultProps = {
-  entityArray: null,
-  relatedField: null,
+  values: null,
 };
