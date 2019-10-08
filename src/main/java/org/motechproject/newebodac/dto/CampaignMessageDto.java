@@ -11,7 +11,7 @@ public class CampaignMessageDto extends BaseDto {
 
   private String messageKey;
 
-  private String timeOffset;
+  private Integer timeOffset;
 
   private String visitTypeId;
 }

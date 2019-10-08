@@ -1,6 +1,7 @@
 package org.motechproject.newebodac.dto;
 
 import java.util.Set;
+import java.util.UUID;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,5 +21,5 @@ public class VisitTypeDto extends BaseDto {
 
   private Integer latestOffset;
 
-  private Set<CampaignMessageDto> messages;
+  private Set<UUID> messageIds;
 }

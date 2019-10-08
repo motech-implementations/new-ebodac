@@ -12,14 +12,37 @@ import {
   FETCH_ALL_FIELD_CONFIGS,
   START_FETCH_FIELD_CONFIG,
 } from '../actions/types';
-import roleFieldConfig from '../utils/field-configs';
+import {
+  VACCINEE_ENTITY,
+  KEY_COMMUNITY_PERSON_ENTITY,
+  SITE_ENTITY,
+  VISIT_ENTITY,
+  ROLE_ENTITY,
+  LANGUAGE_ENTITY,
+  CAMPAIGN_MESSAGE_ENTITY,
+  VISIT_TYPE_ENTITY,
+  GROUP_ENTITY,
+  USER_ENTITY,
+} from '../constants/entity-types';
+import {
+  roleFieldConfig,
+  languageFieldConfig,
+  campaignMessageFieldConfig,
+  visitTypeFieldConfig,
+  userFieldConfig,
+} from '../constants/field-configs';
 
 const initialState = {
-  vaccinee: {},
-  keyCommunityPerson: {},
-  site: {},
-  visit: {},
-  role: roleFieldConfig,
+  [VACCINEE_ENTITY]: {},
+  [KEY_COMMUNITY_PERSON_ENTITY]: {},
+  [SITE_ENTITY]: {},
+  [VISIT_ENTITY]: {},
+  [GROUP_ENTITY]: {},
+  [ROLE_ENTITY]: roleFieldConfig,
+  [LANGUAGE_ENTITY]: languageFieldConfig,
+  [CAMPAIGN_MESSAGE_ENTITY]: campaignMessageFieldConfig,
+  [VISIT_TYPE_ENTITY]: visitTypeFieldConfig,
+  [USER_ENTITY]: userFieldConfig,
   fieldConfigFetched: false,
   fieldConfigFetching: false,
 };

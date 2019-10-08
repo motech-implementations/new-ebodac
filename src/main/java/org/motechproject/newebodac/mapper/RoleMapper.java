@@ -15,11 +15,20 @@ public interface RoleMapper extends EntityMapper<RoleDto, UserRole> {
 
   RoleMapper INSTANCE = Mappers.getMapper(RoleMapper.class);
 
+  @Mapping(target = "permissions", source = "permissionIds")
   @Mapping(target = "id", ignore = true)
   @Mapping(target = "createDate", ignore = true)
   @Mapping(target = "updateDate", ignore = true)
   @Mapping(target = "readonly", ignore = true)
   void update(RoleDto roleDto, @MappingTarget UserRole role);
+
+  @Mapping(target = "permissionIds", source = "permissions")
+  @Override
+  RoleDto toDto(UserRole userRole);
+
+  @Mapping(target = "permissions", source = "permissionIds")
+  @Override
+  UserRole fromDto(RoleDto roleDto);
 
   default UserPermission toUserPermission(UUID id) {
     return new UserPermission(id);

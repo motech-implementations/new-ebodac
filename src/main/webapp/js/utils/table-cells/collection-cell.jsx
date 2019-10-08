@@ -3,7 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { mapEntityToList } from '../../selectors';
+import { getEntityByIdList } from '../../selectors';
 
 const CollectionCell = ({ values }) => {
   const collectionCellValue = _.join(values, ', ');
@@ -15,7 +15,7 @@ const CollectionCell = ({ values }) => {
 };
 
 const mapStateToProps = (state, props) => ({
-  values: mapEntityToList(state, props),
+  values: getEntityByIdList(state, props),
 });
 
 export default connect(mapStateToProps)(CollectionCell);

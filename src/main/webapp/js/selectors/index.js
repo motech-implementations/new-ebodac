@@ -4,12 +4,7 @@ import { createSelector } from 'reselect';
 const getFieldConfigByEntity = (state, { entityType }) => state.fieldConfig[entityType];
 
 export const getEntityFieldValue = (state,
-  { entityType, value, relatedField }) => {
-  if (value in state.entity[entityType]) {
-    return state.entity[entityType][value][relatedField];
-  }
-  return null;
-};
+  { entityType, value, relatedField }) => _.get(state.entity, `${entityType}.${value}.${relatedField}`, null);
 
 const getEntityByName = (state, { entityType }) => state.entity[entityType];
 
@@ -28,12 +23,13 @@ const filterAndMapFields = (fields, isHidden) => (
 
 const mapToArray = object => (object ? Object.values(object) : []);
 
-const mapToList = (
-  valuesList,
-  relatedField,
-) => _.map(valuesList, row => (row[relatedField]));
-
 const getRelatedField = (state, { relatedField }) => relatedField;
+
+const getIdList = (state, { value }) => value;
+
+const filterEntityByIdList = (entity, ids, relatedField) => _.map(
+  ids, id => _.get(entity, `${id}.${relatedField}`),
+);
 
 export const getVisibleFields = createSelector(
   getFieldConfigByEntity, fields => filterAndMapFields(fields, false),
@@ -51,12 +47,15 @@ export const getEntityArrayByName = createSelector(
   getEntityByName, entity => mapToArray(entity),
 );
 
-export const mapEntityToList = createSelector(
-  getEntityArrayByName, getRelatedField, mapToList,
-);
-
 export const mapEntityToOptions = createSelector(
-  getEntityArrayByName,
+  getEntityByName,
   getRelatedField,
   mapToOptions,
+);
+
+export const getEntityByIdList = createSelector(
+  getEntityByName,
+  getIdList,
+  getRelatedField,
+  filterEntityByIdList,
 );

@@ -6,6 +6,15 @@ import EnumCell from './table-cells/enum-cell';
 import DateCell from './table-cells/date-cell';
 import CollectionCell from './table-cells/collection-cell';
 import TextCell from './table-cells/text-cell';
+import BoolCell from './table-cells/bool-cell';
+import {
+  DATE,
+  DATE_TIME,
+  RELATION,
+  ENUM,
+  BOOLEAN,
+  COLLECTION,
+} from '../constants/field-types';
 
 const getTableCell = (item, props) => {
   const {
@@ -16,23 +25,26 @@ const getTableCell = (item, props) => {
   const { value } = item;
 
   switch (fieldType) {
-    case 'DATE':
+    case DATE:
       Cell = DateCell;
       attr = { format };
       break;
-    case 'DATE_TIME':
+    case DATE_TIME:
       Cell = DateCell;
       attr = { format };
       break;
-    case 'RELATION':
+    case RELATION:
       Cell = RelationCell;
       attr = { entityType: relatedEntity, relatedField };
       break;
-    case 'ENUM':
+    case ENUM:
       Cell = EnumCell;
       attr = { format };
       break;
-    case 'COLLECTION':
+    case BOOLEAN:
+      Cell = BoolCell;
+      break;
+    case COLLECTION:
       Cell = CollectionCell;
       attr = { entityType: relatedEntity, relatedField };
       break;

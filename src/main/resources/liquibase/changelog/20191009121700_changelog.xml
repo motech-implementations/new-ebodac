@@ -1,0 +1,45 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+    <changeSet author="user (generated)" id="1565343871618-7">
+        <update tableName="field_config">
+            <column name="hidden" type="BIT" valueBoolean="true"/>
+            <where>name='id'</where>
+        </update>
+        <update tableName="field_config">
+            <column name="editable" type="BIT" valueBoolean="false"/>
+            <where>name='id'</where>
+        </update>
+        <update tableName="field_config">
+            <column name="field_order" type="INT" valueNumeric="0"/>
+            <where>name='id'</where>
+        </update>
+        <update tableName="field_config">
+            <column name="hidden" type="BIT" valueBoolean="true"/>
+            <where>name='createDate'</where>
+        </update>
+        <update tableName="field_config">
+            <column name="editable" type="BIT" valueBoolean="false"/>
+            <where>name='createDate'</where>
+        </update>
+        <update tableName="field_config">
+            <column name="field_order" type="INT" valueNumeric="1"/>
+            <where>name='createDate'</where>
+        </update>
+        <update tableName="field_config">
+            <column name="hidden" type="BIT" valueBoolean="true"/>
+            <where>name='updateDate'</where>
+        </update>
+        <update tableName="field_config">
+            <column name="editable" type="BIT" valueBoolean="false"/>
+            <where>name='updateDate'</where>
+        </update>
+        <update tableName="field_config">
+            <column name="field_order" type="INT" valueNumeric="2"/>
+            <where>name='updateDate'</where>
+        </update>
+        <update tableName="field_config">
+            <column name="field_order" type="INT" valueNumeric="field_order - 1"/>
+            <where>hidden=false</where>
+        </update>
+    </changeSet>
+</databaseChangeLog>

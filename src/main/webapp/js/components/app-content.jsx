@@ -18,7 +18,6 @@ import CallLogVaccinees from './reports/call-log-vaccinees';
 import CallLogCommunityPerson from './reports/call-log-community-person';
 import SmsLogVaccinees from './reports/sms-log-vaccinees';
 import SmsLogCommunityPerson from './reports/sms-log-community-person';
-import Users from './user-managment/users';
 import Enrollment from './enrollment';
 import Messaging from './settings/messaging';
 import Languages from './settings/languages';
@@ -62,7 +61,6 @@ class AppContent extends Component {
                 <RoutePrivate path="/callLogCommunityPerson" component={CallLogCommunityPerson} />
                 <RoutePrivate path="/smsLogVaccinees" component={SmsLogVaccinees} />
                 <RoutePrivate path="/smsLogCommunityPerson" component={SmsLogCommunityPerson} />
-                <RoutePrivate path="/users" component={Users} />
                 <RoutePrivate path="/enrollmentGroup" component={Enrollment} />
                 <RoutePrivate path="/messaging" component={Messaging} />
                 <RoutePrivate path="/languages" component={Languages} />
