@@ -9,13 +9,19 @@ import {
   CHANGE_FIELD_VISIBILITY,
   CHANGE_FIELD_ORDER,
   SAVE_FIELD_CONFIG_ORDER,
+  FETCH_ALL_FIELD_CONFIGS,
+  START_FETCH_FIELD_CONFIG,
 } from '../actions/types';
+import roleFieldConfig from '../utils/field-configs';
 
 const initialState = {
   vaccinee: {},
   keyCommunityPerson: {},
   site: {},
   visit: {},
+  role: roleFieldConfig,
+  fieldConfigFetched: false,
+  fieldConfigFetching: false,
 };
 
 export default (state = initialState, action) => {
@@ -26,6 +32,16 @@ export default (state = initialState, action) => {
     case FETCH_FIELD_CONFIG:
       return update(state, {
         [entityType]: { $set: _.keyBy(payload.data, 'id') },
+      });
+    case FETCH_ALL_FIELD_CONFIGS:
+      return update(state, {
+        $merge: _.chain(payload.data).groupBy('entity').mapValues(val => _.keyBy(val, 'id')).value(),
+        fieldConfigFetched: { $set: true },
+        fieldConfigFetching: { $set: false },
+      });
+    case START_FETCH_FIELD_CONFIG:
+      return update(state, {
+        fieldConfigFetching: { $set: true },
       });
     case CREATE_FIELD_CONFIG:
       return update(state, {

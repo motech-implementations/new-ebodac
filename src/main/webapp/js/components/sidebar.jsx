@@ -5,7 +5,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import '../../css/main.scss';
 
-import { KEY_COMMUNITY_PERSON_ENTITY, SITE_ENTITY, VACCINEE_ENTITY } from '../utils/entity-types';
+import {
+  KEY_COMMUNITY_PERSON_ENTITY,
+  SITE_ENTITY,
+  VACCINEE_ENTITY,
+  LANGUAGE_ENTITY,
+  VISIT_ENTITY,
+  ROLE_ENTITY,
+} from '../utils/entity-types';
 
 class SideBar extends Component {
   constructor(props) {
@@ -177,7 +184,7 @@ class SideBar extends Component {
     return (
       <ul className="nav nav-second-level">
         <li className="border-none">
-          <Link to="/role">
+          <Link to={`/viewEntity/${ROLE_ENTITY}`}>
             <FontAwesomeIcon icon="hand-point-right" />
             <span className="icon-text">Roles</span>
           </Link>
@@ -208,7 +215,7 @@ class SideBar extends Component {
           </Link>
         </li>
         <li className="border-none">
-          <Link to="/languages">
+          <Link to={`/viewEntity/${LANGUAGE_ENTITY}`}>
             <FontAwesomeIcon icon="hand-point-right" />
             <span className="icon-text">Languages</span>
           </Link>
@@ -241,7 +248,7 @@ class SideBar extends Component {
       <ul className="nav nav-third-level">
         <li className="border-none">
           <div className="third-level-item">
-            <Link to="/vaccineeFields">
+            <Link to={`/fieldConfig/${VACCINEE_ENTITY}`}>
               <FontAwesomeIcon icon="hand-point-right" />
               <span className="icon-text">Vaccinee</span>
             </Link>
@@ -249,7 +256,7 @@ class SideBar extends Component {
         </li>
         <li className="border-none">
           <div className="third-level-item">
-            <Link to="/keyCommunityPersonFields">
+            <Link to={`/fieldConfig/${KEY_COMMUNITY_PERSON_ENTITY}`}>
               <FontAwesomeIcon icon="hand-point-right" />
               <span className="icon-text">Key Community Persons</span>
             </Link>
@@ -257,7 +264,7 @@ class SideBar extends Component {
         </li>
         <li className="border-none">
           <div className="third-level-item">
-            <Link to="/sitesFields">
+            <Link to={`/fieldConfig/${SITE_ENTITY}`}>
               <FontAwesomeIcon icon="hand-point-right" />
               <span className="icon-text">Sites</span>
             </Link>
@@ -265,7 +272,7 @@ class SideBar extends Component {
         </li>
         <li className="border-none">
           <div className="third-level-item">
-            <Link to="/visitScheduleFields">
+            <Link to={`/fieldConfig/${VISIT_ENTITY}`}>
               <FontAwesomeIcon icon="hand-point-right" />
               <span className="icon-text">Visit Schedule</span>
             </Link>

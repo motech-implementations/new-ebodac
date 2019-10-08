@@ -2,19 +2,69 @@ import _ from 'lodash';
 import update from 'immutability-helper';
 
 import {
-  FETCH_ENTITY, DELETE_ENTITY, UPDATE_ENTITY, CREATE_ENTITY,
+  FETCH_ENTITY, DELETE_ENTITY, UPDATE_ENTITY, CREATE_ENTITY, START_FETCH_ENTITY,
 } from '../actions/types';
 
+import {
+  PERMISSION_ENTITY,
+  LANGUAGE_ENTITY,
+  GROUP_ENTITY,
+  VISIT_ENTITY,
+  VACCINEE_ENTITY,
+  KEY_COMMUNITY_PERSON_ENTITY,
+  SITE_ENTITY,
+  ROLE_ENTITY,
+  VISIT_TYPE_ENTITY,
+} from '../utils/entity-types';
+
 const initialState = {
-  vaccinee: {},
-  visit: {},
-  language: {},
-  keyCommunityPerson: {},
-  site: {},
-  visitType: {},
-  group: {},
-  role: {},
-  permission: {},
+  [VACCINEE_ENTITY]: {},
+  [VISIT_ENTITY]: {},
+  [LANGUAGE_ENTITY]: {},
+  [KEY_COMMUNITY_PERSON_ENTITY]: {},
+  [SITE_ENTITY]: {},
+  [VISIT_TYPE_ENTITY]: {},
+  [GROUP_ENTITY]: {},
+  [ROLE_ENTITY]: {},
+  [PERMISSION_ENTITY]: {},
+  metadata: {
+    [VACCINEE_ENTITY]: {
+      fetched: false,
+      fetching: false,
+    },
+    [VISIT_ENTITY]: {
+      fetched: false,
+      fetching: false,
+    },
+    [LANGUAGE_ENTITY]: {
+      fetched: false,
+      fetching: false,
+    },
+    [KEY_COMMUNITY_PERSON_ENTITY]: {
+      fetched: false,
+      fetching: false,
+    },
+    [SITE_ENTITY]: {
+      fetched: false,
+      fetching: false,
+    },
+    [VISIT_TYPE_ENTITY]: {
+      fetched: false,
+      fetching: false,
+    },
+    [GROUP_ENTITY]: {
+      fetched: false,
+      fetching: false,
+    },
+    [ROLE_ENTITY]: {
+      fetched: false,
+      fetching: false,
+    },
+    [PERMISSION_ENTITY]: {
+      fetched: false,
+      fetching: false,
+    },
+  },
 };
 
 export default (state = initialState, action) => {
@@ -24,6 +74,20 @@ export default (state = initialState, action) => {
     case FETCH_ENTITY:
       return update(state, {
         [entityType]: { $set: _.keyBy(payload.data, 'id') },
+        metadata: {
+          [entityType]: {
+            fetched: { $set: true },
+            fetching: { $set: false },
+          },
+        },
+      });
+    case START_FETCH_ENTITY:
+      return update(state, {
+        metadata: {
+          [entityType]: {
+            fetching: { $set: true },
+          },
+        },
       });
     case DELETE_ENTITY:
       return update(state, {

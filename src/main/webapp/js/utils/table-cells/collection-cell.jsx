@@ -5,7 +5,8 @@ import PropTypes from 'prop-types';
 import { getEntityArrayByName } from '../../selectors';
 
 const CollectionCell = ({ entityArray, relatedField }) => {
-  const collectionCellValue = JSON.stringify(entityArray[0][relatedField]);
+  const collectionCellValue = entityArray[0][relatedField];
+
   return (
     <div className="table-cell-text">
       {collectionCellValue}
@@ -20,7 +21,7 @@ const mapStateToProps = (state, props) => ({
 export default connect(mapStateToProps)(CollectionCell);
 
 CollectionCell.propTypes = {
-  entityArray: PropTypes.string,
+  entityArray: PropTypes.arrayOf(PropTypes.shape({})),
   relatedField: PropTypes.string,
 };
 

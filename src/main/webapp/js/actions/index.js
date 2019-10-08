@@ -2,6 +2,7 @@ import Client from 'client-oauth2';
 import jwtDecode from 'jwt-decode';
 import axios from 'axios';
 import apiClient from '../utils/api-client';
+
 import {
   FETCH_ENTITY,
   UPDATE_ENTITY,
@@ -11,13 +12,15 @@ import {
   UNAUTH_USER,
   AUTH_ERROR,
   SET_COUNTER_LOGOUT_TIME,
-  FETCH_FIELD_CONFIG,
   CREATE_FIELD_CONFIG,
   SAVE_FIELD_CONFIG,
   DELETE_FIELD_CONFIG,
   CHANGE_FIELD_VISIBILITY,
   CHANGE_FIELD_ORDER,
   SAVE_FIELD_CONFIG_ORDER,
+  FETCH_ALL_FIELD_CONFIGS,
+  START_FETCH_FIELD_CONFIG,
+  START_FETCH_ENTITY,
 } from './types';
 
 const BASE_URL = '/api';
@@ -82,15 +85,21 @@ export const useRefreshToken = (refreshToken, callback) => dispatch => axios({
 
 export const signoutUser = () => ({ type: UNAUTH_USER });
 
-export const fetchEntity = (entityType) => {
+export const fetchEntity = entityType => (dispatch) => {
   const request = apiClient.get(`${BASE_URL}/${entityType}`);
-  return {
+  dispatch({
+    type: START_FETCH_ENTITY,
+    meta: {
+      entityType,
+    },
+  });
+  dispatch({
     type: FETCH_ENTITY,
     payload: request,
     meta: {
       entityType,
     },
-  };
+  });
 };
 
 export const deleteEntity = (entityType, entityId) => {
@@ -127,15 +136,15 @@ export const createEntity = (entityType, entity) => {
   };
 };
 
-export const fetchFieldConfig = (entityType) => {
-  const request = apiClient.get(`${FIELD_CONFIG}/${entityType}`);
-  return {
-    type: FETCH_FIELD_CONFIG,
+export const fetchAllFieldConfigs = () => (dispatch) => {
+  const request = apiClient.get(FIELD_CONFIG);
+  dispatch({
+    type: START_FETCH_FIELD_CONFIG,
+  });
+  dispatch({
+    type: FETCH_ALL_FIELD_CONFIGS,
     payload: request,
-    meta: {
-      entityType,
-    },
-  };
+  });
 };
 
 export const createFieldConfig = (entityType, item) => {
