@@ -28,6 +28,11 @@ const filterAndMapFields = (fields, isHidden) => (
 
 const mapToArray = object => (object ? Object.values(object) : []);
 
+const mapToList = (
+  valuesList,
+  relatedField,
+) => _.map(valuesList, row => (row[relatedField]));
+
 const getRelatedField = (state, { relatedField }) => relatedField;
 
 export const getVisibleFields = createSelector(
@@ -44,6 +49,10 @@ export const getFieldConfigById = (state, { entityType, fieldId }) => (
 
 export const getEntityArrayByName = createSelector(
   getEntityByName, entity => mapToArray(entity),
+);
+
+export const mapEntityToList = createSelector(
+  getEntityArrayByName, getRelatedField, mapToList,
 );
 
 export const mapEntityToOptions = createSelector(
