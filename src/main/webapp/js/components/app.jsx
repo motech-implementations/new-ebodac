@@ -16,6 +16,7 @@ import {
   ROLE_ENTITY,
 } from '../constants/entity-types';
 import Login from './auth/login';
+import Register from './auth/register';
 
 loadIcons();
 
@@ -46,6 +47,7 @@ class App extends Component {
       <Router>
         <Switch>
           <Route path="/login" component={Login} />
+          <Route path="/register" component={Register} />
           <Route path="/" component={AppContent} />
         </Switch>
       </Router>

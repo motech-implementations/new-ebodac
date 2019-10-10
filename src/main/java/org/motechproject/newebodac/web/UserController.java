@@ -38,8 +38,8 @@ public class UserController extends BaseController {
   @RequestMapping(value = "/user", method = RequestMethod.POST)
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
-  public UserDto create(@RequestBody @Valid UserDto languageDto) {
-    return userService.create(languageDto);
+  public UserDto create(@RequestBody @Valid UserDto userDto) {
+    return userService.create(userDto);
   }
 
   @RequestMapping(value = "/user/{id}", method = RequestMethod.PUT)
@@ -54,5 +54,12 @@ public class UserController extends BaseController {
   @ResponseStatus(HttpStatus.OK)
   public void delete(@PathVariable("id") UUID id) {
     userService.delete(id);
+  }
+
+  @RequestMapping(value = "/register", method = RequestMethod.POST)
+  @ResponseStatus(HttpStatus.OK)
+  @ResponseBody
+  public UserDto registerUser(@RequestBody @Valid UserDto userDto) {
+    return userService.create(userDto);
   }
 }

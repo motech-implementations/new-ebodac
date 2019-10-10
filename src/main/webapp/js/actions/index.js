@@ -21,6 +21,7 @@ import {
   FETCH_ALL_FIELD_CONFIGS,
   START_FETCH_FIELD_CONFIG,
   START_FETCH_ENTITY,
+  REGISTER_USER,
 } from './types';
 
 const BASE_URL = '/api';
@@ -84,6 +85,33 @@ export const useRefreshToken = (refreshToken, callback) => dispatch => axios({
   });
 
 export const signoutUser = () => ({ type: UNAUTH_USER });
+
+export const registerUser = (values, callback) => (dispatch) => {
+  const request = apiClient.post(`${BASE_URL}/register`, values);
+  request.catch(() => {
+    const failure = {
+      message: 'Registration Error. Please try again.',
+      success: false,
+    };
+    dispatch({
+      type: REGISTER_USER,
+      payload: failure,
+    });
+  })
+    .then(() => {
+      const success = {
+        message: 'Registration Success. Administrator need to activate your account.',
+        success: true,
+      };
+      dispatch({
+        type: REGISTER_USER,
+        payload: success,
+      });
+      if (callback) {
+        callback();
+      }
+    });
+};
 
 export const fetchEntity = entityType => (dispatch) => {
   const request = apiClient.get(`${BASE_URL}/${entityType}`);
