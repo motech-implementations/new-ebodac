@@ -14,7 +14,7 @@ import lombok.Setter;
 @Table(name = "enrollment_group")
 public class EnrollmentGroup extends BaseEntity {
 
-  @Column(name = "name")
+  @Column(name = "name", nullable = false)
   private String name;
 
   @OneToMany(mappedBy = "group")

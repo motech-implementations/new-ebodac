@@ -9,19 +9,30 @@ import '../../css/main.scss';
 import AppContent from './app-content';
 import loadIcons from '../utils/icon-loader';
 import { fetchAllFieldConfigs, fetchEntity } from '../actions/index';
-import { PERMISSION_ENTITY, LANGUAGE_ENTITY, GROUP_ENTITY } from '../utils/entity-types';
+import {
+  PERMISSION_ENTITY,
+  LANGUAGE_ENTITY,
+  GROUP_ENTITY,
+  ROLE_ENTITY,
+} from '../constants/entity-types';
 import Login from './auth/login';
 
 loadIcons();
 
+const ENTITY_ARRAY = [
+  PERMISSION_ENTITY,
+  LANGUAGE_ENTITY,
+  GROUP_ENTITY,
+  ROLE_ENTITY,
+];
+
 class App extends Component {
   componentDidUpdate() {
     const { fieldConfigFetched, fieldConfigFetching } = this.props;
-    const entityArray = [PERMISSION_ENTITY, LANGUAGE_ENTITY, GROUP_ENTITY];
     if (this.props.authenticated && !fieldConfigFetched && !fieldConfigFetching) {
       this.props.fetchAllFieldConfigs();
     }
-    entityArray.forEach((entity) => {
+    ENTITY_ARRAY.forEach((entity) => {
       const isFetched = this.props.metadata[entity].fetched;
       const isFetching = this.props.metadata[entity].fetching;
       if (this.props.authenticated && !isFetched && !isFetching) {

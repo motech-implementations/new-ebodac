@@ -9,6 +9,19 @@ import DateField from './date-field';
 import SelectField from './select-field';
 import NonEditableField from './non-editable-field';
 import RelationField from './relation-field';
+import {
+  TEXT,
+  LONG_TEXT,
+  INTEGER,
+  FLOAT,
+  BOOLEAN,
+  DATE,
+  DATE_TIME,
+  ENUM,
+  RELATION,
+  COLLECTION,
+  VACCINATION_DATE,
+} from '../../constants/field-types';
 
 const getOptionsFromEnum = (format) => {
   if (!format) {
@@ -35,42 +48,42 @@ const renderFormField = (props) => {
   let attr = {};
 
   switch (fieldType) {
-    case 'TEXT':
+    case TEXT:
       FieldType = TextField;
       break;
-    case 'LONG_TEXT':
+    case LONG_TEXT:
       FieldType = TextareaField;
       break;
-    case 'INTEGER':
+    case INTEGER:
       FieldType = TextField;
       break;
-    case 'FLOAT':
+    case FLOAT:
       FieldType = TextField;
       break;
-    case 'BOOLEAN':
+    case BOOLEAN:
       FieldType = CheckboxField;
       break;
-    case 'DATE':
+    case DATE:
       FieldType = DateField;
       attr = { dateFormat: format };
       break;
-    case 'DATE_TIME':
+    case DATE_TIME:
       FieldType = DateField;
       attr = { dateFormat: format, showTimeSelect: true };
       break;
-    case 'ENUM':
+    case ENUM:
       FieldType = SelectField;
       attr = { options: options || getOptionsFromEnum(format) };
       break;
-    case 'RELATION':
+    case RELATION:
       FieldType = RelationField;
       attr = { entityType: relatedEntity, relatedField };
       break;
-    case 'COLLECTION':
+    case COLLECTION:
       FieldType = RelationField;
       attr = { entityType: relatedEntity, relatedField, multi: true };
       break;
-    case 'VACCINATION_DATE':
+    case VACCINATION_DATE:
       FieldType = NonEditableField;
       break;
     default:

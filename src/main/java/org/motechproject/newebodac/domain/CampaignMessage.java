@@ -1,5 +1,6 @@
 package org.motechproject.newebodac.domain;
 
+import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -8,11 +9,13 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
 @Entity
+@NoArgsConstructor
 @Table(name = "campaign_message")
 public class CampaignMessage extends BaseEntity {
 
@@ -32,4 +35,8 @@ public class CampaignMessage extends BaseEntity {
   @ManyToOne
   @JoinColumn(name = "visit_type_id", nullable = false)
   private VisitType visitType;
+
+  public CampaignMessage(UUID id) {
+    super(id);
+  }
 }

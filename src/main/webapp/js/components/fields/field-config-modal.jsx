@@ -9,6 +9,19 @@ import ConfirmModal from '../comfirm-modal';
 import renderFormField, { validate } from '../../utils/form/form-utils';
 import { getFieldConfigById } from '../../selectors';
 import { createFieldConfig, deleteFieldConfig, saveFieldConfig } from '../../actions';
+import {
+  TEXT,
+  LONG_TEXT,
+  INTEGER,
+  FLOAT,
+  BOOLEAN,
+  DATE,
+  DATE_TIME,
+  ENUM,
+  RELATION,
+  COLLECTION,
+  VACCINATION_DATE,
+} from '../../constants/field-types';
 
 Modal.setAppElement(document.getElementById('root'));
 
@@ -42,17 +55,17 @@ const customStyles = {
 };
 
 const FIELD_TYPE_OPTIONS = [
-  { label: 'Text', value: 'TEXT' },
-  { label: 'Long text', value: 'LONG_TEXT' },
-  { label: 'Integer', value: 'INTEGER' },
-  { label: 'Float', value: 'FLOAT' },
-  { label: 'Boolean', value: 'BOOLEAN' },
-  { label: 'Date', value: 'DATE' },
-  { label: 'Date time', value: 'DATE_TIME' },
-  { label: 'Enum', value: 'ENUM' },
-  { label: 'Relation', value: 'RELATION', isDisabled: true },
-  { label: 'Collection', value: 'COLLECTION', isDisabled: true },
-  { label: 'Vaccination date', value: 'VACCINATION_DATE', isDisabled: true },
+  { label: 'Text', value: TEXT },
+  { label: 'Long text', value: LONG_TEXT },
+  { label: 'Integer', value: INTEGER },
+  { label: 'Float', value: FLOAT },
+  { label: 'Boolean', value: BOOLEAN },
+  { label: 'Date', value: DATE },
+  { label: 'Date time', value: DATE_TIME },
+  { label: 'Enum', value: ENUM },
+  { label: 'Relation', value: RELATION, isDisabled: true },
+  { label: 'Collection', value: COLLECTION, isDisabled: true },
+  { label: 'Vaccination date', value: VACCINATION_DATE, isDisabled: true },
 ];
 
 const FIELDS = [

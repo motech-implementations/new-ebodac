@@ -15,7 +15,9 @@ import {
   SITE_ENTITY,
   ROLE_ENTITY,
   VISIT_TYPE_ENTITY,
-} from '../utils/entity-types';
+  CAMPAIGN_MESSAGE_ENTITY,
+  USER_ENTITY,
+} from '../constants/entity-types';
 
 const initialState = {
   [VACCINEE_ENTITY]: {},
@@ -27,6 +29,8 @@ const initialState = {
   [GROUP_ENTITY]: {},
   [ROLE_ENTITY]: {},
   [PERMISSION_ENTITY]: {},
+  [CAMPAIGN_MESSAGE_ENTITY]: {},
+  [USER_ENTITY]: {},
   metadata: {
     [VACCINEE_ENTITY]: {
       fetched: false,
@@ -61,6 +65,14 @@ const initialState = {
       fetching: false,
     },
     [PERMISSION_ENTITY]: {
+      fetched: false,
+      fetching: false,
+    },
+    [CAMPAIGN_MESSAGE_ENTITY]: {
+      fetched: false,
+      fetching: false,
+    },
+    [USER_ENTITY]: {
       fetched: false,
       fetching: false,
     },

@@ -12,7 +12,8 @@ import {
   LANGUAGE_ENTITY,
   VISIT_ENTITY,
   ROLE_ENTITY,
-} from '../utils/entity-types';
+  USER_ENTITY,
+} from '../constants/entity-types';
 
 class SideBar extends Component {
   constructor(props) {
@@ -190,7 +191,7 @@ class SideBar extends Component {
           </Link>
         </li>
         <li className="border-none">
-          <Link to="/users">
+          <Link to={`/viewEntity/${USER_ENTITY}`}>
             <FontAwesomeIcon icon="hand-point-right" />
             <span className="icon-text">Users</span>
           </Link>
@@ -331,7 +332,7 @@ class SideBar extends Component {
             <li>
               <a href="" onClick={this.toggleUserManagementCollapsedMenu}>
                 <FontAwesomeIcon icon="user-friends" />
-                <span className="icon-text">User Managment</span>
+                <span className="icon-text">User Management</span>
               </a>
               {this.renderUserManagementCollapsedMenu()}
             </li>
