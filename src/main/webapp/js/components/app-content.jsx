@@ -24,8 +24,8 @@ import Languages from './settings/languages';
 import RoutePrivate from './helpers/RoutePrivate';
 import MessageCampaign from './message-campaign';
 import ViewEntity from './entities/view-entity';
-import EditEntityPage from './entities/edit-entity-page';
 import FieldConfigPage from './fields/field-config-page';
+import CreateOrEditEntityPage from './entities/create-edit-entity-page';
 
 class AppContent extends Component {
   constructor(props) {
@@ -66,8 +66,8 @@ class AppContent extends Component {
                 <RoutePrivate path="/languages" component={Languages} />
                 <RoutePrivate path="/messageCampaign" component={MessageCampaign} />
                 <RoutePrivate path="/viewEntity/:entityType" component={ViewEntity} />
-                <RoutePrivate path="/entityEdit/:entityType/:id" component={EditEntityPage} />
-                <RoutePrivate path="/entityEdit/:entityType" component={EditEntityPage} />
+                <RoutePrivate path="/create/:entityType" component={CreateOrEditEntityPage} />
+                <RoutePrivate path="/entityEdit/:entityType/:id" component={CreateOrEditEntityPage} />
                 <RoutePrivate path="/fieldConfig/:entityType" component={FieldConfigPage} />
                 <RoutePrivate path="/" component={Home} />
               </Switch>

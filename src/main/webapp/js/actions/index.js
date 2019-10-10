@@ -125,8 +125,10 @@ export const updateEntity = (entityType, entity) => {
   };
 };
 
-export const createEntity = (entityType, entity) => {
+export const createEntity = (entityType, entity, callback) => {
   const request = apiClient.post(`${BASE_URL}/${entityType}`, entity);
+  request.then(() => callback());
+
   return {
     type: CREATE_ENTITY,
     payload: request,
