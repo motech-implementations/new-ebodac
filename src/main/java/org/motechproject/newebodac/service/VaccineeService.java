@@ -2,7 +2,9 @@ package org.motechproject.newebodac.service;
 
 import java.util.List;
 import java.util.UUID;
+import org.motechproject.newebodac.domain.Vaccinee;
 import org.motechproject.newebodac.dto.VaccineeDto;
+import org.motechproject.newebodac.exception.EntityNotFoundException;
 import org.motechproject.newebodac.mapper.VaccineeMapper;
 import org.motechproject.newebodac.repository.VaccineeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,5 +28,22 @@ public class VaccineeService {
 
   public VaccineeDto create(VaccineeDto vaccinee) {
     return MAPPER.toDto(vaccineeRepository.save(MAPPER.fromDto(vaccinee)));
+  }
+
+  /**
+   * Updates data from dto to object, saves it and returns its Dto.
+   *
+   * @param id      ID of object to update.
+   * @param vaccineeDto Dto of role to update.
+   * @return Dto of of updated object
+   */
+  public VaccineeDto update(UUID id, VaccineeDto vaccineeDto) {
+
+    Vaccinee vaccinee = vaccineeRepository.findById(id)
+        .orElseThrow(() -> new EntityNotFoundException("Vaccinee with id: {0} not found",
+            id.toString()));
+    MAPPER.update(vaccineeDto, vaccinee);
+
+    return MAPPER.toDto(vaccineeRepository.save(vaccinee));
   }
 }

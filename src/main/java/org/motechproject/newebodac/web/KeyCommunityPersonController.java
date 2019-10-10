@@ -51,4 +51,21 @@ public class KeyCommunityPersonController extends BaseController {
       @RequestBody @Valid KeyCommunityPersonDto keyCommunityPersonDto) {
     return keyCommunityPersonService.create(keyCommunityPersonDto);
   }
+
+  /**
+   * Updates existing {@link org.motechproject.newebodac.domain.KeyCommunityPerson}
+   * with given id and dto and saves it into
+   * the database.
+   * 
+   * @param id                    id of key community person to update
+   * @param keyCommunityPersonDto DTO of key community person to save
+   * @return Dto of updated key community person.
+   */
+  @RequestMapping(value = "/keyCommunityPerson/{id}", method = RequestMethod.PUT)
+  @ResponseStatus(HttpStatus.OK)
+  @ResponseBody
+  public KeyCommunityPersonDto update(@PathVariable("id") UUID id,
+      @RequestBody @Valid KeyCommunityPersonDto keyCommunityPersonDto) {
+    return keyCommunityPersonService.update(id, keyCommunityPersonDto);
+  }
 }
