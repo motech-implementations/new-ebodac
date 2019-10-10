@@ -29,16 +29,36 @@ class EntityTable extends Component {
     const { loading } = this.state;
     const columns = _.map(fieldConfig, item => getTableColumn(item));
     return (
-      <ReactTable
-        data={entity}
-        columns={columns}
-        loading={loading}
-        getTdProps={(state, rowInfo) => ({
-          onClick: () => {
-            this.props.history.push(`/entityEdit/${entityType}/${rowInfo.original.id}`);
-          },
-        })}
-      />
+      <div className="container">
+        <div className="row margin-top-sm">
+          <div className="col-md-6">
+            <h1>{_.startCase(entityType)}</h1>
+          </div>
+          <div className="col-md-3 ml-auto">
+            <button
+              type="button"
+              className="btn btn-success btn-lg btn-block"
+              onClick={() => this.props.history.push(`/create/${entityType}`)}
+            >
+            Create New
+            </button>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-md-12">
+            <ReactTable
+              data={entity}
+              columns={columns}
+              loading={loading}
+              getTdProps={(state, rowInfo) => ({
+                onClick: () => {
+                  this.props.history.push(`/entityEdit/${entityType}/${rowInfo.original.id}`);
+                },
+              })}
+            />
+          </div>
+        </div>
+      </div>
     );
   }
 }
