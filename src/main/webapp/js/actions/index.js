@@ -114,8 +114,10 @@ export const deleteEntity = (entityType, entityId) => {
   };
 };
 
-export const updateEntity = (entityType, entity) => {
+export const updateEntity = (entityType, entity, callback) => {
   const request = apiClient.put(`${BASE_URL}/${entityType}/${entity.id}`, entity);
+  request.then(() => callback());
+
   return {
     type: UPDATE_ENTITY,
     payload: request,
