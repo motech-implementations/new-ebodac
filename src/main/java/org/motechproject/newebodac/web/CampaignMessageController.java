@@ -51,6 +51,23 @@ public class CampaignMessageController extends BaseController {
     return campaignMessageService.create(campaignMessageDto);
   }
 
+  /**
+  * Updates existing {@link org.motechproject.newebodac.domain.CampaignMessage}
+  * with given id and dto and saves it into
+  * the database.
+  *
+  * @param id                   id of message campaign to update
+  * @param campaignMessageDto DTO of message campaign to save
+  * @return Dto of updated message campaign.
+  */
+  @RequestMapping(value = "/campaignMessage/{id}", method = RequestMethod.PUT)
+  @ResponseStatus(HttpStatus.OK)
+  @ResponseBody
+  public CampaignMessageDto update(@PathVariable("id") UUID id,
+      @RequestBody @Valid CampaignMessageDto campaignMessageDto) {
+    return campaignMessageService.update(id, campaignMessageDto);
+  }
+
   @RequestMapping(value = "/campaignMessage/{id}", method = RequestMethod.DELETE)
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody

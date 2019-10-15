@@ -9,7 +9,6 @@ import Home from './home';
 import KeyCommunityPersonEnrollment from './enrollment/key-community-person-enrollment';
 import VaccineeEnrollment from './enrollment/vaccinee-enrollment';
 import VisitSchedule from './visit/visit-schedule';
-import VisitTypes from './visit/visit-types';
 import BoosterVisitGenerator from './visit/booster-visit-generator';
 import UserLogs from './reports/user-logs';
 import PrimeVaccination from './reports/prime-vaccination';
@@ -18,11 +17,9 @@ import CallLogVaccinees from './reports/call-log-vaccinees';
 import CallLogCommunityPerson from './reports/call-log-community-person';
 import SmsLogVaccinees from './reports/sms-log-vaccinees';
 import SmsLogCommunityPerson from './reports/sms-log-community-person';
-import Enrollment from './enrollment';
 import Messaging from './settings/messaging';
 import Languages from './settings/languages';
 import RoutePrivate from './helpers/RoutePrivate';
-import MessageCampaign from './message-campaign';
 import ViewEntity from './entities/view-entity';
 import FieldConfigPage from './fields/field-config-page';
 import CreateOrEditEntityPage from './entities/create-edit-entity-page';
@@ -52,7 +49,6 @@ class AppContent extends Component {
                 <RoutePrivate path="/keyCommunityPersonEnrollment" component={KeyCommunityPersonEnrollment} />
                 <RoutePrivate path="/vaccineeEnrollment" component={VaccineeEnrollment} />
                 <RoutePrivate path="/visitSchedule" component={VisitSchedule} />
-                <RoutePrivate path="/visitTypes" component={VisitTypes} />
                 <RoutePrivate path="/boosterVisitGenerator" component={BoosterVisitGenerator} />
                 <RoutePrivate path="/userLogs" component={UserLogs} />
                 <RoutePrivate path="/primeVaccination" component={PrimeVaccination} />
@@ -61,10 +57,8 @@ class AppContent extends Component {
                 <RoutePrivate path="/callLogCommunityPerson" component={CallLogCommunityPerson} />
                 <RoutePrivate path="/smsLogVaccinees" component={SmsLogVaccinees} />
                 <RoutePrivate path="/smsLogCommunityPerson" component={SmsLogCommunityPerson} />
-                <RoutePrivate path="/enrollmentGroup" component={Enrollment} />
                 <RoutePrivate path="/messaging" component={Messaging} />
                 <RoutePrivate path="/languages" component={Languages} />
-                <RoutePrivate path="/messageCampaign" component={MessageCampaign} />
                 <RoutePrivate path="/viewEntity/:entityType" component={ViewEntity} />
                 <RoutePrivate path="/create/:entityType" component={CreateOrEditEntityPage} />
                 <RoutePrivate path="/entityEdit/:entityType/:id" component={CreateOrEditEntityPage} />
