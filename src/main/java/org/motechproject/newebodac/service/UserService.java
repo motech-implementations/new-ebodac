@@ -9,7 +9,7 @@ import org.motechproject.newebodac.exception.EntityNotFoundException;
 import org.motechproject.newebodac.mapper.UserMapper;
 import org.motechproject.newebodac.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -17,6 +17,9 @@ public class UserService {
 
   @Autowired
   private UserRepository userRepository;
+
+  @Autowired
+  private PasswordEncoder passwordEncoder;
 
   private static final UserMapper MAPPER = UserMapper.INSTANCE;
 
@@ -34,7 +37,7 @@ public class UserService {
   }
 
   public UserDto create(UserDto user) {
-    user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+    user.setPassword(passwordEncoder.encode(user.getPassword()));
     return MAPPER.toDto(userRepository.save(MAPPER.fromDto(user)));
   }
 
@@ -56,10 +59,10 @@ public class UserService {
    */
   public UserDto update(UUID id, UserDto userDto) {
     User user = userRepository.findById(id).orElseThrow(() ->
-        new EntityNotFoundException("Field config with id: {0} not found", id.toString()));
+        new EntityNotFoundException("User with id: {0} not found", id.toString()));
     MAPPER.update(userDto, user);
     if (StringUtils.isNotBlank(userDto.getPassword())) {
-      user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+      user.setPassword(passwordEncoder.encode(user.getPassword()));
     }
     return MAPPER.toDto(userRepository.save(user));
   }

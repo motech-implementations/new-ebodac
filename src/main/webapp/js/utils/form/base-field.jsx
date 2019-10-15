@@ -11,8 +11,12 @@ const renderField = ({
     input.onChange(value);
   };
 
+  const onBlur = (value) => {
+    input.onBlur(value);
+  };
+
   const attr = {
-    ...config, disabled: !editable, id: input.name, value: input.value, onChange,
+    ...config, disabled: !editable, id: input.name, value: input.value, onChange, onBlur,
   };
 
   const className = `input-row ${required ? 'required' : ''} ${touched && error ? 'has-error' : ''}`;
@@ -56,6 +60,7 @@ renderField.propTypes = {
   input: PropTypes.shape({
     name: PropTypes.string,
     onChange: PropTypes.func,
+    onBlur: PropTypes.func,
     value: PropTypes.any,
   }).isRequired,
   meta: PropTypes.shape({

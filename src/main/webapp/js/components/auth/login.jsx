@@ -4,6 +4,7 @@ import { Form, Field } from 'react-final-form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { connect } from 'react-redux';
 
+import { Link } from 'react-router-dom';
 import { signinUser } from '../../actions';
 
 const validate = (values) => {
@@ -106,6 +107,10 @@ class Login extends Component {
                   />
                 </div>
               </div>
+              <Link to="/register">
+                <FontAwesomeIcon icon="hand-point-right" />
+                <span className="icon-text">Create an account</span>
+              </Link>
             </div>
           </div>
         </div>

@@ -21,6 +21,7 @@ import {
   RELATION,
   COLLECTION,
   VACCINATION_DATE,
+  PASSWORD,
 } from '../../constants/field-types';
 
 const getOptionsFromEnum = (format) => {
@@ -50,6 +51,10 @@ const renderFormField = (props) => {
   switch (fieldType) {
     case TEXT:
       FieldType = TextField;
+      break;
+    case PASSWORD:
+      FieldType = TextField;
+      attr = { type: 'password' };
       break;
     case LONG_TEXT:
       FieldType = TextareaField;

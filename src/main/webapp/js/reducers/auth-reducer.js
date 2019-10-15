@@ -7,6 +7,8 @@ const initialState = {
   authenticated: false,
   counterLogoutTime: 600,
   resetCounter: false,
+  registrationMessage: '',
+  registrationResult: false,
 };
 
 export default (state = initialState, action) => {
