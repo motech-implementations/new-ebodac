@@ -31,12 +31,31 @@ public class EnrollmentGroupService {
   }
 
   /**
-   * Deletes enrollment group with given id.
-   * @param id ID of key community person to delete.
-   */
+  * Updates data from dto to object, saves it and returns its Dto.
+  *
+  * @param id      ID of object to update.
+  * @param enrollmentGroupDto Dto of object to update.
+  * @return Dto of of updated object
+  */
+  public EnrollmentGroupDto update(UUID id, EnrollmentGroupDto enrollmentGroupDto) {
+
+    EnrollmentGroup existingEnrollmentGroup = enrollmentGroupRepository.findById(id)
+        .orElseThrow(() -> new EntityNotFoundException(
+            "Enrollment Group with id: {0} not found", id.toString()));
+    MAPPER.update(enrollmentGroupDto, existingEnrollmentGroup);
+
+    return MAPPER.toDto(enrollmentGroupRepository.save(existingEnrollmentGroup));
+  }
+
+  /**
+  * Deletes enrollment group with given id.
+  * @param id ID of key community person to delete.
+  */
   public void delete(UUID id) {
     EnrollmentGroup enrollmentGroup = enrollmentGroupRepository.findById(id).orElseThrow(() ->
         new EntityNotFoundException("Enrollment group with id: {0} not found", id.toString()));
     enrollmentGroupRepository.delete(enrollmentGroup);
   }
+
+
 }

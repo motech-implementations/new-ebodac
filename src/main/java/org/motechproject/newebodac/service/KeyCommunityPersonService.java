@@ -35,7 +35,7 @@ public class KeyCommunityPersonService {
    * Updates data from dto to object, saves it and returns its Dto.
    * 
    * @param id      ID of object to update.
-   * @param keyCommunityPersonDto Dto of role to update.
+   * @param keyCommunityPersonDto Dto of object to update.
    * @return Dto of of updated object
    */
   public KeyCommunityPersonDto update(UUID id, KeyCommunityPersonDto keyCommunityPersonDto) {

@@ -46,6 +46,23 @@ public class EnrollmentGroupController extends BaseController {
     return enrollmentGroupService.create(enrollmentGroupDto);
   }
 
+  /**
+   * Updates existing {@link org.motechproject.newebodac.domain.EnrollmentGroup}
+   * with given id and dto and saves it into
+   * the database.
+   *
+   * @param id                    id of enrollment group to update
+   * @param enrollmentGroupDto DTO of enrollment group to save
+   * @return Dto of updated enrollment group.
+   */
+  @RequestMapping(value = "/group/{id}", method = RequestMethod.PUT)
+  @ResponseStatus(HttpStatus.OK)
+  @ResponseBody
+  public EnrollmentGroupDto update(@PathVariable("id") UUID id,
+      @RequestBody @Valid EnrollmentGroupDto enrollmentGroupDto) {
+    return enrollmentGroupService.update(id, enrollmentGroupDto);
+  }
+
   @RequestMapping(value = "/group/{id}", method = RequestMethod.DELETE)
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody

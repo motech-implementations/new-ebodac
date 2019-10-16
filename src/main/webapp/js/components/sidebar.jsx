@@ -13,6 +13,9 @@ import {
   VISIT_ENTITY,
   ROLE_ENTITY,
   USER_ENTITY,
+  VISIT_TYPE_ENTITY,
+  CAMPAIGN_MESSAGE_ENTITY,
+  GROUP_ENTITY,
 } from '../constants/entity-types';
 
 class SideBar extends Component {
@@ -99,13 +102,13 @@ class SideBar extends Component {
     return (
       <ul className="nav nav-second-level">
         <li className="border-none">
-          <Link to="/visitSchedule">
+          <Link to={`/viewEntity/${VISIT_ENTITY}`}>
             <FontAwesomeIcon icon="hand-point-right" />
-            <span className="icon-text">Visit Schedule</span>
+            <span className="icon-text">Visits</span>
           </Link>
         </li>
         <li className="border-none">
-          <Link to="/visitTypes">
+          <Link to={`/viewEntity/${VISIT_TYPE_ENTITY}`}>
             <FontAwesomeIcon icon="hand-point-right" />
             <span className="icon-text">Visit Types</span>
           </Link>
@@ -317,7 +320,7 @@ class SideBar extends Component {
               {this.renderVisitsCollapsedMenu()}
             </li>
             <li>
-              <Link to="/messageCampaign">
+              <Link to={`/viewEntity/${CAMPAIGN_MESSAGE_ENTITY}`}>
                 <FontAwesomeIcon icon="envelope" />
                 <span className="icon-text">Message Campaigns</span>
               </Link>
@@ -337,7 +340,7 @@ class SideBar extends Component {
               {this.renderUserManagementCollapsedMenu()}
             </li>
             <li>
-              <Link to="/enrollmentGroup">
+              <Link to={`/viewEntity/${GROUP_ENTITY}`}>
                 <FontAwesomeIcon icon="layer-group" />
                 <span className="icon-text">Enrollment group</span>
               </Link>

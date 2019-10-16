@@ -31,6 +31,23 @@ public class CampaignMessageService {
   }
 
   /**
+   * Updates data from dto to object, saves it and returns its Dto.
+   *
+   * @param id      ID of object to update.
+   * @param campaignMessageDto Dto of object to update.
+   * @return Dto of of updated object
+   */
+  public CampaignMessageDto update(UUID id, CampaignMessageDto campaignMessageDto) {
+
+    CampaignMessage existingCampaignMessage = campaignMessageRepository.findById(id)
+        .orElseThrow(() -> new EntityNotFoundException(
+            "Message Campaign with id: {0} not found", id.toString()));
+    MAPPER.update(campaignMessageDto, existingCampaignMessage);
+
+    return MAPPER.toDto(campaignMessageRepository.save(existingCampaignMessage));
+  }
+
+  /**
    * Deletes campaign message with given id.
    * @param id ID of campaign message to delete.
    */

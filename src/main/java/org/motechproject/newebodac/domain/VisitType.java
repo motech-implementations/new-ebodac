@@ -1,6 +1,7 @@
 package org.motechproject.newebodac.domain;
 
 import java.util.Set;
+import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -10,11 +11,13 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.motechproject.newebodac.domain.enums.VisitTypeCategory;
 
 @Getter
 @Setter
+@NoArgsConstructor
 @Entity
 @Table(name = "visit_type")
 public class VisitType extends BaseEntity {
@@ -43,4 +46,8 @@ public class VisitType extends BaseEntity {
 
   @OneToMany(mappedBy = "visitType")
   private Set<CampaignMessage> messages;
+
+  public VisitType(UUID id) {
+    super(id);
+  }
 }
