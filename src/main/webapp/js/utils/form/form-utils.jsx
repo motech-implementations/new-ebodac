@@ -61,9 +61,11 @@ const renderFormField = (props) => {
       break;
     case INTEGER:
       FieldType = TextField;
+      attr = { type: 'number' };
       break;
     case FLOAT:
       FieldType = TextField;
+      attr = { type: 'number' };
       break;
     case BOOLEAN:
       FieldType = CheckboxField;
