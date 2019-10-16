@@ -47,4 +47,14 @@ public class KeyCommunityPersonService {
 
     return MAPPER.toDto(keyCommunityPersonRepository.save(existingKeyCommunityPerson));
   }
+
+  /**
+   * Deletes key community person with given id.
+   * @param id ID of key community person to delete.
+   */
+  public void delete(UUID id) {
+    KeyCommunityPerson kcp = keyCommunityPersonRepository.findById(id).orElseThrow(() ->
+        new EntityNotFoundException("Key community person with id: {0} not found", id.toString()));
+    keyCommunityPersonRepository.delete(kcp);
+  }
 }

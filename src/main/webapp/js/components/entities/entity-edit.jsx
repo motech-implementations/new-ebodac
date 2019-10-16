@@ -8,19 +8,52 @@ import { withRouter } from 'react-router-dom';
 
 import { getEntityMemberById } from '../../selectors';
 import renderFormField, { validate } from '../../utils/form/form-utils';
-import { updateEntity } from '../../actions/index';
+import { updateEntity, deleteEntity } from '../../actions/index';
+import ConfirmModal from '../comfirm-modal';
+
+const ALERT_TIMEOUT = 5000;
 
 class EntityEdit extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      openConfirmModal: false,
+    };
+  }
+
   onSubmit = (values) => {
-    this.props.updateEntity(this.props.entityType, values, () => {
-      Alert.success(`${_.startCase(this.props.entityType)} has been updated!`);
-      this.props.history.push(`/viewEntity/${this.props.entityType}`);
+    const { entityType } = this.props;
+    this.props.updateEntity(entityType, values, () => {
+      Alert.success(`${_.startCase(entityType)} has been updated!`, {
+        timeout: ALERT_TIMEOUT,
+      });
+      this.props.history.push(`/viewEntity/${entityType}`);
     });
   };
 
   validate = values => validate(this.props.fieldConfig)(values);
 
+  openConfirmModal = () => {
+    this.setState({ openConfirmModal: true });
+  };
+
+  hideConfirmModal = () => {
+    this.setState({ openConfirmModal: false });
+  };
+
+  deleteEntity = () => {
+    const { entityType, entityId } = this.props;
+    this.props.deleteEntity(entityType, entityId, () => {
+      Alert.success(`${_.startCase(entityType)} has been deleted!`, {
+        timeout: ALERT_TIMEOUT,
+      });
+      this.props.history.push(`/viewEntity/${entityType}`);
+    });
+  };
+
   render() {
+    const { openConfirmModal } = this.state;
     const { entityToEdit, fieldConfig, entityType } = this.props;
     return (
       <div className="container">
@@ -42,15 +75,28 @@ class EntityEdit extends Component {
                 <div className="text-center">
                   <button
                     type="submit"
-                    className="btn btn-success btn-lg margin-top-sm padding-left-lg padding-right-lg"
+                    className="btn btn-success btn-lg margin-top-sm padding-left-lg padding-right-lg margin-right-sm"
                   >
                     Update
+                  </button>
+                  <button
+                    type="button"
+                    className="btn btn-danger btn-lg margin-top-sm padding-left-lg padding-right-lg"
+                    onClick={this.openConfirmModal}
+                  >
+                    Delete
                   </button>
                 </div>
               </form>
             )}
           />
         </div>
+        <ConfirmModal
+          showModal={openConfirmModal}
+          modalText="Are you sure to delete this?"
+          onConfirm={this.deleteEntity}
+          onHide={this.hideConfirmModal}
+        />
       </div>
     );
   }
@@ -61,14 +107,16 @@ const mapStateToProps = (state, props) => ({
 });
 
 export default withRouter(
-  connect(mapStateToProps, { updateEntity })(EntityEdit),
+  connect(mapStateToProps, { updateEntity, deleteEntity })(EntityEdit),
 );
 
 EntityEdit.propTypes = {
   fieldConfig: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   updateEntity: PropTypes.func.isRequired,
+  deleteEntity: PropTypes.func.isRequired,
   entityToEdit: PropTypes.shape({}).isRequired,
   entityType: PropTypes.string.isRequired,
+  entityId: PropTypes.string.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func,
   }).isRequired,

@@ -68,4 +68,11 @@ public class KeyCommunityPersonController extends BaseController {
       @RequestBody @Valid KeyCommunityPersonDto keyCommunityPersonDto) {
     return keyCommunityPersonService.update(id, keyCommunityPersonDto);
   }
+
+  @RequestMapping(value = "/keyCommunityPerson/{id}", method = RequestMethod.DELETE)
+  @ResponseStatus(HttpStatus.OK)
+  @ResponseBody
+  public void delete(@PathVariable("id") UUID id) {
+    keyCommunityPersonService.delete(id);
+  }
 }

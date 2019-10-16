@@ -50,4 +50,11 @@ public class CampaignMessageController extends BaseController {
   public CampaignMessageDto create(@RequestBody @Valid CampaignMessageDto campaignMessageDto) {
     return campaignMessageService.create(campaignMessageDto);
   }
+
+  @RequestMapping(value = "/campaignMessage/{id}", method = RequestMethod.DELETE)
+  @ResponseStatus(HttpStatus.OK)
+  @ResponseBody
+  public void delete(@PathVariable("id") UUID id) {
+    campaignMessageService.delete(id);
+  }
 }

@@ -23,8 +23,6 @@ import {
   VACCINATION_DATE,
 } from '../../constants/field-types';
 
-Modal.setAppElement(document.getElementById('root'));
-
 const defaultConfig = {
   base: false,
   editable: true,

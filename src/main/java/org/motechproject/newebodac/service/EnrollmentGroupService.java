@@ -2,7 +2,9 @@ package org.motechproject.newebodac.service;
 
 import java.util.List;
 import java.util.UUID;
+import org.motechproject.newebodac.domain.EnrollmentGroup;
 import org.motechproject.newebodac.dto.EnrollmentGroupDto;
+import org.motechproject.newebodac.exception.EntityNotFoundException;
 import org.motechproject.newebodac.mapper.EnrollmentGroupMapper;
 import org.motechproject.newebodac.repository.EnrollmentGroupRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,5 +28,15 @@ public class EnrollmentGroupService {
 
   public EnrollmentGroupDto create(EnrollmentGroupDto enrollmentGroupDto) {
     return MAPPER.toDto(enrollmentGroupRepository.save(MAPPER.fromDto(enrollmentGroupDto)));
+  }
+
+  /**
+   * Deletes enrollment group with given id.
+   * @param id ID of key community person to delete.
+   */
+  public void delete(UUID id) {
+    EnrollmentGroup enrollmentGroup = enrollmentGroupRepository.findById(id).orElseThrow(() ->
+        new EntityNotFoundException("Enrollment group with id: {0} not found", id.toString()));
+    enrollmentGroupRepository.delete(enrollmentGroup);
   }
 }

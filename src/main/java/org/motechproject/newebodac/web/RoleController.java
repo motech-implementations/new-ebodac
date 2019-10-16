@@ -71,7 +71,7 @@ public class RoleController extends BaseController {
     return roleService.update(id, roleDto);
   }
 
-  @RequestMapping(value = "/role", method = RequestMethod.DELETE)
+  @RequestMapping(value = "/role/{id}", method = RequestMethod.DELETE)
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   public void delete(@PathVariable("id") UUID id) {
