@@ -2,7 +2,9 @@ package org.motechproject.newebodac.service;
 
 import java.util.List;
 import java.util.UUID;
+import org.motechproject.newebodac.domain.VisitType;
 import org.motechproject.newebodac.dto.VisitTypeDto;
+import org.motechproject.newebodac.exception.EntityNotFoundException;
 import org.motechproject.newebodac.mapper.VisitTypeMapper;
 import org.motechproject.newebodac.repository.VisitTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,5 +28,15 @@ public class VisitTypeService {
 
   public VisitTypeDto create(VisitTypeDto visitTypeDto) {
     return MAPPER.toDto(visitTypeRepository.save(MAPPER.fromDto(visitTypeDto)));
+  }
+
+  /**
+   * Deletes visit type with given id.
+   * @param id ID of visit type to delete.
+   */
+  public void delete(UUID id) {
+    VisitType visitType = visitTypeRepository.findById(id).orElseThrow(() ->
+        new EntityNotFoundException("Visit Type with id: {0} not found", id.toString()));
+    visitTypeRepository.delete(visitType);
   }
 }

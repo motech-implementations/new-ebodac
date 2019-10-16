@@ -55,9 +55,9 @@ public class VaccineeController extends BaseController {
    * Updates existing {@link org.motechproject.newebodac.domain.Vaccinee}
    * with given id and dto and saves it into the database.
    *
-   * @param id                    id of key community person to update
-   * @param vaccineeDto DTO of key community person to save
-   * @return Dto of updated key community person.
+   * @param id id of vaccinee to update
+   * @param vaccineeDto DTO of vaccinee to save
+   * @return Dto of updated vaccinee.
    */
   @RequestMapping(value = "/vaccinee/{id}", method = RequestMethod.PUT)
   @ResponseStatus(HttpStatus.OK)
@@ -65,5 +65,12 @@ public class VaccineeController extends BaseController {
   public VaccineeDto update(@PathVariable("id") UUID id,
       @RequestBody @Valid VaccineeDto vaccineeDto) {
     return vaccineeService.update(id, vaccineeDto);
+  }
+
+  @RequestMapping(value = "/vaccinee/{id}", method = RequestMethod.DELETE)
+  @ResponseStatus(HttpStatus.OK)
+  @ResponseBody
+  public void delete(@PathVariable("id") UUID id) {
+    vaccineeService.delete(id);
   }
 }

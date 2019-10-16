@@ -50,4 +50,11 @@ public class VisitController extends BaseController {
   public VisitDto create(@RequestBody @Valid VisitDto visitDto) {
     return visitService.create(visitDto);
   }
+
+  @RequestMapping(value = "/visit/{id}", method = RequestMethod.DELETE)
+  @ResponseStatus(HttpStatus.OK)
+  @ResponseBody
+  public void delete(@PathVariable("id") UUID id) {
+    visitService.delete(id);
+  }
 }

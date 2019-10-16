@@ -45,4 +45,11 @@ public class EnrollmentGroupController extends BaseController {
   public EnrollmentGroupDto create(@RequestBody @Valid EnrollmentGroupDto enrollmentGroupDto) {
     return enrollmentGroupService.create(enrollmentGroupDto);
   }
+
+  @RequestMapping(value = "/group/{id}", method = RequestMethod.DELETE)
+  @ResponseStatus(HttpStatus.OK)
+  @ResponseBody
+  public void delete(@PathVariable("id") UUID id) {
+    enrollmentGroupService.delete(id);
+  }
 }

@@ -41,4 +41,11 @@ public class SiteController extends BaseController {
   public SiteDto create(@RequestBody @Valid SiteDto siteDto) {
     return siteService.create(siteDto);
   }
+
+  @RequestMapping(value = "/site/{id}", method = RequestMethod.DELETE)
+  @ResponseStatus(HttpStatus.OK)
+  @ResponseBody
+  public void delete(@PathVariable("id") UUID id) {
+    siteService.delete(id);
+  }
 }

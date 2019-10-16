@@ -130,8 +130,13 @@ export const fetchEntity = entityType => (dispatch) => {
   });
 };
 
-export const deleteEntity = (entityType, entityId) => {
+export const deleteEntity = (entityType, entityId, callback) => {
   const request = apiClient.delete(`${BASE_URL}/${entityType}/${entityId}`);
+  request.then(() => {
+    if (callback) {
+      callback();
+    }
+  });
   return {
     type: DELETE_ENTITY,
     payload: request,

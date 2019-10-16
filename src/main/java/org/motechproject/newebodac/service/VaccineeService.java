@@ -46,4 +46,14 @@ public class VaccineeService {
 
     return MAPPER.toDto(vaccineeRepository.save(vaccinee));
   }
+
+  /**
+   * Deletes vaccinee with given id.
+   * @param id ID of vaccinee to delete.
+   */
+  public void delete(UUID id) {
+    Vaccinee vaccinee = vaccineeRepository.findById(id).orElseThrow(() ->
+        new EntityNotFoundException("Vaccinee with id: {0} not found", id.toString()));
+    vaccineeRepository.delete(vaccinee);
+  }
 }
