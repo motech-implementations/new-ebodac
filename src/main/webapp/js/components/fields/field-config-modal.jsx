@@ -171,7 +171,7 @@ class FieldConfigModal extends React.Component {
         />
         <ConfirmModal
           showModal={openConfirmModal}
-          modalText="Are you sure to delete Config?"
+          modalText="Are you sure to delete Config? All related data will be deleted!"
           onConfirm={this.deleteConfig}
           onHide={this.hideConfirmModal}
         />

@@ -7,8 +7,7 @@ import org.mapstruct.factory.Mappers;
 import org.motechproject.newebodac.domain.Language;
 import org.motechproject.newebodac.dto.LanguageDto;
 
-@Mapper(uses = { UuidMapper.class },
-    unmappedTargetPolicy = ReportingPolicy.IGNORE)
+@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface LanguageMapper extends EntityMapper<LanguageDto, Language> {
 
   LanguageMapper INSTANCE = Mappers.getMapper(LanguageMapper.class);

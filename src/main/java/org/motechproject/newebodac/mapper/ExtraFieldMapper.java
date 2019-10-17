@@ -1,45 +1,107 @@
 package org.motechproject.newebodac.mapper;
 
-import java.util.UUID;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Objects;
 import org.apache.commons.lang3.StringUtils;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 import org.motechproject.newebodac.domain.ExtraField;
-import org.motechproject.newebodac.domain.Vaccinee;
+import org.motechproject.newebodac.domain.enums.FieldType;
 import org.motechproject.newebodac.dto.ExtraFieldDto;
 
-@Mapper(uses = { UuidMapper.class },
-    unmappedTargetPolicy = ReportingPolicy.IGNORE)
+@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface ExtraFieldMapper extends EntityMapper<ExtraFieldDto, ExtraField> {
 
   ExtraFieldMapper INSTANCE = Mappers.getMapper(ExtraFieldMapper.class);
 
   @Override
-  @Mapping(target = "id", ignore = true)
-  @Mapping(target = "vaccinee", source = "vaccineeId")
-  ExtraField fromDto(ExtraFieldDto extraFieldDto);
+  default ExtraField fromDto(ExtraFieldDto extraFieldDto) {
+    ExtraField extraField = new ExtraField();
+    FieldType fieldType = FieldType.valueOf(extraFieldDto.getFieldType());
+    setValue(extraField, extraFieldDto);
+    extraField.setFieldType(fieldType);
+    extraField.setName(extraFieldDto.getName());
+    extraField.setId(extraFieldDto.getId());
+    extraField.setCreateDate(extraFieldDto.getCreateDate());
+    return extraField;
+  }
 
   @Override
-  @Mapping(target = "vaccineeId", source = "vaccinee.id")
-  @Mapping(target = "visitId", source = "visit.id")
-  @Mapping(target = "siteId", source = "site.id")
-  @Mapping(target = "groupId", source = "group.id")
-  @Mapping(target = "personId", source = "person.id")
+  @Mapping(target = "value", expression = "java(toValue(extraField))")
   ExtraFieldDto toDto(ExtraField extraField);
 
+  /**
+   * Gets fields related to fieldType and casts it to string.
+   * @param extraField Mapped entity.
+   * @return String value of related to fieldType field.
+   */
+  default String toValue(ExtraField extraField) {
+    String result;
+    switch (extraField.getFieldType()) {
+      case TEXT:
+        result = extraField.getTextVal();
+        break;
+      case LONG_TEXT:
+        result = extraField.getLongTextVal();
+        break;
+      case INTEGER:
+        result = Objects.toString(extraField.getIntVal(), null);
+        break;
+      case FLOAT:
+        result = Objects.toString(extraField.getFloatVal(), null);
+        break;
+      case BOOLEAN:
+        result = Objects.toString(extraField.getBoolVal(), null);
+        break;
+      case DATE:
+        result = Objects.toString(extraField.getDateVal(), null);
+        break;
+      case DATE_TIME:
+        result = Objects.toString(extraField.getDatetimeVal(), null);
+        break;
+      default:
+        return null;
+    }
+    return result;
+  }
 
   /**
-   * Create Vaccinee object with given id.
-   * @param vaccineeId id of vaccinee to create.
-   * @return Vaccinee object with given id
+   * Sets Extrafield value from string to corresponding value depending on field type.
+   * @param extraField Target object to set corresponding value.
+   * @param extraFieldDto Source of data to set.
    */
-  default Vaccinee toVaccinee(String vaccineeId) {
-    if (StringUtils.isBlank(vaccineeId)) {
-      return null;
+  private void setValue(ExtraField extraField, ExtraFieldDto extraFieldDto) {
+    FieldType fieldType = FieldType.valueOf(extraFieldDto.getFieldType());
+    String extraFieldValue = extraFieldDto.getValue();
+    if (StringUtils.isNotBlank(extraFieldValue)) {
+      switch (fieldType) {
+        case TEXT:
+          extraField.setTextVal(extraFieldValue);
+          break;
+        case LONG_TEXT:
+          extraField.setLongTextVal(extraFieldValue);
+          break;
+        case INTEGER:
+          extraField.setIntVal(Integer.parseInt(extraFieldValue));
+          break;
+        case FLOAT:
+          extraField.setFloatVal(Double.parseDouble(extraFieldValue));
+          break;
+        case BOOLEAN:
+          extraField.setBoolVal(Boolean.parseBoolean(extraFieldValue));
+          break;
+        case DATE:
+          extraField.setDateVal(LocalDate.parse(extraFieldValue));
+          break;
+        case DATE_TIME:
+          extraField.setDatetimeVal(LocalDateTime.parse(extraFieldValue));
+          break;
+        default:
+          break;
+      }
     }
-
-    return new Vaccinee(UUID.fromString(vaccineeId));
   }
 }

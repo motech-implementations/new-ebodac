@@ -1,7 +1,10 @@
 package org.motechproject.newebodac.domain;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -12,12 +15,14 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.motechproject.newebodac.domain.enums.EnrollmentStatus;
 
 @Getter
 @Setter
 @Entity
+@NoArgsConstructor
 @Table(name = "visit")
 public class Visit extends BaseEntity {
 
@@ -46,6 +51,11 @@ public class Visit extends BaseEntity {
   @JoinColumn(name = "site_id")
   private Site site;
 
-  @OneToMany(mappedBy = "visit")
-  private Set<ExtraField> extraFields;
+  @OneToMany(mappedBy = "visit", cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+      CascadeType.REMOVE}, orphanRemoval = true)
+  private Set<ExtraField> extraFields = new HashSet<>();
+
+  public Visit(UUID id) {
+    super(id);
+  }
 }

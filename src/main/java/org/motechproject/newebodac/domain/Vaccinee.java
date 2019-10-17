@@ -1,7 +1,9 @@
 package org.motechproject.newebodac.domain;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -60,8 +62,9 @@ public class Vaccinee extends BaseEntity {
   @OneToMany(mappedBy = "vaccinee")
   private Set<Visit> visits;
 
-  @OneToMany(mappedBy = "vaccinee")
-  private Set<ExtraField> extraFields;
+  @OneToMany(mappedBy = "vaccinee", cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+      CascadeType.REMOVE}, orphanRemoval = true)
+  private Set<ExtraField> extraFields = new HashSet<>();
 
   public Vaccinee(UUID id) {
     super(id);

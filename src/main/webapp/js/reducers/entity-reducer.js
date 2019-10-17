@@ -85,7 +85,12 @@ export default (state = initialState, action) => {
   switch (type) {
     case FETCH_ENTITY:
       return update(state, {
-        [entityType]: { $set: _.keyBy(payload.data, 'id') },
+        [entityType]: {
+          $set: _.keyBy(_.map(payload.data, elem => ({
+            ...elem,
+            extraFields: _.keyBy(_.get(elem, 'extraFields', {}), 'name'),
+          })), 'id'),
+        },
         metadata: {
           [entityType]: {
             fetched: { $set: true },
@@ -107,11 +112,25 @@ export default (state = initialState, action) => {
       });
     case UPDATE_ENTITY:
       return update(state, {
-        [entityType]: { $set: { [payload.data.id]: payload.data } },
+        [entityType]: {
+          $set: {
+            [payload.data.id]: _.map(payload.data, elem => ({
+              ...elem,
+              extraFields: _.keyBy(_.get(elem, 'extraFields', {}), 'name'),
+            })),
+          },
+        },
       });
     case CREATE_ENTITY:
       return update(state, {
-        [entityType]: { $merge: { [payload.data.id]: payload.data } },
+        [entityType]: {
+          $merge: {
+            [payload.data.id]: _.map(payload.data, elem => ({
+              ...elem,
+              extraFields: _.keyBy(_.get(elem, 'extraFields', {}), 'name'),
+            })),
+          },
+        },
       });
     default:
       return state;

@@ -9,8 +9,7 @@ import org.motechproject.newebodac.domain.FieldConfig;
 import org.motechproject.newebodac.domain.enums.EntityType;
 import org.motechproject.newebodac.dto.FieldConfigDto;
 
-@Mapper(uses = { UuidMapper.class },
-    unmappedTargetPolicy = ReportingPolicy.IGNORE)
+@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface FieldConfigMapper extends EntityMapper<FieldConfigDto, FieldConfig> {
 
   FieldConfigMapper INSTANCE = Mappers.getMapper(FieldConfigMapper.class);

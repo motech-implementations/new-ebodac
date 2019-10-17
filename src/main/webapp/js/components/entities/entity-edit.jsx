@@ -23,8 +23,20 @@ class EntityEdit extends Component {
   }
 
   onSubmit = (values) => {
-    const { entityType } = this.props;
-    this.props.updateEntity(entityType, values, () => {
+    const { entityType, fieldConfig } = this.props;
+    const mappedFieldConfig = _.keyBy(_.values(fieldConfig), 'name');
+    const entityValue = {
+      ...values,
+      extraFields: _.map(
+        values.extraFields,
+        (extraField, fieldName) => ({
+          ...extraField,
+          name: fieldName,
+          fieldType: mappedFieldConfig[fieldName].fieldType,
+        }),
+      ),
+    };
+    this.props.updateEntity(entityType, entityValue, () => {
       Alert.success(`${_.startCase(entityType)} has been updated!`, {
         timeout: ALERT_TIMEOUT,
       });
@@ -70,7 +82,7 @@ class EntityEdit extends Component {
             render={({ handleSubmit }) => (
               <form onSubmit={handleSubmit} className="modal-fields">
                 <div>
-                  {_.map(fieldConfig, elem => renderFormField(elem))}
+                  {_.map(fieldConfig, elem => renderFormField({ ...elem, name: (elem.base ? elem.name : `extraFields.${elem.name}.value`) }))}
                 </div>
                 <div className="text-center">
                   <button

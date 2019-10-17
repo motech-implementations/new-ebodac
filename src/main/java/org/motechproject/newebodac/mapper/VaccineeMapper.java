@@ -1,18 +1,21 @@
 package org.motechproject.newebodac.mapper;
 
+import java.util.Set;
 import java.util.UUID;
+import org.mapstruct.AfterMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 import org.motechproject.newebodac.domain.EnrollmentGroup;
+import org.motechproject.newebodac.domain.ExtraField;
 import org.motechproject.newebodac.domain.Language;
 import org.motechproject.newebodac.domain.Vaccinee;
+import org.motechproject.newebodac.domain.enums.EntityType;
 import org.motechproject.newebodac.dto.VaccineeDto;
 
-@Mapper(uses = { UuidMapper.class },
-    unmappedTargetPolicy = ReportingPolicy.IGNORE)
+@Mapper(uses = { ExtraFieldMapper.class }, unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface VaccineeMapper extends EntityMapper<VaccineeDto, Vaccinee> {
 
   VaccineeMapper INSTANCE = Mappers.getMapper(VaccineeMapper.class);
@@ -35,8 +38,21 @@ public interface VaccineeMapper extends EntityMapper<VaccineeDto, Vaccinee> {
   @Mapping(target = "preferredLanguage", source = "preferredLanguageId")
   @Mapping(target = "createDate", ignore = true)
   @Mapping(target = "updateDate", ignore = true)
-
   Vaccinee fromDto(VaccineeDto vaccineeDto);
+
+  /**
+   * Attaches this Vaccinee to all extra fields id.
+   * @param vaccineeDto Dto of Vaccinee.
+   * @param vaccinee Mapped Vaccinee.
+   */
+  @AfterMapping
+  default void afterMappingFromDto(VaccineeDto vaccineeDto, @MappingTarget Vaccinee vaccinee) {
+    Set<ExtraField> extraFieldList = vaccinee.getExtraFields();
+    for (ExtraField extraField : extraFieldList) {
+      extraField.setVaccinee(vaccinee);
+      extraField.setEntity(EntityType.VACCINEE);
+    }
+  }
 
   /**
    * Maps uuid to Language object. Returns null if the id is null.

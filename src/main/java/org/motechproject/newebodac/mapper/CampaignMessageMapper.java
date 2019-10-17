@@ -10,8 +10,7 @@ import org.motechproject.newebodac.domain.CampaignMessage;
 import org.motechproject.newebodac.domain.VisitType;
 import org.motechproject.newebodac.dto.CampaignMessageDto;
 
-@Mapper(uses = { UuidMapper.class },
-    unmappedTargetPolicy = ReportingPolicy.IGNORE)
+@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface CampaignMessageMapper extends EntityMapper<CampaignMessageDto, CampaignMessage> {
 
   CampaignMessageMapper INSTANCE = Mappers.getMapper(CampaignMessageMapper.class);

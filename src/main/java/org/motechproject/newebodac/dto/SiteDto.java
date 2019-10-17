@@ -1,5 +1,6 @@
 package org.motechproject.newebodac.dto;
 
+import java.util.HashSet;
 import java.util.Set;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,5 +13,5 @@ public class SiteDto extends BaseDto {
 
   private String description;
 
-  private Set<ExtraFieldDto> extraFields;
+  private Set<ExtraFieldDto> extraFields = new HashSet<>();
 }
