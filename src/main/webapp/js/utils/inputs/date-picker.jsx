@@ -12,15 +12,19 @@ const DatePicker = ({
   };
 
   return (
-    <ReactDatePicker
-      className="form-control"
-      {...props}
-      selected={value ? parseISO(value) : null}
-      dateFormat={dateFormat}
-      onChange={handleChange}
-      timeFormat="HH:mm"
-      timeIntervals={15}
-    />
+    <div className="modal-fields">
+      <ReactDatePicker
+        className="form-control"
+        {...props}
+        selected={value ? parseISO(value) : null}
+        showTimeSelect
+        placeholderText="Select..."
+        dateFormat={dateFormat}
+        onChange={handleChange}
+        timeFormat="HH:mm"
+        timeIntervals={15}
+      />
+    </div>
   );
 };
 
