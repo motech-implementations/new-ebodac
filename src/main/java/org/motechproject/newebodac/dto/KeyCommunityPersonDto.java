@@ -1,6 +1,8 @@
 package org.motechproject.newebodac.dto;
 
+import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,7 +16,7 @@ public class KeyCommunityPersonDto extends BaseDto {
 
   private String community;
 
-  private String languageId;
+  private UUID languageId;
 
-  private Set<ExtraFieldDto> extraFields;
+  private Set<ExtraFieldDto> extraFields = new HashSet<>();
 }

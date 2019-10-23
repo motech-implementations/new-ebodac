@@ -27,7 +27,13 @@ class EntityTable extends Component {
   render() {
     const { entity, fieldConfig, entityType } = this.props;
     const { loading } = this.state;
-    const columns = _.map(fieldConfig, item => getTableColumn(item));
+    const columns = _.map(
+      fieldConfig,
+      elem => getTableColumn({
+        ...elem,
+        name: (elem.base ? elem.name : `extraFields.${elem.name}.value`),
+      }),
+    );
     return (
       <div className="container">
         <div className="row margin-top-sm">

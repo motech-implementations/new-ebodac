@@ -1,6 +1,8 @@
 package org.motechproject.newebodac.dto;
 
+import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,11 +24,11 @@ public class VaccineeDto extends BaseDto {
 
   private String alternatePhoneNumber;
 
-  private String preferredLanguageId;
+  private UUID preferredLanguageId;
 
   private String address;
 
-  private String groupId;
+  private UUID groupId;
 
-  private Set<ExtraFieldDto> extraFields;
+  private Set<ExtraFieldDto> extraFields = new HashSet<>();
 }

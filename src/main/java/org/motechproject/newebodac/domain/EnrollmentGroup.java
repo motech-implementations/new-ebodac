@@ -1,7 +1,9 @@
 package org.motechproject.newebodac.domain;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
@@ -23,8 +25,9 @@ public class EnrollmentGroup extends BaseEntity {
   @OneToMany(mappedBy = "group")
   private Set<Vaccinee> vaccinees;
 
-  @OneToMany(mappedBy = "group")
-  private Set<ExtraField> extraFields;
+  @OneToMany(mappedBy = "group", cascade = {CascadeType.PERSIST, CascadeType.MERGE,
+      CascadeType.REMOVE}, orphanRemoval = true)
+  private Set<ExtraField> extraFields = new HashSet<>();
 
   public EnrollmentGroup(UUID id) {
     super(id);

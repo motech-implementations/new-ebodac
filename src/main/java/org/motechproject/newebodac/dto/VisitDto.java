@@ -1,7 +1,9 @@
 package org.motechproject.newebodac.dto;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,13 +15,13 @@ public class VisitDto extends BaseDto {
 
   private LocalDate plannedDate;
 
-  private String visitTypeId;
+  private UUID visitTypeId;
 
-  private String vaccineeId;
+  private UUID vaccineeId;
 
   private String status;
 
-  private String siteId;
+  private UUID siteId;
 
-  private Set<ExtraFieldDto> extraFields;
+  private Set<ExtraFieldDto> extraFields = new HashSet<>();
 }

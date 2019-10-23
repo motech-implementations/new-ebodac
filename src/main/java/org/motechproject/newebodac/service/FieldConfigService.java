@@ -3,11 +3,13 @@ package org.motechproject.newebodac.service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import org.motechproject.newebodac.domain.ExtraField;
 import org.motechproject.newebodac.domain.FieldConfig;
 import org.motechproject.newebodac.domain.enums.EntityType;
 import org.motechproject.newebodac.dto.FieldConfigDto;
 import org.motechproject.newebodac.exception.EntityNotFoundException;
 import org.motechproject.newebodac.mapper.FieldConfigMapper;
+import org.motechproject.newebodac.repository.ExtraFieldRepository;
 import org.motechproject.newebodac.repository.FieldConfigRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +21,9 @@ public class FieldConfigService {
 
   @Autowired
   private FieldConfigRepository fieldConfigRepository;
+
+  @Autowired
+  private ExtraFieldRepository extraFieldRepository;
 
   public List<FieldConfigDto> getAll() {
     return MAPPER.toDtos(fieldConfigRepository.findAll());
@@ -70,12 +75,18 @@ public class FieldConfigService {
   }
 
   /**
-   * Deletes config with given id.
+   * Deletes config with given id and deletes extra field related data.
    * @param id ID of config to delete.
    */
   public void delete(UUID id) {
     FieldConfig fieldConfig = fieldConfigRepository.findById(id).orElseThrow(() ->
         new EntityNotFoundException("Field config with id: {0} not found", id.toString()));
+
+    List<ExtraField> extraFields = extraFieldRepository
+        .findByNameAndEntity(fieldConfig.getName(), fieldConfig.getEntity());
+
+    extraFieldRepository.deleteAll(extraFields);
+
     fieldConfigRepository.delete(fieldConfig);
   }
 }

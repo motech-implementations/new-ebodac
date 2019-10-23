@@ -9,11 +9,28 @@ import { withRouter } from 'react-router-dom';
 import { createEntity } from '../../actions';
 import renderFormField, { validate } from '../../utils/form/form-utils';
 
+const ALERT_TIMEOUT = 5000;
+
 class EntityCreate extends Component {
   onSubmit = (values) => {
-    this.props.createEntity(this.props.entityType, values, () => {
-      Alert.success(`${_.startCase(this.props.entityType)} has been created!`);
-      this.props.history.push(`/viewEntity/${this.props.entityType}`);
+    const { entityType, fieldConfig } = this.props;
+    const mappedFieldConfig = _.keyBy(_.values(fieldConfig), 'name');
+    const entityValue = {
+      ...values,
+      extraFields: _.map(
+        values.extraFields,
+        (extraField, fieldName) => ({
+          ...extraField,
+          name: fieldName,
+          fieldType: mappedFieldConfig[fieldName].fieldType,
+        }),
+      ),
+    };
+    this.props.createEntity(entityType, entityValue, () => {
+      Alert.success(`${_.startCase(entityType)} has been created!`, {
+        timeout: ALERT_TIMEOUT,
+      });
+      this.props.history.push(`/viewEntity/${entityType}`);
     });
   };
 
@@ -35,7 +52,10 @@ class EntityCreate extends Component {
             render={({ handleSubmit }) => (
               <form onSubmit={handleSubmit} className="modal-fields">
                 <div>
-                  {_.map(fieldConfig, elem => renderFormField(elem))}
+                  {_.map(fieldConfig, elem => renderFormField({
+                    ...elem,
+                    name: (elem.base ? elem.name : `extraFields.${elem.name}.value`),
+                  }))}
                 </div>
                 <div className="text-center">
                   <button
