@@ -82,6 +82,9 @@ const initialState = {
 export default (state = initialState, action) => {
   const { type, payload, meta = {} } = action;
   const { entityType, entityId } = meta;
+  if (action.error) {
+    return state;
+  }
   switch (type) {
     case FETCH_ENTITY:
       return update(state, {

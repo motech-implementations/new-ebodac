@@ -307,7 +307,7 @@ export const visitTypeFieldConfig = [{
   base: true,
   editable: true,
   filterable: true,
-  required: true,
+  required: false,
   hidden: false,
   fieldType: COLLECTION,
   entity: VISIT_TYPE_ENTITY,

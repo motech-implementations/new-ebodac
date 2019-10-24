@@ -3,6 +3,7 @@ package org.motechproject.newebodac.mapper;
 import java.util.UUID;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 import org.motechproject.newebodac.domain.CampaignMessage;
@@ -17,11 +18,19 @@ public interface VisitTypeMapper extends EntityMapper<VisitTypeDto, VisitType> {
   @Mapping(target = "messages", source = "messageIds")
   @Override
   @Mapping(target = "id", ignore = true)
+  @Mapping(target = "createDate", ignore = true)
+  @Mapping(target = "updateDate", ignore = true)
   VisitType fromDto(VisitTypeDto visitTypeDto);
 
   @Mapping(target = "messageIds", source = "messages")
   @Override
   VisitTypeDto toDto(VisitType visitType);
+
+  @Mapping(target = "messages", source = "messageIds")
+  @Mapping(target = "id", ignore = true)
+  @Mapping(target = "createDate", ignore = true)
+  @Mapping(target = "updateDate", ignore = true)
+  void update(VisitTypeDto visitTypeDto, @MappingTarget VisitType visitType);
 
   default CampaignMessage toCampaignMessage(UUID id) {
     return new CampaignMessage(id);

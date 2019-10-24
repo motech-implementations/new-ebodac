@@ -31,6 +31,20 @@ public class VisitService {
   }
 
   /**
+   * Updates Visit from it's dto.
+   * @param id id of updated Visit.
+   * @param visitDto dto of updated Visit.
+   * @return Dto of updated Visit.
+   */
+  public VisitDto update(UUID id, VisitDto visitDto) {
+    Visit visit = visitRepository.findById(id)
+        .orElseThrow(() -> new EntityNotFoundException("Visit with id: {0} not found",
+            id.toString()));
+    MAPPER.update(visitDto, visit);
+    return MAPPER.toDto(visitRepository.save(visit));
+  }
+
+  /**
    * Deletes visit with given id.
    * @param id ID of visit to delete.
    */
