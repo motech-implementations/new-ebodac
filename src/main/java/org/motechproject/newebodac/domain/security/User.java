@@ -11,6 +11,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 import org.motechproject.newebodac.domain.BaseEntity;
@@ -26,9 +28,11 @@ public class User extends BaseEntity implements UserDetails {
 
   private static final long serialVersionUID = 1L;
 
+  @NotBlank
   @Column(name = "username", nullable = false, unique = true)
   private String username;
 
+  @NotBlank
   @Column(name = "password", nullable = false)
   private String password;
 
@@ -48,6 +52,7 @@ public class User extends BaseEntity implements UserDetails {
   @Valid
   private Set<UserRole> roles = new HashSet<>();
 
+  @NotNull
   @Column(name = "enabled", nullable = false)
   private Boolean enabled;
 

@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -26,12 +27,14 @@ public class Client {
   @Column(name = "resource_ids")
   private String resourceIds;
 
+  @NotBlank
   @Column(name = "authorized_grant_types", nullable = false)
   private String authorizedGrantTypes;
 
   @Column(name = "registered_redirect_uris")
   private String registeredRedirectUris;
 
+  @NotBlank
   @Column(name = "authorities", nullable = false)
   private String authorities;
 
