@@ -50,6 +50,9 @@ const initialState = {
 export default (state = initialState, action) => {
   const { type, payload, meta = {} } = action;
   const { entityType, fieldConfig } = meta;
+  if (action.error) {
+    return state;
+  }
 
   switch (type) {
     case FETCH_FIELD_CONFIG:
