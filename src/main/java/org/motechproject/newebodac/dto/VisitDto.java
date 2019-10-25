@@ -15,7 +15,7 @@ public class VisitDto extends BaseDto {
 
   private LocalDate plannedDate;
 
-  private UUID visitTypeId;
+  private UUID typeId;
 
   private UUID vaccineeId;
 

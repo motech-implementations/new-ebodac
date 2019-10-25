@@ -51,6 +51,14 @@ public class LanguageController extends BaseController {
     return languageService.create(languageDto);
   }
 
+  @RequestMapping(value = "/language/{id}", method = RequestMethod.PUT)
+  @ResponseStatus(HttpStatus.OK)
+  @ResponseBody
+  public LanguageDto update(@PathVariable("id") UUID id,
+      @RequestBody @Valid LanguageDto languageDto) {
+    return languageService.update(id, languageDto);
+  }
+
   @RequestMapping(value = "/language/{id}", method = RequestMethod.DELETE)
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody

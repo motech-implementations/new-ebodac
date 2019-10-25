@@ -51,6 +51,14 @@ public class VisitTypeController extends BaseController {
     return visitTypeService.create(visitTypeDto);
   }
 
+  @RequestMapping(value = "/visitType/{id}", method = RequestMethod.PUT)
+  @ResponseStatus(HttpStatus.OK)
+  @ResponseBody
+  public VisitTypeDto update(@PathVariable("id") UUID id,
+      @RequestBody @Valid VisitTypeDto visitTypeDto) {
+    return visitTypeService.update(id, visitTypeDto);
+  }
+
   @RequestMapping(value = "/visitType/{id}", method = RequestMethod.DELETE)
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody

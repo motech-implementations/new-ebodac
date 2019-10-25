@@ -17,9 +17,18 @@ public interface SiteMapper extends EntityMapper<SiteDto, Site> {
 
   SiteMapper INSTANCE = Mappers.getMapper(SiteMapper.class);
 
+
   @Override
+  @Mapping(target = "visits", ignore = true)
   @Mapping(target = "id", ignore = true)
+  @Mapping(target = "createDate", ignore = true)
+  @Mapping(target = "updateDate", ignore = true)
   Site fromDto(SiteDto visitDto);
+
+  @Mapping(target = "id", ignore = true)
+  @Mapping(target = "createDate", ignore = true)
+  @Mapping(target = "updateDate", ignore = true)
+  void update(SiteDto siteDto, @MappingTarget Site site);
 
   /**
    * Attaches this Site to all extra fields id.

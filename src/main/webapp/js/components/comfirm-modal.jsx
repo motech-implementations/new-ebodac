@@ -9,6 +9,11 @@ class ConfirmModal extends Component {
     this.props.onHide();
   };
 
+  confirmModal = () => {
+    this.props.onHide();
+    this.props.onConfirm();
+  };
+
   render() {
     return (
       <div>
@@ -28,7 +33,7 @@ class ConfirmModal extends Component {
             <button
               type="submit"
               className="btn btn-primary margin-bottom-md"
-              onClick={this.props.onConfirm}
+              onClick={this.confirmModal}
             >
               Confirm
             </button>

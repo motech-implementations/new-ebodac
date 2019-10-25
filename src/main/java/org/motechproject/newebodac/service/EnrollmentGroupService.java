@@ -5,6 +5,7 @@ import java.util.UUID;
 import org.motechproject.newebodac.domain.EnrollmentGroup;
 import org.motechproject.newebodac.dto.EnrollmentGroupDto;
 import org.motechproject.newebodac.exception.EntityNotFoundException;
+import org.motechproject.newebodac.exception.RelationViolationException;
 import org.motechproject.newebodac.mapper.EnrollmentGroupMapper;
 import org.motechproject.newebodac.repository.EnrollmentGroupRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,8 +55,9 @@ public class EnrollmentGroupService {
   public void delete(UUID id) {
     EnrollmentGroup enrollmentGroup = enrollmentGroupRepository.findById(id).orElseThrow(() ->
         new EntityNotFoundException("Enrollment group with id: {0} not found", id.toString()));
+    if (!enrollmentGroup.getVaccinees().isEmpty()) {
+      throw new RelationViolationException("Can not delete group with users in it!");
+    }
     enrollmentGroupRepository.delete(enrollmentGroup);
   }
-
-
 }

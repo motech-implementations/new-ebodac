@@ -1,0 +1,23 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+    <changeSet author="user (generated)" id="1571992435114-1">
+        <insert tableName="field_config">
+            <column name="id" value="0570f060-c187-4099-8987-86b0fec70d54"/>
+            <column name="base" valueBoolean="true"/>
+            <column name="display_name" value="Status"/>
+            <column name="entity" value="VISIT"/>
+            <column name="format" value="NOT_ENROLLED:Not enrolled,ENROLLED:Enrolled,UNENROLLED:Unenrolled,COMPLETED:Completed'"/>
+            <column name="hidden" valueBoolean="false"/>
+            <column name="name" value="status"/>
+            <column name="required" valueBoolean="true"/>
+            <column name="field_type" value="ENUM"/>
+            <column name="field_order" valueNumeric="7"/>
+            <column name="create_date" value="2019-08-08 15:28:20"/>
+            <column name="update_date" value="2019-08-08 15:28:20"/>
+            <column name="related_entity" value="null"/>
+            <column name="related_field" value="null"/>
+            <column name="editable" valueBoolean="true"/>
+            <column name="filterable" valueBoolean="true"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

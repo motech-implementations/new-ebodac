@@ -51,6 +51,14 @@ public class VisitController extends BaseController {
     return visitService.create(visitDto);
   }
 
+  @RequestMapping(value = "/visit/{id}", method = RequestMethod.PUT)
+  @ResponseStatus(HttpStatus.OK)
+  @ResponseBody
+  public VisitDto update(@PathVariable("id") UUID id,
+      @RequestBody @Valid VisitDto visitDto) {
+    return visitService.update(id, visitDto);
+  }
+
   @RequestMapping(value = "/visit/{id}", method = RequestMethod.DELETE)
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody

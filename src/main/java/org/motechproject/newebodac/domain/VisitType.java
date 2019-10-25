@@ -2,6 +2,7 @@ package org.motechproject.newebodac.domain;
 
 import java.util.Set;
 import java.util.UUID;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -44,7 +45,7 @@ public class VisitType extends BaseEntity {
   @Column(name = "latest_offset")
   private Integer latestOffset;
 
-  @OneToMany(mappedBy = "visitType")
+  @OneToMany(mappedBy = "visitType", cascade = {CascadeType.REMOVE}, orphanRemoval = true)
   private Set<CampaignMessage> messages;
 
   public VisitType(UUID id) {
