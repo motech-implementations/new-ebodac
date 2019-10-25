@@ -12,6 +12,9 @@ const initialState = {
 };
 
 export default (state = initialState, action) => {
+  if (action.error) {
+    return state;
+  }
   switch (action.type) {
     case AUTH_USER:
       return { ...state, error: '', authenticated: true };
