@@ -2,6 +2,7 @@ package org.motechproject.newebodac.service;
 
 import java.util.List;
 import java.util.UUID;
+import org.motechproject.newebodac.constants.DefaultPermissions;
 import org.motechproject.newebodac.domain.KeyCommunityPerson;
 import org.motechproject.newebodac.domain.Language;
 import org.motechproject.newebodac.domain.Vaccinee;
@@ -13,6 +14,7 @@ import org.motechproject.newebodac.repository.KeyCommunityPersonRepository;
 import org.motechproject.newebodac.repository.LanguageRepository;
 import org.motechproject.newebodac.repository.VaccineeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -29,14 +31,17 @@ public class LanguageService {
   @Autowired
   private KeyCommunityPersonRepository keyCommunityPersonRepository;
 
+  @PreAuthorize(DefaultPermissions.HAS_LANGUAGE_READ_ROLE)
   public List<LanguageDto> getAll() {
     return MAPPER.toDtos(languageRepository.findAll());
   }
 
+  @PreAuthorize(DefaultPermissions.HAS_LANGUAGE_READ_ROLE)
   public LanguageDto findById(UUID id) {
     return MAPPER.toDto(languageRepository.getOne(id));
   }
 
+  @PreAuthorize(DefaultPermissions.HAS_LANGUAGE_WRITE_ROLE)
   public LanguageDto create(LanguageDto languageDto) {
     return MAPPER.toDto(languageRepository.save(MAPPER.fromDto(languageDto)));
   }
@@ -47,6 +52,7 @@ public class LanguageService {
    * @param languageDto dto of updated language.
    * @return Dto of updated language.
    */
+  @PreAuthorize(DefaultPermissions.HAS_LANGUAGE_WRITE_ROLE)
   public LanguageDto update(UUID id, LanguageDto languageDto) {
     Language language = languageRepository.findById(id)
         .orElseThrow(() -> new EntityNotFoundException("Language with id: {0} not found",
@@ -59,6 +65,7 @@ public class LanguageService {
    * Deletes language with given id.
    * @param id ID of language to delete.
    */
+  @PreAuthorize(DefaultPermissions.HAS_LANGUAGE_WRITE_ROLE)
   public void delete(UUID id) {
     Language language = languageRepository.findById(id).orElseThrow(() ->
         new EntityNotFoundException("Language with id: {0} not found", id.toString()));

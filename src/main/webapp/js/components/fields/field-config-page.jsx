@@ -8,7 +8,7 @@ import { getVisibleFields, getHiddenFields } from '../../selectors';
 import FieldConfigModal from './field-config-modal';
 import {
   changeFieldVisibility, changeFieldOrder, saveFieldConfigOrder,
-} from '../../actions';
+} from '../../actions/field-config-actions';
 
 const VISIBLE_FIELDS = 'visible';
 const HIDDEN_FIELDS = 'hidden';

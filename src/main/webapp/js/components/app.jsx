@@ -8,7 +8,8 @@ import '../../css/main.scss';
 
 import AppContent from './app-content';
 import loadIcons from '../utils/icon-loader';
-import { fetchAllFieldConfigs, fetchEntity } from '../actions/index';
+import { fetchAllFieldConfigs } from '../actions/field-config-actions';
+import { fetchEntity } from '../actions/entity-actions';
 import {
   PERMISSION_ENTITY,
   LANGUAGE_ENTITY,
@@ -17,6 +18,7 @@ import {
 } from '../constants/entity-types';
 import Login from './auth/login';
 import Register from './auth/register';
+import RoutePrivate from './helpers/RoutePrivate';
 
 loadIcons();
 
@@ -48,7 +50,7 @@ class App extends Component {
         <Switch>
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
-          <Route path="/" component={AppContent} />
+          <RoutePrivate path="/" component={AppContent} />
         </Switch>
       </Router>
     );

@@ -8,7 +8,11 @@ import { connect } from 'react-redux';
 import ConfirmModal from '../comfirm-modal';
 import renderFormField, { validate } from '../../utils/form/form-utils';
 import { getFieldConfigById } from '../../selectors';
-import { createFieldConfig, deleteFieldConfig, saveFieldConfig } from '../../actions';
+import {
+  createFieldConfig,
+  deleteFieldConfig,
+  saveFieldConfig,
+} from '../../actions/field-config-actions';
 import {
   TEXT,
   LONG_TEXT,

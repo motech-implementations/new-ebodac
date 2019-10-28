@@ -9,7 +9,7 @@ import {
   TEXT,
   PASSWORD,
 } from '../../constants/field-types';
-import { registerUser } from '../../actions/index';
+import { registerUser } from '../../actions/auth-actions';
 
 const REGISTER_FIELDS = [
   {
