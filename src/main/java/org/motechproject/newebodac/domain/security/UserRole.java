@@ -13,6 +13,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -29,6 +30,7 @@ public class UserRole extends BaseEntity {
   @Column(name = "name", nullable = false, unique = true)
   private String name;
 
+  @NotNull
   @Column(name = "readonly", nullable = false)
   private Boolean readonly = false;
 

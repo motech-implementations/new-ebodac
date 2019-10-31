@@ -116,11 +116,11 @@ export default (state = initialState, action) => {
     case UPDATE_ENTITY:
       return update(state, {
         [entityType]: {
-          $set: {
-            [payload.data.id]: _.map(payload.data, elem => ({
-              ...elem,
-              extraFields: _.keyBy(_.get(elem, 'extraFields', {}), 'name'),
-            })),
+          [payload.data.id]: {
+            $set: {
+              ...payload.data,
+              extraFields: _.keyBy(_.get(payload.data, 'extraFields', {}), 'name'),
+            },
           },
         },
       });
@@ -128,10 +128,10 @@ export default (state = initialState, action) => {
       return update(state, {
         [entityType]: {
           $merge: {
-            [payload.data.id]: _.map(payload.data, elem => ({
-              ...elem,
-              extraFields: _.keyBy(_.get(elem, 'extraFields', {}), 'name'),
-            })),
+            [payload.data.id]: {
+              ...payload.data,
+              extraFields: _.keyBy(_.get(payload.data, 'extraFields', {}), 'name'),
+            },
           },
         },
       });

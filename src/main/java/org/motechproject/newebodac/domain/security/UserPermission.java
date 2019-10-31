@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -25,6 +26,7 @@ public class UserPermission extends BaseEntity {
   @Column(name = "display_name")
   private String displayName;
 
+  @NotNull
   @Column(name = "readonly", nullable = false)
   private Boolean readonly = false;
 
