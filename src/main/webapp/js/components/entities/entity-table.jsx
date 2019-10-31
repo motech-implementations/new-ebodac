@@ -87,7 +87,7 @@ class EntityTable extends Component {
               )}
               getTdProps={(state, rowInfo) => ({
                 onClick: () => {
-                  if (this.canWrite()) {
+                  if (_.get(rowInfo, 'original.id') && this.canWrite()) {
                     this.props.history.push(`/entityEdit/${entityType}/${rowInfo.original.id}`);
                   }
                 },
