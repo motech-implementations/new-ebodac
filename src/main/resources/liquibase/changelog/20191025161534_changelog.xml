@@ -1,0 +1,237 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+    <changeSet author="user (generated)" id="1572012943582-8">
+        <insert tableName="user_permission">
+            <column name="id" value="b697af43-986e-4758-a3c4-e37543a86758"/>
+            <column name="display_name" value="VACCINEE_READ"/>
+            <column name="name" value="ROLE_vaccinee_READ"/>
+            <column name="readonly" valueBoolean="true"/>
+            <column name="create_date" value="2019-10-24 13:58:44"/>
+            <column name="update_date" value="2019-10-24 13:58:44"/>
+        </insert>
+        <insert tableName="user_permission">
+            <column name="id" value="d5393850-c271-4d21-a88e-1791b9b8f564"/>
+            <column name="display_name" value="VACCINEE_WRITE"/>
+            <column name="name" value="ROLE_vaccinee_WRITE"/>
+            <column name="readonly" valueBoolean="true"/>
+            <column name="create_date" value="2019-10-24 13:58:44"/>
+            <column name="update_date" value="2019-10-24 13:58:44"/>
+        </insert>
+        <insert tableName="user_permission">
+            <column name="id" value="b2bd6790-a2a8-48f3-a44e-8757188e7182"/>
+            <column name="display_name" value="MESSAGE_READ"/>
+            <column name="name" value="ROLE_campaignMessage_READ"/>
+            <column name="readonly" valueBoolean="true"/>
+            <column name="create_date" value="2019-10-24 13:58:44"/>
+            <column name="update_date" value="2019-10-24 13:58:44"/>
+        </insert>
+        <insert tableName="user_permission">
+            <column name="id" value="98396a0e-c297-4bda-a7a0-4103d8e22f0d"/>
+            <column name="display_name" value="MESSAGE_WRITE"/>
+            <column name="name" value="ROLE_campaignMessage_WRITE"/>
+            <column name="readonly" valueBoolean="true"/>
+            <column name="create_date" value="2019-10-24 13:58:44"/>
+            <column name="update_date" value="2019-10-24 13:58:44"/>
+        </insert>
+        <insert tableName="user_permission">
+            <column name="id" value="0a14c135-1977-4094-8ef6-f26664c626de"/>
+            <column name="display_name" value="GROUP_READ"/>
+            <column name="name" value="ROLE_group_READ"/>
+            <column name="readonly" valueBoolean="true"/>
+            <column name="create_date" value="2019-10-24 13:58:44"/>
+            <column name="update_date" value="2019-10-24 13:58:44"/>
+        </insert>
+        <insert tableName="user_permission">
+            <column name="id" value="2a388c0d-6aa2-465d-aa6d-95c199dd98ea"/>
+            <column name="display_name" value="GROUP_WRITE"/>
+            <column name="name" value="ROLE_group_WRITE"/>
+            <column name="readonly" valueBoolean="true"/>
+            <column name="create_date" value="2019-10-24 13:58:44"/>
+            <column name="update_date" value="2019-10-24 13:58:44"/>
+        </insert>
+        <insert tableName="user_permission">
+            <column name="id" value="2324f5e8-9b12-43af-9e3e-4e07b1ba2f1f"/>
+            <column name="display_name" value="KEY_COMMUNITY_PERSON_READ"/>
+            <column name="name" value="ROLE_keyCommunityPerson_READ"/>
+            <column name="readonly" valueBoolean="true"/>
+            <column name="create_date" value="2019-10-24 13:58:44"/>
+            <column name="update_date" value="2019-10-24 13:58:44"/>
+        </insert>
+        <insert tableName="user_permission">
+            <column name="id" value="b63b1ca8-1514-4d9b-805b-e7946de8dd46"/>
+            <column name="display_name" value="KEY_COMMUNITY_PERSON_WRITE"/>
+            <column name="name" value="ROLE_keyCommunityPerson_WRITE"/>
+            <column name="readonly" valueBoolean="true"/>
+            <column name="create_date" value="2019-10-24 13:58:44"/>
+            <column name="update_date" value="2019-10-24 13:58:44"/>
+        </insert>
+        <insert tableName="user_permission">
+            <column name="id" value="a3393335-652f-4a16-b54d-3163a0d07b4e"/>
+            <column name="display_name" value="LANGUAGE_READ"/>
+            <column name="name" value="ROLE_language_READ"/>
+            <column name="readonly" valueBoolean="true"/>
+            <column name="create_date" value="2019-10-24 13:58:44"/>
+            <column name="update_date" value="2019-10-24 13:58:44"/>
+        </insert>
+        <insert tableName="user_permission">
+            <column name="id" value="4de7ba2d-11bd-4ed1-acfa-ae95d683a731"/>
+            <column name="display_name" value="LANGUAGE_WRITE"/>
+            <column name="name" value="ROLE_language_WRITE"/>
+            <column name="readonly" valueBoolean="true"/>
+            <column name="create_date" value="2019-10-24 13:58:44"/>
+            <column name="update_date" value="2019-10-24 13:58:44"/>
+        </insert>
+        <insert tableName="user_permission">
+            <column name="id" value="87bad62f-accb-439c-91c1-31541466f768"/>
+            <column name="display_name" value="SITE_READ"/>
+            <column name="name" value="ROLE_site_READ"/>
+            <column name="readonly" valueBoolean="true"/>
+            <column name="create_date" value="2019-10-24 13:58:44"/>
+            <column name="update_date" value="2019-10-24 13:58:44"/>
+        </insert>
+        <insert tableName="user_permission">
+            <column name="id" value="cb8ae940-c124-4ac7-a263-053de0d1ead0"/>
+            <column name="display_name" value="SITE_WRITE"/>
+            <column name="name" value="ROLE_site_WRITE"/>
+            <column name="readonly" valueBoolean="true"/>
+            <column name="create_date" value="2019-10-24 13:58:44"/>
+            <column name="update_date" value="2019-10-24 13:58:44"/>
+        </insert>
+        <insert tableName="user_permission">
+            <column name="id" value="5d78bc33-778c-4dd0-afae-08da24d64291"/>
+            <column name="display_name" value="VISIT_READ"/>
+            <column name="name" value="ROLE_visit_READ"/>
+            <column name="readonly" valueBoolean="true"/>
+            <column name="create_date" value="2019-10-24 13:58:44"/>
+            <column name="update_date" value="2019-10-24 13:58:44"/>
+        </insert>
+        <insert tableName="user_permission">
+            <column name="id" value="cdc5be24-5a43-40a6-8e2d-57533d7c12c6"/>
+            <column name="display_name" value="VISIT_WRITE"/>
+            <column name="name" value="ROLE_visit_WRITE"/>
+            <column name="readonly" valueBoolean="true"/>
+            <column name="create_date" value="2019-10-24 13:58:44"/>
+            <column name="update_date" value="2019-10-24 13:58:44"/>
+        </insert>
+        <insert tableName="user_permission">
+            <column name="id" value="5434d446-0483-400e-8205-f67fcfd74880"/>
+            <column name="display_name" value="ROLE_READ"/>
+            <column name="name" value="ROLE_role_READ"/>
+            <column name="readonly" valueBoolean="true"/>
+            <column name="create_date" value="2019-10-24 13:58:44"/>
+            <column name="update_date" value="2019-10-24 13:58:44"/>
+        </insert>
+        <insert tableName="user_permission">
+            <column name="id" value="9806a6c2-9588-40d7-950c-3269c71d673e"/>
+            <column name="display_name" value="ROLE_WRITE"/>
+            <column name="name" value="ROLE_role_WRITE"/>
+            <column name="readonly" valueBoolean="true"/>
+            <column name="create_date" value="2019-10-24 13:58:44"/>
+            <column name="update_date" value="2019-10-24 13:58:44"/>
+        </insert>
+        <insert tableName="user_permission">
+            <column name="id" value="4d6c93b8-b104-47c9-a654-c497d6cc9258"/>
+            <column name="display_name" value="USER_READ"/>
+            <column name="name" value="ROLE_user_READ"/>
+            <column name="readonly" valueBoolean="true"/>
+            <column name="create_date" value="2019-10-24 13:58:44"/>
+            <column name="update_date" value="2019-10-24 13:58:44"/>
+        </insert>
+        <insert tableName="user_permission">
+            <column name="id" value="2bb9549b-1f70-4f72-80e0-7ebc9bcefd2d"/>
+            <column name="display_name" value="USER_WRITE"/>
+            <column name="name" value="ROLE_user_WRITE"/>
+            <column name="readonly" valueBoolean="true"/>
+            <column name="create_date" value="2019-10-24 13:58:44"/>
+            <column name="update_date" value="2019-10-24 13:58:44"/>
+        </insert>
+        <insert tableName="user_permission">
+            <column name="id" value="9948b2ba-a7bf-4903-b04e-4db476a8d25e"/>
+            <column name="display_name" value="VISIT_TYPE_READ"/>
+            <column name="name" value="ROLE_visitType_READ"/>
+            <column name="readonly" valueBoolean="true"/>
+            <column name="create_date" value="2019-10-24 13:58:44"/>
+            <column name="update_date" value="2019-10-24 13:58:44"/>
+        </insert>
+        <insert tableName="user_permission">
+            <column name="id" value="57ce85a4-6934-48ac-ac2b-9e06b6fe6050"/>
+            <column name="display_name" value="VISIT_TYPE_WRITE"/>
+            <column name="name" value="ROLE_visitType_WRITE"/>
+            <column name="readonly" valueBoolean="true"/>
+            <column name="create_date" value="2019-10-24 13:58:44"/>
+            <column name="update_date" value="2019-10-24 13:58:44"/>
+        </insert>
+        <insert tableName="user_role_permissions">
+            <column name="role_id" value="d892e3c6-25eb-4291-abfc-b379aa502bc3"/>
+            <column name="permission_id" value="b697af43-986e-4758-a3c4-e37543a86758"/>
+        </insert>
+        <insert tableName="user_role_permissions">
+            <column name="role_id" value="d892e3c6-25eb-4291-abfc-b379aa502bc3"/>
+            <column name="permission_id" value="d5393850-c271-4d21-a88e-1791b9b8f564"/>
+        </insert>
+        <insert tableName="user_role_permissions">
+            <column name="role_id" value="d892e3c6-25eb-4291-abfc-b379aa502bc3"/>
+            <column name="permission_id" value="b2bd6790-a2a8-48f3-a44e-8757188e7182"/>
+        </insert>
+        <insert tableName="user_role_permissions">
+            <column name="role_id" value="d892e3c6-25eb-4291-abfc-b379aa502bc3"/>
+            <column name="permission_id" value="98396a0e-c297-4bda-a7a0-4103d8e22f0d"/>
+        </insert>
+        <insert tableName="user_role_permissions">
+            <column name="role_id" value="d892e3c6-25eb-4291-abfc-b379aa502bc3"/>
+            <column name="permission_id" value="0a14c135-1977-4094-8ef6-f26664c626de"/>
+        </insert>
+        <insert tableName="user_role_permissions">
+            <column name="role_id" value="d892e3c6-25eb-4291-abfc-b379aa502bc3"/>
+            <column name="permission_id" value="2a388c0d-6aa2-465d-aa6d-95c199dd98ea"/>
+        </insert>
+        <insert tableName="user_role_permissions">
+            <column name="role_id" value="d892e3c6-25eb-4291-abfc-b379aa502bc3"/>
+            <column name="permission_id" value="2324f5e8-9b12-43af-9e3e-4e07b1ba2f1f"/>
+        </insert>
+        <insert tableName="user_role_permissions">
+            <column name="role_id" value="d892e3c6-25eb-4291-abfc-b379aa502bc3"/>
+            <column name="permission_id" value="b63b1ca8-1514-4d9b-805b-e7946de8dd46"/>
+        </insert>
+        <insert tableName="user_role_permissions">
+            <column name="role_id" value="d892e3c6-25eb-4291-abfc-b379aa502bc3"/>
+            <column name="permission_id" value="a3393335-652f-4a16-b54d-3163a0d07b4e"/>
+        </insert>
+        <insert tableName="user_role_permissions">
+            <column name="role_id" value="d892e3c6-25eb-4291-abfc-b379aa502bc3"/>
+            <column name="permission_id" value="4de7ba2d-11bd-4ed1-acfa-ae95d683a731"/>
+        </insert>
+        <insert tableName="user_role_permissions">
+            <column name="role_id" value="d892e3c6-25eb-4291-abfc-b379aa502bc3"/>
+            <column name="permission_id" value="87bad62f-accb-439c-91c1-31541466f768"/>
+        </insert>
+        <insert tableName="user_role_permissions">
+            <column name="role_id" value="d892e3c6-25eb-4291-abfc-b379aa502bc3"/>
+            <column name="permission_id" value="cb8ae940-c124-4ac7-a263-053de0d1ead0"/>
+        </insert>
+        <insert tableName="user_role_permissions">
+            <column name="role_id" value="d892e3c6-25eb-4291-abfc-b379aa502bc3"/>
+            <column name="permission_id" value="5d78bc33-778c-4dd0-afae-08da24d64291"/>
+        </insert>
+        <insert tableName="user_role_permissions">
+            <column name="role_id" value="d892e3c6-25eb-4291-abfc-b379aa502bc3"/>
+            <column name="permission_id" value="cdc5be24-5a43-40a6-8e2d-57533d7c12c6"/>
+        </insert>
+        <insert tableName="user_role_permissions">
+            <column name="role_id" value="d892e3c6-25eb-4291-abfc-b379aa502bc3"/>
+            <column name="permission_id" value="5434d446-0483-400e-8205-f67fcfd74880"/>
+        </insert>
+        <insert tableName="user_role_permissions">
+            <column name="role_id" value="d892e3c6-25eb-4291-abfc-b379aa502bc3"/>
+            <column name="permission_id" value="9806a6c2-9588-40d7-950c-3269c71d673e"/>
+        </insert>
+        <insert tableName="user_role_permissions">
+            <column name="role_id" value="d892e3c6-25eb-4291-abfc-b379aa502bc3"/>
+            <column name="permission_id" value="4d6c93b8-b104-47c9-a654-c497d6cc9258"/>
+        </insert>
+        <insert tableName="user_role_permissions">
+            <column name="role_id" value="d892e3c6-25eb-4291-abfc-b379aa502bc3"/>
+            <column name="permission_id" value="2bb9549b-1f70-4f72-80e0-7ebc9bcefd2d"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

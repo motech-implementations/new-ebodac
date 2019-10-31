@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import Countdown from 'react-countdown-now';
 
-import { signoutUser } from '../actions/index';
+import { signoutUser } from '../actions/auth-actions';
 
 class CounterLogout extends Component {
   static minTwoDigits(n) {

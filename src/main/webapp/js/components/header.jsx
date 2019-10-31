@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import '../../css/main.scss';
-import { signoutUser } from '../actions';
+import { signoutUser } from '../actions/auth-actions';
 import CounterLogout from './counter-logout';
 
 /* eslint-disable jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */

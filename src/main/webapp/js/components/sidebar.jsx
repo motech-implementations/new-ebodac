@@ -1,7 +1,9 @@
+import _ from 'lodash';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { connect } from 'react-redux';
 
 import '../../css/main.scss';
 
@@ -25,11 +27,21 @@ class SideBar extends Component {
       enrollmentCollapsed: true,
       visitsCollapsed: true,
       reportsCollapsed: true,
-      userManagmentCollapsed: true,
+      userManagementCollapsed: true,
       settingsCollapsed: true,
       fieldsCollapsed: true,
     };
   }
+
+  isAuthorizated = (requiredPermissions) => {
+    const { permissions } = this.props;
+    if (_.isEmpty(requiredPermissions)) {
+      return true;
+    }
+    return _.every(requiredPermissions, permission => _.includes(permissions, permission));
+  };
+
+  getRole = entityType => [`ROLE_${entityType}_READ`];
 
   toggleEnrollmentCollapsedMenu = (event) => {
     event.preventDefault();
@@ -51,7 +63,7 @@ class SideBar extends Component {
 
   toggleUserManagementCollapsedMenu = (event) => {
     event.preventDefault();
-    this.setState(prevState => ({ userManagmentCollapsed: !prevState.userManagmentCollapsed }));
+    this.setState(prevState => ({ userManagementCollapsed: !prevState.userManagementCollapsed }));
     return false;
   };
 
@@ -101,18 +113,24 @@ class SideBar extends Component {
 
     return (
       <ul className="nav nav-second-level">
-        <li className="border-none">
-          <Link to={`/viewEntity/${VISIT_ENTITY}`}>
-            <FontAwesomeIcon icon="hand-point-right" />
-            <span className="icon-text">Visits</span>
-          </Link>
-        </li>
-        <li className="border-none">
-          <Link to={`/viewEntity/${VISIT_TYPE_ENTITY}`}>
-            <FontAwesomeIcon icon="hand-point-right" />
-            <span className="icon-text">Visit Types</span>
-          </Link>
-        </li>
+        {this.isAuthorizated(this.getRole(VISIT_ENTITY))
+        && (
+          <li className="border-none">
+            <Link to={`/viewEntity/${VISIT_ENTITY}`}>
+              <FontAwesomeIcon icon="hand-point-right" />
+              <span className="icon-text">Visits</span>
+            </Link>
+          </li>
+        )}
+        {this.isAuthorizated(this.getRole(VISIT_TYPE_ENTITY))
+        && (
+          <li className="border-none">
+            <Link to={`/viewEntity/${VISIT_TYPE_ENTITY}`}>
+              <FontAwesomeIcon icon="hand-point-right" />
+              <span className="icon-text">Visit Types</span>
+            </Link>
+          </li>
+        )}
         <li className="border-none">
           <Link to="/boosterVisitGenerator">
             <FontAwesomeIcon icon="hand-point-right" />
@@ -179,26 +197,32 @@ class SideBar extends Component {
   };
 
   renderUserManagementCollapsedMenu = () => {
-    const { userManagmentCollapsed } = this.state;
+    const { userManagementCollapsed } = this.state;
 
-    if (userManagmentCollapsed) {
+    if (userManagementCollapsed) {
       return '';
     }
 
     return (
       <ul className="nav nav-second-level">
-        <li className="border-none">
-          <Link to={`/viewEntity/${ROLE_ENTITY}`}>
-            <FontAwesomeIcon icon="hand-point-right" />
-            <span className="icon-text">Roles</span>
-          </Link>
-        </li>
-        <li className="border-none">
-          <Link to={`/viewEntity/${USER_ENTITY}`}>
-            <FontAwesomeIcon icon="hand-point-right" />
-            <span className="icon-text">Users</span>
-          </Link>
-        </li>
+        {this.isAuthorizated(this.getRole(ROLE_ENTITY))
+        && (
+          <li className="border-none">
+            <Link to={`/viewEntity/${ROLE_ENTITY}`}>
+              <FontAwesomeIcon icon="hand-point-right" />
+              <span className="icon-text">Roles</span>
+            </Link>
+          </li>
+        )}
+        {this.isAuthorizated(this.getRole(USER_ENTITY))
+        && (
+          <li className="border-none">
+            <Link to={`/viewEntity/${USER_ENTITY}`}>
+              <FontAwesomeIcon icon="hand-point-right" />
+              <span className="icon-text">Users</span>
+            </Link>
+          </li>
+        )}
       </ul>
     );
   };
@@ -218,12 +242,15 @@ class SideBar extends Component {
             <span className="icon-text">Messaging</span>
           </Link>
         </li>
-        <li className="border-none">
-          <Link to={`/viewEntity/${LANGUAGE_ENTITY}`}>
-            <FontAwesomeIcon icon="hand-point-right" />
-            <span className="icon-text">Languages</span>
-          </Link>
-        </li>
+        {this.isAuthorizated(this.getRole(LANGUAGE_ENTITY))
+        && (
+          <li className="border-none">
+            <Link to={`/viewEntity/${LANGUAGE_ENTITY}`}>
+              <FontAwesomeIcon icon="hand-point-right" />
+              <span className="icon-text">Languages</span>
+            </Link>
+          </li>
+        )}
         <li>
           <a href="" onClick={this.toggleFieldsCollapsedMenu}>
             <FontAwesomeIcon icon="hand-point-right" />
@@ -231,12 +258,15 @@ class SideBar extends Component {
           </a>
           {this.renderFieldsCollapsedMenu()}
         </li>
-        <li className="border-none">
-          <Link to={`/viewEntity/${SITE_ENTITY}`}>
-            <FontAwesomeIcon icon="hand-point-right" />
-            <span className="icon-text">Sites</span>
-          </Link>
-        </li>
+        {this.isAuthorizated(this.getRole(SITE_ENTITY))
+        && (
+          <li className="border-none">
+            <Link to={`/viewEntity/${SITE_ENTITY}`}>
+              <FontAwesomeIcon icon="hand-point-right" />
+              <span className="icon-text">Sites</span>
+            </Link>
+          </li>
+        )}
       </ul>
     );
   };
@@ -293,18 +323,24 @@ class SideBar extends Component {
       <div className={`sidebar-collapse ${sidebarVisible ? 'collapse' : ''}`}>
         <div>
           <ul className="nav navbar-nav side-nav">
+            {this.isAuthorizated(this.getRole(VACCINEE_ENTITY))
+            && (
             <li>
               <Link to={`/viewEntity/${VACCINEE_ENTITY}`}>
                 <FontAwesomeIcon icon="syringe" />
                 <span className="icon-text">Vaccinees</span>
               </Link>
             </li>
-            <li>
-              <Link to={`/viewEntity/${KEY_COMMUNITY_PERSON_ENTITY}`}>
-                <FontAwesomeIcon icon="key" />
-                <span className="icon-text">Key Community Persons</span>
-              </Link>
-            </li>
+            )}
+            {this.isAuthorizated(this.getRole(KEY_COMMUNITY_PERSON_ENTITY))
+            && (
+              <li>
+                <Link to={`/viewEntity/${KEY_COMMUNITY_PERSON_ENTITY}`}>
+                  <FontAwesomeIcon icon="key" />
+                  <span className="icon-text">Key Community Persons</span>
+                </Link>
+              </li>
+            )}
             <li>
               <a href="" onClick={this.toggleEnrollmentCollapsedMenu}>
                 <FontAwesomeIcon icon="user-plus" />
@@ -319,12 +355,15 @@ class SideBar extends Component {
               </a>
               {this.renderVisitsCollapsedMenu()}
             </li>
-            <li>
-              <Link to={`/viewEntity/${CAMPAIGN_MESSAGE_ENTITY}`}>
-                <FontAwesomeIcon icon="envelope" />
-                <span className="icon-text">Message Campaigns</span>
-              </Link>
-            </li>
+            {this.isAuthorizated(this.getRole(CAMPAIGN_MESSAGE_ENTITY))
+            && (
+              <li>
+                <Link to={`/viewEntity/${CAMPAIGN_MESSAGE_ENTITY}`}>
+                  <FontAwesomeIcon icon="envelope" />
+                  <span className="icon-text">Message Campaigns</span>
+                </Link>
+              </li>
+            )}
             <li>
               <a href="" onClick={this.toggleReportsCollapsedMenu}>
                 <FontAwesomeIcon icon="file" />
@@ -339,12 +378,15 @@ class SideBar extends Component {
               </a>
               {this.renderUserManagementCollapsedMenu()}
             </li>
-            <li>
-              <Link to={`/viewEntity/${GROUP_ENTITY}`}>
-                <FontAwesomeIcon icon="layer-group" />
-                <span className="icon-text">Enrollment group</span>
-              </Link>
-            </li>
+            {this.isAuthorizated(this.getRole(GROUP_ENTITY))
+            && (
+              <li>
+                <Link to={`/viewEntity/${GROUP_ENTITY}`}>
+                  <FontAwesomeIcon icon="layer-group" />
+                  <span className="icon-text">Enrollment group</span>
+                </Link>
+              </li>
+            )}
             <li>
               <a href="" onClick={this.toggleSettingsCollapsedMenu}>
                 <FontAwesomeIcon icon="cog" />
@@ -358,8 +400,14 @@ class SideBar extends Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  permissions: state.auth.permissions,
+});
+
 SideBar.propTypes = {
   sidebarVisible: PropTypes.bool.isRequired,
+  permissions: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
-export default SideBar;
+export default connect(mapStateToProps)(SideBar);

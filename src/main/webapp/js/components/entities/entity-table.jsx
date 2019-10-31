@@ -7,7 +7,7 @@ import { withRouter } from 'react-router-dom';
 
 import 'react-table/react-table.css';
 
-import { fetchEntity } from '../../actions';
+import { fetchEntity } from '../../actions/entity-actions';
 import { getEntityArrayByName } from '../../selectors';
 
 import getTableColumn from '../../utils/table-utils';
@@ -23,6 +23,12 @@ class EntityTable extends Component {
   componentDidMount() {
     this.props.fetchEntity(this.props.entityType);
   }
+
+  canWrite = () => {
+    const { permissions, entityType } = this.props;
+    const permission = `ROLE_${entityType}_WRITE`;
+    return _.includes(permissions, permission);
+  };
 
   render() {
     const { entity, fieldConfig, entityType } = this.props;
@@ -41,13 +47,15 @@ class EntityTable extends Component {
             <h1>{_.startCase(entityType)}</h1>
           </div>
           <div className="col-md-3 ml-auto">
-            <button
-              type="button"
-              className="btn btn-success btn-lg btn-block"
-              onClick={() => this.props.history.push(`/create/${entityType}`)}
-            >
-            Create New
-            </button>
+            {this.canWrite() && (
+              <button
+                type="button"
+                className="btn btn-success btn-lg btn-block"
+                onClick={() => this.props.history.push(`/create/${entityType}`)}
+              >
+                Create New
+              </button>
+            )}
           </div>
         </div>
         <div className="row">
@@ -58,7 +66,9 @@ class EntityTable extends Component {
               loading={loading}
               getTdProps={(state, rowInfo) => ({
                 onClick: () => {
-                  this.props.history.push(`/entityEdit/${entityType}/${rowInfo.original.id}`);
+                  if (this.canWrite()) {
+                    this.props.history.push(`/entityEdit/${entityType}/${rowInfo.original.id}`);
+                  }
                 },
               })}
             />
@@ -70,6 +80,7 @@ class EntityTable extends Component {
 }
 
 const mapStateToProps = (state, props) => ({
+  permissions: state.auth.permissions,
   entity: getEntityArrayByName(state, props),
 });
 
@@ -79,6 +90,7 @@ export default withRouter(
 
 EntityTable.propTypes = {
   entityType: PropTypes.string.isRequired,
+  permissions: PropTypes.arrayOf(PropTypes.string).isRequired,
   fieldConfig: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   fetchEntity: PropTypes.func.isRequired,
   entity: PropTypes.arrayOf(PropTypes.shape({})).isRequired,

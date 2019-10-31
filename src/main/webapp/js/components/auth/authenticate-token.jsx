@@ -1,7 +1,7 @@
 import jwtDecode from 'jwt-decode';
 
 import { AUTH_USER, UNAUTH_USER, SET_COUNTER_LOGOUT_TIME } from '../../actions/types';
-import { useRefreshToken } from '../../actions';
+import { useRefreshToken } from '../../actions/auth-actions';
 import store from '../../store';
 
 export const { dispatch } = store;

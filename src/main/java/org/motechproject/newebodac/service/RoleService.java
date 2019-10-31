@@ -2,6 +2,7 @@ package org.motechproject.newebodac.service;
 
 import java.util.List;
 import java.util.UUID;
+import org.motechproject.newebodac.constants.DefaultPermissions;
 import org.motechproject.newebodac.domain.security.UserRole;
 import org.motechproject.newebodac.dto.PermissionDto;
 import org.motechproject.newebodac.dto.RoleDto;
@@ -11,6 +12,7 @@ import org.motechproject.newebodac.mapper.RoleMapper;
 import org.motechproject.newebodac.repository.PermissionRepository;
 import org.motechproject.newebodac.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -25,18 +27,22 @@ public class RoleService {
   @Autowired
   private PermissionRepository permissionRepository;
 
+  @PreAuthorize(DefaultPermissions.HAS_ROLE_READ_ROLE)
   public List<RoleDto> getAll() {
     return MAPPER.toDtos(roleRepository.findAll());
   }
 
+  @PreAuthorize(DefaultPermissions.HAS_ROLE_READ_ROLE)
   public List<PermissionDto> getAllPermissions() {
     return PERMISSION_MAPPER.toDtos(permissionRepository.findAll());
   }
 
+  @PreAuthorize(DefaultPermissions.HAS_ROLE_READ_ROLE)
   public RoleDto findById(UUID id) {
     return MAPPER.toDto(roleRepository.getOne(id));
   }
 
+  @PreAuthorize(DefaultPermissions.HAS_ROLE_WRITE_ROLE)
   public RoleDto create(RoleDto roleDto) {
     return MAPPER.toDto(roleRepository.save(MAPPER.fromDto(roleDto)));
   }
@@ -47,6 +53,7 @@ public class RoleService {
    * @param roleDto Dto of role to update.
    * @return Dto of of updated role
    */
+  @PreAuthorize(DefaultPermissions.HAS_ROLE_WRITE_ROLE)
   public RoleDto update(UUID id, RoleDto roleDto) {
     UserRole role = roleRepository.findById(id).orElseThrow(() ->
         new EntityNotFoundException("Role with id: {0} not found", id.toString()));
@@ -58,6 +65,7 @@ public class RoleService {
     * Deletes role with given id.
     * @param id ID of role to delete.
     */
+  @PreAuthorize(DefaultPermissions.HAS_ROLE_WRITE_ROLE)
   public void delete(UUID id) {
     UserRole role = roleRepository.findById(id).orElseThrow(() ->
         new EntityNotFoundException("Role with id: {0} not found", id.toString()));

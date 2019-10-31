@@ -8,6 +8,7 @@ export const UNAUTH_USER = 'unauth_user';
 export const AUTH_ERROR = 'auth_error';
 export const SET_COUNTER_LOGOUT_TIME = 'set_counter_logout_time';
 export const REGISTER_USER = 'register_user';
+export const SET_PERMISSIONS = 'set_permissions';
 
 export const FETCH_FIELD_CONFIG = 'fetch_field_config';
 export const CREATE_FIELD_CONFIG = 'create_field_config';

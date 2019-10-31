@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { connect } from 'react-redux';
 
 import { Link } from 'react-router-dom';
-import { signinUser } from '../../actions';
+import { signinUser } from '../../actions/auth-actions';
 
 const validate = (values) => {
   const error = {};

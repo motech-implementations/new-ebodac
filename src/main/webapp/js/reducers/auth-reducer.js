@@ -1,5 +1,5 @@
 import {
-  AUTH_USER, UNAUTH_USER, AUTH_ERROR, SET_COUNTER_LOGOUT_TIME,
+  AUTH_USER, UNAUTH_USER, AUTH_ERROR, SET_COUNTER_LOGOUT_TIME, SET_PERMISSIONS,
 } from '../actions/types';
 
 const initialState = {
@@ -9,6 +9,7 @@ const initialState = {
   resetCounter: false,
   registrationMessage: '',
   registrationResult: false,
+  permissions: [],
 };
 
 export default (state = initialState, action) => {
@@ -24,6 +25,8 @@ export default (state = initialState, action) => {
       return { ...state, authenticated: false };
     case SET_COUNTER_LOGOUT_TIME:
       return { ...state, counterLogoutTime: action.payload, resetCounter: !state.resetCounter };
+    case SET_PERMISSIONS:
+      return { ...state, permissions: action.payload };
     case AUTH_ERROR:
       return { ...state, error: action.payload, authenticated: false };
     default:

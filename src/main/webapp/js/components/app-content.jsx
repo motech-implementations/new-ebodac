@@ -20,6 +20,7 @@ import SmsLogCommunityPerson from './reports/sms-log-community-person';
 import Messaging from './settings/messaging';
 import Languages from './settings/languages';
 import RoutePrivate from './helpers/RoutePrivate';
+import EntityRoutePrivate from './helpers/EntityRoutePrivate';
 import ViewEntity from './entities/view-entity';
 import FieldConfigPage from './fields/field-config-page';
 import CreateOrEditEntityPage from './entities/create-edit-entity-page';
@@ -59,9 +60,9 @@ class AppContent extends Component {
                 <RoutePrivate path="/smsLogCommunityPerson" component={SmsLogCommunityPerson} />
                 <RoutePrivate path="/messaging" component={Messaging} />
                 <RoutePrivate path="/languages" component={Languages} />
-                <RoutePrivate path="/viewEntity/:entityType" component={ViewEntity} />
-                <RoutePrivate path="/create/:entityType" component={CreateOrEditEntityPage} />
-                <RoutePrivate path="/entityEdit/:entityType/:id" component={CreateOrEditEntityPage} />
+                <EntityRoutePrivate readOnly path="/viewEntity/:entityType" component={ViewEntity} />
+                <EntityRoutePrivate path="/create/:entityType" component={CreateOrEditEntityPage} />
+                <EntityRoutePrivate path="/entityEdit/:entityType/:id" component={CreateOrEditEntityPage} />
                 <RoutePrivate path="/fieldConfig/:entityType" component={FieldConfigPage} />
                 <RoutePrivate path="/" component={Home} />
               </Switch>

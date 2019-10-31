@@ -2,12 +2,14 @@ package org.motechproject.newebodac.service;
 
 import java.util.List;
 import java.util.UUID;
+import org.motechproject.newebodac.constants.DefaultPermissions;
 import org.motechproject.newebodac.domain.Visit;
 import org.motechproject.newebodac.dto.VisitDto;
 import org.motechproject.newebodac.exception.EntityNotFoundException;
 import org.motechproject.newebodac.mapper.VisitMapper;
 import org.motechproject.newebodac.repository.VisitRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -18,14 +20,17 @@ public class VisitService {
   @Autowired
   private VisitRepository visitRepository;
 
+  @PreAuthorize(DefaultPermissions.HAS_VISIT_READ_ROLE)
   public List<VisitDto> getAll() {
     return MAPPER.toDtos(visitRepository.findAll());
   }
 
+  @PreAuthorize(DefaultPermissions.HAS_VISIT_READ_ROLE)
   public VisitDto findById(UUID id) {
     return MAPPER.toDto(visitRepository.getOne(id));
   }
 
+  @PreAuthorize(DefaultPermissions.HAS_VISIT_WRITE_ROLE)
   public VisitDto create(VisitDto visitDto) {
     return MAPPER.toDto(visitRepository.save(MAPPER.fromDto(visitDto)));
   }
@@ -36,6 +41,7 @@ public class VisitService {
    * @param visitDto dto of updated Visit.
    * @return Dto of updated Visit.
    */
+  @PreAuthorize(DefaultPermissions.HAS_VISIT_WRITE_ROLE)
   public VisitDto update(UUID id, VisitDto visitDto) {
     Visit visit = visitRepository.findById(id)
         .orElseThrow(() -> new EntityNotFoundException("Visit with id: {0} not found",
@@ -48,6 +54,7 @@ public class VisitService {
    * Deletes visit with given id.
    * @param id ID of visit to delete.
    */
+  @PreAuthorize(DefaultPermissions.HAS_VISIT_WRITE_ROLE)
   public void delete(UUID id) {
     Visit vaccinee = visitRepository.findById(id).orElseThrow(() ->
         new EntityNotFoundException("Visit with id: {0} not found", id.toString()));

@@ -6,7 +6,7 @@ import { Form } from 'react-final-form';
 import Alert from 'react-s-alert';
 import { withRouter } from 'react-router-dom';
 
-import { createEntity } from '../../actions';
+import { createEntity } from '../../actions/entity-actions';
 import renderFormField, { validate } from '../../utils/form/form-utils';
 
 const ALERT_TIMEOUT = 5000;
