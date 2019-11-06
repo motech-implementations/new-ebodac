@@ -62,6 +62,10 @@ class Register extends Component {
     if (values.password) {
       if (values.password.length < 8) {
         error.password = 'Your password must contain at least 8 characters!';
+      } else if (values.password.search(/\d/) === -1) {
+        error.password = 'Your password must contain at least one digit!';
+      } else if (values.password.search(/[a-zA-Z]/) === -1) {
+        error.password = 'Your password must contain at least one letter!';
       }
     }
 
