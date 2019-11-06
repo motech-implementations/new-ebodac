@@ -24,7 +24,7 @@ import {
   PASSWORD,
 } from '../../constants/field-types';
 
-const getOptionsFromEnum = (format) => {
+export const getOptionsFromEnum = (format) => {
   if (!format) {
     return [];
   }

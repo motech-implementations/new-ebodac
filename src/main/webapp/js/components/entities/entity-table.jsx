@@ -64,6 +64,9 @@ class EntityTable extends Component {
               data={entity}
               columns={columns}
               loading={loading}
+              getTheadFilterThProps={() => (
+                { style: { overflow: 'visible' } }
+              )}
               getTdProps={(state, rowInfo) => ({
                 onClick: () => {
                   if (this.canWrite()) {

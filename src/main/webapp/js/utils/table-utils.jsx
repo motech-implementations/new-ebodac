@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import _ from 'lodash';
 
 import RelationCell from './table-cells/relation-cell';
 import EnumCell from './table-cells/enum-cell';
@@ -7,6 +8,8 @@ import DateCell from './table-cells/date-cell';
 import CollectionCell from './table-cells/collection-cell';
 import TextCell from './table-cells/text-cell';
 import BoolCell from './table-cells/bool-cell';
+import EnumFilter from './filter/enum-filter';
+import TextFilter from './filter/text-filter';
 import {
   DATE,
   DATE_TIME,
@@ -56,9 +59,24 @@ const getTableCell = (item, props) => {
   );
 };
 
+const getTableFilter = (filter, onChange, format, fieldType) => {
+  let Filter;
+  switch (fieldType) {
+    case ENUM:
+      Filter = EnumFilter;
+      break;
+    default:
+      Filter = TextFilter;
+  }
+
+  return (
+    <Filter filter={filter} onChange={onChange} format={format} />
+  );
+};
+
 const getTableColumn = (props) => {
   const {
-    name, displayName, filterable,
+    name, displayName, filterable, format, fieldType,
   } = props;
 
   return {
@@ -66,6 +84,26 @@ const getTableColumn = (props) => {
     accessor: name,
     filterable,
     Cell: item => getTableCell(item, props),
+    filterMethod: (filter, row) => {
+      let filterValue = false;
+      switch (fieldType) {
+        case ENUM:
+          if (filter.value === 'ALL') {
+            filterValue = true;
+          } else {
+            filterValue = (row[filter.id] === filter.value);
+          }
+          break;
+        default:
+          filterValue = _.toString(row[filter.id]).toLowerCase().includes(
+            filter.value.trim().toLowerCase(),
+          );
+      }
+      return filterValue;
+    },
+    Filter: ({ filter, onChange }) => (
+      getTableFilter(filter, onChange, format, fieldType)
+    ),
   };
 };
 
