@@ -24,6 +24,7 @@ import EntityRoutePrivate from './helpers/EntityRoutePrivate';
 import ViewEntity from './entities/view-entity';
 import FieldConfigPage from './fields/field-config-page';
 import CreateOrEditEntityPage from './entities/create-edit-entity-page';
+import { MANAGE_FIELD_CONFIG } from '../constants/permissions';
 
 class AppContent extends Component {
   constructor(props) {
@@ -63,7 +64,11 @@ class AppContent extends Component {
                 <EntityRoutePrivate readOnly path="/viewEntity/:entityType" component={ViewEntity} />
                 <EntityRoutePrivate path="/create/:entityType" component={CreateOrEditEntityPage} />
                 <EntityRoutePrivate path="/entityEdit/:entityType/:id" component={CreateOrEditEntityPage} />
-                <RoutePrivate path="/fieldConfig/:entityType" component={FieldConfigPage} />
+                <RoutePrivate
+                  requiredPermissions={[MANAGE_FIELD_CONFIG]}
+                  path="/fieldConfig/:entityType"
+                  component={FieldConfigPage}
+                />
                 <RoutePrivate path="/" component={Home} />
               </Switch>
             </div>

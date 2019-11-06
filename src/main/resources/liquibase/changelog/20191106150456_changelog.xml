@@ -1,0 +1,41 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+    <changeSet author="user (generated)" id="1573049103675-7">
+        <insert tableName="user_permission">
+            <column name="id" value="2a370166-3b0c-4d8a-8ddd-9bb0bd27fe23"/>
+            <column name="display_name" value="MANAGE_FIELD_CONFIG"/>
+            <column name="name" value="ROLE_fieldConfig_MANAGE"/>
+            <column name="readonly" valueBoolean="true"/>
+            <column name="create_date" value="2019-10-24 13:58:44"/>
+            <column name="update_date" value="2019-10-24 13:58:44"/>
+        </insert>
+        <insert tableName="user_permission">
+            <column name="id" value="6eeea115-250c-47c1-8f6e-29e708d02804"/>
+            <column name="display_name" value="MANAGE_CSV_CONFIG"/>
+            <column name="name" value="ROLE_csvConfig_MANAGE"/>
+            <column name="readonly" valueBoolean="true"/>
+            <column name="create_date" value="2019-10-24 13:58:44"/>
+            <column name="update_date" value="2019-10-24 13:58:44"/>
+        </insert>
+        <insert tableName="user_permission">
+            <column name="id" value="75f717c9-9285-446e-b1a4-80fd4673a9ec"/>
+            <column name="display_name" value="MANAGE_JSON_CONFIG"/>
+            <column name="name" value="ROLE_jsonConfig_MANAGE"/>
+            <column name="readonly" valueBoolean="true"/>
+            <column name="create_date" value="2019-10-24 13:58:44"/>
+            <column name="update_date" value="2019-10-24 13:58:44"/>
+        </insert>
+        <insert tableName="user_role_permissions">
+            <column name="role_id" value="d892e3c6-25eb-4291-abfc-b379aa502bc3"/>
+            <column name="permission_id" value="2a370166-3b0c-4d8a-8ddd-9bb0bd27fe23"/>
+        </insert>
+        <insert tableName="user_role_permissions">
+            <column name="role_id" value="d892e3c6-25eb-4291-abfc-b379aa502bc3"/>
+            <column name="permission_id" value="6eeea115-250c-47c1-8f6e-29e708d02804"/>
+        </insert>
+        <insert tableName="user_role_permissions">
+            <column name="role_id" value="d892e3c6-25eb-4291-abfc-b379aa502bc3"/>
+            <column name="permission_id" value="75f717c9-9285-446e-b1a4-80fd4673a9ec"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

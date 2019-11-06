@@ -4,15 +4,19 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 
 import RoutePrivate from './RoutePrivate';
+import {
+  getEntityReadPermission,
+  getEntityWritePermission,
+} from '../../utils/permission-helper';
 
 const EntityRoutePrivate = ({ readOnly, ...props }) => {
   const getRole = () => {
     const entityType = _.get(props, 'computedMatch.params.entityType', null);
     if (entityType && readOnly) {
-      return [`ROLE_${entityType}_READ`];
+      return getEntityReadPermission(entityType);
     }
     if (entityType) {
-      return [`ROLE_${entityType}_WRITE`];
+      return getEntityWritePermission(entityType);
     }
     return [];
   };
