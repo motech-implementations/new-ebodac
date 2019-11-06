@@ -19,6 +19,8 @@ import {
   CAMPAIGN_MESSAGE_ENTITY,
   GROUP_ENTITY,
 } from '../constants/entity-types';
+import { MANAGE_FIELD_CONFIG } from '../constants/permissions';
+import { getEntityReadPermission } from '../utils/permission-helper';
 
 class SideBar extends Component {
   constructor(props) {
@@ -40,8 +42,6 @@ class SideBar extends Component {
     }
     return _.every(requiredPermissions, permission => _.includes(permissions, permission));
   };
-
-  getRole = entityType => [`ROLE_${entityType}_READ`];
 
   toggleEnrollmentCollapsedMenu = (event) => {
     event.preventDefault();
@@ -113,7 +113,7 @@ class SideBar extends Component {
 
     return (
       <ul className="nav nav-second-level">
-        {this.isAuthorizated(this.getRole(VISIT_ENTITY))
+        {this.isAuthorizated(getEntityReadPermission(VISIT_ENTITY))
         && (
           <li className="border-none">
             <Link to={`/viewEntity/${VISIT_ENTITY}`}>
@@ -122,7 +122,7 @@ class SideBar extends Component {
             </Link>
           </li>
         )}
-        {this.isAuthorizated(this.getRole(VISIT_TYPE_ENTITY))
+        {this.isAuthorizated(getEntityReadPermission(VISIT_TYPE_ENTITY))
         && (
           <li className="border-none">
             <Link to={`/viewEntity/${VISIT_TYPE_ENTITY}`}>
@@ -205,7 +205,7 @@ class SideBar extends Component {
 
     return (
       <ul className="nav nav-second-level">
-        {this.isAuthorizated(this.getRole(ROLE_ENTITY))
+        {this.isAuthorizated(getEntityReadPermission(ROLE_ENTITY))
         && (
           <li className="border-none">
             <Link to={`/viewEntity/${ROLE_ENTITY}`}>
@@ -214,7 +214,7 @@ class SideBar extends Component {
             </Link>
           </li>
         )}
-        {this.isAuthorizated(this.getRole(USER_ENTITY))
+        {this.isAuthorizated(getEntityReadPermission(USER_ENTITY))
         && (
           <li className="border-none">
             <Link to={`/viewEntity/${USER_ENTITY}`}>
@@ -242,7 +242,7 @@ class SideBar extends Component {
             <span className="icon-text">Messaging</span>
           </Link>
         </li>
-        {this.isAuthorizated(this.getRole(LANGUAGE_ENTITY))
+        {this.isAuthorizated(getEntityReadPermission(LANGUAGE_ENTITY))
         && (
           <li className="border-none">
             <Link to={`/viewEntity/${LANGUAGE_ENTITY}`}>
@@ -251,14 +251,17 @@ class SideBar extends Component {
             </Link>
           </li>
         )}
-        <li>
-          <a href="" onClick={this.toggleFieldsCollapsedMenu}>
-            <FontAwesomeIcon icon="hand-point-right" />
-            <span className="icon-text">Fields</span>
-          </a>
-          {this.renderFieldsCollapsedMenu()}
-        </li>
-        {this.isAuthorizated(this.getRole(SITE_ENTITY))
+        {this.isAuthorizated([MANAGE_FIELD_CONFIG])
+          && (
+          <li>
+            <a href="" onClick={this.toggleFieldsCollapsedMenu}>
+              <FontAwesomeIcon icon="hand-point-right" />
+              <span className="icon-text">Fields</span>
+            </a>
+            {this.renderFieldsCollapsedMenu()}
+          </li>
+          )}
+        {this.isAuthorizated(getEntityReadPermission(SITE_ENTITY))
         && (
           <li className="border-none">
             <Link to={`/viewEntity/${SITE_ENTITY}`}>
@@ -323,7 +326,7 @@ class SideBar extends Component {
       <div className={`sidebar-collapse ${sidebarVisible ? 'collapse' : ''}`}>
         <div>
           <ul className="nav navbar-nav side-nav">
-            {this.isAuthorizated(this.getRole(VACCINEE_ENTITY))
+            {this.isAuthorizated(getEntityReadPermission(VACCINEE_ENTITY))
             && (
             <li>
               <Link to={`/viewEntity/${VACCINEE_ENTITY}`}>
@@ -332,7 +335,7 @@ class SideBar extends Component {
               </Link>
             </li>
             )}
-            {this.isAuthorizated(this.getRole(KEY_COMMUNITY_PERSON_ENTITY))
+            {this.isAuthorizated(getEntityReadPermission(KEY_COMMUNITY_PERSON_ENTITY))
             && (
               <li>
                 <Link to={`/viewEntity/${KEY_COMMUNITY_PERSON_ENTITY}`}>
@@ -355,7 +358,7 @@ class SideBar extends Component {
               </a>
               {this.renderVisitsCollapsedMenu()}
             </li>
-            {this.isAuthorizated(this.getRole(CAMPAIGN_MESSAGE_ENTITY))
+            {this.isAuthorizated(getEntityReadPermission(CAMPAIGN_MESSAGE_ENTITY))
             && (
               <li>
                 <Link to={`/viewEntity/${CAMPAIGN_MESSAGE_ENTITY}`}>
@@ -371,14 +374,18 @@ class SideBar extends Component {
               </a>
               {this.renderReportsCollapsedMenu()}
             </li>
-            <li>
-              <a href="" onClick={this.toggleUserManagementCollapsedMenu}>
-                <FontAwesomeIcon icon="user-friends" />
-                <span className="icon-text">User Management</span>
-              </a>
-              {this.renderUserManagementCollapsedMenu()}
-            </li>
-            {this.isAuthorizated(this.getRole(GROUP_ENTITY))
+            {(this.isAuthorizated(getEntityReadPermission(ROLE_ENTITY))
+              || this.isAuthorizated(getEntityReadPermission(USER_ENTITY)))
+              && (
+              <li>
+                <a href="" onClick={this.toggleUserManagementCollapsedMenu}>
+                  <FontAwesomeIcon icon="user-friends" />
+                  <span className="icon-text">User Management</span>
+                </a>
+                {this.renderUserManagementCollapsedMenu()}
+              </li>
+              )}
+            {this.isAuthorizated(getEntityReadPermission(GROUP_ENTITY))
             && (
               <li>
                 <Link to={`/viewEntity/${GROUP_ENTITY}`}>

@@ -19,18 +19,22 @@ const PrivateRoute = ({
     return _.every(requiredPermissions, permission => _.includes(permissions, permission));
   };
 
-  const hasAccess = () => {
+  const redirect = (pr) => {
     authenticate();
-    return authenticated && hasPermission();
+    if (authenticated) {
+      if (hasPermission()) {
+        return <Component {...pr} />;
+      }
+      return <Redirect to="/accessDenied" />;
+    }
+    return <Redirect to="/login" />;
   };
 
   return (
     <Route
       {...props}
       render={
-        pr => (hasAccess()
-          ? <Component {...pr} />
-          : <Redirect to="/login" />)
+        pr => redirect(pr)
       }
     />
   );

@@ -18,6 +18,7 @@ import {
 } from '../constants/entity-types';
 import Login from './auth/login';
 import Register from './auth/register';
+import AccessDeniedPage from './auth/AccessDeniedPage';
 import RoutePrivate from './helpers/RoutePrivate';
 
 loadIcons();
@@ -50,6 +51,7 @@ class App extends Component {
         <Switch>
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
+          <Route path="/accessDenied" component={AccessDeniedPage} />
           <RoutePrivate path="/" component={AppContent} />
         </Switch>
       </Router>
