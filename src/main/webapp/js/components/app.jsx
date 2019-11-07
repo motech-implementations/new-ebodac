@@ -10,6 +10,8 @@ import AppContent from './app-content';
 import loadIcons from '../utils/icon-loader';
 import { fetchAllFieldConfigs } from '../actions/field-config-actions';
 import { fetchEntity } from '../actions/entity-actions';
+import { fetchAllCsvConfigs } from '../actions/csv-config-actions';
+
 import {
   PERMISSION_ENTITY,
   LANGUAGE_ENTITY,
@@ -32,9 +34,14 @@ const ENTITY_ARRAY = [
 
 class App extends Component {
   componentDidUpdate() {
-    const { fieldConfigFetched, fieldConfigFetching } = this.props;
+    const {
+      fieldConfigFetched, fieldConfigFetching, csvConfigFetched, csvConfigFetching,
+    } = this.props;
     if (this.props.authenticated && !fieldConfigFetched && !fieldConfigFetching) {
       this.props.fetchAllFieldConfigs();
+    }
+    if (this.props.authenticated && !csvConfigFetched && !csvConfigFetching) {
+      this.props.fetchAllCsvConfigs();
     }
     ENTITY_ARRAY.forEach((entity) => {
       const isFetched = this.props.metadata[entity].fetched;
@@ -62,17 +69,24 @@ class App extends Component {
 const mapStateToProps = state => ({
   fieldConfigFetched: state.fieldConfig.fieldConfigFetched,
   fieldConfigFetching: state.fieldConfig.fieldConfigFetching,
+  csvConfigFetched: state.csvConfig.csvConfigFetched,
+  csvConfigFetching: state.csvConfig.csvConfigFetching,
   authenticated: state.auth.authenticated,
   metadata: state.entity.metadata,
 });
 
-export default connect(mapStateToProps, { fetchAllFieldConfigs, fetchEntity })(App);
+export default connect(mapStateToProps, {
+  fetchAllFieldConfigs, fetchAllCsvConfigs, fetchEntity,
+})(App);
 
 App.propTypes = {
   fetchAllFieldConfigs: PropTypes.func.isRequired,
+  fetchAllCsvConfigs: PropTypes.func.isRequired,
   fetchEntity: PropTypes.func.isRequired,
   fieldConfigFetched: PropTypes.bool.isRequired,
   fieldConfigFetching: PropTypes.bool.isRequired,
+  csvConfigFetched: PropTypes.bool.isRequired,
+  csvConfigFetching: PropTypes.bool.isRequired,
   metadata: PropTypes.shape({
     vaccinee: PropTypes.shape({
       fetched: PropTypes.bool.isRequired,

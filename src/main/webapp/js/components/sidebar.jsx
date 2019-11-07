@@ -19,7 +19,7 @@ import {
   CAMPAIGN_MESSAGE_ENTITY,
   GROUP_ENTITY,
 } from '../constants/entity-types';
-import { MANAGE_FIELD_CONFIG } from '../constants/permissions';
+import { MANAGE_FIELD_CONFIG, MANAGE_CSV_CONFIG } from '../constants/permissions';
 import { getEntityReadPermission } from '../utils/permission-helper';
 
 class SideBar extends Component {
@@ -267,6 +267,15 @@ class SideBar extends Component {
             <Link to={`/viewEntity/${SITE_ENTITY}`}>
               <FontAwesomeIcon icon="hand-point-right" />
               <span className="icon-text">Sites</span>
+            </Link>
+          </li>
+        )}
+        {this.isAuthorizated([MANAGE_CSV_CONFIG])
+        && (
+          <li className="border-none">
+            <Link to="/csvConfigTable">
+              <FontAwesomeIcon icon="hand-point-right" />
+              <span className="icon-text">CSV Import Config</span>
             </Link>
           </li>
         )}

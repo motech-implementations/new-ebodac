@@ -1,0 +1,71 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+    <changeSet author="user (generated)" id="1573129127116-8">
+        <createTable tableName="csv_config">
+            <column name="id" type="VARCHAR(255)">
+                <constraints primaryKey="true" primaryKeyName="csv_configPK"/>
+            </column>
+            <column name="create_date" type="datetime"/>
+            <column name="update_date" type="datetime"/>
+            <column name="entity" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="user (generated)" id="1573129127116-9">
+        <createTable tableName="csv_config_csv_fields">
+            <column name="csv_config_id" type="VARCHAR(255)">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="csv_fields_id" type="VARCHAR(255)">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="user (generated)" id="1573129127116-10">
+        <createTable tableName="csv_field">
+            <column name="id" type="VARCHAR(255)">
+                <constraints primaryKey="true" primaryKeyName="csv_fieldPK"/>
+            </column>
+            <column name="create_date" type="datetime"/>
+            <column name="update_date" type="datetime"/>
+            <column name="default_value" type="VARCHAR(255)"/>
+            <column name="field_name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="format" type="VARCHAR(255)"/>
+            <column name="field_config_id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="user (generated)" id="1573129127116-11">
+        <createTable tableName="csv_field_value_map">
+            <column name="csv_field_id" type="VARCHAR(255)">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="mapped_entity" type="VARCHAR(255)"/>
+            <column name="field_value" type="VARCHAR(255)">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="user (generated)" id="1573129127116-12">
+        <addUniqueConstraint columnNames="csv_fields_id" constraintName="UK_ls90yjff2yqmnmg5xiy8surwg" tableName="csv_config_csv_fields"/>
+    </changeSet>
+    <changeSet author="user (generated)" id="1573129127116-13">
+        <addForeignKeyConstraint baseColumnNames="csv_fields_id" baseTableName="csv_config_csv_fields" constraintName="FKgre857qq24v7x9n5vaag1spe9" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="csv_field" validate="true"/>
+    </changeSet>
+    <changeSet author="user (generated)" id="1573129127116-14">
+        <addForeignKeyConstraint baseColumnNames="csv_field_id" baseTableName="csv_field_value_map" constraintName="FKnxp6b62gjrd4n9486yxx2ybv" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="csv_field" validate="true"/>
+    </changeSet>
+    <changeSet author="user (generated)" id="1573129127116-15">
+        <addForeignKeyConstraint baseColumnNames="field_config_id" baseTableName="csv_field" constraintName="FKqm3bdjt7fcskmrffj5wbi9mow" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="field_config" validate="true"/>
+    </changeSet>
+    <changeSet author="user (generated)" id="1573129127116-16">
+        <addForeignKeyConstraint baseColumnNames="csv_config_id" baseTableName="csv_config_csv_fields" constraintName="FKqpmq3qdjdgnjok5mak7j2c7j9" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="csv_config" validate="true"/>
+    </changeSet>
+</databaseChangeLog>

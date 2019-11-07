@@ -1,5 +1,6 @@
 package org.motechproject.newebodac.domain;
 
+import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -8,6 +9,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.motechproject.newebodac.domain.enums.EntityType;
 import org.motechproject.newebodac.domain.enums.FieldType;
@@ -15,6 +17,7 @@ import org.motechproject.newebodac.domain.enums.FieldType;
 @Getter
 @Setter
 @Entity
+@NoArgsConstructor
 @Table(name = "field_config")
 public class FieldConfig extends BaseEntity {
 
@@ -69,4 +72,8 @@ public class FieldConfig extends BaseEntity {
 
   @Column(name = "format")
   private String format;
+
+  public FieldConfig(UUID id) {
+    super(id);
+  }
 }
