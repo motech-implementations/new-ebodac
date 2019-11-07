@@ -4,7 +4,7 @@ import { Field } from 'react-final-form';
 
 const renderField = ({
   renderInput, fieldConfig: {
-    required, editable = true, displayName, ...config
+    required, hidden, editable = true, displayName, ...config
   }, input, meta: { touched, error },
 }) => {
   const onChange = (value) => {
@@ -19,7 +19,7 @@ const renderField = ({
     ...config, disabled: !editable, id: input.name, value: input.value, onChange, onBlur,
   };
 
-  const className = `input-row ${required ? 'required' : ''} ${touched && error ? 'has-error' : ''}`;
+  const className = `input-row ${required ? 'required' : ''} ${hidden ? 'd-none' : ''} ${touched && error ? 'has-error' : ''}`;
 
   return (
     <div className={className}>
@@ -56,6 +56,7 @@ renderField.propTypes = {
     displayName: PropTypes.string,
     required: PropTypes.bool,
     editable: PropTypes.bool,
+    hidden: PropTypes.bool,
   }).isRequired,
   input: PropTypes.shape({
     name: PropTypes.string,

@@ -1,7 +1,20 @@
 import _ from 'lodash';
 import { createSelector } from 'reselect';
 
-const getFieldConfigByEntity = (state, { entityType }) => state.fieldConfig[entityType];
+export const getFieldConfigByEntity = (state, { entityType }) => (
+  state.fieldConfig[entityType]
+);
+
+export const getCsvConfigById = (state, { entity, csvConfigId }) => (
+  csvConfigId ? state.csvConfig[entity][csvConfigId] : {}
+);
+
+export const getCsvConfigArray = (state => (
+  _.chain(state.csvConfig)
+    .omit(state.csvConfig, ['csvConfigFetching', 'csvConfigFetched'])
+    .reduce((accumulator, currentValue) => accumulator
+      .concat(Object.values(currentValue)), []).value()
+));
 
 export const getEntityFieldValue = (state,
   { entityType, value, relatedField }) => _.get(state.entity, `${entityType}.${value}.${relatedField}`, null);
