@@ -4,6 +4,9 @@ newebodac:
 token:
   validitySeconds: ${tokenValiditySeconds}
 
+refreshToken:
+  validitySeconds: ${refreshTokenValiditySeconds}
+
 encryption:
   key: ${encryptionKey}
   salt: ${encryptionSalt}

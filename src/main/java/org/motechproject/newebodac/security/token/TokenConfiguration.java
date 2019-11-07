@@ -26,6 +26,9 @@ public class TokenConfiguration {
   @Value("${token.validitySeconds}")
   private Integer tokenValiditySeconds;
 
+  @Value("${refreshToken.validitySeconds}")
+  private Integer refreshTokenValiditySeconds;
+
   @Autowired
   private CustomTokenEnhancer customTokenEnhancer;
 
@@ -60,7 +63,7 @@ public class TokenConfiguration {
     customTokenServices.setClientDetailsService(clientDetailsService);
     customTokenServices.setSupportRefreshToken(true);
     customTokenServices.setAccessTokenValiditySeconds(tokenValiditySeconds);
-    customTokenServices.setRefreshTokenValiditySeconds(tokenValiditySeconds * 2);
+    customTokenServices.setRefreshTokenValiditySeconds(refreshTokenValiditySeconds);
     customTokenServices.setReuseRefreshToken(false);
 
     return customTokenServices;

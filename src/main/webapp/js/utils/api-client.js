@@ -9,7 +9,7 @@ export const { dispatch } = store;
 const apiClient = axios.create({});
 
 const setTokenHeader = (config) => {
-  const token = localStorage.getItem('token');
+  const token = _.get(store.getState(), 'auth.accessToken', '');
   if (token) {
     // eslint-disable-next-line no-param-reassign
     config.headers.Authorization = `Bearer ${token}`;
@@ -22,7 +22,7 @@ const justRejectRequestError = error => Promise.reject(error);
 const handleSuccess = response => response;
 
 const handleError = (error) => {
-  const refreshToken = localStorage.getItem('refresh_token');
+  const { refreshToken } = store.getState().auth;
 
   switch (error.response.status) {
     case 401:

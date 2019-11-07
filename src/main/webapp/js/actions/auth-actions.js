@@ -1,50 +1,64 @@
-import jwtDecode from 'jwt-decode';
+import _ from 'lodash';
 import axios from 'axios';
-import Client from 'client-oauth2';
+import base64 from 'base-64';
+
 import {
   AUTH_ERROR,
   AUTH_USER, REGISTER_USER,
-  SET_COUNTER_LOGOUT_TIME,
-  SET_PERMISSIONS,
+  RESET_LOGOUT_COUNTER,
   UNAUTH_USER,
+  AUTHORIZE_ONLINE,
+  AUTHORIZE_OFFLINE,
 } from './types';
+import { getHash, checkHash } from '../utils/offline-helper';
 
 const BASE_URL = '/api';
 const AUTH_URL = `${BASE_URL}/oauth/token`;
 const CLIENT_ID = 'trusted-client';
 const CLIENT_SECRET = 'secret';
 
-const authClient = new Client({
-  clientId: CLIENT_ID,
-  clientSecret: CLIENT_SECRET,
-  accessTokenUri: AUTH_URL,
-});
-
 export const authError = error => ({
   type: AUTH_ERROR,
   payload: error,
 });
 
-export const signinUser = ({ username, password }, callback) => (dispatch) => {
-  authClient.owner.getToken(username, password)
-    .then((response) => {
-      dispatch({ type: AUTH_USER });
-      const tokenDecoded = jwtDecode(response.accessToken);
+export const signinUser = ({ username, password, savedLogin }) => (dispatch) => {
+  getHash(password, (hash) => {
+    axios({
+      method: 'POST',
+      url: AUTH_URL,
+      data: `grant_type=password&username=${username}&password=${password}`,
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        Authorization: `Basic ${base64.encode(`${CLIENT_ID}:${CLIENT_SECRET}`)}`,
+      },
+    }).then((res) => {
       dispatch({
-        type: SET_PERMISSIONS,
-        payload: tokenDecoded.authorities,
+        type: AUTHORIZE_ONLINE,
+        payload: res,
+        meta: { username, hash },
       });
-      dispatch({
-        type: SET_COUNTER_LOGOUT_TIME,
-        payload: tokenDecoded.exp_period,
+    }).catch((err) => {
+      checkHash(password, _.get(savedLogin, 'hash', ''), (hashCheckResult) => {
+        if (!err.response || err.response.status > 500) {
+          if (savedLogin && hashCheckResult) {
+            dispatch({
+              type: AUTHORIZE_OFFLINE,
+              meta: {
+                savedLogin,
+              },
+            });
+          } else if (savedLogin && !hashCheckResult) {
+            dispatch(authError('Wrong username or password. Please try again.'));
+          } else {
+            dispatch(authError('Please try again in online mode.'));
+          }
+        } else {
+          dispatch(authError('Wrong username or password. Please try again.'));
+        }
       });
-      localStorage.setItem('refresh_token', response.refreshToken);
-      localStorage.setItem('token', response.accessToken);
-      callback();
-    })
-    .catch(() => {
-      dispatch(authError('Wrong username or password. Please try again.'));
     });
+  });
 };
 
 export const useRefreshToken = (refreshToken, callback) => dispatch => axios({
@@ -63,9 +77,13 @@ export const useRefreshToken = (refreshToken, callback) => dispatch => axios({
     dispatch(authError('Error occurred when refreshing the user session'));
   })
   .then((response) => {
-    localStorage.setItem('token', response.data.access_token);
-    localStorage.setItem('refresh_token', response.data.refresh_token);
-    dispatch({ type: AUTH_USER });
+    dispatch({
+      type: AUTH_USER,
+      payload: {
+        token: response.data.access_token,
+        refreshToken: response.data.refresh_token,
+      },
+    });
     if (callback) {
       return callback();
     }
@@ -100,3 +118,7 @@ export const registerUser = (values, callback) => (dispatch) => {
       }
     });
 };
+
+export const resetLogoutCounter = () => ({
+  type: RESET_LOGOUT_COUNTER,
+});
