@@ -15,6 +15,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Type;
 
 @Getter
 @Setter
@@ -40,6 +41,7 @@ public class CsvField extends BaseEntity {
   @ElementCollection(fetch = FetchType.LAZY)
   @CollectionTable(name = "csv_field_value_map", joinColumns = @JoinColumn(name = "csv_field_id"))
   @Column(name = "mapped_entity")
+  @Type(type = "uuid-char")
   @MapKeyColumn(name = "field_value")
   private Map<String, UUID> fieldValueMap;
 }
