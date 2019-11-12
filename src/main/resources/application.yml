@@ -4,6 +4,11 @@ newebodac:
 token:
   validitySeconds: ${tokenValiditySeconds}
 
+encryption:
+  key: ${encryptionKey}
+  salt: ${encryptionSalt}
+  iv: ${encryptionIv}
+
 server:
   port: ${tomcatServerPort}
   ssl:
