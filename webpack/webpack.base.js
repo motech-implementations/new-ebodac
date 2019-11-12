@@ -8,6 +8,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const WorkboxWebpackPlugin = require('workbox-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   watchOptions: {
@@ -16,10 +17,10 @@ module.exports = {
   },
   entry: `${SRC}/index.jsx`,
   output: {
-    path: DEST,
+    path: `${DEST}/site`,
     filename: 'js/bundle.[contenthash].js',
     chunkFilename: 'js/bundle.[name].[contenthash].js',
-    publicPath: '/',
+    publicPath: '/site/',
   },
   stats: {
     colors: true,
@@ -38,6 +39,12 @@ module.exports = {
       swSrc: `${SRC_ROOT}/src-sw.js`,
       swDest: `${DEST}/sw.js`,
     }),
+    new CopyPlugin([
+     {
+        from: `${SRC_ROOT}/manifest.json`,
+        to:   DEST,
+     }
+    ])
   ],
   module: {
     rules: [
