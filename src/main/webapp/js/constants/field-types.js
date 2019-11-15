@@ -10,3 +10,4 @@ export const DATE_TIME = 'DATE_TIME';
 export const ENUM = 'ENUM';
 export const VACCINATION_DATE = 'VACCINATION_DATE';
 export const PASSWORD = 'PASSWORD';
+export const PHONE_NUMBER = 'PHONE_NUMBER';
