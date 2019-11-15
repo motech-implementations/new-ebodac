@@ -1,10 +1,11 @@
+import _ from 'lodash';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Form, Field } from 'react-final-form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { connect } from 'react-redux';
+import { Link, Redirect } from 'react-router-dom';
 
-import { Link } from 'react-router-dom';
 import { signinUser } from '../../actions/auth-actions';
 
 const validate = (values) => {
@@ -23,9 +24,10 @@ const validate = (values) => {
 
 class Login extends Component {
   onSubmit = (values) => {
-    const { history } = this.props;
-    this.props.signinUser(values, () => {
-      history.push('/');
+    const { savedLogins } = this.props;
+    this.props.signinUser({
+      ...values,
+      savedLogin: _.get(savedLogins, values.username, null),
     });
   };
 
@@ -60,8 +62,10 @@ class Login extends Component {
   };
 
   render() {
+    const { authenticated } = this.props;
     return (
       <div className="page-container">
+        { authenticated && <Redirect to="/" /> }
         <div className="login-container">
           <div className="row">
             <div className="col-md-4 offset-md-4">
@@ -119,13 +123,19 @@ class Login extends Component {
   }
 }
 
-const mapStateToProps = state => ({ errorMessage: state.auth.error });
+const mapStateToProps = state => ({
+  errorMessage: state.auth.error,
+  savedLogins: state.auth.savedLogins,
+  authenticated: state.auth.authenticated,
+});
 
 export default connect(mapStateToProps, { signinUser })(Login);
 
 Login.propTypes = {
+  authenticated: PropTypes.bool,
   errorMessage: PropTypes.string,
   signinUser: PropTypes.func.isRequired,
+  savedLogins: PropTypes.shape().isRequired,
   history: PropTypes.shape({
     push: PropTypes.func,
   }).isRequired,
@@ -133,4 +143,5 @@ Login.propTypes = {
 
 Login.defaultProps = {
   errorMessage: null,
+  authenticated: false,
 };

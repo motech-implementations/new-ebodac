@@ -1,5 +1,13 @@
+import jwtDecode from 'jwt-decode';
+import _ from 'lodash';
+
 import {
-  AUTH_USER, UNAUTH_USER, AUTH_ERROR, SET_COUNTER_LOGOUT_TIME, SET_PERMISSIONS,
+  AUTH_USER,
+  UNAUTH_USER,
+  AUTH_ERROR,
+  RESET_LOGOUT_COUNTER,
+  AUTHORIZE_ONLINE,
+  AUTHORIZE_OFFLINE,
 } from '../actions/types';
 
 const initialState = {
@@ -10,6 +18,9 @@ const initialState = {
   registrationMessage: '',
   registrationResult: false,
   permissions: [],
+  savedLogins: {},
+  accessToken: null,
+  refreshToken: null,
 };
 
 export default (state = initialState, action) => {
@@ -18,17 +29,54 @@ export default (state = initialState, action) => {
   }
   switch (action.type) {
     case AUTH_USER:
-      return { ...state, error: '', authenticated: true };
+      return {
+        ...state,
+        error: '',
+        authenticated: true,
+        accessToken: action.payload.token,
+        refreshToken: action.payload.refreshToken,
+      };
     case UNAUTH_USER:
-      localStorage.removeItem('token');
-      localStorage.removeItem('refresh_token');
-      return { ...state, authenticated: false };
-    case SET_COUNTER_LOGOUT_TIME:
-      return { ...state, counterLogoutTime: action.payload, resetCounter: !state.resetCounter };
-    case SET_PERMISSIONS:
-      return { ...state, permissions: action.payload };
+      return {
+        ...state,
+        authenticated: false,
+        accessToken: null,
+        refreshToken: null,
+      };
+    case RESET_LOGOUT_COUNTER:
+      return { ...state, resetCounter: !state.resetCounter };
     case AUTH_ERROR:
       return { ...state, error: action.payload, authenticated: false };
+    case AUTHORIZE_OFFLINE: {
+      const { savedLogin } = action.meta;
+      return {
+        ...state,
+        authenticated: true,
+        error: '',
+        permissions: _.get(savedLogin, 'permissions', []),
+        resetCounter: !state.resetCounter,
+      };
+    }
+    case AUTHORIZE_ONLINE: {
+      const { username, hash } = action.meta;
+      // eslint-disable-next-line camelcase
+      const { access_token, exp_period, refresh_token } = action.payload.data;
+      const permissions = jwtDecode(access_token).authorities;
+      return {
+        ...state,
+        error: '',
+        authenticated: true,
+        permissions,
+        savedLogins: {
+          ...state.savedLogins,
+          [username]: { hash, permissions },
+        },
+        counterLogoutTime: exp_period,
+        resetCounter: !state.resetCounter,
+        accessToken: access_token,
+        refreshToken: refresh_token,
+      };
+    }
     default:
   }
 

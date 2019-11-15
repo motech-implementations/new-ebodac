@@ -6,9 +6,10 @@ export const UPDATE_ENTITY = 'update_entity';
 export const AUTH_USER = 'auth_user';
 export const UNAUTH_USER = 'unauth_user';
 export const AUTH_ERROR = 'auth_error';
-export const SET_COUNTER_LOGOUT_TIME = 'set_counter_logout_time';
+export const RESET_LOGOUT_COUNTER = 'reset_logout_time';
 export const REGISTER_USER = 'register_user';
-export const SET_PERMISSIONS = 'set_permissions';
+export const AUTHORIZE_ONLINE = 'authorize_online';
+export const AUTHORIZE_OFFLINE = 'authorize_offline';
 
 export const FETCH_FIELD_CONFIG = 'fetch_field_config';
 export const CREATE_FIELD_CONFIG = 'create_field_config';
