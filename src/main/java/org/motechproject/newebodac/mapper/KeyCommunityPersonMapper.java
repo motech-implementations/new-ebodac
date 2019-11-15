@@ -2,10 +2,12 @@ package org.motechproject.newebodac.mapper;
 
 import java.util.Set;
 import java.util.UUID;
+import org.apache.commons.lang3.StringUtils;
 import org.mapstruct.AfterMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.Named;
 import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 import org.motechproject.newebodac.domain.ExtraField;
@@ -13,31 +15,41 @@ import org.motechproject.newebodac.domain.KeyCommunityPerson;
 import org.motechproject.newebodac.domain.Language;
 import org.motechproject.newebodac.domain.enums.EntityType;
 import org.motechproject.newebodac.dto.KeyCommunityPersonDto;
+import org.motechproject.newebodac.helper.EncryptionHelper;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Mapper(uses = { ExtraFieldMapper.class },
     unmappedTargetPolicy = ReportingPolicy.IGNORE)
-public interface KeyCommunityPersonMapper
-    extends EntityMapper<KeyCommunityPersonDto, KeyCommunityPerson> {
+public abstract class KeyCommunityPersonMapper
+    implements EntityMapper<KeyCommunityPersonDto, KeyCommunityPerson> {
 
-  KeyCommunityPersonMapper INSTANCE = Mappers.getMapper(KeyCommunityPersonMapper.class);
+  public static final KeyCommunityPersonMapper INSTANCE = Mappers.getMapper(
+      KeyCommunityPersonMapper.class
+  );
+
+  @Autowired
+  private EncryptionHelper encryptionHelper;
 
   @Mapping(target = "language", source = "languageId")
+  @Mapping(target = "phone", qualifiedByName = "ToEncryptedPhoneNumber")
   @Mapping(target = "id", ignore = true)
   @Mapping(target = "createDate", ignore = true)
   @Mapping(target = "updateDate", ignore = true)
-  void update(KeyCommunityPersonDto communityPersonDto,
+  public abstract void update(KeyCommunityPersonDto communityPersonDto,
       @MappingTarget KeyCommunityPerson communityPerson);
 
   @Override
   @Mapping(target = "languageId", source = "language.id")
-  KeyCommunityPersonDto toDto(KeyCommunityPerson keyCommunityPerson);
+  @Mapping(target = "phone", qualifiedByName = "ToDecryptedPhoneNumber")
+  public abstract KeyCommunityPersonDto toDto(KeyCommunityPerson keyCommunityPerson);
 
   @Override
   @Mapping(target = "id", ignore = true)
   @Mapping(target = "language", source = "languageId")
+  @Mapping(target = "phone", qualifiedByName = "ToEncryptedPhoneNumber")
   @Mapping(target = "createDate", ignore = true)
   @Mapping(target = "updateDate", ignore = true)
-  KeyCommunityPerson fromDto(KeyCommunityPersonDto keyCommunityPersonDto);
+  public abstract KeyCommunityPerson fromDto(KeyCommunityPersonDto keyCommunityPersonDto);
 
   /**
    * Attaches this KeyCommunityPerson to all extra fields id.
@@ -45,7 +57,7 @@ public interface KeyCommunityPersonMapper
    * @param keyCommunityPerson Mapped KeyCommunityPerson.
    */
   @AfterMapping
-  default void afterMappingFromDto(KeyCommunityPersonDto keyCommunityPersonDto,
+  public void afterMappingFromDto(KeyCommunityPersonDto keyCommunityPersonDto,
       @MappingTarget KeyCommunityPerson keyCommunityPerson) {
     Set<ExtraField> extraFieldList = keyCommunityPerson.getExtraFields();
     for (ExtraField extraField : extraFieldList) {
@@ -59,9 +71,31 @@ public interface KeyCommunityPersonMapper
    * @param id id of Language
    * @return Language with set id
    */
-  default Language toLanguage(UUID id) {
+  public Language toLanguage(UUID id) {
     if (id != null) {
       return new Language(id);
+    }
+    return null;
+  }
+
+  /**
+   * Encrypts provided value.
+   */
+  @Named("ToEncryptedPhoneNumber")
+  public String toEncryptedPhoneNumber(String phoneNumber) {
+    if (StringUtils.isNotBlank(phoneNumber)) {
+      return encryptionHelper.encrypt(phoneNumber);
+    }
+    return null;
+  }
+
+  /**
+   * Decrypts provided value.
+   */
+  @Named("ToDecryptedPhoneNumber")
+  public String toDecryptedPhoneNumber(String phoneNumber) {
+    if (StringUtils.isNotBlank(phoneNumber)) {
+      return encryptionHelper.decrypt(phoneNumber);
     }
     return null;
   }
