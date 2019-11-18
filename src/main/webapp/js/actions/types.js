@@ -30,3 +30,6 @@ export const FETCH_CSV_CONFIG = 'fetch_csv_config';
 export const CREATE_CSV_CONFIG = 'create_csv_config';
 export const SAVE_CSV_CONFIG = 'save_csv_config';
 export const DELETE_CSV_CONFIG = 'delete_csv_config';
+
+export const FETCH_APP_SETTINGS = 'fetch_app_settings';
+export const UPDATE_APP_SETTINGS = 'update_app_settings';
