@@ -4,6 +4,7 @@ import authReducer from './auth-reducer';
 import fieldConfigReducer from './field-config-reducer';
 import registrationReducer from './registrations-reducer';
 import csvConfigReducer from './csv-config-reducer';
+import appSettingsReducer from './app-settings-reducer';
 
 const rootReducer = combineReducers({
   entity: entityReducer,
@@ -11,6 +12,7 @@ const rootReducer = combineReducers({
   fieldConfig: fieldConfigReducer,
   registrationReducer,
   csvConfig: csvConfigReducer,
+  appSettings: appSettingsReducer,
 });
 
 export default rootReducer;

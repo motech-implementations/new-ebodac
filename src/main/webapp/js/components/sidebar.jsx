@@ -19,7 +19,11 @@ import {
   CAMPAIGN_MESSAGE_ENTITY,
   GROUP_ENTITY,
 } from '../constants/entity-types';
-import { MANAGE_FIELD_CONFIG, MANAGE_CSV_CONFIG } from '../constants/permissions';
+import {
+  MANAGE_FIELD_CONFIG,
+  MANAGE_CSV_CONFIG,
+  MANAGE_APP_SETTINGS,
+} from '../constants/permissions';
 import { getEntityReadPermission } from '../utils/permission-helper';
 
 class SideBar extends Component {
@@ -252,7 +256,7 @@ class SideBar extends Component {
           </li>
         )}
         {this.isAuthorizated([MANAGE_FIELD_CONFIG])
-          && (
+        && (
           <li>
             <a href="" onClick={this.toggleFieldsCollapsedMenu}>
               <FontAwesomeIcon icon="hand-point-right" />
@@ -260,7 +264,7 @@ class SideBar extends Component {
             </a>
             {this.renderFieldsCollapsedMenu()}
           </li>
-          )}
+        )}
         {this.isAuthorizated(getEntityReadPermission(SITE_ENTITY))
         && (
           <li className="border-none">
@@ -276,6 +280,15 @@ class SideBar extends Component {
             <Link to="/csvConfigTable">
               <FontAwesomeIcon icon="hand-point-right" />
               <span className="icon-text">CSV Import Config</span>
+            </Link>
+          </li>
+        )}
+        {this.isAuthorizated([MANAGE_APP_SETTINGS])
+        && (
+          <li className="border-none">
+            <Link to="/appSettings">
+              <FontAwesomeIcon icon="hand-point-right" />
+              <span className="icon-text">App Settings</span>
             </Link>
           </li>
         )}
@@ -337,12 +350,12 @@ class SideBar extends Component {
           <ul className="nav navbar-nav side-nav">
             {this.isAuthorizated(getEntityReadPermission(VACCINEE_ENTITY))
             && (
-            <li>
-              <Link to={`/viewEntity/${VACCINEE_ENTITY}`}>
-                <FontAwesomeIcon icon="syringe" />
-                <span className="icon-text">Vaccinees</span>
-              </Link>
-            </li>
+              <li>
+                <Link to={`/viewEntity/${VACCINEE_ENTITY}`}>
+                  <FontAwesomeIcon icon="syringe" />
+                  <span className="icon-text">Vaccinees</span>
+                </Link>
+              </li>
             )}
             {this.isAuthorizated(getEntityReadPermission(KEY_COMMUNITY_PERSON_ENTITY))
             && (
@@ -385,7 +398,7 @@ class SideBar extends Component {
             </li>
             {(this.isAuthorizated(getEntityReadPermission(ROLE_ENTITY))
               || this.isAuthorizated(getEntityReadPermission(USER_ENTITY)))
-              && (
+            && (
               <li>
                 <a href="" onClick={this.toggleUserManagementCollapsedMenu}>
                   <FontAwesomeIcon icon="user-friends" />
@@ -393,7 +406,7 @@ class SideBar extends Component {
                 </a>
                 {this.renderUserManagementCollapsedMenu()}
               </li>
-              )}
+            )}
             {this.isAuthorizated(getEntityReadPermission(GROUP_ENTITY))
             && (
               <li>

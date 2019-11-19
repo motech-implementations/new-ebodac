@@ -6,6 +6,7 @@ import TextField from './text-field';
 import TextareaField from './textarea-field';
 import CheckboxField from './checkbox-field';
 import DateField from './date-field';
+import TimeField from './time-field';
 import SelectField from './select-field';
 import NonEditableField from './non-editable-field';
 import RelationField from './relation-field';
@@ -22,6 +23,7 @@ import {
   COLLECTION,
   VACCINATION_DATE,
   PASSWORD,
+  TIME,
 } from '../../constants/field-types';
 
 export const getOptionsFromEnum = (format) => {
@@ -73,6 +75,12 @@ const renderFormField = (props) => {
     case DATE:
       FieldType = DateField;
       attr = { dateFormat: format };
+      break;
+    case TIME:
+      FieldType = TimeField;
+      attr = {
+        timeFormat: format, withPortal: true,
+      };
       break;
     case DATE_TIME:
       FieldType = DateField;

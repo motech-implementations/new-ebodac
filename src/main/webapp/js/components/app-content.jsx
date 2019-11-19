@@ -24,10 +24,15 @@ import EntityRoutePrivate from './helpers/EntityRoutePrivate';
 import ViewEntity from './entities/view-entity';
 import FieldConfigPage from './fields/field-config-page';
 import CreateOrEditEntityPage from './entities/create-edit-entity-page';
-import { MANAGE_FIELD_CONFIG, MANAGE_CSV_CONFIG } from '../constants/permissions';
+import {
+  MANAGE_FIELD_CONFIG,
+  MANAGE_CSV_CONFIG,
+  MANAGE_APP_SETTINGS,
+} from '../constants/permissions';
 import CsvConfigCreate from './csv/csv-config-create';
 import CsvConfigUpdate from './csv/csv-config-update';
 import CsvConfigTable from './csv/csv-config-table';
+import AppSettings from './settings/app-settings';
 
 class AppContent extends Component {
   constructor(props) {
@@ -86,6 +91,11 @@ class AppContent extends Component {
                   requiredPermissions={[MANAGE_CSV_CONFIG]}
                   path="/csvConfigTable"
                   component={CsvConfigTable}
+                />
+                <RoutePrivate
+                  requiredPermissions={[MANAGE_APP_SETTINGS]}
+                  path="/appSettings"
+                  component={AppSettings}
                 />
                 <RoutePrivate path="/" component={Home} />
               </Switch>

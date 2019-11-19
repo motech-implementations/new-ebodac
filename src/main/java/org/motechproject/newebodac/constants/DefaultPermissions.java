@@ -27,6 +27,7 @@ public class DefaultPermissions {
   private static final String MANAGE_FIELD_CONFIG = "ROLE_fieldConfig_MANAGE";
   private static final String MANAGE_CSV_CONFIG = "ROLE_csvConfig_MANAGE";
   private static final String MANAGE_JSON_CONFIG = "ROLE_jsonConfig_MANAGE";
+  private static final String MANAGE_APP_SETTINGS = "ROLE_appSettings_MANAGE";
 
   public static final String DISPLAY_REPORTS = "ROLE_DISPLAY_REPORTS";
   public static final String HAS_VACCINEE_READ_ROLE = "hasRole('" + VACCINEE_READ + "')";
@@ -55,4 +56,6 @@ public class DefaultPermissions {
       "hasRole('" + MANAGE_FIELD_CONFIG + "')";
   public static final String HAS_MANAGE_CSV_CONFIG_ROLE = "hasRole('" + MANAGE_CSV_CONFIG + "')";
   public static final String HAS_MANAGE_JSON_CONFIG_ROLE = "hasRole('" + MANAGE_JSON_CONFIG + "')";
+  public static final String HAS_MANAGE_APP_SETTINGS_ROLE =
+      "hasRole('" + MANAGE_APP_SETTINGS + "')";
 }
