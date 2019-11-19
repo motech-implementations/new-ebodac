@@ -44,4 +44,10 @@ When testing locally you need to use https. For develop purposes self-signed cer
 To accept self-signed certificate on chrome you need to create risk accepting chrome. 
 On Ubuntu: `google-chrome --user-da-dir=/tmp/foo --ignore-certificate-errors --unsafely-treat-insecure-origin-as-secure=https://localhost:8443`
 (Tip: This chrome instance may need to be only one working)
+
+## Running re-create SQL script for Quartz data tables
+Sometimes it may be a case where one would like to re-create Quartz DB structure. In order to do so run following in terminal in the project root directory (set credentials arguments as required):
+```bash
+mysql --user="root" --password="password" --database="newEbodac" < "src/main/resources/recreate_quartz_mysql.sql"
+```
 `
