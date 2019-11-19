@@ -32,6 +32,7 @@ import {
 import CsvConfigCreate from './csv/csv-config-create';
 import CsvConfigUpdate from './csv/csv-config-update';
 import CsvConfigTable from './csv/csv-config-table';
+import CsvImport from './entities/csv-import';
 import AppSettings from './settings/app-settings';
 
 class AppContent extends Component {
@@ -72,6 +73,7 @@ class AppContent extends Component {
                 <EntityRoutePrivate readOnly path="/viewEntity/:entityType" component={ViewEntity} />
                 <EntityRoutePrivate path="/create/:entityType" component={CreateOrEditEntityPage} />
                 <EntityRoutePrivate path="/entityEdit/:entityType/:id" component={CreateOrEditEntityPage} />
+                <EntityRoutePrivate path="/import/:entityType/" component={CsvImport} />
                 <RoutePrivate
                   requiredPermissions={[MANAGE_FIELD_CONFIG]}
                   path="/fieldConfig/:entityType"

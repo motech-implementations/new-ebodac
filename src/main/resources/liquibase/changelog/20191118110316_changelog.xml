@@ -1,0 +1,29 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+    <changeSet author="kkaczmarczyk" id="1565343871618-7">
+        <update tableName="field_config">
+            <column name="name" value="group"/>
+            <where>entity='VACCINEE' AND name='groupId'</where>
+        </update>
+        <update tableName="field_config">
+            <column name="name" value="preferredLanguage"/>
+            <where>entity='VACCINEE' AND name='preferredLanguageId'</where>
+        </update>
+        <update tableName="field_config">
+            <column name="name" value="vaccinee"/>
+            <where>entity='VISIT' AND name='vaccineeId'</where>
+        </update>
+        <update tableName="field_config">
+            <column name="name" value="site"/>
+            <where>entity='VISIT' AND name='siteId'</where>
+        </update>
+        <update tableName="field_config">
+            <column name="name" value="type"/>
+            <where>entity='VISIT' AND name='typeId'</where>
+        </update>
+        <update tableName="field_config">
+            <column name="name" value="language"/>
+            <where>entity='PERSON' AND name='languageId'</where>
+        </update>
+    </changeSet>
+</databaseChangeLog>

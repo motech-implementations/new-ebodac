@@ -9,6 +9,10 @@ export const getCsvConfigById = (state, { entity, csvConfigId }) => (
   csvConfigId ? state.csvConfig[entity][csvConfigId] : {}
 );
 
+export const getCsvConfigsByEntityType = (state, { entityType }) => (
+  entityType ? state.csvConfig[entityType] : {}
+);
+
 export const getCsvConfigArray = (state => (
   _.chain(state.csvConfig)
     .omit(state.csvConfig, ['csvConfigFetching', 'csvConfigFetched'])

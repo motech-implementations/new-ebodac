@@ -22,23 +22,17 @@ public interface VisitMapper extends EntityMapper<VisitDto, Visit> {
   VisitMapper INSTANCE = Mappers.getMapper(VisitMapper.class);
 
   @Override
-  @Mapping(target = "typeId", source = "type.id")
-  @Mapping(target = "vaccineeId", source = "vaccinee.id")
-  @Mapping(target = "siteId", source = "site.id")
+  @Mapping(target = "type", source = "type.id")
+  @Mapping(target = "vaccinee", source = "vaccinee.id")
+  @Mapping(target = "site", source = "site.id")
   VisitDto toDto(Visit visit);
 
   @Override
-  @Mapping(target = "vaccinee", source = "vaccineeId")
-  @Mapping(target = "type", source = "typeId")
-  @Mapping(target = "site", source = "siteId")
   @Mapping(target = "id", ignore = true)
   @Mapping(target = "createDate", ignore = true)
   @Mapping(target = "updateDate", ignore = true)
   Visit fromDto(VisitDto visitDto);
 
-  @Mapping(target = "vaccinee", source = "vaccineeId")
-  @Mapping(target = "type", source = "typeId")
-  @Mapping(target = "site", source = "siteId")
   @Mapping(target = "id", ignore = true)
   @Mapping(target = "createDate", ignore = true)
   @Mapping(target = "updateDate", ignore = true)

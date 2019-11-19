@@ -81,6 +81,7 @@
     "react-router-dom": "5.0.1",
     "react-s-alert": "1.4.1",
     "react-select": "3.0.4",
+    "react-spinners": "0.6.1",
     "react-table": "6.10.0",
     "redux": "4.0.4",
     "redux-promise": "0.6.0",

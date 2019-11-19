@@ -25,10 +25,8 @@ public abstract class VaccineeMapper implements EntityMapper<VaccineeDto, Vaccin
   public static final VaccineeMapper INSTANCE = Mappers.getMapper(VaccineeMapper.class);
 
   @Autowired
-  public EncryptionHelper encryptionHelper;
+  private EncryptionHelper encryptionHelper;
 
-  @Mapping(target = "preferredLanguage", source = "preferredLanguageId")
-  @Mapping(target = "group", source = "groupId")
   @Mapping(target = "phoneNumber",
       qualifiedByName = "ToEncryptedPhoneNumber")
   @Mapping(target = "id", ignore = true)
@@ -37,16 +35,14 @@ public abstract class VaccineeMapper implements EntityMapper<VaccineeDto, Vaccin
   public abstract void update(VaccineeDto vaccineeDto, @MappingTarget Vaccinee vaccinee);
 
   @Override
-  @Mapping(target = "groupId", source = "group.id")
-  @Mapping(target = "preferredLanguageId", source = "preferredLanguage.id")
+  @Mapping(target = "group", source = "group.id")
+  @Mapping(target = "preferredLanguage", source = "preferredLanguage.id")
   @Mapping(target = "phoneNumber",
       qualifiedByName = "ToDecryptedPhoneNumber")
   public abstract VaccineeDto toDto(Vaccinee vaccinee);
 
   @Override
   @Mapping(target = "id", ignore = true)
-  @Mapping(target = "group", source = "groupId")
-  @Mapping(target = "preferredLanguage", source = "preferredLanguageId")
   @Mapping(target = "phoneNumber",
       qualifiedByName = "ToEncryptedPhoneNumber")
   @Mapping(target = "createDate", ignore = true)

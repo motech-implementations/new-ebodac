@@ -69,4 +69,8 @@ public class Vaccinee extends BaseEntity {
   public Vaccinee(UUID id) {
     super(id);
   }
+
+  public void setVaccinee(String vaccinee) {
+    this.setVaccineeId(vaccinee);
+  }
 }

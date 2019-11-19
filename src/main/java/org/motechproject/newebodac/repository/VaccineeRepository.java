@@ -9,4 +9,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface VaccineeRepository extends JpaRepository<Vaccinee, UUID> {
 
   List<Vaccinee> findByPreferredLanguage(Language language);
+
+  Vaccinee findByVaccineeId(String vaccineeId);
 }
