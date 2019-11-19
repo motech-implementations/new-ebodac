@@ -15,6 +15,7 @@ import {
   RELATION,
   DATE,
   DATE_TIME,
+  BOOLEAN,
 } from '../../constants/field-types';
 import { getFieldConfigByEntity } from '../../selectors';
 import TextField from '../../utils/form/text-field';
@@ -67,6 +68,12 @@ class CsvConfigPage extends Component {
         required: fieldConfig ? fieldConfig.required : false,
         format: fieldConfig ? fieldConfig.format : null,
       },
+      {
+        name: 'keyField',
+        fieldType: BOOLEAN,
+        displayName: 'Key Field?',
+        required: false,
+      },
     ];
   };
 
@@ -88,9 +95,16 @@ class CsvConfigPage extends Component {
   ];
 
   validate = (values) => {
+    let hasKeyField = false;
     const errors = {};
-    errors.csvFields = [];
 
+    _.forEach(_.get(values, 'csvFields', []), (field) => {
+      if (field.keyField === true) {
+        hasKeyField = true;
+      }
+    });
+
+    errors.csvFields = [];
     _.forEach(values.csvFields, (csvField, key) => {
       _.forEach(this.getFields(csvField), (config) => {
         const val = csvField[config.name];
@@ -100,7 +114,10 @@ class CsvConfigPage extends Component {
         }
       });
     });
-
+    if (!hasKeyField) {
+      errors.keyField = 'You must add at least one unique field (or combination of fields) '
+      + 'that can be used to identify and update the entity';
+    }
     return errors;
   };
 
@@ -108,7 +125,7 @@ class CsvConfigPage extends Component {
     const { entityType } = this.props;
 
     return (
-      <div>
+      <div className="modal-form">
         <Form
           onSubmit={this.onSubmit}
           initialValues={this.props.csvConfig}
@@ -117,7 +134,7 @@ class CsvConfigPage extends Component {
             ...arrayMutators,
           }}
           render={({
-            handleSubmit, invalid,
+            handleSubmit, invalid, errors, dirty,
           }) => (
             <form onSubmit={handleSubmit}>
               <TextField
@@ -184,6 +201,11 @@ class CsvConfigPage extends Component {
                         </button>
                       </div>
                     ))}
+                    { errors.keyField && dirty && (
+                    <div className="has-error">
+                      { errors.keyField }
+                    </div>
+                    )}
                     <button
                       type="button"
                       className="btn btn-success mr-2 d-inline-block"
@@ -194,6 +216,7 @@ class CsvConfigPage extends Component {
                           fieldName: '',
                           format: '',
                           defaultValue: '',
+                          keyField: false,
                         });
                       }}
                     >
@@ -207,14 +230,14 @@ class CsvConfigPage extends Component {
                 className="btn btn-primary"
                 disabled={invalid || !entityType}
               >
-                      Save
+                Save
               </button>
               <button
                 type="button"
                 className="btn btn-danger m-2"
                 onClick={() => this.props.history.push('/csvConfigTable')}
               >
-                      Cancel
+                Cancel
               </button>
             </form>
           )}

@@ -144,7 +144,7 @@ class FieldConfigModal extends React.Component {
     }
 
     return (
-      <div className="config-modal-form">
+      <div className="modal-form">
         <Form
           onSubmit={this.onSubmit}
           validate={this.validate}

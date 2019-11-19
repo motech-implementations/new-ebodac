@@ -432,6 +432,10 @@ sidebar-collapse {
   color: $gray-dark;
 }
 
+.has-error {
+  color: $red-mid;
+}
+
 .has-error .help-block,
 .has-error .col-form-label {
   color: $red-mid;
@@ -543,7 +547,7 @@ select.form-control {
   display: grid;
 }
 
-.config-modal-form {
+.modal-form {
   span[for] {
     color: #337ab7;
     font-weight: bold;
