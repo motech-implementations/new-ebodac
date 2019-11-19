@@ -8,7 +8,7 @@ import { withRouter } from 'react-router-dom';
 import 'react-table/react-table.css';
 
 import { fetchEntity } from '../../actions/entity-actions';
-import { getEntityArrayByName } from '../../selectors';
+import { getCsvConfigsByEntityType, getEntityArrayByName } from '../../selectors';
 
 import getTableColumn from '../../utils/table-utils';
 
@@ -31,7 +31,9 @@ class EntityTable extends Component {
   };
 
   render() {
-    const { entity, fieldConfig, entityType } = this.props;
+    const {
+      entity, fieldConfig, entityType,
+    } = this.props;
     const { loading } = this.state;
     const columns = _.map(
       fieldConfig,
@@ -46,8 +48,21 @@ class EntityTable extends Component {
           <div className="col-md-6">
             <h1>{_.startCase(entityType)}</h1>
           </div>
-          <div className="col-md-3 ml-auto">
-            {this.canWrite() && (
+          {this.canWrite() && (
+            <div className="col-md-3">
+              <button
+                type="button"
+                className="btn btn-success btn-lg btn-block"
+                onClick={() => this.props.history.push(`/import/${entityType}`)}
+                disabled={_.isNil(this.props.csvConfigs)}
+                title={_.isNil(this.props.csvConfigs) && 'You have to create a CSV config for this entity!'}
+              >
+                Import CSV
+              </button>
+            </div>
+          )}
+          {this.canWrite() && (
+            <div className="col-md-3">
               <button
                 type="button"
                 className="btn btn-success btn-lg btn-block"
@@ -55,8 +70,8 @@ class EntityTable extends Component {
               >
                 Create New
               </button>
-            )}
-          </div>
+            </div>
+          )}
         </div>
         <div className="row">
           <div className="col-md-12">
@@ -85,6 +100,7 @@ class EntityTable extends Component {
 const mapStateToProps = (state, props) => ({
   permissions: state.auth.permissions,
   entity: getEntityArrayByName(state, props),
+  csvConfigs: getCsvConfigsByEntityType(state, { entityType: props.match.params.entityType }),
 });
 
 export default withRouter(
@@ -95,6 +111,7 @@ EntityTable.propTypes = {
   entityType: PropTypes.string.isRequired,
   permissions: PropTypes.arrayOf(PropTypes.string).isRequired,
   fieldConfig: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  csvConfigs: PropTypes.shape().isRequired,
   fetchEntity: PropTypes.func.isRequired,
   entity: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   history: PropTypes.shape({

@@ -30,7 +30,6 @@ public abstract class KeyCommunityPersonMapper
   @Autowired
   private EncryptionHelper encryptionHelper;
 
-  @Mapping(target = "language", source = "languageId")
   @Mapping(target = "phone", qualifiedByName = "ToEncryptedPhoneNumber")
   @Mapping(target = "id", ignore = true)
   @Mapping(target = "createDate", ignore = true)
@@ -39,13 +38,12 @@ public abstract class KeyCommunityPersonMapper
       @MappingTarget KeyCommunityPerson communityPerson);
 
   @Override
-  @Mapping(target = "languageId", source = "language.id")
+  @Mapping(target = "language", source = "language.id")
   @Mapping(target = "phone", qualifiedByName = "ToDecryptedPhoneNumber")
   public abstract KeyCommunityPersonDto toDto(KeyCommunityPerson keyCommunityPerson);
 
   @Override
   @Mapping(target = "id", ignore = true)
-  @Mapping(target = "language", source = "languageId")
   @Mapping(target = "phone", qualifiedByName = "ToEncryptedPhoneNumber")
   @Mapping(target = "createDate", ignore = true)
   @Mapping(target = "updateDate", ignore = true)

@@ -16,7 +16,7 @@ public class KeyCommunityPersonDto extends BaseDto {
 
   private String community;
 
-  private UUID languageId;
+  private UUID language;
 
   private Set<ExtraFieldDto> extraFields = new HashSet<>();
 }

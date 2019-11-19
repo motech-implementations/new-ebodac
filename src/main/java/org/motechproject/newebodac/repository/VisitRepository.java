@@ -9,4 +9,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface VisitRepository extends JpaRepository<Visit, UUID> {
 
   List<Visit> getByType(VisitType visitType);
+
+  Visit getByVaccineeIdAndType(UUID vacUuid, VisitType visitType);
 }

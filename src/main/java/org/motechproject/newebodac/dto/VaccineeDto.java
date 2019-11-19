@@ -24,11 +24,11 @@ public class VaccineeDto extends BaseDto {
 
   private String alternatePhoneNumber;
 
-  private UUID preferredLanguageId;
+  private UUID preferredLanguage;
 
   private String address;
 
-  private UUID groupId;
+  private UUID group;
 
   private Set<ExtraFieldDto> extraFields = new HashSet<>();
 }

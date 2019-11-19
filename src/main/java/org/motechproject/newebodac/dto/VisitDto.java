@@ -15,13 +15,13 @@ public class VisitDto extends BaseDto {
 
   private LocalDate plannedDate;
 
-  private UUID typeId;
+  private UUID type;
 
-  private UUID vaccineeId;
+  private UUID vaccinee;
 
   private String status;
 
-  private UUID siteId;
+  private UUID site;
 
   private Set<ExtraFieldDto> extraFields = new HashSet<>();
 }
