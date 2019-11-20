@@ -15,24 +15,25 @@ import org.springframework.stereotype.Service;
 @Service
 public class VaccineeService {
 
-  private static final VaccineeMapper MAPPER = VaccineeMapper.INSTANCE;
+  @Autowired
+  private VaccineeMapper mapper;
 
   @Autowired
   private VaccineeRepository vaccineeRepository;
 
   @PreAuthorize(DefaultPermissions.HAS_VACCINEE_READ_ROLE)
   public List<VaccineeDto> getAll() {
-    return MAPPER.toDtos(vaccineeRepository.findAll());
+    return mapper.toDtos(vaccineeRepository.findAll());
   }
 
   @PreAuthorize(DefaultPermissions.HAS_VACCINEE_READ_ROLE)
   public VaccineeDto findById(UUID id) {
-    return MAPPER.toDto(vaccineeRepository.getOne(id));
+    return mapper.toDto(vaccineeRepository.getOne(id));
   }
 
   @PreAuthorize(DefaultPermissions.HAS_VACCINEE_WRITE_ROLE)
   public VaccineeDto create(VaccineeDto vaccinee) {
-    return MAPPER.toDto(vaccineeRepository.save(MAPPER.fromDto(vaccinee)));
+    return mapper.toDto(vaccineeRepository.save(mapper.fromDto(vaccinee)));
   }
 
   /**
@@ -48,9 +49,9 @@ public class VaccineeService {
     Vaccinee vaccinee = vaccineeRepository.findById(id)
         .orElseThrow(() -> new EntityNotFoundException("Vaccinee with id: {0} not found",
             id.toString()));
-    MAPPER.update(vaccineeDto, vaccinee);
+    mapper.update(vaccineeDto, vaccinee);
 
-    return MAPPER.toDto(vaccineeRepository.save(vaccinee));
+    return mapper.toDto(vaccineeRepository.save(vaccinee));
   }
 
   /**

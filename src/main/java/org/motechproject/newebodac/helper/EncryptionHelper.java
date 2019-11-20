@@ -1,6 +1,6 @@
 package org.motechproject.newebodac.helper;
 
-import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.security.GeneralSecurityException;
 import java.security.spec.KeySpec;
 import java.util.Base64;
@@ -43,8 +43,9 @@ public class EncryptionHelper {
 
       Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
       cipher.init(Cipher.ENCRYPT_MODE, secretKey, ivspec);
-      return Base64.getEncoder().encodeToString(cipher.doFinal(strToEncrypt.getBytes("UTF-8")));
-    } catch (GeneralSecurityException | UnsupportedEncodingException e) {
+      return Base64.getEncoder().encodeToString(cipher.doFinal(strToEncrypt.getBytes(
+          StandardCharsets.UTF_8)));
+    } catch (GeneralSecurityException e) {
       throw new IllegalStateException("Error occurred while encrypting the data", e);
     }
   }

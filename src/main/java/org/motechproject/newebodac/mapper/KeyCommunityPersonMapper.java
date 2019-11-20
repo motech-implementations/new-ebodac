@@ -9,7 +9,6 @@ import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.Named;
 import org.mapstruct.ReportingPolicy;
-import org.mapstruct.factory.Mappers;
 import org.motechproject.newebodac.domain.ExtraField;
 import org.motechproject.newebodac.domain.KeyCommunityPerson;
 import org.motechproject.newebodac.domain.Language;
@@ -18,19 +17,18 @@ import org.motechproject.newebodac.dto.KeyCommunityPersonDto;
 import org.motechproject.newebodac.helper.EncryptionHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 
-@Mapper(uses = { ExtraFieldMapper.class },
+@Mapper(uses = { ExtraFieldMapper.class }, componentModel = "spring",
     unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public abstract class KeyCommunityPersonMapper
     implements EntityMapper<KeyCommunityPersonDto, KeyCommunityPerson> {
 
-  public static final KeyCommunityPersonMapper INSTANCE = Mappers.getMapper(
-      KeyCommunityPersonMapper.class
-  );
+  private static final String TO_ENCRYPTED_PHONE_NUMBER = "ToEncryptedPhoneNumber";
+  private static final String TO_DECRYPTED_PHONE_NUMBER = "ToDecryptedPhoneNumber";
 
   @Autowired
   private EncryptionHelper encryptionHelper;
 
-  @Mapping(target = "phone", qualifiedByName = "ToEncryptedPhoneNumber")
+  @Mapping(target = "phone", qualifiedByName = TO_ENCRYPTED_PHONE_NUMBER)
   @Mapping(target = "id", ignore = true)
   @Mapping(target = "createDate", ignore = true)
   @Mapping(target = "updateDate", ignore = true)
@@ -39,12 +37,12 @@ public abstract class KeyCommunityPersonMapper
 
   @Override
   @Mapping(target = "language", source = "language.id")
-  @Mapping(target = "phone", qualifiedByName = "ToDecryptedPhoneNumber")
+  @Mapping(target = "phone", qualifiedByName = TO_DECRYPTED_PHONE_NUMBER)
   public abstract KeyCommunityPersonDto toDto(KeyCommunityPerson keyCommunityPerson);
 
   @Override
   @Mapping(target = "id", ignore = true)
-  @Mapping(target = "phone", qualifiedByName = "ToEncryptedPhoneNumber")
+  @Mapping(target = "phone", qualifiedByName = TO_ENCRYPTED_PHONE_NUMBER)
   @Mapping(target = "createDate", ignore = true)
   @Mapping(target = "updateDate", ignore = true)
   public abstract KeyCommunityPerson fromDto(KeyCommunityPersonDto keyCommunityPersonDto);
@@ -79,7 +77,7 @@ public abstract class KeyCommunityPersonMapper
   /**
    * Encrypts provided value.
    */
-  @Named("ToEncryptedPhoneNumber")
+  @Named(TO_ENCRYPTED_PHONE_NUMBER)
   public String toEncryptedPhoneNumber(String phoneNumber) {
     if (StringUtils.isNotBlank(phoneNumber)) {
       return encryptionHelper.encrypt(phoneNumber);
@@ -90,7 +88,7 @@ public abstract class KeyCommunityPersonMapper
   /**
    * Decrypts provided value.
    */
-  @Named("ToDecryptedPhoneNumber")
+  @Named(TO_DECRYPTED_PHONE_NUMBER)
   public String toDecryptedPhoneNumber(String phoneNumber) {
     if (StringUtils.isNotBlank(phoneNumber)) {
       return encryptionHelper.decrypt(phoneNumber);
