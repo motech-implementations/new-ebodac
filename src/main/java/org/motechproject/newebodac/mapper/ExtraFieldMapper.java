@@ -7,15 +7,12 @@ import org.apache.commons.lang3.StringUtils;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
-import org.mapstruct.factory.Mappers;
 import org.motechproject.newebodac.domain.ExtraField;
 import org.motechproject.newebodac.domain.enums.FieldType;
 import org.motechproject.newebodac.dto.ExtraFieldDto;
 
-@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
+@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = "spring")
 public interface ExtraFieldMapper extends EntityMapper<ExtraFieldDto, ExtraField> {
-
-  ExtraFieldMapper INSTANCE = Mappers.getMapper(ExtraFieldMapper.class);
 
   @Override
   default ExtraField fromDto(ExtraFieldDto extraFieldDto) {

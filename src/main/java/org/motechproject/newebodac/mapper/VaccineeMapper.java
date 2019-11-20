@@ -9,7 +9,6 @@ import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.Named;
 import org.mapstruct.ReportingPolicy;
-import org.mapstruct.factory.Mappers;
 import org.motechproject.newebodac.domain.EnrollmentGroup;
 import org.motechproject.newebodac.domain.ExtraField;
 import org.motechproject.newebodac.domain.Language;
@@ -19,16 +18,18 @@ import org.motechproject.newebodac.dto.VaccineeDto;
 import org.motechproject.newebodac.helper.EncryptionHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 
-@Mapper(uses = { ExtraFieldMapper.class }, unmappedTargetPolicy = ReportingPolicy.IGNORE)
+@Mapper(uses = { ExtraFieldMapper.class },
+    componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public abstract class VaccineeMapper implements EntityMapper<VaccineeDto, Vaccinee> {
-  
-  public static final VaccineeMapper INSTANCE = Mappers.getMapper(VaccineeMapper.class);
+
+  private static final String TO_ENCRYPTED_PHONE_NUMBER = "ToEncryptedPhoneNumber";
+  private static final String TO_DECRYPTED_PHONE_NUMBER = "ToDecryptedPhoneNumber";
 
   @Autowired
   private EncryptionHelper encryptionHelper;
 
-  @Mapping(target = "phoneNumber",
-      qualifiedByName = "ToEncryptedPhoneNumber")
+  @Mapping(target = "phoneNumber", qualifiedByName = TO_ENCRYPTED_PHONE_NUMBER)
+  @Mapping(target = "alternatePhoneNumber", qualifiedByName = TO_ENCRYPTED_PHONE_NUMBER)
   @Mapping(target = "id", ignore = true)
   @Mapping(target = "createDate", ignore = true)
   @Mapping(target = "updateDate", ignore = true)
@@ -37,14 +38,14 @@ public abstract class VaccineeMapper implements EntityMapper<VaccineeDto, Vaccin
   @Override
   @Mapping(target = "group", source = "group.id")
   @Mapping(target = "preferredLanguage", source = "preferredLanguage.id")
-  @Mapping(target = "phoneNumber",
-      qualifiedByName = "ToDecryptedPhoneNumber")
+  @Mapping(target = "phoneNumber", qualifiedByName = TO_DECRYPTED_PHONE_NUMBER)
+  @Mapping(target = "alternatePhoneNumber", qualifiedByName = TO_DECRYPTED_PHONE_NUMBER)
   public abstract VaccineeDto toDto(Vaccinee vaccinee);
 
   @Override
   @Mapping(target = "id", ignore = true)
-  @Mapping(target = "phoneNumber",
-      qualifiedByName = "ToEncryptedPhoneNumber")
+  @Mapping(target = "phoneNumber", qualifiedByName = TO_ENCRYPTED_PHONE_NUMBER)
+  @Mapping(target = "alternatePhoneNumber", qualifiedByName = TO_ENCRYPTED_PHONE_NUMBER)
   @Mapping(target = "createDate", ignore = true)
   @Mapping(target = "updateDate", ignore = true)
   public abstract Vaccinee fromDto(VaccineeDto vaccineeDto);
@@ -90,7 +91,7 @@ public abstract class VaccineeMapper implements EntityMapper<VaccineeDto, Vaccin
   /**
    * Encrypts provided value.
    */
-  @Named("ToEncryptedPhoneNumber")
+  @Named(TO_ENCRYPTED_PHONE_NUMBER)
   public String toEncryptedPhoneNumber(String phoneNumber) {
     if (StringUtils.isNotBlank(phoneNumber)) {
       return encryptionHelper.encrypt(phoneNumber);
@@ -101,7 +102,7 @@ public abstract class VaccineeMapper implements EntityMapper<VaccineeDto, Vaccin
   /**
    * Decrypts provided value.
    */
-  @Named("ToDecryptedPhoneNumber")
+  @Named(TO_DECRYPTED_PHONE_NUMBER)
   public String toDecryptedPhoneNumber(String phoneNumber) {
     if (StringUtils.isNotBlank(phoneNumber)) {
       return encryptionHelper.decrypt(phoneNumber);

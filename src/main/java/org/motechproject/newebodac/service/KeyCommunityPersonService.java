@@ -16,24 +16,25 @@ import org.springframework.stereotype.Service;
 @Service
 public class KeyCommunityPersonService {
 
-  private static final KeyCommunityPersonMapper MAPPER = KeyCommunityPersonMapper.INSTANCE;
+  @Autowired
+  private KeyCommunityPersonMapper mapper;
 
   @Autowired
   private KeyCommunityPersonRepository keyCommunityPersonRepository;
 
   @PreAuthorize(DefaultPermissions.HAS_KCP_READ_ROLE)
   public List<KeyCommunityPersonDto> getAll() {
-    return MAPPER.toDtos(keyCommunityPersonRepository.findAll());
+    return mapper.toDtos(keyCommunityPersonRepository.findAll());
   }
 
   @PreAuthorize(DefaultPermissions.HAS_KCP_READ_ROLE)
   public KeyCommunityPersonDto findById(UUID id) {
-    return MAPPER.toDto(keyCommunityPersonRepository.getOne(id));
+    return mapper.toDto(keyCommunityPersonRepository.getOne(id));
   }
 
   @PreAuthorize(DefaultPermissions.HAS_KCP_WRITE_ROLE)
   public KeyCommunityPersonDto create(KeyCommunityPersonDto keyCommunityPersonDto) {
-    return MAPPER.toDto(keyCommunityPersonRepository.save(MAPPER.fromDto(keyCommunityPersonDto)));
+    return mapper.toDto(keyCommunityPersonRepository.save(mapper.fromDto(keyCommunityPersonDto)));
   }
 
   /**
@@ -49,9 +50,9 @@ public class KeyCommunityPersonService {
     KeyCommunityPerson existingKeyCommunityPerson = keyCommunityPersonRepository.findById(id)
         .orElseThrow(() -> new EntityNotFoundException(
             "Key Community Person with id: {0} not found", id.toString()));
-    MAPPER.update(keyCommunityPersonDto, existingKeyCommunityPerson);
+    mapper.update(keyCommunityPersonDto, existingKeyCommunityPerson);
 
-    return MAPPER.toDto(keyCommunityPersonRepository.save(existingKeyCommunityPerson));
+    return mapper.toDto(keyCommunityPersonRepository.save(existingKeyCommunityPerson));
   }
 
   /**
