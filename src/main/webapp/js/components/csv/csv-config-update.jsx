@@ -2,20 +2,33 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import 'react-table/react-table.css';
-
+import _ from 'lodash';
 import { withRouter } from 'react-router-dom';
+import Alert from 'react-s-alert';
+
 import CsvConfigPage from './csv-config-page';
 import { getCsvConfigById } from '../../selectors';
 import { deleteCsvConfig, saveCsvConfig } from '../../actions/csv-config-actions';
 
+const ALERT_TIMEOUT = 5000;
+
 class CsvConfigUpdate extends Component {
   deleteConfig = () => {
-    this.props.deleteCsvConfig(this.props.csvConfig.entity, this.props.csvConfig.id);
-    this.props.history.push('/csvConfigTable');
+    this.props.deleteCsvConfig(this.props.csvConfig.entity, this.props.csvConfig.id, () => {
+      Alert.success('CSV config has been deleted!', {
+        timeout: ALERT_TIMEOUT,
+      });
+      this.props.history.push('/csvConfigTable');
+    });
   };
 
   onSubmit = (values) => {
-    this.props.saveCsvConfig(this.props.csvConfig.entity, values);
+    this.props.saveCsvConfig(this.props.csvConfig.entity, values, () => {
+      Alert.success('CSV config has been updated!', {
+        timeout: ALERT_TIMEOUT,
+      });
+      this.props.history.push('/csvConfigTable');
+    });
   };
 
   render() {
@@ -35,7 +48,7 @@ class CsvConfigUpdate extends Component {
           <span className="col-md-2 col-form-label">Entity</span>
           <div style={{ fontSize: '20px' }}>
             {' '}
-            {this.props.csvConfig.entity}
+            {_.startCase(this.props.csvConfig.entity)}
             {' '}
           </div>
         </div>
