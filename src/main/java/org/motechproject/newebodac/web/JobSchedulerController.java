@@ -8,9 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @Controller
@@ -30,7 +30,9 @@ public class JobSchedulerController {
     schedulerService.triggerJob(jobName);
   }
 
-  @RequestMapping(value = "/job/{csvConfigId}", method = RequestMethod.GET)
+  @RequestMapping(value = "/job/", method = RequestMethod.GET)
+  @ResponseBody
+  @ResponseStatus(HttpStatus.OK)
   public List<JobDto> getAllJobs() throws SchedulerException {
     return schedulerService.getAllJobsDetails();
   }
@@ -40,7 +42,7 @@ public class JobSchedulerController {
    * @param jobName a name of the job to be paused
    * @throws SchedulerException throws exception in case any issues with scheduling
    */
-  @PostMapping("/job/pause/{jobName}")
+  @RequestMapping(value = "/job/pause/{jobName}", method = RequestMethod.POST)
   @ResponseStatus(HttpStatus.OK)
   public void pauseJob(@PathVariable("jobName") String jobName) throws SchedulerException {
     schedulerService.pauseJob(jobName);
