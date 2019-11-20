@@ -27,10 +27,17 @@ server:
 spring:
   quartz:
     job-store-type: jdbc
-    jdbc:
-      initialize-schema: always
-      comment-prefix: '#'
-      properties.org.quartz.jobStore.driverDelegateClass: org.quartz.impl.jdbcjobstore.StdJDBCDelegate
+    properties.org.quartz.threadPool.threadCount: 1
+    properties.org.quartz.jobStore.dataSource: quartzDataSource
+    properties.org.quartz.dataSource.quartzDataSource.URL: ${databaseUrl}
+    properties.org.quartz.dataSource.quartzDataSource.user: ${databaseUser}
+    properties.org.quartz.dataSource.quartzDataSource.password: ${databasePassword}
+    properties.org.quartz.jobStore.useProperties: true
+    properties.org.quartz.dataSource.quartzDataSource.driver: com.mysql.jdbc.Driver
+    properties.org.quartz.jobStore.tablePrefix: QRTZ_
+    properties.org.quartz.jobStore.class: org.quartz.impl.jdbcjobstore.JobStoreTX
+    # Enable HikariCP DB conn Pool
+    properties.org.quartz.dataSource.quartzDataSource.provider: hikaricp
   security:
     oauth2:
       client:
@@ -59,5 +66,5 @@ spring:
           starttls.enable: true
 
 scheduled-tasks:
-  demo-task:
-    cron-expression: '0 0 9 * * *'
+  send-messages:
+    interval: 86400 #one day
