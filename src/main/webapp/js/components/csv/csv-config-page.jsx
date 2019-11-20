@@ -25,7 +25,7 @@ class CsvConfigPage extends Component {
     this.props.onSubmit(values);
   };
 
-  getOptions = () => _.map(this.props.fieldConfig, v => ({
+  getOptions = () => _.map(_.filter(this.props.fieldConfig, 'editable'), v => ({
     label: v.displayName,
     value: v.id,
   }));
