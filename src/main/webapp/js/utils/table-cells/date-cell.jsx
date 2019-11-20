@@ -1,10 +1,11 @@
+import _ from 'lodash';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { format as formatDate, parseISO } from 'date-fns';
 
 const DateCell = ({ value, format }) => (
   <div className="table-cell-text">
-    {formatDate(parseISO(value), format)}
+    {_.isNil(value) ? '' : formatDate(parseISO(value), format)}
   </div>
 );
 
