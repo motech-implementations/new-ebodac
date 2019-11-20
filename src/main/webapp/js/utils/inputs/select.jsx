@@ -48,7 +48,7 @@ Select.propTypes = {
     PropTypes.shape({})])).isRequired,
   onChange: PropTypes.func.isRequired,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.shape({}),
-    PropTypes.arrayOf(PropTypes.oneOfType(PropTypes.string, PropTypes.shape({})))]),
+    PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.shape({})]))]),
   isMulti: PropTypes.bool,
 };
 

@@ -50,19 +50,22 @@ class EntityTable extends Component {
           </div>
           {this.canWrite() && (
             <div className="col-md-3">
-              <button
-                type="button"
-                className="btn btn-success btn-lg btn-block"
-                onClick={() => this.props.history.push(`/import/${entityType}`)}
-                disabled={_.isNil(this.props.csvConfigs)}
-                title={_.isNil(this.props.csvConfigs) && 'You have to create a CSV config for this entity!'}
-              >
-                Import CSV
-              </button>
+              {!_.isNil(this.props.csvConfigs) && (
+                <button
+                  type="button"
+                  className="btn btn-success btn-lg btn-block"
+                  onClick={() => this.props.history.push(`/import/${entityType}`)}
+                  disabled={_.isEmpty(this.props.csvConfigs)}
+                  title={_.isEmpty(this.props.csvConfigs)
+                    ? 'You have to create a CSV config for this entity!' : ''}
+                >
+                  Import CSV
+                </button>
+              )}
             </div>
           )}
           {this.canWrite() && (
-            <div className="col-md-3">
+            <div className="col-md-3 float-right">
               <button
                 type="button"
                 className="btn btn-success btn-lg btn-block"
@@ -111,10 +114,14 @@ EntityTable.propTypes = {
   entityType: PropTypes.string.isRequired,
   permissions: PropTypes.arrayOf(PropTypes.string).isRequired,
   fieldConfig: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
-  csvConfigs: PropTypes.shape().isRequired,
   fetchEntity: PropTypes.func.isRequired,
   entity: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   history: PropTypes.shape({
     push: PropTypes.func,
   }).isRequired,
+  csvConfigs: PropTypes.shape({}),
+};
+
+EntityTable.defaultProps = {
+  csvConfigs: null,
 };
