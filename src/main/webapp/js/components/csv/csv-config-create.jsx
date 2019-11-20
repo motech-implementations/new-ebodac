@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import 'react-table/react-table.css';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
+import Alert from 'react-s-alert';
 import Select from '../../utils/inputs/select';
 import {
   SITE_ENTITY,
@@ -11,6 +13,8 @@ import {
 } from '../../constants/entity-types';
 import CsvConfigPage from './csv-config-page';
 import { createCsvConfig } from '../../actions/csv-config-actions';
+
+const ALERT_TIMEOUT = 5000;
 
 const ENTITY_TYPES = [
   { label: 'Vaccinee', value: VACCINEE_ENTITY },
@@ -32,7 +36,12 @@ class CsvConfigCreate extends Component {
   };
 
   onSubmit = (values) => {
-    this.props.createCsvConfig(this.state.entity, values);
+    this.props.createCsvConfig(this.state.entity, values, () => {
+      Alert.success('CSV config has been created!', {
+        timeout: ALERT_TIMEOUT,
+      });
+      this.props.history.push('/csvConfigTable');
+    });
   };
 
   render() {
@@ -59,8 +68,13 @@ class CsvConfigCreate extends Component {
   }
 }
 
-export default connect(null, { createCsvConfig })(CsvConfigCreate);
+export default withRouter(
+  connect(null, { createCsvConfig })(CsvConfigCreate),
+);
 
 CsvConfigCreate.propTypes = {
   createCsvConfig: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
 };

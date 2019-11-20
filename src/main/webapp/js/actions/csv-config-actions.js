@@ -22,8 +22,9 @@ export const fetchAllCsvConfigs = () => (dispatch) => {
   });
 };
 
-export const createCsvConfig = (entityType, csvConfig) => {
+export const createCsvConfig = (entityType, csvConfig, callback) => {
   const request = apiClient.post(CSV_CONFIG, csvConfig);
+  request.then(() => callback());
   return {
     type: CREATE_CSV_CONFIG,
     payload: request,
@@ -33,8 +34,9 @@ export const createCsvConfig = (entityType, csvConfig) => {
   };
 };
 
-export const saveCsvConfig = (entityType, csvConfig) => {
+export const saveCsvConfig = (entityType, csvConfig, callback) => {
   const request = apiClient.put(`${CSV_CONFIG}/${csvConfig.id}`, csvConfig);
+  request.then(() => callback());
   return {
     type: SAVE_CSV_CONFIG,
     payload: request,
@@ -44,8 +46,9 @@ export const saveCsvConfig = (entityType, csvConfig) => {
   };
 };
 
-export const deleteCsvConfig = (entityType, csvConfigId) => {
+export const deleteCsvConfig = (entityType, csvConfigId, callback) => {
   const request = apiClient.delete(`${CSV_CONFIG}/${csvConfigId}`);
+  request.then(() => callback());
   return {
     type: DELETE_CSV_CONFIG,
     payload: request,
