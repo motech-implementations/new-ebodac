@@ -35,6 +35,6 @@ Checkbox.propTypes = {
 };
 
 Checkbox.defaultProps = {
-  value: null,
+  value: false,
   indeterminate: false,
 };

@@ -18,5 +18,7 @@ public class CsvFieldDto extends BaseDto {
 
   private String defaultValue;
 
+  private Boolean keyField;
+
   private Set<CsvFieldValueToEntityDto> fieldValueMap = new HashSet();
 }
