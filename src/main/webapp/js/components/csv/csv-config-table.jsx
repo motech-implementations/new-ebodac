@@ -3,6 +3,7 @@ import ReactTable from 'react-table';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
+import _ from 'lodash';
 
 import 'react-table/react-table.css';
 import { getCsvConfigArray } from '../../selectors';
@@ -41,7 +42,7 @@ const CsvConfigTable = props => (
           columns={columns}
           getTdProps={(state, rowInfo) => ({
             onClick: () => {
-              if (rowInfo.original) {
+              if (_.get(rowInfo, 'original.id')) {
                 props.history.push(
                   `/updateCsvConfig/${rowInfo.original.entity}/${rowInfo.original.id}`,
                 );
