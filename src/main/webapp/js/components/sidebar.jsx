@@ -240,12 +240,6 @@ class SideBar extends Component {
 
     return (
       <ul className="nav nav-second-level">
-        <li className="border-none">
-          <Link to="/messaging">
-            <FontAwesomeIcon icon="hand-point-right" />
-            <span className="icon-text">Messaging</span>
-          </Link>
-        </li>
         {this.isAuthorizated(getEntityReadPermission(LANGUAGE_ENTITY))
         && (
           <li className="border-none">
