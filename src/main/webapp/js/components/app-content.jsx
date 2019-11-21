@@ -17,7 +17,6 @@ import CallLogVaccinees from './reports/call-log-vaccinees';
 import CallLogCommunityPerson from './reports/call-log-community-person';
 import SmsLogVaccinees from './reports/sms-log-vaccinees';
 import SmsLogCommunityPerson from './reports/sms-log-community-person';
-import Messaging from './settings/messaging';
 import Languages from './settings/languages';
 import RoutePrivate from './helpers/RoutePrivate';
 import EntityRoutePrivate from './helpers/EntityRoutePrivate';
@@ -68,7 +67,6 @@ class AppContent extends Component {
                 <RoutePrivate path="/callLogCommunityPerson" component={CallLogCommunityPerson} />
                 <RoutePrivate path="/smsLogVaccinees" component={SmsLogVaccinees} />
                 <RoutePrivate path="/smsLogCommunityPerson" component={SmsLogCommunityPerson} />
-                <RoutePrivate path="/messaging" component={Messaging} />
                 <RoutePrivate path="/languages" component={Languages} />
                 <EntityRoutePrivate readOnly path="/viewEntity/:entityType" component={ViewEntity} />
                 <EntityRoutePrivate path="/create/:entityType" component={CreateOrEditEntityPage} />
