@@ -23,6 +23,7 @@ import {
   MANAGE_FIELD_CONFIG,
   MANAGE_CSV_CONFIG,
   MANAGE_APP_SETTINGS,
+  MANAGE_VACCINEE_ENROLLMENT,
 } from '../constants/permissions';
 import { getEntityReadPermission } from '../utils/permission-helper';
 
@@ -98,12 +99,15 @@ class SideBar extends Component {
             <span className="icon-text">Key Community Person Enrollment</span>
           </Link>
         </li>
-        <li className="border-none">
-          <Link to="/vaccineeEnrollment">
-            <FontAwesomeIcon icon="hand-point-right" />
-            <span className="icon-text">Vaccinee Enrollment</span>
-          </Link>
-        </li>
+        {this.isAuthorizated([MANAGE_VACCINEE_ENROLLMENT])
+        && (
+          <li className="border-none">
+            <Link to="/vaccineeEnrollment">
+              <FontAwesomeIcon icon="hand-point-right" />
+              <span className="icon-text">Vaccinee Enrollment</span>
+            </Link>
+          </li>
+        )}
       </ul>
     );
   };

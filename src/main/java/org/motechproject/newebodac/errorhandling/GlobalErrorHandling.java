@@ -1,5 +1,6 @@
 package org.motechproject.newebodac.errorhandling;
 
+import org.motechproject.newebodac.exception.EnrollmentException;
 import org.motechproject.newebodac.exception.EntityNotFoundException;
 import org.motechproject.newebodac.exception.NewEbodacException;
 import org.springframework.http.HttpStatus;
@@ -10,6 +11,13 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ControllerAdvice
 public class GlobalErrorHandling extends AbstractErrorHandling {
+
+  @ExceptionHandler(EnrollmentException.class)
+  @ResponseStatus(HttpStatus.BAD_REQUEST)
+  @ResponseBody
+  public ErrorResponse handleEnrollmentException(EnrollmentException ex) {
+    return logAndGetErrorResponse(ex);
+  }
 
   @ExceptionHandler(NewEbodacException.class)
   @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)

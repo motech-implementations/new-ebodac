@@ -35,16 +35,9 @@ const handleError = (error) => {
       Alert.error('Access denied.');
       break;
     default: {
-      // eslint-disable-next-line no-prototype-builtins
-      if (error.response.hasOwnProperty('status')) {
-        Alert.error(`Error occurred: ${_.get(error, 'response.data.message', 'Check log for more details')}`, {
-          timeout: 5000,
-        });
-      } else {
-        Alert.error('Error occurred: Check log for more details', {
-          timeout: 5000,
-        });
-      }
+      Alert.error(`Error occurred: ${_.get(error, 'response.data.message', 'Check log for more details')}`, {
+        timeout: 5000,
+      });
     }
   }
   return Promise.reject(error);

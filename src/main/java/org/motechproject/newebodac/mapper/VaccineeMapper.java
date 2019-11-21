@@ -13,6 +13,8 @@ import org.motechproject.newebodac.domain.EnrollmentGroup;
 import org.motechproject.newebodac.domain.ExtraField;
 import org.motechproject.newebodac.domain.Language;
 import org.motechproject.newebodac.domain.Vaccinee;
+import org.motechproject.newebodac.domain.Visit;
+import org.motechproject.newebodac.domain.enums.EnrollmentStatus;
 import org.motechproject.newebodac.domain.enums.EntityType;
 import org.motechproject.newebodac.dto.VaccineeDto;
 import org.motechproject.newebodac.helper.EncryptionHelper;
@@ -40,6 +42,7 @@ public abstract class VaccineeMapper implements EntityMapper<VaccineeDto, Vaccin
   @Mapping(target = "preferredLanguage", source = "preferredLanguage.id")
   @Mapping(target = "phoneNumber", qualifiedByName = TO_DECRYPTED_PHONE_NUMBER)
   @Mapping(target = "alternatePhoneNumber", qualifiedByName = TO_DECRYPTED_PHONE_NUMBER)
+  @Mapping(target = "status", source = "visits")
   public abstract VaccineeDto toDto(Vaccinee vaccinee);
 
   @Override
@@ -74,6 +77,29 @@ public abstract class VaccineeMapper implements EntityMapper<VaccineeDto, Vaccin
       return new Language(id);
     }
     return null;
+  }
+
+  /**
+   * Calculate enrollment status for Vaccinee.
+   * @param visits list of visits
+   * @return Vaccinee enrollment status
+   */
+  public String toStatus(Set<Visit> visits) {
+    EnrollmentStatus status = EnrollmentStatus.COMPLETED;
+
+    for (Visit visit : visits) {
+      if (EnrollmentStatus.ENROLLED.equals(visit.getStatus())) {
+        return EnrollmentStatus.ENROLLED.name();
+      }
+      if (EnrollmentStatus.UNENROLLED.equals(visit.getStatus())) {
+        status = EnrollmentStatus.UNENROLLED;
+      } else if (!EnrollmentStatus.UNENROLLED.equals(status)
+          && EnrollmentStatus.NOT_ENROLLED.equals(visit.getStatus())) {
+        status = EnrollmentStatus.NOT_ENROLLED;
+      }
+    }
+
+    return status.name();
   }
 
   /**

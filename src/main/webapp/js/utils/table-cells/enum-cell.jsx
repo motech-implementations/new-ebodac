@@ -8,7 +8,7 @@ const EnumCell = ({ value, format }) => {
     if (format) {
       _.forEach(format.split(','), (val) => {
         const chunks = val.split(':');
-        if (chunks[0] === value) {
+        if (chunks[0] === value && chunks.length > 1) {
           [, enumValue] = chunks;
         }
       });

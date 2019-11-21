@@ -8,6 +8,7 @@ import SideBar from './sidebar';
 import Home from './home';
 import KeyCommunityPersonEnrollment from './enrollment/key-community-person-enrollment';
 import VaccineeEnrollment from './enrollment/vaccinee-enrollment';
+import VisitEnrollment from './enrollment/visit-enrollment';
 import VisitSchedule from './visit/visit-schedule';
 import BoosterVisitGenerator from './visit/booster-visit-generator';
 import UserLogs from './reports/user-logs';
@@ -27,6 +28,7 @@ import {
   MANAGE_FIELD_CONFIG,
   MANAGE_CSV_CONFIG,
   MANAGE_APP_SETTINGS,
+  MANAGE_VACCINEE_ENROLLMENT,
 } from '../constants/permissions';
 import CsvConfigCreate from './csv/csv-config-create';
 import CsvConfigUpdate from './csv/csv-config-update';
@@ -57,7 +59,16 @@ class AppContent extends Component {
             <div className="container-wrapper">
               <Switch>
                 <RoutePrivate path="/keyCommunityPersonEnrollment" component={KeyCommunityPersonEnrollment} />
-                <RoutePrivate path="/vaccineeEnrollment" component={VaccineeEnrollment} />
+                <RoutePrivate
+                  requiredPermissions={[MANAGE_VACCINEE_ENROLLMENT]}
+                  path="/vaccineeEnrollment"
+                  component={VaccineeEnrollment}
+                />
+                <RoutePrivate
+                  requiredPermissions={[MANAGE_VACCINEE_ENROLLMENT]}
+                  path="/visitEnrollment/:id"
+                  component={VisitEnrollment}
+                />
                 <RoutePrivate path="/visitSchedule" component={VisitSchedule} />
                 <RoutePrivate path="/boosterVisitGenerator" component={BoosterVisitGenerator} />
                 <RoutePrivate path="/userLogs" component={UserLogs} />

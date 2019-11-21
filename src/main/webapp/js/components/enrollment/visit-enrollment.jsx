@@ -6,32 +6,33 @@ import { withRouter } from 'react-router-dom';
 import Alert from 'react-s-alert';
 import PropTypes from 'prop-types';
 
-import { getEntityArrayByName } from '../../selectors';
+import { getVisitsByVaccineeId } from '../../selectors';
 import { fetchEntity } from '../../actions/entity-actions';
-import { enrollVaccinee, unenrollVaccinee } from '../../actions/enrollment-actions';
-import { VACCINEE_ENTITY } from '../../constants/entity-types';
+import { enrollVisit, unenrollVisit } from '../../actions/enrollment-actions';
+import { VISIT_ENTITY } from '../../constants/entity-types';
 import { getEnrollmentStatusName } from '../../constants/enrollment-status';
+import DateCell from '../../utils/table-cells/date-cell';
 import TextCell from '../../utils/table-cells/text-cell';
 import EnrollmentCell from '../../utils/table-cells/enrollment-cell';
 
 const ALERT_TIMEOUT = 5000;
 
-class VaccineeEnrollment extends Component {
+class VisitEnrollment extends Component {
   componentDidMount() {
-    this.props.fetchEntity(VACCINEE_ENTITY);
+    this.props.fetchEntity(VISIT_ENTITY);
   }
 
   enroll = (vaccineeId) => {
-    this.props.enrollVaccinee(vaccineeId, () => {
-      Alert.success('Vaccinee has been successfully enrolled!', {
+    this.props.enrollVisit(vaccineeId, () => {
+      Alert.success('Visit has been successfully enrolled!', {
         timeout: ALERT_TIMEOUT,
       });
     });
   };
 
   unenroll = (vaccineeId) => {
-    this.props.unenrollVaccinee(vaccineeId, () => {
-      Alert.success('Vaccinee has been successfully unenrolled!', {
+    this.props.unenrollVisit(vaccineeId, () => {
+      Alert.success('Visit has been successfully unenrolled!', {
         timeout: ALERT_TIMEOUT,
       });
     });
@@ -40,11 +41,21 @@ class VaccineeEnrollment extends Component {
   getColumns = () => [
     {
       Header: 'Vaccinee Id',
-      accessor: 'vaccineeId',
+      accessor: 'vaccinee.vaccineeId',
     },
     {
-      Header: 'Vaccinee Name',
-      accessor: 'name',
+      Header: 'Visit type',
+      accessor: 'type.displayName',
+    },
+    {
+      Header: 'Actual Date',
+      accessor: 'date',
+      Cell: cell => (<DateCell value={cell.value} format="yyyy-MM-dd" />),
+    },
+    {
+      Header: 'Planned Date',
+      accessor: 'plannedDate',
+      Cell: cell => (<DateCell value={cell.value} format="yyyy-MM-dd" />),
     },
     {
       Header: 'Status',
@@ -66,27 +77,20 @@ class VaccineeEnrollment extends Component {
   ];
 
   render() {
-    const { vaccinees, history } = this.props;
+    const { visits } = this.props;
 
     return (
       <div className="container">
         <div className="row margin-top-sm">
           <div className="col-md-6">
-            <h1>Vaccinee enrollment</h1>
+            <h1>Visit enrollment</h1>
           </div>
         </div>
         <div className="row">
           <div className="col-md-12">
             <ReactTable
-              data={vaccinees}
+              data={visits}
               columns={this.getColumns()}
-              getTdProps={(state, rowInfo) => ({
-                onClick: () => {
-                  if (_.get(rowInfo, 'original.id')) {
-                    history.push(`/visitEnrollment/${rowInfo.original.id}`);
-                  }
-                },
-              })}
             />
           </div>
         </div>
@@ -95,20 +99,25 @@ class VaccineeEnrollment extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  vaccinees: getEntityArrayByName(state, { entityType: VACCINEE_ENTITY }),
+const mapStateToProps = (state, props) => ({
+  visits: getVisitsByVaccineeId(state, { vaccineeId: props.match.params.id }),
 });
 
 export default withRouter(
-  connect(mapStateToProps, { fetchEntity, enrollVaccinee, unenrollVaccinee })(VaccineeEnrollment),
+  connect(mapStateToProps, { fetchEntity, enrollVisit, unenrollVisit })(VisitEnrollment),
 );
 
-VaccineeEnrollment.propTypes = {
+VisitEnrollment.propTypes = {
   fetchEntity: PropTypes.func.isRequired,
-  enrollVaccinee: PropTypes.func.isRequired,
-  unenrollVaccinee: PropTypes.func.isRequired,
-  vaccinees: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  enrollVisit: PropTypes.func.isRequired,
+  unenrollVisit: PropTypes.func.isRequired,
+  visits: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   history: PropTypes.shape({
     push: PropTypes.func,
+  }).isRequired,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string,
+    }),
   }).isRequired,
 };

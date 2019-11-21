@@ -1,0 +1,22 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+    <changeSet author="pmuchowski (generated)" id="1573814469419-1">
+        <insert tableName="user_permission">
+            <column name="id" value="7dbc8978-1f05-4a74-a58c-1965d36d4336"/>
+            <column name="display_name" value="MANAGE_VACCINEE_ENROLLMENT"/>
+            <column name="name" value="ROLE_vaccinee_enrollment_MANAGE"/>
+            <column name="readonly" valueBoolean="true"/>
+            <column name="create_date" value="2019-11-15 13:58:44"/>
+            <column name="update_date" value="2019-11-15 13:58:44"/>
+        </insert>
+        <insert tableName="user_role_permissions">
+            <column name="role_id" value="d892e3c6-25eb-4291-abfc-b379aa502bc3"/>
+            <column name="permission_id" value="7dbc8978-1f05-4a74-a58c-1965d36d4336"/>
+        </insert>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1573814469419-2">
+        <delete tableName="field_config">
+            <where>id='0570f060-c187-4099-8987-86b0fec70d54'</where>
+        </delete>
+    </changeSet>
+</databaseChangeLog>

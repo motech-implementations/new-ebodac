@@ -30,5 +30,7 @@ public class VaccineeDto extends BaseDto {
 
   private UUID group;
 
+  private String status;
+
   private Set<ExtraFieldDto> extraFields = new HashSet<>();
 }

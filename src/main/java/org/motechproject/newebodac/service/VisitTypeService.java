@@ -1,6 +1,7 @@
 package org.motechproject.newebodac.service;
 
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 import org.motechproject.newebodac.constants.DefaultPermissions;
 import org.motechproject.newebodac.domain.Visit;
@@ -65,7 +66,7 @@ public class VisitTypeService {
     VisitType visitType = visitTypeRepository.findById(id).orElseThrow(() ->
         new EntityNotFoundException("Visit Type with id: {0} not found", id.toString()));
 
-    List<Visit> visits = visitRepository.getByType(visitType);
+    Set<Visit> visits = visitRepository.getByType(visitType);
     if (!visits.isEmpty()) {
       throw new RelationViolationException("Can not delete visit type with visits in it!");
     }

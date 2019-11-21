@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import { createSelector } from 'reselect';
+import { VACCINEE_ENTITY, VISIT_ENTITY, VISIT_TYPE_ENTITY } from '../constants/entity-types';
 
 export const getFieldConfigByEntity = (state, { entityType }) => (
   state.fieldConfig[entityType]
@@ -48,6 +49,23 @@ const filterEntityByIdList = (entity, ids, relatedField) => _.map(
   ids, id => _.get(entity, `${id}.${relatedField}`),
 );
 
+const getVisits = state => state.entity[VISIT_ENTITY];
+
+const getVisitTypes = state => state.entity[VISIT_TYPE_ENTITY];
+
+const getVaccinee = (state, { vaccineeId }) => _.get(state, `entity.${VACCINEE_ENTITY}.${vaccineeId}`);
+
+const filterVisits = (visits, visitTypes, vaccinee) => (
+  _.chain(visits).values()
+    .filter(visit => visit.vaccinee === _.get(vaccinee, 'id'))
+    .map(visit => ({
+      ...visit,
+      type: visitTypes[visit.type],
+      vaccinee,
+    }))
+    .value()
+);
+
 export const getVisibleFields = createSelector(
   getFieldConfigByEntity, fields => filterAndMapFields(fields, false),
 );
@@ -75,4 +93,11 @@ export const getEntityByIdList = createSelector(
   getIdList,
   getRelatedField,
   filterEntityByIdList,
+);
+
+export const getVisitsByVaccineeId = createSelector(
+  getVisits,
+  getVisitTypes,
+  getVaccinee,
+  filterVisits,
 );

@@ -33,3 +33,5 @@ export const DELETE_CSV_CONFIG = 'delete_csv_config';
 
 export const FETCH_APP_SETTINGS = 'fetch_app_settings';
 export const UPDATE_APP_SETTINGS = 'update_app_settings';
+
+export const UPDATE_ENROLLMENT_STATUS = 'update_enrollment_status';

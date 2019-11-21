@@ -3,6 +3,7 @@ import update from 'immutability-helper';
 
 import {
   FETCH_ENTITY, DELETE_ENTITY, UPDATE_ENTITY, CREATE_ENTITY, START_FETCH_ENTITY,
+  UPDATE_ENROLLMENT_STATUS,
 } from '../actions/types';
 
 import {
@@ -132,6 +133,14 @@ export default (state = initialState, action) => {
               ...payload.data,
               extraFields: _.keyBy(_.get(payload.data, 'extraFields', {}), 'name'),
             },
+          },
+        },
+      });
+    case UPDATE_ENROLLMENT_STATUS:
+      return update(state, {
+        [entityType]: {
+          [entityId]: {
+            status: { $set: meta.enrollmentStatus },
           },
         },
       });

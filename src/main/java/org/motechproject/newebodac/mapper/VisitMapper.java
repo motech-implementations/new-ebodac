@@ -31,11 +31,13 @@ public interface VisitMapper extends EntityMapper<VisitDto, Visit> {
   @Mapping(target = "id", ignore = true)
   @Mapping(target = "createDate", ignore = true)
   @Mapping(target = "updateDate", ignore = true)
+  @Mapping(target = "status", ignore = true)
   Visit fromDto(VisitDto visitDto);
 
   @Mapping(target = "id", ignore = true)
   @Mapping(target = "createDate", ignore = true)
   @Mapping(target = "updateDate", ignore = true)
+  @Mapping(target = "status", ignore = true)
   void update(VisitDto visitDto, @MappingTarget Visit visit);
 
   /**
