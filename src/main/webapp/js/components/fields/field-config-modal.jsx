@@ -108,7 +108,12 @@ class FieldConfigModal extends React.Component {
 
     if (!fieldId) {
       this.props.createFieldConfig(entityType,
-        { ...values, fieldOrder: newItemOrder, entity: entityType });
+        {
+          ...values,
+          format: _.includes([DATE, DATE_TIME, ENUM], values.fieldType) ? values.format : undefined,
+          fieldOrder: newItemOrder,
+          entity: entityType,
+        });
     } else {
       this.props.saveFieldConfig(entityType, values);
     }
@@ -128,7 +133,10 @@ class FieldConfigModal extends React.Component {
     this.props.hideModal();
   };
 
-  validate = values => validate(FIELDS)(values);
+  validate = values => validate(_.map(FIELDS, elem => ({
+    ...elem,
+    required: (_.includes([DATE, DATE_TIME, ENUM], values.fieldType) && elem.name === 'format') || elem.required,
+  })))(values);
 
   openConfirmModal = () => {
     this.setState({ openConfirmModal: true });
@@ -149,9 +157,14 @@ class FieldConfigModal extends React.Component {
           onSubmit={this.onSubmit}
           validate={this.validate}
           initialValues={config}
-          render={({ handleSubmit, invalid }) => (
+          render={({ handleSubmit, invalid, values }) => (
             <form onSubmit={handleSubmit} className="modal-fields">
-              {_.map(FIELDS, elem => renderFormField({ ...elem, editable: (elem.name !== 'name' && elem.name !== 'fieldType') || !fieldId }))}
+              {_.map(FIELDS, elem => renderFormField({
+                ...elem,
+                editable: (elem.name !== 'name' && elem.name !== 'fieldType') || !fieldId,
+                hidden: !_.includes([DATE, DATE_TIME, ENUM], values.fieldType) && elem.name === 'format',
+                required: (_.includes([DATE, DATE_TIME, ENUM], values.fieldType) && elem.name === 'format') || elem.required,
+              }))}
               <div>
                 <span>
                   <button type="submit" disabled={invalid} className="btn btn-primary mr-1">Save</button>
