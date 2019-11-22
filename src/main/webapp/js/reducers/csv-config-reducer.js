@@ -12,12 +12,14 @@ import {
   VACCINEE_ENTITY,
   SITE_ENTITY,
   VISIT_ENTITY,
+  KEY_COMMUNITY_PERSON_ENTITY,
 } from '../constants/entity-types';
 
 const initialState = {
   [VACCINEE_ENTITY]: {},
   [SITE_ENTITY]: {},
   [VISIT_ENTITY]: {},
+  [KEY_COMMUNITY_PERSON_ENTITY]: {},
   csvConfigFetched: false,
   csvConfigFetching: false,
 };

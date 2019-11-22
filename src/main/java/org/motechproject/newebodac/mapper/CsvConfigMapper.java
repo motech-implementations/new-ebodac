@@ -16,8 +16,10 @@ import org.motechproject.newebodac.domain.enums.EntityType;
 import org.motechproject.newebodac.dto.CsvConfigDto;
 import org.motechproject.newebodac.dto.CsvFieldDto;
 import org.motechproject.newebodac.dto.CsvFieldValueToEntityDto;
+import org.motechproject.newebodac.dto.CsvFieldValueToEnumDto;
 
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
+@SuppressWarnings({"PMD.TooManyMethods"})
 public interface CsvConfigMapper extends EntityMapper<CsvConfigDto, CsvConfig> {
 
   CsvConfigMapper INSTANCE = Mappers.getMapper(CsvConfigMapper.class);
@@ -39,12 +41,22 @@ public interface CsvConfigMapper extends EntityMapper<CsvConfigDto, CsvConfig> {
         .toMap(CsvFieldValueToEntityDto::getFieldValue, CsvFieldValueToEntityDto::getEntityId));
   }
 
+  default Map<String, String> fromDtoEnum(Set<CsvFieldValueToEnumDto> csvFieldValueEnumMap) {
+    return csvFieldValueEnumMap.stream().collect(Collectors
+        .toMap(CsvFieldValueToEnumDto::getFieldValue, CsvFieldValueToEnumDto::getEnumValue));
+  }
+
   @Mapping(target = "fieldConfigId", source = "fieldConfig")
   CsvFieldDto toDto(CsvField csvField);
 
   default Set<CsvFieldValueToEntityDto> toDto(Map<String, UUID> csvFieldValueMap) {
     return csvFieldValueMap.entrySet().stream().map(elem ->
         new CsvFieldValueToEntityDto(elem.getKey(), elem.getValue())).collect(Collectors.toSet());
+  }
+
+  default Set<CsvFieldValueToEnumDto> toDtoEnum(Map<String, String> csvFieldValueEnumMap) {
+    return csvFieldValueEnumMap.entrySet().stream().map(elem ->
+        new CsvFieldValueToEnumDto(elem.getKey(), elem.getValue())).collect(Collectors.toSet());
   }
 
   @Mapping(target = "id", ignore = true)

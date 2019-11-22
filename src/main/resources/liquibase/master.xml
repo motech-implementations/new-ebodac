@@ -28,4 +28,6 @@
   <include file="liquibase/quartz/liquibase.quartz.init.xml" relativeToChangelogFile="false"/>
   <include file="liquibase/changelog/20191119120154_changelog.xml" relativeToChangelogFile="false"/>
   <include file="liquibase/changelog/20191115114057_changelog.xml" relativeToChangelogFile="false"/>
+  <include file="liquibase/changelog/20191121121105_changelog.xml" relativeToChangelogFile="false"/>
+  <include file="liquibase/changelog/20191122094221_changelog.xml" relativeToChangelogFile="false"/>
 </databaseChangeLog>
