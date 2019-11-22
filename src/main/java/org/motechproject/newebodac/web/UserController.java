@@ -59,7 +59,7 @@ public class UserController extends BaseController {
   @RequestMapping(value = "/register", method = RequestMethod.POST)
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
-  public UserDto registerUser(@RequestBody @Valid UserDto userDto) {
-    return userService.create(userDto);
+  public void registerUser(@RequestBody @Valid UserDto userDto) {
+    userService.register(userDto);
   }
 }

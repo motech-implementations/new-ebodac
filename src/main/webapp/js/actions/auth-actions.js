@@ -94,29 +94,29 @@ export const signoutUser = () => ({ type: UNAUTH_USER });
 
 export const registerUser = (values, callback) => (dispatch) => {
   const request = axios.post(`${BASE_URL}/register`, values);
-  request.catch(() => {
+  request.then(() => {
+    const success = {
+      message: 'Registration Success. Administrator need to activate your account.',
+      success: true,
+    };
+    dispatch({
+      type: REGISTER_USER,
+      payload: success,
+    });
+    if (callback) {
+      callback();
+    }
+  }, (e) => {
+    const message = _.get(e, 'response.data.message', null);
     const failure = {
-      message: 'Registration Error. Please try again.',
+      message: message || 'Registration Error. Please try again.',
       success: false,
     };
     dispatch({
       type: REGISTER_USER,
       payload: failure,
     });
-  })
-    .then(() => {
-      const success = {
-        message: 'Registration Success. Administrator need to activate your account.',
-        success: true,
-      };
-      dispatch({
-        type: REGISTER_USER,
-        payload: success,
-      });
-      if (callback) {
-        callback();
-      }
-    });
+  });
 };
 
 export const resetLogoutCounter = () => ({
