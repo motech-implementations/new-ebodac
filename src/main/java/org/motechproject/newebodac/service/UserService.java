@@ -25,7 +25,6 @@ public class UserService {
 
   private static final UserMapper MAPPER = UserMapper.INSTANCE;
 
-  @PreAuthorize(DefaultPermissions.HAS_USER_READ_ROLE)
   public User getUserByUserName(String userName) {
     return userRepository.findOneByUsername(userName).orElseThrow(() ->
         new EntityNotFoundException("User with username: {0} not found", userName));
