@@ -7,6 +7,7 @@ import org.motechproject.newebodac.constants.DefaultPermissions;
 import org.motechproject.newebodac.domain.security.User;
 import org.motechproject.newebodac.dto.UserDto;
 import org.motechproject.newebodac.exception.EntityNotFoundException;
+import org.motechproject.newebodac.exception.UserAlreadyExistsException;
 import org.motechproject.newebodac.mapper.UserMapper;
 import org.motechproject.newebodac.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +45,21 @@ public class UserService {
   public UserDto create(UserDto user) {
     user.setPassword(passwordEncoder.encode(user.getPassword()));
     return MAPPER.toDto(userRepository.save(MAPPER.fromDto(user)));
+  }
+
+  /**
+   * Create user from register form.
+   * @param user Dto of user user to register.
+   * @throws UserAlreadyExistsException if user with this username already exists.
+   */
+  public void register(UserDto user) {
+    userRepository.findOneByUsername(user.getUsername()).ifPresent(u -> {
+      throw new UserAlreadyExistsException("User with username: {0} already exists.",
+          u.getUsername());
+    });
+    user.setPassword(passwordEncoder.encode(user.getPassword()));
+    user.setEnabled(false);
+    userRepository.save(MAPPER.fromDto(user));
   }
 
   /**
