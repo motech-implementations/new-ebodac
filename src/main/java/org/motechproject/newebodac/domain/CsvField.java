@@ -47,4 +47,11 @@ public class CsvField extends BaseEntity {
   @Type(type = "uuid-char")
   @MapKeyColumn(name = "field_value")
   private Map<String, UUID> fieldValueMap;
+
+  @ElementCollection(fetch = FetchType.LAZY)
+  @CollectionTable(name = "csv_enum_value_map", joinColumns = @JoinColumn(name = "csv_field_id"))
+  @Column(name = "mapped_enum_value")
+  @Type(type = "string")
+  @MapKeyColumn(name = "csv_value")
+  private Map<String, String> enumValueMap;
 }

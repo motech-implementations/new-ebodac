@@ -10,6 +10,7 @@ import {
   SITE_ENTITY,
   VACCINEE_ENTITY,
   VISIT_ENTITY,
+  KEY_COMMUNITY_PERSON_ENTITY,
 } from '../../constants/entity-types';
 import CsvConfigPage from './csv-config-page';
 import { createCsvConfig } from '../../actions/csv-config-actions';
@@ -20,6 +21,7 @@ const ENTITY_TYPES = [
   { label: 'Vaccinee', value: VACCINEE_ENTITY },
   { label: 'Visit', value: VISIT_ENTITY },
   { label: 'Site', value: SITE_ENTITY },
+  { label: 'Key Community Person', value: KEY_COMMUNITY_PERSON_ENTITY },
 ];
 
 class CsvConfigCreate extends Component {

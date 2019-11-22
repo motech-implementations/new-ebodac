@@ -94,6 +94,22 @@ class CsvConfigPage extends Component {
     },
   ];
 
+  getCsvValueEnumMapFields = fieldConfig => [
+    {
+      name: 'enumValue',
+      fieldType: ENUM,
+      displayName: 'Enum value',
+      required: true,
+      format: fieldConfig.format,
+    },
+    {
+      name: 'fieldValue',
+      fieldType: TEXT,
+      displayName: 'CSV value',
+      required: true,
+    },
+  ];
+
   validate = (values) => {
     let hasKeyField = false;
     const errors = {};
@@ -178,6 +194,42 @@ class CsvConfigPage extends Component {
                                           className="btn btn-success my-2"
                                           onClick={() => csvValueMapFields.push({
                                             entityId: '',
+                                            fieldValue: '',
+                                          })}
+                                        >
+                                          Add CSV value
+                                        </button>
+                                      </div>
+                                    </div>
+                                  )}
+                                </FieldArray>
+                              </div>
+                            );
+                          }
+                          if (fieldConfig && fieldConfig.fieldType === ENUM) {
+                            return (
+                              <div>
+                                <FieldArray name={`${name}.enumValueMap`}>
+                                  { ({ fields: csvValueEnumMapFields }) => (
+                                    <div>
+                                      {csvValueEnumMapFields.map(csvValueMapEnumField => (
+                                        <div key={csvValueMapEnumField} className="csvValueMapField">
+                                          { _.map(this.getCsvValueEnumMapFields(fieldConfig), csvValueEnumMap => renderFormField({ ...csvValueEnumMap, name: `${csvValueMapEnumField}.${csvValueEnumMap.name}` })) }
+                                          <button
+                                            type="button"
+                                            className="btn btn-danger"
+                                            onClick={() => csvValueEnumMapFields.remove(index)}
+                                          >
+                                            Delete
+                                          </button>
+                                        </div>
+                                      ))}
+                                      <div>
+                                        <button
+                                          type="button"
+                                          className="btn btn-success my-2"
+                                          onClick={() => csvValueEnumMapFields.push({
+                                            enumValue: '',
                                             fieldValue: '',
                                           })}
                                         >
