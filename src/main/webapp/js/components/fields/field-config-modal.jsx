@@ -106,14 +106,14 @@ class FieldConfigModal extends React.Component {
   onSubmit = (values) => {
     const { fieldId, entityType, newItemOrder } = this.props;
 
-    if (!_.includes([DATE, DATE_TIME, ENUM], values.fieldType)) {
-      // eslint-disable-next-line no-param-reassign
-      values.format = undefined;
-    }
-
     if (!fieldId) {
       this.props.createFieldConfig(entityType,
-        { ...values, fieldOrder: newItemOrder, entity: entityType });
+        {
+          ...values,
+          format: _.includes([DATE, DATE_TIME, ENUM], values.fieldType) ? values.format : undefined,
+          fieldOrder: newItemOrder,
+          entity: entityType,
+        });
     } else {
       this.props.saveFieldConfig(entityType, values);
     }
