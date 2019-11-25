@@ -66,7 +66,7 @@ class CsvImport extends Component {
   }
 
   render() {
-    const { csvConfigs } = this.props;
+    const { csvConfigs, isOnline } = this.props;
     const { entityType } = this.props.match.params;
 
     return (
@@ -116,7 +116,7 @@ class CsvImport extends Component {
                 <button
                   type="submit"
                   className="btn btn-primary btn-block"
-                  disabled={!this.state.file || !this.state.configId}
+                  disabled={!this.state.file || !this.state.configId || !isOnline}
                 >
                 Upload
                 </button>
@@ -152,6 +152,7 @@ class CsvImport extends Component {
 
 const mapStateToProps = (state, props) => ({
   csvConfigs: getCsvConfigsByEntityType(state, { entityType: props.match.params.entityType }),
+  isOnline: state.offline.online,
 });
 
 export default withRouter(
@@ -159,6 +160,7 @@ export default withRouter(
 );
 
 CsvImport.propTypes = {
+  isOnline: PropTypes.bool.isRequired,
   csvConfigs: PropTypes.shape().isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape({

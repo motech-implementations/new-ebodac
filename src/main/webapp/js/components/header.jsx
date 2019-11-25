@@ -29,6 +29,7 @@ class Header extends Component {
   };
 
   render() {
+    const { isOnline } = this.props;
     const { toggleButtonToggled } = this.state;
     return (
       <div>
@@ -53,14 +54,26 @@ class Header extends Component {
           </div>
           <a className="active" href="#home">Home</a>
           <a href="#news">New ebodac</a>
+          <div className="float-right">
+            <div className="online-indicator">
+              <span className="online-icon-text">{`${isOnline ? 'ONLINE' : 'OFFLINE'}`}</span>
+              <FontAwesomeIcon className={`${isOnline ? '' : 'offline-icon'}`} icon="wifi" />
+            </div>
+          </div>
         </div>
       </div>
     );
   }
 }
+
+const mapStateToProps = state => ({
+  isOnline: state.offline.online,
+});
+
+export default connect(mapStateToProps, { signoutUser })(Header);
+
 Header.propTypes = {
   toggleSidebarMenu: PropTypes.func.isRequired,
   signoutUser: PropTypes.func.isRequired,
+  isOnline: PropTypes.bool.isRequired,
 };
-
-export default connect(null, { signoutUser })(Header);
