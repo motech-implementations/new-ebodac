@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { ENROLLED, NOT_ENROLLED, UNENROLLED } from '../../constants/enrollment-status';
 
 const EnrollmentCell = ({
-  status, entityId, enroll, unenroll,
+  status, entityId, enroll, unenroll, isOnline,
 }) => {
   switch (status) {
     case ENROLLED:
@@ -16,6 +17,7 @@ const EnrollmentCell = ({
               event.stopPropagation();
               unenroll(entityId);
             }}
+            disabled={!isOnline}
           >
             Unenroll
           </button>
@@ -32,6 +34,7 @@ const EnrollmentCell = ({
               event.stopPropagation();
               enroll(entityId);
             }}
+            disabled={!isOnline}
           >
             Enroll
           </button>
@@ -42,9 +45,14 @@ const EnrollmentCell = ({
   }
 };
 
-export default EnrollmentCell;
+const mapStateToProps = state => ({
+  isOnline: state.offline.online,
+});
+
+export default connect(mapStateToProps)(EnrollmentCell);
 
 EnrollmentCell.propTypes = {
+  isOnline: PropTypes.bool.isRequired,
   enroll: PropTypes.func.isRequired,
   unenroll: PropTypes.func.isRequired,
   status: PropTypes.string,

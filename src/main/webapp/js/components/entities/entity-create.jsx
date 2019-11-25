@@ -37,7 +37,7 @@ class EntityCreate extends Component {
   validate = values => validate(this.props.fieldConfig)(values);
 
   render() {
-    const { fieldConfig, entityType } = this.props;
+    const { fieldConfig, entityType, isOnline } = this.props;
     return (
       <div className="container">
         <div>
@@ -61,6 +61,7 @@ class EntityCreate extends Component {
                   <button
                     type="submit"
                     className="btn btn-success btn-lg margin-top-sm padding-left-lg padding-right-lg"
+                    disabled={!isOnline}
                   >
                     Create
                   </button>
@@ -74,11 +75,16 @@ class EntityCreate extends Component {
   }
 }
 
+const mapStateToProps = state => ({
+  isOnline: state.offline.online,
+});
+
 export default withRouter(
-  connect(null, { createEntity })(EntityCreate),
+  connect(mapStateToProps, { createEntity })(EntityCreate),
 );
 
 EntityCreate.propTypes = {
+  isOnline: PropTypes.bool.isRequired,
   fieldConfig: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   createEntity: PropTypes.func.isRequired,
   entityType: PropTypes.string.isRequired,

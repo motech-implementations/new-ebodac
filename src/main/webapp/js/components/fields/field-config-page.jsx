@@ -143,7 +143,7 @@ class FieldConfigPage extends Component {
 
   render() {
     const { entityType } = this.props.match.params;
-    const { visibleFields, hiddenFields } = this.props;
+    const { visibleFields, hiddenFields, isOnline } = this.props;
     const { isModalOpen, selectedFieldId } = this.state;
     return (
       <div className="container-fluid">
@@ -155,8 +155,23 @@ class FieldConfigPage extends Component {
           newItemOrder={visibleFields.length}
         />
         <div>
-          <button type="button" className="btn btn-primary" onClick={this.saveConfigs}>Save</button>
-          <button type="button" className="btn btn-success" onClick={this.addConfig} style={{ marginLeft: '20px' }}>Add</button>
+          <button
+            type="button"
+            className="btn btn-primary"
+            onClick={this.saveConfigs}
+            disabled={!isOnline}
+          >
+            Save
+          </button>
+          <button
+            type="button"
+            className="btn btn-success"
+            onClick={this.addConfig}
+            style={{ marginLeft: '20px' }}
+            disabled={!isOnline}
+          >
+            Add
+          </button>
         </div>
         <div className="two-coll-dnd">
           <DragDropContext onDragEnd={this.onDragEnd}>
@@ -172,6 +187,7 @@ class FieldConfigPage extends Component {
 const mapStateToProps = (state, props) => ({
   visibleFields: getVisibleFields(state, { entityType: props.match.params.entityType }),
   hiddenFields: getHiddenFields(state, { entityType: props.match.params.entityType }),
+  isOnline: state.offline.online,
 });
 
 export default connect(mapStateToProps, {
@@ -179,6 +195,7 @@ export default connect(mapStateToProps, {
 })(FieldConfigPage);
 
 FieldConfigPage.propTypes = {
+  isOnline: PropTypes.bool.isRequired,
   changeFieldVisibility: PropTypes.func.isRequired,
   changeFieldOrder: PropTypes.func.isRequired,
   saveFieldConfigOrder: PropTypes.func.isRequired,

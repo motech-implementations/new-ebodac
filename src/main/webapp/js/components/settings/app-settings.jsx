@@ -43,7 +43,7 @@ class AppSettings extends Component {
   };
 
   render() {
-    const { appSettings } = this.props;
+    const { appSettings, isOnline } = this.props;
     return (
       <div className="container">
         <div>
@@ -64,6 +64,7 @@ class AppSettings extends Component {
                   <button
                     type="submit"
                     className="btn btn-success btn-lg margin-top-sm padding-left-lg padding-right-lg margin-right-sm"
+                    disabled={!isOnline}
                   >
                     Update
                   </button>
@@ -79,6 +80,7 @@ class AppSettings extends Component {
 
 const mapStateToProps = state => ({
   appSettings: state.appSettings.appSettings,
+  isOnline: state.offline.online,
 });
 
 export default withRouter(
@@ -86,6 +88,7 @@ export default withRouter(
 );
 
 AppSettings.propTypes = {
+  isOnline: PropTypes.bool.isRequired,
   updateAppSettings: PropTypes.func.isRequired,
   fetchAppSettings: PropTypes.func.isRequired,
   appSettings: PropTypes.shape({}),

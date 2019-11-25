@@ -32,6 +32,7 @@ class CsvConfigUpdate extends Component {
   };
 
   render() {
+    const { isOnline } = this.props;
     return (
       <div className="container-fluid">
         <div>
@@ -40,6 +41,7 @@ class CsvConfigUpdate extends Component {
             type="button"
             className="btn btn-danger float-right"
             onClick={() => { this.deleteConfig(); }}
+            disabled={!isOnline}
           >
             Delete config
           </button>
@@ -66,6 +68,7 @@ const mapStateToProps = (state, props) => ({
   csvConfig: getCsvConfigById(state,
     { entity: props.match.params.entity, csvConfigId: props.match.params.id }),
   fieldConfig: state.fieldConfig,
+  isOnline: state.offline.online,
 });
 
 export default withRouter(
@@ -73,6 +76,7 @@ export default withRouter(
 );
 
 CsvConfigUpdate.propTypes = {
+  isOnline: PropTypes.bool.isRequired,
   csvConfig: PropTypes.shape({
     id: PropTypes.string,
     entity: PropTypes.string,

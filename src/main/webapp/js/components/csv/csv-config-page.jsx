@@ -138,7 +138,7 @@ class CsvConfigPage extends Component {
   };
 
   render() {
-    const { entityType } = this.props;
+    const { entityType, isOnline } = this.props;
 
     return (
       <div className="modal-form">
@@ -248,6 +248,7 @@ class CsvConfigPage extends Component {
                           type="button"
                           className="btn btn-danger"
                           onClick={() => fields.remove(index)}
+                          disabled={!isOnline}
                         >
                                     Delete
                         </button>
@@ -261,7 +262,7 @@ class CsvConfigPage extends Component {
                     <button
                       type="button"
                       className="btn btn-success mr-2 d-inline-block"
-                      disabled={!entityType}
+                      disabled={!entityType || !isOnline}
                       onClick={() => {
                         fields.push({
                           fieldConfigId: '',
@@ -280,7 +281,7 @@ class CsvConfigPage extends Component {
               <button
                 type="submit"
                 className="btn btn-primary"
-                disabled={invalid || !entityType}
+                disabled={invalid || !entityType || !isOnline}
               >
                 Save
               </button>
@@ -301,6 +302,7 @@ class CsvConfigPage extends Component {
 
 const mapStateToProps = (state, props) => ({
   fieldConfig: getFieldConfigByEntity(state, props),
+  isOnline: state.offline.online,
 });
 
 export default withRouter(
@@ -308,6 +310,7 @@ export default withRouter(
 );
 
 CsvConfigPage.propTypes = {
+  isOnline: PropTypes.bool.isRequired,
   csvConfig: PropTypes.shape(),
   fieldConfig: PropTypes.shape(),
   entityType: PropTypes.string.isRequired,

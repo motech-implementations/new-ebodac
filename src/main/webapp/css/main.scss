@@ -193,6 +193,7 @@ sidebar-collapse {
   display: inline-block;
   cursor: pointer;
   height: auto;
+  padding: 5px;
 }
 
 .bar1, .bar2, .bar3 {
@@ -585,4 +586,20 @@ select.form-control {
   padding: 20px;
   border-radius: 20px;
   margin: 10px 30px;
+}
+
+.online-indicator {
+  display: table-caption;
+  text-align: center;
+  padding-right: 10px;
+  color: $gray-lighter;
+
+  .online-icon-text {
+    font-size: 0.7em;
+  }
+}
+
+.offline-icon {
+  opacity: 0.5;
+  color: $gray-dark,
 }

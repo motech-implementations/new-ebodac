@@ -32,7 +32,7 @@ class EntityTable extends Component {
 
   render() {
     const {
-      entity, fieldConfig, entityType,
+      entity, fieldConfig, entityType, isOnline,
     } = this.props;
     const { loading } = this.state;
     const columns = _.map(
@@ -55,7 +55,7 @@ class EntityTable extends Component {
                   type="button"
                   className="btn btn-success btn-lg btn-block"
                   onClick={() => this.props.history.push(`/import/${entityType}`)}
-                  disabled={_.isEmpty(this.props.csvConfigs)}
+                  disabled={_.isEmpty(this.props.csvConfigs) || !isOnline}
                   title={_.isEmpty(this.props.csvConfigs)
                     ? 'You have to create a CSV config for this entity!' : ''}
                 >
@@ -70,6 +70,7 @@ class EntityTable extends Component {
                 type="button"
                 className="btn btn-success btn-lg btn-block"
                 onClick={() => this.props.history.push(`/create/${entityType}`)}
+                disabled={!isOnline}
               >
                 Create New
               </button>
@@ -104,6 +105,7 @@ const mapStateToProps = (state, props) => ({
   permissions: state.auth.permissions,
   entity: getEntityArrayByName(state, props),
   csvConfigs: getCsvConfigsByEntityType(state, { entityType: props.match.params.entityType }),
+  isOnline: state.offline.online,
 });
 
 export default withRouter(
@@ -111,6 +113,7 @@ export default withRouter(
 );
 
 EntityTable.propTypes = {
+  isOnline: PropTypes.bool.isRequired,
   entityType: PropTypes.string.isRequired,
   permissions: PropTypes.arrayOf(PropTypes.string).isRequired,
   fieldConfig: PropTypes.arrayOf(PropTypes.shape({})).isRequired,

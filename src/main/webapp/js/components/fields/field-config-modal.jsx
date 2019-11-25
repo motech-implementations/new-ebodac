@@ -144,7 +144,7 @@ class FieldConfigModal extends React.Component {
 
   renderFields = () => {
     const { openConfirmModal } = this.state;
-    const { fieldConfig, fieldId } = this.props;
+    const { fieldConfig, fieldId, isOnline } = this.props;
     let config = fieldConfig;
 
     if (!fieldId) {
@@ -167,7 +167,13 @@ class FieldConfigModal extends React.Component {
               }))}
               <div>
                 <span>
-                  <button type="submit" disabled={invalid} className="btn btn-primary mr-1">Save</button>
+                  <button
+                    type="submit"
+                    disabled={invalid || !isOnline}
+                    className="btn btn-primary mr-1"
+                  >
+                    Save
+                  </button>
                 </span>
                 <span>
                   <button type="button" onClick={this.props.hideModal} className="btn btn-secondary">Cancel</button>
@@ -176,7 +182,7 @@ class FieldConfigModal extends React.Component {
                   <button
                     type="button"
                     className="btn btn-danger"
-                    disabled={config.base || !fieldId}
+                    disabled={config.base || !fieldId || !isOnline}
                     onClick={this.openConfirmModal}
                   >
                     Delete
@@ -230,12 +236,14 @@ class FieldConfigModal extends React.Component {
 
 const mapStateToProps = (state, props) => ({
   fieldConfig: getFieldConfigById(state, props),
+  isOnline: state.offline.online,
 });
 
 export default connect(mapStateToProps,
   { saveFieldConfig, deleteFieldConfig, createFieldConfig })(FieldConfigModal);
 
 FieldConfigModal.propTypes = {
+  isOnline: PropTypes.bool.isRequired,
   modalIsOpen: PropTypes.bool.isRequired,
   hideModal: PropTypes.func.isRequired,
   entityType: PropTypes.string.isRequired,

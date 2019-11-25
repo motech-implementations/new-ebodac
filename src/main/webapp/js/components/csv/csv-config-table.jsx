@@ -30,6 +30,7 @@ const CsvConfigTable = props => (
           type="button"
           className="btn btn-success btn-lg btn-block"
           onClick={() => props.history.push('/createCsvConfig')}
+          disabled={!props.isOnline}
         >
         Create New
         </button>
@@ -57,6 +58,7 @@ const CsvConfigTable = props => (
 
 const mapStateToProps = state => ({
   csvConfig: getCsvConfigArray(state),
+  isOnline: state.offline.online,
 });
 
 export default withRouter(
@@ -64,6 +66,7 @@ export default withRouter(
 );
 
 CsvConfigTable.propTypes = {
+  isOnline: PropTypes.bool.isRequired,
   csvConfig: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   history: PropTypes.shape({
     push: PropTypes.func,
