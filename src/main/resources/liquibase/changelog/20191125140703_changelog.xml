@@ -1,0 +1,68 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+    <changeSet author="user (generated)" id="1574687241129-9">
+        <createTable tableName="json_config">
+            <column name="id" type="VARCHAR(255)">
+                <constraints primaryKey="true" primaryKeyName="json_configPK"/>
+            </column>
+            <column name="create_date" type="datetime"/>
+            <column name="update_date" type="datetime"/>
+            <column name="entity" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="user (generated)" id="1574687241129-10">
+        <createTable tableName="json_config_json_fields">
+            <column name="json_config_id" type="VARCHAR(255)">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="json_fields_id" type="VARCHAR(255)">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="user (generated)" id="1574687241129-11">
+        <createTable tableName="json_enum_value_map">
+            <column name="json_field_id" type="VARCHAR(255)">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="mapped_enum_value" type="VARCHAR(255)"/>
+            <column name="json_value" type="VARCHAR(255)">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="user (generated)" id="1574687241129-12">
+        <createTable tableName="json_field">
+            <column name="id" type="VARCHAR(255)">
+                <constraints primaryKey="true" primaryKeyName="json_fieldPK"/>
+            </column>
+            <column name="create_date" type="datetime"/>
+            <column name="update_date" type="datetime"/>
+            <column name="default_value" type="VARCHAR(255)"/>
+            <column name="field_name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="format" type="VARCHAR(255)"/>
+            <column name="key_field" type="BIT"/>
+            <column name="field_config_id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="user (generated)" id="1574687241129-13">
+        <createTable tableName="json_field_value_map">
+            <column name="json_field_id" type="VARCHAR(255)">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="mapped_entity" type="VARCHAR(255)"/>
+            <column name="field_value" type="VARCHAR(255)">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

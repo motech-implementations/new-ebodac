@@ -31,6 +31,13 @@ export const CREATE_CSV_CONFIG = 'create_csv_config';
 export const SAVE_CSV_CONFIG = 'save_csv_config';
 export const DELETE_CSV_CONFIG = 'delete_csv_config';
 
+export const FETCH_ALL_JSON_CONFIGS = 'fetch_json_configs';
+export const START_FETCH_JSON_CONFIG = 'start_fetch_json_config';
+export const FETCH_JSON_CONFIG = 'fetch_json_config';
+export const CREATE_JSON_CONFIG = 'create_json_config';
+export const SAVE_JSON_CONFIG = 'save_json_config';
+export const DELETE_JSON_CONFIG = 'delete_json_config';
+
 export const FETCH_APP_SETTINGS = 'fetch_app_settings';
 export const UPDATE_APP_SETTINGS = 'update_app_settings';
 

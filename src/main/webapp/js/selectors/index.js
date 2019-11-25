@@ -21,6 +21,21 @@ export const getCsvConfigArray = (state => (
       .concat(Object.values(currentValue)), []).value()
 ));
 
+export const getJsonConfigById = (state, { entity, jsonConfigId }) => (
+  jsonConfigId ? state.jsonConfig[entity][jsonConfigId] : {}
+);
+
+export const getJsonConfigsByEntityType = (state, { entityType }) => (
+  entityType ? state.jsonConfig[entityType] : {}
+);
+
+export const getJsonConfigArray = (state => (
+  _.chain(state.jsonConfig)
+    .omit(state.jsonConfig, ['jsonConfigFetching', 'jsonConfigFetched'])
+    .reduce((accumulator, currentValue) => accumulator
+      .concat(Object.values(currentValue)), []).value()
+));
+
 export const getEntityFieldValue = (state,
   { entityType, value, relatedField }) => _.get(state.entity, `${entityType}.${value}.${relatedField}`, null);
 

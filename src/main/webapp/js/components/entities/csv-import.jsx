@@ -48,7 +48,7 @@ class CsvImport extends Component {
       },
     };
 
-    const url = `/import/${this.state.configId}`;
+    const url = `/importCsv/${this.state.configId}`;
 
     apiClient.post(url, formData, config)
       .then((response) => {
