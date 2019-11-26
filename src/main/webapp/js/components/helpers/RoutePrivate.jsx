@@ -3,7 +3,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { resetLogoutCounter } from '../../actions/auth-actions';
 
 const PrivateRoute = ({
   component: Component,
@@ -20,7 +19,6 @@ const PrivateRoute = ({
   };
 
   const redirect = (pr) => {
-    props.resetLogoutCounter();
     if (authenticated) {
       if (hasPermission()) {
         return <Component {...pr} />;
@@ -47,7 +45,6 @@ const mapStateToProps = state => ({
 
 PrivateRoute.propTypes = {
   component: PropTypes.elementType.isRequired,
-  resetLogoutCounter: PropTypes.func.isRequired,
   authenticated: PropTypes.bool,
   requiredPermissions: PropTypes.arrayOf(PropTypes.string),
   permissions: PropTypes.arrayOf(PropTypes.string).isRequired,
@@ -56,7 +53,6 @@ PrivateRoute.propTypes = {
 PrivateRoute.defaultProps = {
   authenticated: false,
   requiredPermissions: [],
-
 };
 
-export default connect(mapStateToProps, { resetLogoutCounter })(PrivateRoute);
+export default connect(mapStateToProps)(PrivateRoute);

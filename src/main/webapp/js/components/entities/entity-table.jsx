@@ -8,6 +8,7 @@ import { withRouter } from 'react-router-dom';
 import 'react-table/react-table.css';
 
 import { fetchEntity } from '../../actions/entity-actions';
+import { resetLogoutCounter } from '../../actions/auth-actions';
 import { getCsvConfigsByEntityType, getEntityArrayByName } from '../../selectors';
 
 import getTableColumn from '../../utils/table-utils';
@@ -89,6 +90,7 @@ class EntityTable extends Component {
               getTdProps={(state, rowInfo) => ({
                 onClick: () => {
                   if (_.get(rowInfo, 'original.id') && this.canWrite()) {
+                    this.props.resetLogoutCounter();
                     this.props.history.push(`/entityEdit/${entityType}/${rowInfo.original.id}`);
                   }
                 },
@@ -109,7 +111,7 @@ const mapStateToProps = (state, props) => ({
 });
 
 export default withRouter(
-  connect(mapStateToProps, { fetchEntity })(EntityTable),
+  connect(mapStateToProps, { fetchEntity, resetLogoutCounter })(EntityTable),
 );
 
 EntityTable.propTypes = {
@@ -118,6 +120,7 @@ EntityTable.propTypes = {
   permissions: PropTypes.arrayOf(PropTypes.string).isRequired,
   fieldConfig: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   fetchEntity: PropTypes.func.isRequired,
+  resetLogoutCounter: PropTypes.func.isRequired,
   entity: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   history: PropTypes.shape({
     push: PropTypes.func,

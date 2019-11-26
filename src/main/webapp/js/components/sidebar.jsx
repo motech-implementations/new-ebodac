@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { connect } from 'react-redux';
+import { resetLogoutCounter } from '../actions/auth-actions';
 
 import '../../css/main.scss';
 
@@ -84,6 +85,13 @@ class SideBar extends Component {
     return false;
   };
 
+  renderLink = (to, icon, text) => (
+    <Link to={to} onClick={() => this.props.resetLogoutCounter()}>
+      <FontAwesomeIcon icon={icon} />
+      <span className="icon-text">{text}</span>
+    </Link>
+  );
+
   renderEnrollmentCollapsedMenu = () => {
     const { enrollmentCollapsed } = this.state;
 
@@ -94,18 +102,12 @@ class SideBar extends Component {
     return (
       <ul className="nav nav-second-level">
         <li className="border-none">
-          <Link to="/keyCommunityPersonEnrollment">
-            <FontAwesomeIcon icon="hand-point-right" />
-            <span className="icon-text">Key Community Person Enrollment</span>
-          </Link>
+          {this.renderLink('/keyCommunityPersonEnrollment', 'hand-point-right', 'Key Community Person Enrollment')}
         </li>
         {this.isAuthorizated([MANAGE_VACCINEE_ENROLLMENT])
         && (
           <li className="border-none">
-            <Link to="/vaccineeEnrollment">
-              <FontAwesomeIcon icon="hand-point-right" />
-              <span className="icon-text">Vaccinee Enrollment</span>
-            </Link>
+            {this.renderLink('/vaccineeEnrollment', 'hand-point-right', 'Vaccinee Enrollment')}
           </li>
         )}
       </ul>
@@ -124,26 +126,17 @@ class SideBar extends Component {
         {this.isAuthorizated(getEntityReadPermission(VISIT_ENTITY))
         && (
           <li className="border-none">
-            <Link to={`/viewEntity/${VISIT_ENTITY}`}>
-              <FontAwesomeIcon icon="hand-point-right" />
-              <span className="icon-text">Visits</span>
-            </Link>
+            {this.renderLink(`/viewEntity/${VISIT_ENTITY}`, 'hand-point-right', 'Visits')}
           </li>
         )}
         {this.isAuthorizated(getEntityReadPermission(VISIT_TYPE_ENTITY))
         && (
           <li className="border-none">
-            <Link to={`/viewEntity/${VISIT_TYPE_ENTITY}`}>
-              <FontAwesomeIcon icon="hand-point-right" />
-              <span className="icon-text">Visit Types</span>
-            </Link>
+            {this.renderLink(`/viewEntity/${VISIT_TYPE_ENTITY}`, 'hand-point-right', 'Visit Types')}
           </li>
         )}
         <li className="border-none">
-          <Link to="/boosterVisitGenerator">
-            <FontAwesomeIcon icon="hand-point-right" />
-            <span className="icon-text">Booster Visit Generator</span>
-          </Link>
+          {this.renderLink('/boosterVisitGenerator', 'hand-point-right', 'Booster Visit Generator')}
         </li>
       </ul>
     );
@@ -159,46 +152,25 @@ class SideBar extends Component {
     return (
       <ul className="nav nav-second-level">
         <li className="border-none">
-          <Link to="/userLogs">
-            <FontAwesomeIcon icon="hand-point-right" />
-            <span className="icon-text">User Logs</span>
-          </Link>
+          {this.renderLink('/userLogs', 'hand-point-right', 'User Logs')}
         </li>
         <li className="border-none">
-          <Link to="/primeVaccination">
-            <FontAwesomeIcon icon="hand-point-right" />
-            <span className="icon-text">Prime Vaccination</span>
-          </Link>
+          {this.renderLink('/primeVaccination', 'hand-point-right', 'Prime Vaccination')}
         </li>
         <li className="border-none">
-          <Link to="/clinicVisit">
-            <FontAwesomeIcon icon="hand-point-right" />
-            <span className="icon-text">Clinic Visit</span>
-          </Link>
+          {this.renderLink('/clinicVisit', 'hand-point-right', 'Clinic Visit')}
         </li>
         <li className="border-none">
-          <Link to="/callLogVaccinees">
-            <FontAwesomeIcon icon="hand-point-right" />
-            <span className="icon-text">Call Log - Vaccines</span>
-          </Link>
+          {this.renderLink('/callLogVaccinees', 'hand-point-right', 'Call Log - Vaccines')}
         </li>
         <li className="border-none">
-          <Link to="/callLogCommunityPerson">
-            <FontAwesomeIcon icon="hand-point-right" />
-            <span className="icon-text">Call Log - Community Person</span>
-          </Link>
+          {this.renderLink('/callLogCommunityPerson', 'hand-point-right', 'Call Log - Community Person')}
         </li>
         <li className="border-none">
-          <Link to="/smsLogVaccinees">
-            <FontAwesomeIcon icon="hand-point-right" />
-            <span className="icon-text">SMS Log - Vacciness</span>
-          </Link>
+          {this.renderLink('/smsLogVaccinees', 'hand-point-right', 'SMS Log - Vacciness')}
         </li>
         <li className="border-none">
-          <Link to="/smsLogCommunityPerson">
-            <FontAwesomeIcon icon="hand-point-right" />
-            <span className="icon-text">SMS Log - Community Person</span>
-          </Link>
+          {this.renderLink('/smsLogCommunityPerson', 'hand-point-right', 'SMS Log - Community Person')}
         </li>
       </ul>
     );
@@ -216,19 +188,13 @@ class SideBar extends Component {
         {this.isAuthorizated(getEntityReadPermission(ROLE_ENTITY))
         && (
           <li className="border-none">
-            <Link to={`/viewEntity/${ROLE_ENTITY}`}>
-              <FontAwesomeIcon icon="hand-point-right" />
-              <span className="icon-text">Roles</span>
-            </Link>
+            {this.renderLink(`/viewEntity/${ROLE_ENTITY}`, 'hand-point-right', 'Roles')}
           </li>
         )}
         {this.isAuthorizated(getEntityReadPermission(USER_ENTITY))
         && (
           <li className="border-none">
-            <Link to={`/viewEntity/${USER_ENTITY}`}>
-              <FontAwesomeIcon icon="hand-point-right" />
-              <span className="icon-text">Users</span>
-            </Link>
+            {this.renderLink(`/viewEntity/${USER_ENTITY}`, 'hand-point-right', 'Users')}
           </li>
         )}
       </ul>
@@ -247,10 +213,7 @@ class SideBar extends Component {
         {this.isAuthorizated(getEntityReadPermission(LANGUAGE_ENTITY))
         && (
           <li className="border-none">
-            <Link to={`/viewEntity/${LANGUAGE_ENTITY}`}>
-              <FontAwesomeIcon icon="hand-point-right" />
-              <span className="icon-text">Languages</span>
-            </Link>
+            {this.renderLink(`/viewEntity/${LANGUAGE_ENTITY}`, 'hand-point-right', 'Languages')}
           </li>
         )}
         {this.isAuthorizated([MANAGE_FIELD_CONFIG])
@@ -266,28 +229,19 @@ class SideBar extends Component {
         {this.isAuthorizated(getEntityReadPermission(SITE_ENTITY))
         && (
           <li className="border-none">
-            <Link to={`/viewEntity/${SITE_ENTITY}`}>
-              <FontAwesomeIcon icon="hand-point-right" />
-              <span className="icon-text">Sites</span>
-            </Link>
+            {this.renderLink(`/viewEntity/${SITE_ENTITY}`, 'hand-point-right', 'Sites')}
           </li>
         )}
         {this.isAuthorizated([MANAGE_CSV_CONFIG])
         && (
           <li className="border-none">
-            <Link to="/csvConfigTable">
-              <FontAwesomeIcon icon="hand-point-right" />
-              <span className="icon-text">CSV Import Config</span>
-            </Link>
+            {this.renderLink('/csvConfigTable', 'hand-point-right', 'CSV Import Config')}
           </li>
         )}
         {this.isAuthorizated([MANAGE_APP_SETTINGS])
         && (
           <li className="border-none">
-            <Link to="/appSettings">
-              <FontAwesomeIcon icon="hand-point-right" />
-              <span className="icon-text">App Settings</span>
-            </Link>
+            {this.renderLink('/appSettings', 'hand-point-right', 'App Settings')}
           </li>
         )}
       </ul>
@@ -305,34 +259,22 @@ class SideBar extends Component {
       <ul className="nav nav-third-level">
         <li className="border-none">
           <div className="third-level-item">
-            <Link to={`/fieldConfig/${VACCINEE_ENTITY}`}>
-              <FontAwesomeIcon icon="hand-point-right" />
-              <span className="icon-text">Vaccinee</span>
-            </Link>
+            {this.renderLink(`/fieldConfig/${VACCINEE_ENTITY}`, 'hand-point-right', 'Vaccinee')}
           </div>
         </li>
         <li className="border-none">
           <div className="third-level-item">
-            <Link to={`/fieldConfig/${KEY_COMMUNITY_PERSON_ENTITY}`}>
-              <FontAwesomeIcon icon="hand-point-right" />
-              <span className="icon-text">Key Community Persons</span>
-            </Link>
+            {this.renderLink(`/fieldConfig/${KEY_COMMUNITY_PERSON_ENTITY}`, 'hand-point-right', 'Key Community Persons')}
           </div>
         </li>
         <li className="border-none">
           <div className="third-level-item">
-            <Link to={`/fieldConfig/${SITE_ENTITY}`}>
-              <FontAwesomeIcon icon="hand-point-right" />
-              <span className="icon-text">Sites</span>
-            </Link>
+            {this.renderLink(`/fieldConfig/${SITE_ENTITY}`, 'hand-point-right', 'Sites')}
           </div>
         </li>
         <li className="border-none">
           <div className="third-level-item">
-            <Link to={`/fieldConfig/${VISIT_ENTITY}`}>
-              <FontAwesomeIcon icon="hand-point-right" />
-              <span className="icon-text">Visit Schedule</span>
-            </Link>
+            {this.renderLink(`/fieldConfig/${VISIT_ENTITY}`, 'hand-point-right', 'Visit Schedule')}
           </div>
         </li>
       </ul>
@@ -349,19 +291,13 @@ class SideBar extends Component {
             {this.isAuthorizated(getEntityReadPermission(VACCINEE_ENTITY))
             && (
               <li>
-                <Link to={`/viewEntity/${VACCINEE_ENTITY}`}>
-                  <FontAwesomeIcon icon="syringe" />
-                  <span className="icon-text">Vaccinees</span>
-                </Link>
+                {this.renderLink(`/viewEntity/${VACCINEE_ENTITY}`, 'syringe', 'Vaccinees')}
               </li>
             )}
             {this.isAuthorizated(getEntityReadPermission(KEY_COMMUNITY_PERSON_ENTITY))
             && (
               <li>
-                <Link to={`/viewEntity/${KEY_COMMUNITY_PERSON_ENTITY}`}>
-                  <FontAwesomeIcon icon="key" />
-                  <span className="icon-text">Key Community Persons</span>
-                </Link>
+                {this.renderLink(`/viewEntity/${KEY_COMMUNITY_PERSON_ENTITY}`, 'key', 'Key Community Persons')}
               </li>
             )}
             <li>
@@ -381,10 +317,7 @@ class SideBar extends Component {
             {this.isAuthorizated(getEntityReadPermission(CAMPAIGN_MESSAGE_ENTITY))
             && (
               <li>
-                <Link to={`/viewEntity/${CAMPAIGN_MESSAGE_ENTITY}`}>
-                  <FontAwesomeIcon icon="envelope" />
-                  <span className="icon-text">Message Campaigns</span>
-                </Link>
+                {this.renderLink(`/viewEntity/${CAMPAIGN_MESSAGE_ENTITY}`, 'envelope', 'Message Campaigns')}
               </li>
             )}
             <li>
@@ -408,10 +341,7 @@ class SideBar extends Component {
             {this.isAuthorizated(getEntityReadPermission(GROUP_ENTITY))
             && (
               <li>
-                <Link to={`/viewEntity/${GROUP_ENTITY}`}>
-                  <FontAwesomeIcon icon="layer-group" />
-                  <span className="icon-text">Enrollment group</span>
-                </Link>
+                {this.renderLink(`/viewEntity/${GROUP_ENTITY}`, 'layer-group', 'Enrollment group')}
               </li>
             )}
             <li>
@@ -435,6 +365,7 @@ const mapStateToProps = state => ({
 SideBar.propTypes = {
   sidebarVisible: PropTypes.bool.isRequired,
   permissions: PropTypes.arrayOf(PropTypes.string).isRequired,
+  resetLogoutCounter: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps)(SideBar);
+export default connect(mapStateToProps, { resetLogoutCounter })(SideBar);
