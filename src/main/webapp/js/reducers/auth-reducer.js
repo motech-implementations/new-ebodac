@@ -44,7 +44,10 @@ export default (state = initialState, action) => {
         refreshToken: null,
       };
     case RESET_LOGOUT_COUNTER:
-      return { ...state, resetCounter: !state.resetCounter };
+      return {
+        ...state,
+        resetCounter: !state.resetCounter,
+      };
     case AUTH_ERROR:
       return { ...state, error: action.payload, authenticated: false };
     case AUTHORIZE_OFFLINE: {
@@ -54,7 +57,6 @@ export default (state = initialState, action) => {
         authenticated: true,
         error: '',
         permissions: _.get(savedLogin, 'permissions', []),
-        resetCounter: !state.resetCounter,
       };
     }
     case AUTHORIZE_ONLINE: {
@@ -72,7 +74,6 @@ export default (state = initialState, action) => {
           [username]: { hash, permissions },
         },
         counterLogoutTime: exp_period,
-        resetCounter: !state.resetCounter,
         accessToken: access_token,
         refreshToken: refresh_token,
       };

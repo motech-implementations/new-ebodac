@@ -1,17 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Field } from 'react-final-form';
+import { connect } from 'react-redux';
+
+import { resetLogoutCounter } from '../../actions/auth-actions';
 
 const renderField = ({
   renderInput, fieldConfig: {
     required, hidden, editable = true, displayName, ...config
-  }, input, meta: { touched, error },
+  }, input, meta: { touched, error }, ...props
 }) => {
   const onChange = (value) => {
     input.onChange(value);
   };
 
   const onBlur = (value) => {
+    props.resetLogoutCounter();
     input.onBlur(value);
   };
 
@@ -39,16 +43,17 @@ const renderField = ({
   );
 };
 
-const BaseField = ({ fieldConfig: { name, ...config }, renderInput }) => (
+const BaseField = ({ fieldConfig: { name, ...config }, renderInput, ...props }) => (
   <Field
     name={name}
     component={renderField}
     renderInput={renderInput}
     fieldConfig={config}
+    resetLogoutCounter={props.resetLogoutCounter}
   />
 );
 
-export default BaseField;
+export default connect(null, { resetLogoutCounter })(BaseField);
 
 renderField.propTypes = {
   renderInput: PropTypes.func.isRequired,
@@ -68,6 +73,7 @@ renderField.propTypes = {
     touched: PropTypes.bool,
     error: PropTypes.string,
   }).isRequired,
+  resetLogoutCounter: PropTypes.func.isRequired,
 };
 
 BaseField.propTypes = {
@@ -75,4 +81,5 @@ BaseField.propTypes = {
     name: PropTypes.string,
   }).isRequired,
   renderInput: PropTypes.func.isRequired,
+  resetLogoutCounter: PropTypes.func.isRequired,
 };
