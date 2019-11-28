@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @Controller
-public class JobSchedulerController {
+public class JobSchedulerController extends BaseController {
 
   @Autowired
   private SchedulerService schedulerService;

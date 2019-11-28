@@ -25,16 +25,16 @@ class CsvImport extends Component {
   onFormSubmit = (e) => {
     e.preventDefault();
     this.fileUpload(this.state.file);
-  }
+  };
 
   onFilePickerChange = (e) => {
     const file = e.target.files[0];
     this.setState({ file, filename: file.name });
-  }
+  };
 
   onConfigChange = (option) => {
     this.setState({ configId: option.value });
-  }
+  };
 
   fileUpload = (file) => {
     this.setState({ loading: true, content: '' });
@@ -48,7 +48,7 @@ class CsvImport extends Component {
       },
     };
 
-    const url = `/importCsv/${this.state.configId}`;
+    const url = `/api/importCsv/${this.state.configId}`;
 
     apiClient.post(url, formData, config)
       .then((response) => {
@@ -63,7 +63,7 @@ class CsvImport extends Component {
       .catch((error) => {
         this.setState({ content: error.response.data.details, loading: false });
       });
-  }
+  };
 
   render() {
     const { csvConfigs, isOnline } = this.props;
