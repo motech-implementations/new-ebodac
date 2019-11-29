@@ -20,17 +20,17 @@ public class JsonConfigService {
   @Autowired
   private JsonConfigRepository jsonConfigRepository;
 
-  @PreAuthorize(DefaultPermissions.HAS_MANAGE_FIELD_CONFIG_ROLE)
+  @PreAuthorize(DefaultPermissions.HAS_MANAGE_JSON_CONFIG_ROLE)
   public List<JsonConfigDto> getAll() {
     return MAPPER.toDtos(jsonConfigRepository.findAll());
   }
 
-  @PreAuthorize(DefaultPermissions.HAS_MANAGE_FIELD_CONFIG_ROLE)
+  @PreAuthorize(DefaultPermissions.HAS_MANAGE_JSON_CONFIG_ROLE)
   public JsonConfigDto findById(UUID id) {
     return MAPPER.toDto(jsonConfigRepository.getOne(id));
   }
 
-  @PreAuthorize(DefaultPermissions.HAS_MANAGE_FIELD_CONFIG_ROLE)
+  @PreAuthorize(DefaultPermissions.HAS_MANAGE_JSON_CONFIG_ROLE)
   public JsonConfigDto create(JsonConfigDto jsonConfigDto) {
     return MAPPER.toDto(jsonConfigRepository.save(MAPPER.fromDto(jsonConfigDto)));
   }
@@ -41,7 +41,7 @@ public class JsonConfigService {
    * @param jsonConfigDto Dto of json config to update.
    * @return the updated json config
    */
-  @PreAuthorize(DefaultPermissions.HAS_MANAGE_FIELD_CONFIG_ROLE)
+  @PreAuthorize(DefaultPermissions.HAS_MANAGE_JSON_CONFIG_ROLE)
   public JsonConfigDto update(UUID id, JsonConfigDto jsonConfigDto) {
     JsonConfig jsonConfig = jsonConfigRepository.findById(id).orElseThrow(() ->
         new EntityNotFoundException("Json config with id: {0} not found", id.toString()));
@@ -53,7 +53,7 @@ public class JsonConfigService {
    * Deletes config with given id.
    * @param id ID of json config to delete.
    */
-  @PreAuthorize(DefaultPermissions.HAS_MANAGE_FIELD_CONFIG_ROLE)
+  @PreAuthorize(DefaultPermissions.HAS_MANAGE_JSON_CONFIG_ROLE)
   public void delete(UUID id) {
     JsonConfig jsonConfig = jsonConfigRepository.findById(id).orElseThrow(() ->
         new EntityNotFoundException("Json config with id: {0} not found", id.toString()));

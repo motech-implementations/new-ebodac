@@ -16,4 +16,8 @@ public class JsonConfigDto extends BaseDto {
   private String entity;
 
   private String name;
+
+  private String pathToData = "";
+
+  private Boolean multipleRecord = false;
 }

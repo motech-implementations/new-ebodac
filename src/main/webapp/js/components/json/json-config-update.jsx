@@ -79,7 +79,7 @@ class JsonConfigUpdate extends Component {
         />
         <ConfirmModal
           showModal={openConfirmModal}
-          modalText="Are you sure to delete json Config? All related data will be deleted!"
+          modalText="Are you sure to delete json Config?"
           onConfirm={() => this.deleteConfig()}
           onHide={() => this.hideConfirmModal()}
         />

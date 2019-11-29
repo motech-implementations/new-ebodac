@@ -79,7 +79,7 @@ class CsvConfigUpdate extends Component {
         />
         <ConfirmModal
           showModal={openConfirmModal}
-          modalText="Are you sure to delete csv Config? All related data will be deleted!"
+          modalText="Are you sure to delete csv Config?"
           onConfirm={() => this.deleteConfig()}
           onHide={() => this.hideConfirmModal()}
         />

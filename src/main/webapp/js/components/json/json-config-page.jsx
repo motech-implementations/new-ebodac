@@ -19,6 +19,7 @@ import {
 } from '../../constants/field-types';
 import { getFieldConfigByEntity } from '../../selectors';
 import TextField from '../../utils/form/text-field';
+import CheckboxField from '../../utils/form/checkbox-field';
 
 class JsonConfigPage extends Component {
   onSubmit = (values) => {
@@ -159,6 +160,19 @@ class JsonConfigPage extends Component {
                 disabled={!this.props.isNew}
                 fieldConfig={{
                   name: 'name', displayName: 'Json Name', required: true,
+                }}
+              />
+              <TextField
+                key="pathToData"
+                placeholder="Path to Data"
+                fieldConfig={{
+                  name: 'pathToData', displayName: 'Path To Data', required: false,
+                }}
+              />
+              <CheckboxField
+                key="multipleRecord"
+                fieldConfig={{
+                  name: 'multipleRecord', displayName: 'Is data a multiple record?', required: false,
                 }}
               />
               <FieldArray name="jsonFields">

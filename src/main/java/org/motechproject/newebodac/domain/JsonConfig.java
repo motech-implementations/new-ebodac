@@ -29,6 +29,12 @@ public class JsonConfig extends BaseEntity {
   @Enumerated(EnumType.STRING)
   private EntityType entity;
 
-  @Column(name = "name", nullable = false)
+  @Column(name = "name", nullable = false, unique = true)
   private String name;
+
+  @Column(name = "path_to_data", nullable = false)
+  private String pathToData = "";
+
+  @Column(name = "multiple_record", nullable = false)
+  private Boolean multipleRecord = false;
 }
