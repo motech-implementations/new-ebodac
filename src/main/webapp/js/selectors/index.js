@@ -43,6 +43,8 @@ const mapToArray = object => (object ? Object.values(object) : []);
 
 const getRelatedField = (state, { relatedField }) => relatedField;
 
+const getEntities = state => state.entity;
+
 const getIdList = (state, { value }) => value;
 
 const filterEntityByIdList = (entity, ids, relatedField) => _.map(
@@ -100,4 +102,16 @@ export const getVisitsByVaccineeId = createSelector(
   getVisitTypes,
   getVaccinee,
   filterVisits,
+);
+
+const getRelationFieldConfigs = (state, props) => _.filter(props.fieldConfig, config => config.fieldType === 'RELATION');
+
+const getRelatedEntities = (entities, fieldConfig) => _.reduce(fieldConfig, (obj, config) => (
+  { ...obj, [config.relatedEntity]: entities[config.relatedEntity] }
+), {});
+
+export const getRelatedEntitiesSelector = createSelector(
+  getEntities,
+  getRelationFieldConfigs,
+  getRelatedEntities,
 );
