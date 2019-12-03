@@ -26,9 +26,7 @@ class CsvExport extends Component {
       case 'ENUM':
         _.forEach(fieldConfig.format.split(','), (val) => {
           const chunks = val.split(':');
-          if ((chunks[0] === rawRow[fieldConfig.name]
-            || chunks[0] === _.get(rawRow, `extraFields.${fieldConfig.name}.value`, null))
-            && chunks.length > 1) {
+          if (chunks[0] === relatedValue && chunks.length > 1) {
             [, relatedValue] = chunks;
           }
         });
