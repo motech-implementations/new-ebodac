@@ -39,6 +39,7 @@ public interface ExtraFieldMapper extends EntityMapper<ExtraFieldDto, ExtraField
     String result;
     switch (extraField.getFieldType()) {
       case TEXT:
+      case ENUM:
         result = extraField.getTextVal();
         break;
       case LONG_TEXT:
@@ -76,6 +77,7 @@ public interface ExtraFieldMapper extends EntityMapper<ExtraFieldDto, ExtraField
     if (StringUtils.isNotBlank(extraFieldValue)) {
       switch (fieldType) {
         case TEXT:
+        case ENUM:
           extraField.setTextVal(extraFieldValue);
           break;
         case LONG_TEXT:

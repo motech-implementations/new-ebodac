@@ -12,6 +12,7 @@ import { resetLogoutCounter } from '../../actions/auth-actions';
 import { getCsvConfigsByEntityType, getEntityArrayByName } from '../../selectors';
 
 import getTableColumn from '../../utils/table-utils';
+import CsvExport from './csv-export';
 
 class EntityTable extends Component {
   constructor(props) {
@@ -24,6 +25,12 @@ class EntityTable extends Component {
   componentDidMount() {
     this.props.fetchEntity(this.props.entityType);
   }
+
+  canRead = () => {
+    const { permissions, entityType } = this.props;
+    const permission = `ROLE_${entityType}_READ`;
+    return _.includes(permissions, permission);
+  };
 
   canWrite = () => {
     const { permissions, entityType } = this.props;
@@ -49,8 +56,15 @@ class EntityTable extends Component {
           <div className="col-md-6">
             <h1>{_.startCase(entityType)}</h1>
           </div>
+          {this.canRead() && (
+          <CsvExport
+            entity={entity}
+            fieldConfig={fieldConfig}
+            entityType={entityType}
+          />
+          )}
           {this.canWrite() && (
-            <div className="col-md-3">
+            <div className="col-md-2">
               {!_.isNil(this.props.csvConfigs) && (
                 <button
                   type="button"
@@ -66,7 +80,7 @@ class EntityTable extends Component {
             </div>
           )}
           {this.canWrite() && (
-            <div className="col-md-3 float-right">
+            <div className="col-md-2 float-right">
               <button
                 type="button"
                 className="btn btn-success btn-lg btn-block"
