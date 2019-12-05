@@ -73,6 +73,9 @@ public class FieldConfig extends BaseEntity {
   @Column(name = "format")
   private String format;
 
+  @Column(name = "pattern")
+  private String pattern;
+
   public FieldConfig(UUID id) {
     super(id);
   }
