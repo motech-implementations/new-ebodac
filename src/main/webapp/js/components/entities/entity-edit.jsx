@@ -67,7 +67,7 @@ class EntityEdit extends Component {
   render() {
     const { openConfirmModal } = this.state;
     const {
-      entityToEdit, fieldConfig, entityType, isOnline,
+      entityToEdit, fieldConfig, entityType, isOnline, disableDelete,
     } = this.props;
     return (
       <div className="container">
@@ -98,7 +98,7 @@ class EntityEdit extends Component {
                     type="button"
                     className="btn btn-danger btn-lg margin-top-sm padding-left-lg padding-right-lg"
                     onClick={this.openConfirmModal}
-                    disabled={!isOnline}
+                    disabled={!isOnline || disableDelete}
                   >
                     Delete
                   </button>
@@ -129,6 +129,7 @@ export default withRouter(
 
 EntityEdit.propTypes = {
   isOnline: PropTypes.bool.isRequired,
+  disableDelete: PropTypes.bool,
   fieldConfig: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   updateEntity: PropTypes.func.isRequired,
   deleteEntity: PropTypes.func.isRequired,
@@ -138,4 +139,8 @@ EntityEdit.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func,
   }).isRequired,
+};
+
+EntityEdit.defaultProps = {
+  disableDelete: false,
 };

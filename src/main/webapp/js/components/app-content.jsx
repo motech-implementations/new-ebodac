@@ -23,7 +23,10 @@ import RoutePrivate from './helpers/RoutePrivate';
 import EntityRoutePrivate from './helpers/EntityRoutePrivate';
 import ViewEntity from './entities/view-entity';
 import FieldConfigPage from './fields/field-config-page';
-import CreateOrEditEntityPage from './entities/create-edit-entity-page';
+import CreateEntityPage from './entities/create-entity-page';
+import EditEntityPage from './entities/edit-entity-page';
+import UserEdit from './entities/users/user-edit';
+import RoleEdit from './entities/roles/role-edit';
 import {
   MANAGE_FIELD_CONFIG,
   MANAGE_CSV_CONFIG,
@@ -39,6 +42,7 @@ import JsonConfigUpdate from './json/json-config-update';
 import JsonConfigTable from './json/json-config-table';
 import CsvImport from './entities/csv-import';
 import AppSettings from './settings/app-settings';
+import { USER_ENTITY, ROLE_ENTITY } from '../constants/entity-types';
 
 class AppContent extends Component {
   constructor(props) {
@@ -84,8 +88,10 @@ class AppContent extends Component {
                 <RoutePrivate path="/smsLogCommunityPerson" component={SmsLogCommunityPerson} />
                 <RoutePrivate path="/languages" component={Languages} />
                 <EntityRoutePrivate readOnly path="/viewEntity/:entityType" component={ViewEntity} />
-                <EntityRoutePrivate path="/create/:entityType" component={CreateOrEditEntityPage} />
-                <EntityRoutePrivate path="/entityEdit/:entityType/:id" component={CreateOrEditEntityPage} />
+                <EntityRoutePrivate path="/create/:entityType" component={CreateEntityPage} />
+                <EntityRoutePrivate path={`/entityEdit/${ROLE_ENTITY}/:id`} component={RoleEdit} />
+                <EntityRoutePrivate path={`/entityEdit/${USER_ENTITY}/:id`} component={UserEdit} />
+                <EntityRoutePrivate path="/entityEdit/:entityType/:id" component={EditEntityPage} />
                 <EntityRoutePrivate path="/import/:entityType/" component={CsvImport} />
                 <RoutePrivate
                   requiredPermissions={[MANAGE_FIELD_CONFIG]}

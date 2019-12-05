@@ -7,6 +7,7 @@ import org.motechproject.newebodac.domain.security.UserRole;
 import org.motechproject.newebodac.dto.PermissionDto;
 import org.motechproject.newebodac.dto.RoleDto;
 import org.motechproject.newebodac.exception.EntityNotFoundException;
+import org.motechproject.newebodac.exception.NewEbodacException;
 import org.motechproject.newebodac.mapper.PermissionMapper;
 import org.motechproject.newebodac.mapper.RoleMapper;
 import org.motechproject.newebodac.repository.PermissionRepository;
@@ -20,6 +21,7 @@ public class RoleService {
 
   private static final RoleMapper MAPPER = RoleMapper.INSTANCE;
   private static final PermissionMapper PERMISSION_MAPPER = PermissionMapper.INSTANCE;
+  private static final String ADMIN_ROLE = "Admin";
 
   @Autowired
   private RoleRepository roleRepository;
@@ -57,6 +59,9 @@ public class RoleService {
   public RoleDto update(UUID id, RoleDto roleDto) {
     UserRole role = roleRepository.findById(id).orElseThrow(() ->
         new EntityNotFoundException("Role with id: {0} not found", id.toString()));
+    if (role.getName().equals(ADMIN_ROLE)) {
+      throw new NewEbodacException("Role with name: 'Admin' can not be changed");
+    }
     MAPPER.update(roleDto, role);
     return MAPPER.toDto(roleRepository.save(role));
   }
@@ -64,11 +69,15 @@ public class RoleService {
   /**
     * Deletes role with given id.
     * @param id ID of role to delete.
+    * @throws NewEbodacException if Admin user is attempt to be deleted
     */
   @PreAuthorize(DefaultPermissions.HAS_ROLE_WRITE_ROLE)
   public void delete(UUID id) {
     UserRole role = roleRepository.findById(id).orElseThrow(() ->
         new EntityNotFoundException("Role with id: {0} not found", id.toString()));
+    if (role.getName().equals(ADMIN_ROLE)) {
+      throw new NewEbodacException("Role with name: 'Admin' can not be deleted");
+    }
     roleRepository.delete(role);
   }
 }

@@ -1,0 +1,17 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+    <changeSet author="user (generated)" id="1576219628034-9">
+        <insert tableName="user_permission">
+            <column name="id" value="ce53bdaa-ae1d-4846-a137-e7c7df3694b2"/>
+            <column name="display_name" value="DISPLAY_REPORTS"/>
+            <column name="name" value="ROLE_DISPLAY_REPORTS"/>
+            <column name="readonly" valueBoolean="true"/>
+            <column name="create_date" value="2019-12-13 07:44:34"/>
+            <column name="update_date" value="2019-12-13 07:44:34"/>
+        </insert>
+        <insert tableName="user_role_permissions">
+            <column name="role_id" value="d892e3c6-25eb-4291-abfc-b379aa502bc3"/>
+            <column name="permission_id" value="ce53bdaa-ae1d-4846-a137-e7c7df3694b2"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

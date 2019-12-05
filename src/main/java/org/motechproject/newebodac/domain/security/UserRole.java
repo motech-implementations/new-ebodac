@@ -47,4 +47,5 @@ public class UserRole extends BaseEntity {
   public UserRole(UUID id) {
     super(id);
   }
+
 }
