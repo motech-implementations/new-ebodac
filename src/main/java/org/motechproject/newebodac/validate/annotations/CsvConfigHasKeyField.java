@@ -14,14 +14,14 @@ import org.motechproject.newebodac.validate.constraintvalidators.CsvFieldValidat
 @Constraint(validatedBy = CsvFieldValidator.class)
 @Target({ ElementType.METHOD, ElementType.FIELD })
 @Retention(RetentionPolicy.RUNTIME)
-public @interface HasKeyField {
+public @interface CsvConfigHasKeyField {
 
   /**
    * Specify the message in case of a validation error.
    *
    * @return the message about the error.
    */
-  String message() default ValidationMessages.CSV_CONFIG_HAS_NO_KEY_FIELD;
+  String message() default ValidationMessages.CSV_OR_JSON_CONFIG_HAS_NO_KEY_FIELD;
 
   /**
    * Specify validation groups, to which this constraint belongs.

@@ -29,10 +29,14 @@ import {
   MANAGE_CSV_CONFIG,
   MANAGE_APP_SETTINGS,
   MANAGE_VACCINEE_ENROLLMENT,
+  MANAGE_JSON_CONFIG,
 } from '../constants/permissions';
 import CsvConfigCreate from './csv/csv-config-create';
 import CsvConfigUpdate from './csv/csv-config-update';
 import CsvConfigTable from './csv/csv-config-table';
+import JsonConfigCreate from './json/json-config-create';
+import JsonConfigUpdate from './json/json-config-update';
+import JsonConfigTable from './json/json-config-table';
 import CsvImport from './entities/csv-import';
 import AppSettings from './settings/app-settings';
 
@@ -102,6 +106,21 @@ class AppContent extends Component {
                   requiredPermissions={[MANAGE_CSV_CONFIG]}
                   path="/csvConfigTable"
                   component={CsvConfigTable}
+                />
+                <RoutePrivate
+                  requiredPermissions={[MANAGE_JSON_CONFIG]}
+                  path="/jsonConfigTable"
+                  component={JsonConfigTable}
+                />
+                <RoutePrivate
+                  requiredPermissions={[MANAGE_JSON_CONFIG]}
+                  path="/createJsonConfig/"
+                  component={JsonConfigCreate}
+                />
+                <RoutePrivate
+                  requiredPermissions={[MANAGE_JSON_CONFIG]}
+                  path="/updateJsonConfig/:entity/:id"
+                  component={JsonConfigUpdate}
                 />
                 <RoutePrivate
                   requiredPermissions={[MANAGE_APP_SETTINGS]}

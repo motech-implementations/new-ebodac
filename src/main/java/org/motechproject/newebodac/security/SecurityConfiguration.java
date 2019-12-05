@@ -46,6 +46,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             "/images/**",
             "/manifest.json",
             "/",
+            "/importJson/**",
             "/api/register"
       );
   }

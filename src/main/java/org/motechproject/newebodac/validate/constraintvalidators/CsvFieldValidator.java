@@ -4,9 +4,10 @@ import java.util.Set;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import org.motechproject.newebodac.dto.CsvFieldDto;
-import org.motechproject.newebodac.validate.annotations.HasKeyField;
+import org.motechproject.newebodac.validate.annotations.CsvConfigHasKeyField;
 
-public class CsvFieldValidator implements ConstraintValidator<HasKeyField, Set<CsvFieldDto>> {
+public class CsvFieldValidator implements ConstraintValidator<CsvConfigHasKeyField,
+    Set<CsvFieldDto>> {
 
   @Override
   public boolean isValid(Set<CsvFieldDto> csvFieldDtos, ConstraintValidatorContext context) {
@@ -19,7 +20,7 @@ public class CsvFieldValidator implements ConstraintValidator<HasKeyField, Set<C
   }
 
   @Override
-  public void initialize(HasKeyField parameters) {
+  public void initialize(CsvConfigHasKeyField parameters) {
     // we don't need any passed parameters
   }
 }

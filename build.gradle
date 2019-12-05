@@ -30,8 +30,9 @@ dependencies {
     implementation 'mysql:mysql-connector-java'
     implementation 'org.liquibase:liquibase-core'
     implementation 'org.mapstruct:mapstruct:1.3.0.Final'
-    compile 'net.sf.supercsv:super-csv:2.4.0'
-
+    implementation 'net.sf.supercsv:super-csv:2.4.0'
+    implementation 'org.json:json:20190722'
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-json-org:2.10.1'
     compileOnly 'org.projectlombok:lombok:1.18.8'
 
     annotationProcessor 'org.mapstruct:mapstruct-processor:1.3.0.Final'

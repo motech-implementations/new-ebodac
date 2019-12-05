@@ -5,6 +5,7 @@ import fieldConfigReducer from './field-config-reducer';
 import registrationReducer from './registrations-reducer';
 import csvConfigReducer from './csv-config-reducer';
 import appSettingsReducer from './app-settings-reducer';
+import jsonConfigReducer from './json-config-reducer';
 
 const rootReducer = combineReducers({
   entity: entityReducer,
@@ -12,6 +13,7 @@ const rootReducer = combineReducers({
   fieldConfig: fieldConfigReducer,
   registrationReducer,
   csvConfig: csvConfigReducer,
+  jsonConfig: jsonConfigReducer,
   appSettings: appSettingsReducer,
 });
 

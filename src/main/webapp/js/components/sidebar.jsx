@@ -25,6 +25,7 @@ import {
   MANAGE_CSV_CONFIG,
   MANAGE_APP_SETTINGS,
   MANAGE_VACCINEE_ENROLLMENT,
+  MANAGE_JSON_CONFIG,
 } from '../constants/permissions';
 import { getEntityReadPermission } from '../utils/permission-helper';
 
@@ -236,6 +237,15 @@ class SideBar extends Component {
         && (
           <li className="border-none">
             {this.renderLink('/csvConfigTable', 'hand-point-right', 'CSV Import Config')}
+          </li>
+        )}
+        {this.isAuthorizated([MANAGE_JSON_CONFIG])
+        && (
+          <li className="border-none">
+            <Link to="/jsonConfigTable">
+              <FontAwesomeIcon icon="hand-point-right" />
+              <span className="icon-text">Json Import Config</span>
+            </Link>
           </li>
         )}
         {this.isAuthorizated([MANAGE_APP_SETTINGS])
