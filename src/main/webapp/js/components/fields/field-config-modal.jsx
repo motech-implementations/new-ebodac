@@ -40,6 +40,7 @@ const defaultConfig = {
   relatedEntity: null,
   relatedField: null,
   format: '',
+  pattern: '',
 };
 
 const customStyles = {
@@ -92,6 +93,9 @@ const FIELDS = [
   {
     name: 'format', fieldType: 'TEXT', displayName: 'Format', required: false,
   },
+  {
+    name: 'pattern', fieldType: 'TEXT', displayName: 'Pattern', required: false,
+  },
 ];
 
 class FieldConfigModal extends React.Component {
@@ -110,7 +114,9 @@ class FieldConfigModal extends React.Component {
       this.props.createFieldConfig(entityType,
         {
           ...values,
-          format: _.includes([DATE, DATE_TIME, ENUM], values.fieldType) ? values.format : undefined,
+          format: _.includes([DATE, DATE_TIME, ENUM, TEXT], values.fieldType)
+            ? values.format : undefined,
+          pattern: values.fieldType === 'TEXT' ? values.pattern : undefined,
           fieldOrder: newItemOrder,
           entity: entityType,
         });
@@ -162,7 +168,8 @@ class FieldConfigModal extends React.Component {
               {_.map(FIELDS, elem => renderFormField({
                 ...elem,
                 editable: (elem.name !== 'name' && elem.name !== 'fieldType') || !fieldId,
-                hidden: !_.includes([DATE, DATE_TIME, ENUM], values.fieldType) && elem.name === 'format',
+                hidden: (!_.includes([DATE, DATE_TIME, ENUM, TEXT], values.fieldType) && elem.name === 'format')
+                || (values.fieldType !== 'TEXT' && elem.name === 'pattern'),
                 required: (_.includes([DATE, DATE_TIME, ENUM], values.fieldType) && elem.name === 'format') || elem.required,
               }))}
               <div>

@@ -32,4 +32,6 @@ public class FieldConfigDto extends BaseDto {
   private Integer fieldOrder;
 
   private String format;
+
+  private String pattern;
 }

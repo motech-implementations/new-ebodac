@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const TextCell = ({ value }) => (
+const TextCell = ({ value, format, pattern }) => (
   <div className="table-cell-text">
-    {value}
+    {(!format || !pattern || !value) ? value : value.replace(new RegExp(pattern, 'i'), format).trim()}
   </div>
 );
 
@@ -14,8 +14,12 @@ TextCell.propTypes = {
     PropTypes.string,
     PropTypes.number,
   ]),
+  format: PropTypes.string,
+  pattern: PropTypes.string,
 };
 
 TextCell.defaultProps = {
   value: null,
+  format: null,
+  pattern: null,
 };

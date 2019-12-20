@@ -21,7 +21,7 @@ import {
 
 const getTableCell = (item, props) => {
   const {
-    fieldType, format, relatedEntity, relatedField,
+    fieldType, format, pattern, relatedEntity, relatedField,
   } = props;
   let Cell;
   let attr = {};
@@ -53,6 +53,7 @@ const getTableCell = (item, props) => {
       break;
     default:
       Cell = TextCell;
+      attr = { format, pattern };
   }
   return (
     <Cell value={value} {...attr} />
@@ -119,18 +120,21 @@ getTableColumn.propTypes = {
   editable: PropTypes.bool.isRequired,
   filterable: PropTypes.bool.isRequired,
   format: PropTypes.string,
+  pattern: PropTypes.string,
   entities: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
 };
 
 getTableCell.propTypes = {
   fieldType: PropTypes.string.isRequired,
   format: PropTypes.string.isRequired,
+  pattern: PropTypes.string.isRequired,
   relatedEntity: PropTypes.string.isRequired,
   relatedField: PropTypes.string.isRequired,
 };
 
 getTableColumn.defaultProps = {
   format: null,
+  pattern: null,
   relatedEntity: null,
   relatedField: null,
 };
