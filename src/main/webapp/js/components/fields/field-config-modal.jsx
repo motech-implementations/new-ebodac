@@ -41,6 +41,7 @@ const defaultConfig = {
   relatedField: null,
   format: '',
   pattern: '',
+  uniqueField: false,
 };
 
 const customStyles = {
@@ -73,7 +74,7 @@ const FIELD_TYPE_OPTIONS = [
 
 const FIELDS = [
   {
-    name: 'name', fieldType: 'TEXT', displayName: 'Name', required: true,
+    name: 'name', fieldType: 'TEXT', displayName: 'Name', required: true, uniqueField: true,
   },
   {
     name: 'fieldType', fieldType: 'ENUM', displayName: 'Field type', required: true, options: FIELD_TYPE_OPTIONS,
@@ -92,6 +93,9 @@ const FIELDS = [
   },
   {
     name: 'format', fieldType: 'TEXT', displayName: 'Format', required: false,
+  },
+  {
+    name: 'uniqueField', fieldType: 'BOOLEAN', displayName: 'Unique field', required: false,
   },
   {
     name: 'pattern', fieldType: 'TEXT', displayName: 'Pattern', required: false,
@@ -142,7 +146,7 @@ class FieldConfigModal extends React.Component {
   validate = values => validate(_.map(FIELDS, elem => ({
     ...elem,
     required: (_.includes([DATE, DATE_TIME, ENUM], values.fieldType) && elem.name === 'format') || elem.required,
-  })))(values);
+  })), this.props.fieldConfigs)(values);
 
   openConfirmModal = () => {
     this.setState({ openConfirmModal: true });
@@ -152,7 +156,6 @@ class FieldConfigModal extends React.Component {
     const { openConfirmModal } = this.state;
     const { fieldConfig, fieldId, isOnline } = this.props;
     let config = fieldConfig;
-
     if (!fieldId) {
       config = defaultConfig;
     }
@@ -243,6 +246,7 @@ class FieldConfigModal extends React.Component {
 
 const mapStateToProps = (state, props) => ({
   fieldConfig: getFieldConfigById(state, props),
+  fieldConfigs: state.fieldConfig[props.entityType],
   isOnline: state.offline.online,
 });
 
@@ -259,6 +263,7 @@ FieldConfigModal.propTypes = {
   saveFieldConfig: PropTypes.func.isRequired,
   deleteFieldConfig: PropTypes.func.isRequired,
   fieldId: PropTypes.string,
+  fieldConfigs: PropTypes.shape({}).isRequired,
   fieldConfig: PropTypes.shape({}),
 };
 

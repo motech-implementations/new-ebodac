@@ -34,7 +34,7 @@ class EntityCreate extends Component {
     });
   };
 
-  validate = values => validate(this.props.fieldConfig)(values);
+  validate = values => validate(this.props.fieldConfig, this.props.entities)(values);
 
   render() {
     const { fieldConfig, entityType, isOnline } = this.props;
@@ -75,7 +75,8 @@ class EntityCreate extends Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state, props) => ({
+  entities: state.entity[props.entityType],
   isOnline: state.offline.online,
 });
 
@@ -88,6 +89,7 @@ EntityCreate.propTypes = {
   fieldConfig: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   createEntity: PropTypes.func.isRequired,
   entityType: PropTypes.string.isRequired,
+  entities: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   history: PropTypes.shape({
     push: PropTypes.func,
   }).isRequired,

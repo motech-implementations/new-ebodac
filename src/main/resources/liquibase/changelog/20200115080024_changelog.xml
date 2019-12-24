@@ -1,0 +1,21 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+    <changeSet author="user (generated)" id="1579071630338-1">
+                <addColumn tableName="field_config">
+            <column name="unique_field" type="BIT"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="user (generated)" id="1579071630338-2">
+        <update tableName="field_config">
+            <column name="unique_field" valueBoolean="false"/>
+        </update>
+    </changeSet>
+    <changeSet author="user (generated)" id="1579071630338-3">
+        <addNotNullConstraint columnName="unique_field"
+            constraintName="not_null_const"
+            columnDataType="boolean"
+            defaultNullValue="false"
+            tableName="field_config"
+            validate="true"/>
+    </changeSet>
+</databaseChangeLog>

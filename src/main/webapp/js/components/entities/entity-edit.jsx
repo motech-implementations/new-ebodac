@@ -44,7 +44,10 @@ class EntityEdit extends Component {
     });
   };
 
-  validate = values => validate(this.props.fieldConfig)(values);
+  validate = values => validate(
+    this.props.fieldConfig,
+    this.props.entities,
+  )(values);
 
   openConfirmModal = () => {
     this.setState({ openConfirmModal: true });
@@ -120,6 +123,7 @@ class EntityEdit extends Component {
 
 const mapStateToProps = (state, props) => ({
   entityToEdit: getEntityMemberById(state, props),
+  entities: state.entity[props.entityType],
   isOnline: state.offline.online,
 });
 
@@ -135,6 +139,7 @@ EntityEdit.propTypes = {
   entityToEdit: PropTypes.shape({}).isRequired,
   entityType: PropTypes.string.isRequired,
   entityId: PropTypes.string.isRequired,
+  entities: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   history: PropTypes.shape({
     push: PropTypes.func,
   }).isRequired,

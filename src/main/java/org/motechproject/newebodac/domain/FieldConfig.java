@@ -75,6 +75,10 @@ public class FieldConfig extends BaseEntity {
 
   @Column(name = "pattern")
   private String pattern;
+  
+  @NotNull
+  @Column(name = "unique_field", nullable = false)
+  private Boolean uniqueField = false;
 
   public FieldConfig(UUID id) {
     super(id);
