@@ -116,7 +116,8 @@ class FieldConfigModal extends React.Component {
           ...values,
           format: _.includes([DATE, DATE_TIME, ENUM, TEXT], values.fieldType)
             ? values.format : undefined,
-          pattern: values.fieldType === 'TEXT' ? values.pattern : undefined,
+          pattern: _.includes([DATE, DATE_TIME, TEXT], values.fieldType)
+            ? values.pattern : undefined,
           fieldOrder: newItemOrder,
           entity: entityType,
         });
@@ -169,7 +170,7 @@ class FieldConfigModal extends React.Component {
                 ...elem,
                 editable: (elem.name !== 'name' && elem.name !== 'fieldType') || !fieldId,
                 hidden: (!_.includes([DATE, DATE_TIME, ENUM, TEXT], values.fieldType) && elem.name === 'format')
-                || (values.fieldType !== 'TEXT' && elem.name === 'pattern'),
+                || (!_.includes([DATE, DATE_TIME, TEXT], values.fieldType) && elem.name === 'pattern'),
                 required: (_.includes([DATE, DATE_TIME, ENUM], values.fieldType) && elem.name === 'format') || elem.required,
               }))}
               <div>

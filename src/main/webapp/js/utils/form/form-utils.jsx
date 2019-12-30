@@ -45,11 +45,10 @@ export const getOptionsFromEnum = (format) => {
 const renderFormField = (props) => {
   const {
     name, fieldType, displayName, required, editable, hidden,
-    format, options = null, relatedEntity, relatedField,
+    format, options = null, relatedEntity, relatedField, pattern,
   } = props;
   let FieldType;
   let attr = {};
-
   switch (fieldType) {
     case TEXT:
       FieldType = TextField;
@@ -74,7 +73,7 @@ const renderFormField = (props) => {
       break;
     case DATE:
       FieldType = DateField;
-      attr = { dateFormat: format };
+      attr = { dateFormat: format, datePattern: pattern };
       break;
     case TIME:
       FieldType = TimeField;
@@ -84,7 +83,7 @@ const renderFormField = (props) => {
       break;
     case DATE_TIME:
       FieldType = DateField;
-      attr = { dateFormat: format, showTimeSelect: true };
+      attr = { dateFormat: format, showTimeSelect: true, datePattern: pattern };
       break;
     case ENUM:
       FieldType = SelectField;
@@ -109,7 +108,7 @@ const renderFormField = (props) => {
     <FieldType
       key={name}
       fieldConfig={{
-        name, displayName, required, editable, hidden, ...attr,
+        name, displayName, required, editable, hidden, pattern, ...attr,
       }}
     />
   );
@@ -142,6 +141,7 @@ renderFormField.propTypes = {
   relatedEntity: PropTypes.string,
   relatedField: PropTypes.string,
   hidden: PropTypes.bool,
+  pattern: PropTypes.string,
 };
 
 renderFormField.defaultProps = {
@@ -150,4 +150,5 @@ renderFormField.defaultProps = {
   relatedEntity: null,
   relatedField: null,
   hidden: false,
+  pattern: null,
 };

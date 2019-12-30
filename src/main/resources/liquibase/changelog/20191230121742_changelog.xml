@@ -1,0 +1,21 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+    <changeSet author="user (generated)" id="1577704668745-9">
+        <update tableName="field_config">
+            <column name="pattern" value="^\d{2,4}[-]\d{2}[-]\d{2,4}\s*$"/>
+            <where>name='date'</where>
+        </update>
+        <update tableName="field_config">
+            <column name="pattern" value="^\d{2,4}[-]\d{2}[-]\d{2,4}\s*$"/>
+            <where>name='updateDate'</where>
+        </update>
+        <update tableName="field_config">
+            <column name="pattern" value="^\d{2,4}[-]\d{2}[-]\d{2,4}\s*$"/>
+            <where>name='createDate'</where>
+        </update>
+        <update tableName="field_config">
+            <column name="pattern" value="^\d{2,4}[-]\d{2}[-]\d{2,4}\s*$"/>
+            <where>name='plannedDate'</where>
+        </update>
+    </changeSet>
+</databaseChangeLog>

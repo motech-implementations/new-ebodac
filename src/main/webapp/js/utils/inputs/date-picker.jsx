@@ -5,7 +5,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { parseISO, format } from 'date-fns';
 
 const DatePicker = ({
-  onChange, value, dateFormat, showTimeSelect, ...props
+  onChange, value, dateFormat, datePattern, showTimeSelect, ...props
 }) => {
   const handleChange = (date) => {
     if (!date || typeof date === 'string') {
@@ -20,7 +20,7 @@ const DatePicker = ({
       <ReactDatePicker
         className="form-control"
         {...props}
-        selected={value ? parseISO(value) : null}
+        selected={value.match(new RegExp(datePattern)) ? parseISO(value) : null}
         placeholderText="Select..."
         showTimeSelect={showTimeSelect}
         dateFormat={dateFormat}
@@ -39,9 +39,11 @@ DatePicker.propTypes = {
   dateFormat: PropTypes.string.isRequired,
   showTimeSelect: PropTypes.bool,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.shape({})]),
+  datePattern: PropTypes.string,
 };
 
 DatePicker.defaultProps = {
   value: null,
   showTimeSelect: false,
+  datePattern: '\\d{2,4}[-]\\d{2}[-]\\d{2,4}\\s*',
 };
