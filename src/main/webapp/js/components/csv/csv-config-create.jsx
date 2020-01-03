@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import 'react-table/react-table.css';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import _ from 'lodash';
 import { withRouter } from 'react-router-dom';
 
 import Alert from 'react-s-alert';
@@ -30,11 +31,28 @@ class CsvConfigCreate extends Component {
 
     this.state = {
       entity: '',
+      initialFields: {},
     };
   }
 
+  initiateCsvConfigFields = (entityType) => {
+    const fieldConfig = this.props.fieldConfigs[entityType];
+    const initialFields = _.chain(fieldConfig)
+      .filter(elem => elem.required)
+      .map(elem => ({
+        fieldConfigId: elem.id,
+        fieldName: '',
+        format: '',
+        defaultValue: '',
+        keyField: false,
+      }))
+      .value();
+    this.setState({ initialFields });
+  };
+
   onChange = (entity) => {
     this.setState({ entity });
+    this.initiateCsvConfigFields(entity);
   };
 
   onSubmit = (values) => {
@@ -63,20 +81,32 @@ class CsvConfigCreate extends Component {
           isNew
           onSubmit={this.onSubmit}
           entityType={this.state.entity}
-          csvConfig={{ entity: this.state.entity }}
+          csvConfig={{
+            entity: this.state.entity,
+            csvFields: this.state.initialFields,
+          }}
         />
       </div>
     );
   }
 }
 
+const mapStateToProps = state => ({
+  fieldConfigs: state.fieldConfig,
+});
+
 export default withRouter(
-  connect(null, { createCsvConfig })(CsvConfigCreate),
+  connect(mapStateToProps, { createCsvConfig })(CsvConfigCreate),
 );
 
 CsvConfigCreate.propTypes = {
   createCsvConfig: PropTypes.func.isRequired,
+  fieldConfigs: PropTypes.shape(),
   history: PropTypes.shape({
     push: PropTypes.func,
   }).isRequired,
+};
+
+CsvConfigCreate.defaultProps = {
+  fieldConfigs: {},
 };
