@@ -69,7 +69,10 @@ class EntityTable extends Component {
                 <button
                   type="button"
                   className="btn btn-success btn-lg btn-block"
-                  onClick={() => this.props.history.push(`/import/${entityType}`)}
+                  onClick={() => {
+                    this.props.resetLogoutCounter();
+                    this.props.history.push(`/import/${entityType}`);
+                  }}
                   disabled={_.isEmpty(this.props.csvConfigs) || !isOnline}
                   title={_.isEmpty(this.props.csvConfigs)
                     ? 'You have to create a CSV config for this entity!' : ''}
@@ -84,7 +87,10 @@ class EntityTable extends Component {
               <button
                 type="button"
                 className="btn btn-success btn-lg btn-block"
-                onClick={() => this.props.history.push(`/create/${entityType}`)}
+                onClick={() => {
+                  this.props.resetLogoutCounter();
+                  this.props.history.push(`/create/${entityType}`);
+                }}
                 disabled={!isOnline}
               >
                 Create New
