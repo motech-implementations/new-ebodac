@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import '../../css/main.scss';
-import { signoutUser } from '../actions/auth-actions';
+import { signoutUser, resetLogoutCounter } from '../actions/auth-actions';
 import CounterLogout from './counter-logout';
 
 /* eslint-disable jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */
@@ -52,8 +52,8 @@ class Header extends Component {
             <div className="bar2" />
             <div className="bar3" />
           </div>
-          <a className="active" href="#home">Home</a>
-          <a href="#news">New ebodac</a>
+          <a className="active" href="#home" onClick={() => this.props.resetLogoutCounter()}>Home</a>
+          <a href="#news" onClick={() => this.props.resetLogoutCounter()}>New ebodac</a>
           <div className="float-right">
             <div className="online-indicator">
               <span className="online-icon-text">{`${isOnline ? 'ONLINE' : 'OFFLINE'}`}</span>
@@ -70,10 +70,11 @@ const mapStateToProps = state => ({
   isOnline: state.offline.online,
 });
 
-export default connect(mapStateToProps, { signoutUser })(Header);
+export default connect(mapStateToProps, { signoutUser, resetLogoutCounter })(Header);
 
 Header.propTypes = {
   toggleSidebarMenu: PropTypes.func.isRequired,
   signoutUser: PropTypes.func.isRequired,
+  resetLogoutCounter: PropTypes.func.isRequired,
   isOnline: PropTypes.bool.isRequired,
 };
