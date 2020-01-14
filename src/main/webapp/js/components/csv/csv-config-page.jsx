@@ -139,7 +139,6 @@ class CsvConfigPage extends Component {
 
   render() {
     const { entityType, isOnline } = this.props;
-
     return (
       <div className="modal-form">
         <Form
@@ -248,7 +247,10 @@ class CsvConfigPage extends Component {
                           type="button"
                           className="btn btn-danger"
                           onClick={() => fields.remove(index)}
-                          disabled={!isOnline}
+                          disabled={!isOnline
+                            || (this.props.fieldConfig[fields.value[index].fieldConfigId]
+                              ? this.props.fieldConfig[fields.value[index].fieldConfigId].required
+                              : false)}
                         >
                                     Delete
                         </button>
