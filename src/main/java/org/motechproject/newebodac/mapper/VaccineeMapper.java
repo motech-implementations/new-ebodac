@@ -85,6 +85,9 @@ public abstract class VaccineeMapper implements EntityMapper<VaccineeDto, Vaccin
    * @return Vaccinee enrollment status
    */
   public String toStatus(Set<Visit> visits) {
+    if (visits == null || visits.isEmpty()) {
+      return EnrollmentStatus.NOT_ENROLLED.name();
+    }
     EnrollmentStatus status = EnrollmentStatus.COMPLETED;
 
     for (Visit visit : visits) {
