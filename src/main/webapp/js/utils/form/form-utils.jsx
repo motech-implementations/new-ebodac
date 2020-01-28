@@ -115,14 +115,21 @@ const renderFormField = (props) => {
   );
 };
 
-export const validate = fieldConfig => (values) => {
+export const validate = (fieldConfig, entities) => (values) => {
   const errors = {};
-
   _.forEach(fieldConfig, (config) => {
     const val = values[config.name];
 
     if (config.required && (_.isNil(val) || val === '')) {
       errors[config.name] = `${config.displayName} is required`;
+    }
+    if (config.uniqueField && !(_.isNil(val) || val === '')) {
+      const existingEntity = _.find(
+        entities, elem => (elem[config.name] === val && elem.id !== values.id),
+      );
+      if (existingEntity) {
+        errors[config.name] = `${config.displayName} should be unique`;
+      }
     }
   });
 

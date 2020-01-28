@@ -34,4 +34,6 @@ public class FieldConfigDto extends BaseDto {
   private String format;
 
   private String pattern;
+  
+  private Boolean uniqueField;
 }
