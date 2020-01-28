@@ -7,6 +7,7 @@ import org.motechproject.newebodac.constants.DefaultPermissions;
 import org.motechproject.newebodac.domain.security.User;
 import org.motechproject.newebodac.dto.UserDto;
 import org.motechproject.newebodac.exception.EntityNotFoundException;
+import org.motechproject.newebodac.exception.RelationViolationException;
 import org.motechproject.newebodac.exception.UserAlreadyExistsException;
 import org.motechproject.newebodac.mapper.UserMapper;
 import org.motechproject.newebodac.repository.UserRepository;
@@ -25,6 +26,8 @@ public class UserService {
   private PasswordEncoder passwordEncoder;
 
   private static final UserMapper MAPPER = UserMapper.INSTANCE;
+
+  private static final String ADMIN_USER = "admin";
 
   public User getUserByUserName(String userName) {
     return userRepository.findOneByUsername(userName).orElseThrow(() ->
@@ -65,12 +68,18 @@ public class UserService {
   /**
    * Deletes user with given id.
    * @param id ID of user to delete.
+   * @throws RelationViolationException if Admin user is attempt to be deleted
    */
   @PreAuthorize(DefaultPermissions.HAS_USER_WRITE_ROLE)
   public void delete(UUID id) {
-    User fieldConfig = userRepository.findById(id).orElseThrow(() ->
+    User user = userRepository.findById(id).orElseThrow(() ->
         new EntityNotFoundException("User with id: {0} not found", id.toString()));
-    userRepository.delete(fieldConfig);
+    if (user.getUsername().equals(ADMIN_USER)) {
+      throw new RelationViolationException("User with username: {0} can not be deleted",
+          user.getUsername());
+    } else {
+      userRepository.delete(user);
+    }
   }
 
   /**
@@ -83,7 +92,11 @@ public class UserService {
   public UserDto update(UUID id, UserDto userDto) {
     User user = userRepository.findById(id).orElseThrow(() ->
         new EntityNotFoundException("User with id: {0} not found", id.toString()));
-    MAPPER.update(userDto, user);
+    if (user.getUsername().equals(ADMIN_USER)) {
+      MAPPER.adminUpdate(userDto, user);
+    } else {
+      MAPPER.update(userDto, user);
+    }
     if (StringUtils.isNotBlank(userDto.getPassword())) {
       user.setPassword(passwordEncoder.encode(user.getPassword()));
     }

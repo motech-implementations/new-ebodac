@@ -22,6 +22,13 @@ public interface UserMapper extends EntityMapper<UserDto, User> {
   @Mapping(target = "updateDate", ignore = true)
   void update(UserDto userDto, @MappingTarget User user);
 
+  @Mapping(target = "password", ignore = true)
+  @Mapping(target = "id", ignore = true)
+  @Mapping(target = "username", ignore = true)
+  @Mapping(target = "createDate", ignore = true)
+  @Mapping(target = "updateDate", ignore = true)
+  void adminUpdate(UserDto userDto, @MappingTarget User user);
+
   @Mapping(target = "roleIds", source = "roles")
   @Mapping(target = "password", ignore = true)
   @Override
