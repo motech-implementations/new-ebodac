@@ -30,9 +30,8 @@ class CsvConfigPage extends Component {
     value: v.id,
   }));
 
-  getFields = (fieldValue) => {
+  getFields = (fieldValue, clearDefaultValue) => {
     let hideFormat = true;
-
     const fieldConfig = this.props.fieldConfig[fieldValue.fieldConfigId];
     if (fieldConfig && (fieldConfig.fieldType === DATE || fieldConfig.fieldType === DATE_TIME)) {
       hideFormat = false;
@@ -45,6 +44,7 @@ class CsvConfigPage extends Component {
         displayName: 'Field name',
         required: true,
         options: this.getOptions(),
+        onChange: clearDefaultValue,
       },
       {
         name: 'fieldName',
@@ -146,10 +146,14 @@ class CsvConfigPage extends Component {
           initialValues={this.props.csvConfig}
           validate={this.validate}
           mutators={{
+            clearDefaultValue: ([index], state, utils) => {
+              utils.changeValue(state, `csvFields[${index}].defaultValue`, () => undefined);
+              utils.changeValue(state, `csvFields[${index}].format`, () => undefined);
+            },
             ...arrayMutators,
           }}
           render={({
-            handleSubmit, invalid, errors, dirty,
+            handleSubmit, invalid, errors, dirty, form: { mutators },
           }) => (
             <form onSubmit={handleSubmit}>
               <TextField
@@ -165,7 +169,7 @@ class CsvConfigPage extends Component {
                   <div>
                     {fields.map((name, index) => (
                       <div key={name} className="csvFields">
-                        {_.map(this.getFields(fields.value[index]), elem => renderFormField({ ...elem, name: `${name}.${elem.name}` }))}
+                        {_.map(this.getFields(fields.value[index], () => mutators.clearDefaultValue(index)), elem => renderFormField({ ...elem, name: `${name}.${elem.name}` }))}
                         {(() => {
                           // eslint-disable-next-line max-len
                           const fieldConfig = this.props.fieldConfig[fields.value[index].fieldConfigId];

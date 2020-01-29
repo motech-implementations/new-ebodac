@@ -11,6 +11,9 @@ const renderField = ({
   }, input, meta: { touched, error }, ...props
 }) => {
   const onChange = (value) => {
+    if (config.onChange) {
+      config.onChange(value);
+    }
     input.onChange(value);
   };
 
@@ -60,6 +63,7 @@ renderField.propTypes = {
     required: PropTypes.bool,
     editable: PropTypes.bool,
     hidden: PropTypes.bool,
+    onChange: PropTypes.func,
   }).isRequired,
   input: PropTypes.shape({
     name: PropTypes.string,
