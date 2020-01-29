@@ -23,7 +23,13 @@ class EntityTable extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchEntity(this.props.entityType);
+    this.fetchEntityAndRelatedEntities();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.entityType !== prevProps.entityType) {
+      this.fetchEntityAndRelatedEntities();
+    }
   }
 
   canRead = () => {
@@ -37,6 +43,16 @@ class EntityTable extends Component {
     const permission = `ROLE_${entityType}_WRITE`;
     return _.includes(permissions, permission);
   };
+
+  fetchEntityAndRelatedEntities() {
+    _.forEach(this.props.fieldConfig, (field) => {
+      if (field.fieldType === 'RELATION') {
+        this.props.fetchEntity(field.relatedEntity);
+      }
+    });
+
+    this.props.fetchEntity(this.props.entityType);
+  }
 
   render() {
     const {
