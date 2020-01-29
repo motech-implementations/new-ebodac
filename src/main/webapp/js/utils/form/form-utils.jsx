@@ -45,7 +45,7 @@ export const getOptionsFromEnum = (format) => {
 const renderFormField = (props) => {
   const {
     name, fieldType, displayName, required, editable, hidden,
-    format, options = null, relatedEntity, relatedField,
+    format, options = null, relatedEntity, relatedField, onChange,
   } = props;
   let FieldType;
   let attr = {};
@@ -109,7 +109,7 @@ const renderFormField = (props) => {
     <FieldType
       key={name}
       fieldConfig={{
-        name, displayName, required, editable, hidden, ...attr,
+        name, displayName, required, editable, hidden, onChange, ...attr,
       }}
     />
   );
@@ -149,6 +149,7 @@ renderFormField.propTypes = {
   relatedEntity: PropTypes.string,
   relatedField: PropTypes.string,
   hidden: PropTypes.bool,
+  onChange: PropTypes.func,
 };
 
 renderFormField.defaultProps = {
@@ -157,4 +158,5 @@ renderFormField.defaultProps = {
   relatedEntity: null,
   relatedField: null,
   hidden: false,
+  onChange: null,
 };
