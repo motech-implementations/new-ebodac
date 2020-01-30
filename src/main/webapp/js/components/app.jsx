@@ -13,25 +13,12 @@ import { fetchEntity } from '../actions/entity-actions';
 import { fetchAllCsvConfigs } from '../actions/csv-config-actions';
 import { fetchAllJsonConfigs } from '../actions/json-config-actions';
 
-import {
-  PERMISSION_ENTITY,
-  LANGUAGE_ENTITY,
-  GROUP_ENTITY,
-  ROLE_ENTITY,
-} from '../constants/entity-types';
 import Login from './auth/login';
 import Register from './auth/register';
 import AccessDeniedPage from './auth/AccessDeniedPage';
 import RoutePrivate from './helpers/RoutePrivate';
 
 loadIcons();
-
-const ENTITY_ARRAY = [
-  PERMISSION_ENTITY,
-  LANGUAGE_ENTITY,
-  GROUP_ENTITY,
-  ROLE_ENTITY,
-];
 
 class App extends Component {
   componentDidUpdate() {
@@ -48,13 +35,6 @@ class App extends Component {
     if (this.props.authenticated && !jsonConfigFetched && !jsonConfigFetching) {
       this.props.fetchAllJsonConfigs();
     }
-    ENTITY_ARRAY.forEach((entity) => {
-      const isFetched = this.props.metadata[entity].fetched;
-      const isFetching = this.props.metadata[entity].fetching;
-      if (this.props.authenticated && !isFetched && !isFetching) {
-        this.props.fetchEntity(entity);
-      }
-    });
   }
 
   render() {
@@ -90,7 +70,6 @@ App.propTypes = {
   fetchAllFieldConfigs: PropTypes.func.isRequired,
   fetchAllCsvConfigs: PropTypes.func.isRequired,
   fetchAllJsonConfigs: PropTypes.func.isRequired,
-  fetchEntity: PropTypes.func.isRequired,
   fieldConfigFetched: PropTypes.bool.isRequired,
   fieldConfigFetching: PropTypes.bool.isRequired,
   csvConfigFetched: PropTypes.bool.isRequired,
