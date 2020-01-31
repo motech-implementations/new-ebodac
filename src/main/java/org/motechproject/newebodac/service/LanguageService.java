@@ -6,6 +6,7 @@ import org.motechproject.newebodac.constants.DefaultPermissions;
 import org.motechproject.newebodac.domain.KeyCommunityPerson;
 import org.motechproject.newebodac.domain.Language;
 import org.motechproject.newebodac.domain.Vaccinee;
+import org.motechproject.newebodac.domain.enums.EntityType;
 import org.motechproject.newebodac.dto.LanguageDto;
 import org.motechproject.newebodac.exception.EntityNotFoundException;
 import org.motechproject.newebodac.exception.RelationViolationException;
@@ -31,6 +32,9 @@ public class LanguageService {
   @Autowired
   private KeyCommunityPersonRepository keyCommunityPersonRepository;
 
+  @Autowired
+  private FieldConfigService fieldConfigService;
+
   @PreAuthorize(DefaultPermissions.HAS_LANGUAGE_READ_ROLE)
   public List<LanguageDto> getAll() {
     return MAPPER.toDtos(languageRepository.findAll());
@@ -41,9 +45,14 @@ public class LanguageService {
     return MAPPER.toDto(languageRepository.getOne(id));
   }
 
+  /**
+  * Creates data from dto to object, saves it and returns its Dto.
+  */
   @PreAuthorize(DefaultPermissions.HAS_LANGUAGE_WRITE_ROLE)
   public LanguageDto create(LanguageDto languageDto) {
-    return MAPPER.toDto(languageRepository.save(MAPPER.fromDto(languageDto)));
+    Language newLanguage = MAPPER.fromDto(languageDto);
+    fieldConfigService.checkIfUnique(EntityType.LANGUAGE, newLanguage);
+    return MAPPER.toDto(languageRepository.save(newLanguage));
   }
 
   /**
@@ -58,6 +67,7 @@ public class LanguageService {
         .orElseThrow(() -> new EntityNotFoundException("Language with id: {0} not found",
             id.toString()));
     MAPPER.update(languageDto, language);
+    fieldConfigService.checkIfUnique(EntityType.LANGUAGE, language);
     return MAPPER.toDto(languageRepository.save(language));
   }
 

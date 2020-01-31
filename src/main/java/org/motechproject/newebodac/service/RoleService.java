@@ -3,6 +3,7 @@ package org.motechproject.newebodac.service;
 import java.util.List;
 import java.util.UUID;
 import org.motechproject.newebodac.constants.DefaultPermissions;
+import org.motechproject.newebodac.domain.enums.EntityType;
 import org.motechproject.newebodac.domain.security.UserRole;
 import org.motechproject.newebodac.dto.PermissionDto;
 import org.motechproject.newebodac.dto.RoleDto;
@@ -29,6 +30,9 @@ public class RoleService {
   @Autowired
   private PermissionRepository permissionRepository;
 
+  @Autowired
+  private FieldConfigService fieldConfigService;
+
   @PreAuthorize(DefaultPermissions.HAS_ROLE_READ_ROLE)
   public List<RoleDto> getAll() {
     return MAPPER.toDtos(roleRepository.findAll());
@@ -44,9 +48,14 @@ public class RoleService {
     return MAPPER.toDto(roleRepository.getOne(id));
   }
 
+  /**
+  * Creates data from dto to object, saves it and returns its Dto.
+  */
   @PreAuthorize(DefaultPermissions.HAS_ROLE_WRITE_ROLE)
   public RoleDto create(RoleDto roleDto) {
-    return MAPPER.toDto(roleRepository.save(MAPPER.fromDto(roleDto)));
+    UserRole newRole = MAPPER.fromDto(roleDto);
+    fieldConfigService.checkIfUnique(EntityType.ROLE, newRole);
+    return MAPPER.toDto(roleRepository.save(newRole));
   }
 
   /**
@@ -63,6 +72,7 @@ public class RoleService {
       throw new NewEbodacException("Role with name: 'Admin' can not be changed");
     }
     MAPPER.update(roleDto, role);
+    fieldConfigService.checkIfUnique(EntityType.ROLE, role);
     return MAPPER.toDto(roleRepository.save(role));
   }
 

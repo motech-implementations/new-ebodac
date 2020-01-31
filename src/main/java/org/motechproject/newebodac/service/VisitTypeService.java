@@ -6,6 +6,7 @@ import java.util.UUID;
 import org.motechproject.newebodac.constants.DefaultPermissions;
 import org.motechproject.newebodac.domain.Visit;
 import org.motechproject.newebodac.domain.VisitType;
+import org.motechproject.newebodac.domain.enums.EntityType;
 import org.motechproject.newebodac.dto.VisitTypeDto;
 import org.motechproject.newebodac.exception.EntityNotFoundException;
 import org.motechproject.newebodac.exception.RelationViolationException;
@@ -27,6 +28,9 @@ public class VisitTypeService {
   @Autowired
   private VisitRepository visitRepository;
 
+  @Autowired
+  private FieldConfigService fieldConfigService;
+
   @PreAuthorize(DefaultPermissions.HAS_VISIT_TYPE_READ_ROLE)
   public List<VisitTypeDto> getAll() {
     return MAPPER.toDtos(visitTypeRepository.findAll());
@@ -37,9 +41,14 @@ public class VisitTypeService {
     return MAPPER.toDto(visitTypeRepository.getOne(id));
   }
 
+  /**
+  * Creates data from dto to object, saves it and returns its Dto.
+  */
   @PreAuthorize(DefaultPermissions.HAS_VISIT_TYPE_WRITE_ROLE)
   public VisitTypeDto create(VisitTypeDto visitTypeDto) {
-    return MAPPER.toDto(visitTypeRepository.save(MAPPER.fromDto(visitTypeDto)));
+    VisitType newVisitType = MAPPER.fromDto(visitTypeDto);
+    fieldConfigService.checkIfUnique(EntityType.VISIT_TYPE, newVisitType);
+    return MAPPER.toDto(visitTypeRepository.save(newVisitType));
   }
 
   /**
@@ -54,6 +63,7 @@ public class VisitTypeService {
         .orElseThrow(() -> new EntityNotFoundException("Visit type with id: {0} not found",
             id.toString()));
     MAPPER.update(visitTypeDto, visitType);
+    fieldConfigService.checkIfUnique(EntityType.VISIT_TYPE, visitType);
     return MAPPER.toDto(visitTypeRepository.save(visitType));
   }
 
