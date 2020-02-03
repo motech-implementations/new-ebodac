@@ -41,9 +41,9 @@ class App extends Component {
     return (
       <Router>
         <Switch>
-          <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
           <Route path="/accessDenied" component={AccessDeniedPage} />
+          {!this.props.authenticated && <Route path="/" component={Login} />}
           <RoutePrivate path="/" component={AppContent} />
         </Switch>
       </Router>

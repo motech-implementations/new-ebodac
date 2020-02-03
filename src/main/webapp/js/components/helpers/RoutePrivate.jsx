@@ -19,13 +19,10 @@ const PrivateRoute = ({
   };
 
   const redirect = (pr) => {
-    if (authenticated) {
-      if (hasPermission()) {
-        return <Component {...pr} />;
-      }
-      return <Redirect to="/accessDenied" />;
+    if (hasPermission()) {
+      return <Component {...pr} />;
     }
-    return <Redirect to="/login" />;
+    return <Redirect to="/accessDenied" />;
   };
 
   return (
