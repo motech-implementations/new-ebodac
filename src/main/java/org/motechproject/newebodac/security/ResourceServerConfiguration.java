@@ -35,7 +35,6 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
         .antMatchers("/images/**").permitAll()
         .antMatchers("/images/icons/icon-144x144.png").permitAll()
         .antMatchers(HttpMethod.GET, "/images/icons/icon-128x128.png").permitAll()
-        .antMatchers("/images/icons/**").permitAll()
-        .antMatchers("/**").fullyAuthenticated();
+        .antMatchers("/images/icons/**").permitAll();
   }
 }
