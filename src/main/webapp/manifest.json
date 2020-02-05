@@ -3,7 +3,7 @@
   "short_name": "New Ebodac",
   "theme_color": "#3f9ce6",
   "background_color": "#dbebf7",
-  "display": "fullscreen",
+  "display": "standalone",
   "Scope": "/",
   "start_url": "/",
   "icons": [
