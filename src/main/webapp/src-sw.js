@@ -7,7 +7,11 @@ workbox.routing.registerRoute(
   new workbox.strategies.CacheFirst()
 );
 workbox.routing.registerRoute(
-  new RegExp('/.*\\.ico'),
+  new RegExp('/.*\\.png'),
+  new workbox.strategies.StaleWhileRevalidate()
+);
+workbox.routing.registerRoute(
+  new RegExp('/.*\\.jpg'),
   new workbox.strategies.StaleWhileRevalidate()
 );
 workbox.routing.registerRoute(

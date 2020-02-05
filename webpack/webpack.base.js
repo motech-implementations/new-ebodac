@@ -40,11 +40,15 @@ module.exports = {
       swDest: `${DEST}/sw.js`,
     }),
     new CopyPlugin([
-     {
+      {
         from: `${SRC_ROOT}/manifest.json`,
-        to:   DEST,
-     }
-    ])
+        to: DEST,
+      },
+      {
+        from: `${SRC_ROOT}/images/`,
+        to: `${DEST}/images/`,
+      },
+    ]),
   ],
   module: {
     rules: [
