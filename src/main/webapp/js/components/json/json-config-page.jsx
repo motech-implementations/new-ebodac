@@ -179,7 +179,7 @@ class JsonConfigPage extends Component {
                 { ({ fields }) => (
                   <div>
                     {fields.map((name, index) => (
-                      <div key={name} className="csvFields">
+                      <div key={name} className="arrayFields">
                         {_.map(this.getFields(fields.value[index]), elem => renderFormField({ ...elem, name: `${name}.${elem.name}` }))}
                         {(() => {
                           // eslint-disable-next-line max-len
@@ -190,13 +190,13 @@ class JsonConfigPage extends Component {
                                 <FieldArray name={`${name}.fieldValueMap`}>
                                   { ({ fields: jsonValueMapFields }) => (
                                     <div>
-                                      {jsonValueMapFields.map(jsonValueMapField => (
-                                        <div key={jsonValueMapField} className="csvValueMapField">
+                                      {jsonValueMapFields.map((jsonValueMapField, jsonMapIndex) => (
+                                        <div key={jsonValueMapField} className="nestedArrayFields">
                                           { _.map(this.getJsonValueMapFields(fieldConfig.relatedField, fieldConfig.relatedEntity), jsonValueMap => renderFormField({ ...jsonValueMap, name: `${jsonValueMapField}.${jsonValueMap.name}` })) }
                                           <button
                                             type="button"
                                             className="btn btn-danger"
-                                            onClick={() => jsonValueMapFields.remove(index)}
+                                            onClick={() => jsonValueMapFields.remove(jsonMapIndex)}
                                             disabled={!isOnline}
                                           >
                                             Delete
@@ -227,13 +227,13 @@ class JsonConfigPage extends Component {
                                 <FieldArray name={`${name}.enumValueMap`}>
                                   { ({ fields: jsonValueEnumMapFields }) => (
                                     <div>
-                                      {jsonValueEnumMapFields.map(jsonValueMapEnumField => (
-                                        <div key={jsonValueMapEnumField} className="csvValueMapField">
-                                          { _.map(this.getJsonValueEnumMapFields(fieldConfig), jsonValueEnumMap => renderFormField({ ...jsonValueEnumMap, name: `${jsonValueMapEnumField}.${jsonValueEnumMap.name}` })) }
+                                      {jsonValueEnumMapFields.map((jsonEnumField, enumIndex) => (
+                                        <div key={jsonEnumField} className="nestedArrayFields">
+                                          { _.map(this.getJsonValueEnumMapFields(fieldConfig), jsonValueEnumMap => renderFormField({ ...jsonValueEnumMap, name: `${jsonEnumField}.${jsonValueEnumMap.name}` })) }
                                           <button
                                             type="button"
                                             className="btn btn-danger"
-                                            onClick={() => jsonValueEnumMapFields.remove(index)}
+                                            onClick={() => jsonValueEnumMapFields.remove(enumIndex)}
                                           >
                                             Delete
                                           </button>
