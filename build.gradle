@@ -99,6 +99,7 @@ liquibase {
             defaultSchemaName "newEbodac"
             logLevel "debug"
             classpath "$buildDir/classes/java/main"
+            excludeObjects "QRTZ_.*"
         }
     }
 
