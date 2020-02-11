@@ -31,7 +31,7 @@ const renderField = ({
   return (
     <div className={className}>
       <div>
-        <span className="col-md-2 col-form-label"><label htmlFor={attr.id}>{ displayName }</label></span>
+        { displayName && <span className="col-md-2 col-form-label"><label htmlFor={attr.id}>{ displayName }</label></span> }
         {renderInput(attr)}
       </div>
       <div>

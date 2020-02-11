@@ -26,6 +26,8 @@ import {
   MANAGE_APP_SETTINGS,
   MANAGE_VACCINEE_ENROLLMENT,
   MANAGE_JSON_CONFIG,
+  MANAGE_CALL_CONFIG,
+  MANAGE_IVR_PROVIDER_CONFIG,
 } from '../constants/permissions';
 import { getEntityReadPermission } from '../utils/permission-helper';
 
@@ -245,6 +247,24 @@ class SideBar extends Component {
             <Link to="/jsonConfigTable">
               <FontAwesomeIcon icon="hand-point-right" />
               <span className="icon-text">Json Import Config</span>
+            </Link>
+          </li>
+        )}
+        {this.isAuthorizated([MANAGE_IVR_PROVIDER_CONFIG])
+        && (
+          <li className="border-none">
+            <Link to="/ivrProviderConfigTable">
+              <FontAwesomeIcon icon="hand-point-right" />
+              <span className="icon-text">IVR Provider Config</span>
+            </Link>
+          </li>
+        )}
+        {this.isAuthorizated([MANAGE_CALL_CONFIG])
+        && (
+          <li className="border-none">
+            <Link to="/callConfigTable">
+              <FontAwesomeIcon icon="hand-point-right" />
+              <span className="icon-text">IVR Call Config</span>
             </Link>
           </li>
         )}

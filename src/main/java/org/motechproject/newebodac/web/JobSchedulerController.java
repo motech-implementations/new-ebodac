@@ -3,7 +3,6 @@ package org.motechproject.newebodac.web;
 import java.util.List;
 import org.motechproject.newebodac.dto.JobDto;
 import org.motechproject.newebodac.service.SchedulerService;
-import org.quartz.SchedulerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -22,29 +21,27 @@ public class JobSchedulerController extends BaseController {
   /**
    * Triggers (reschedules) a single Quartz Scheduler job.
    * @param jobName a name of the job to be triggered
-   * @throws SchedulerException throws exception in case any issues with scheduling
    */
   @RequestMapping(value = "/job/trigger/{jobName}", method = RequestMethod.POST)
   @ResponseStatus(HttpStatus.OK)
-  public void triggerJob(@PathVariable("jobName") String jobName) throws SchedulerException {
+  public void rescheduleJob(@PathVariable("jobName") String jobName) {
     schedulerService.triggerJob(jobName);
   }
 
   @RequestMapping(value = "/job/", method = RequestMethod.GET)
   @ResponseBody
   @ResponseStatus(HttpStatus.OK)
-  public List<JobDto> getAllJobs() throws SchedulerException {
+  public List<JobDto> getAllJobs() {
     return schedulerService.getAllJobsDetails();
   }
 
   /**
    * Pauses as specific job.
    * @param jobName a name of the job to be paused
-   * @throws SchedulerException throws exception in case any issues with scheduling
    */
   @RequestMapping(value = "/job/pause/{jobName}", method = RequestMethod.POST)
   @ResponseStatus(HttpStatus.OK)
-  public void pauseJob(@PathVariable("jobName") String jobName) throws SchedulerException {
+  public void pauseJob(@PathVariable("jobName") String jobName) {
     schedulerService.pauseJob(jobName);
   }
 }

@@ -24,15 +24,15 @@ public class SchedulerService {
   @Autowired
   private SendMessagesJob sendMessagesJob;
 
-  public List<JobDto> getAllJobsDetails() throws SchedulerException {
+  public List<JobDto> getAllJobsDetails() {
     return getAllTriggers().stream().map(this::mapToJobDto).collect(Collectors.toList());
   }
 
-  public void triggerJob(String name) throws SchedulerException {
+  public void triggerJob(String name) {
     getTriggersByName(name).forEach(this::rescheduleJob);
   }
 
-  public void pauseJob(String name) throws SchedulerException {
+  public void pauseJob(String name) {
     getTriggersByName(name).forEach(this::pauseJob);
   }
 
@@ -46,7 +46,7 @@ public class SchedulerService {
     }
   }
 
-  private List<Trigger> getTriggersByName(String name) throws SchedulerException {
+  private List<Trigger> getTriggersByName(String name) {
     return getAllTriggers().stream().filter(t -> t.getJobKey().getName().equals(name)).collect(
         Collectors.toList());
   }
@@ -61,14 +61,20 @@ public class SchedulerService {
     }
   }
 
-  private List<Trigger> getAllTriggers() throws SchedulerException {
+  private List<Trigger> getAllTriggers() {
     List<Trigger> result = new ArrayList<>();
     Scheduler scheduler = schedulerFactoryBean.getScheduler();
-    for (String groupName : scheduler.getJobGroupNames()) {
-      for (JobKey jobKey : scheduler.getJobKeys(GroupMatcher.jobGroupEquals(groupName))) {
-        result.addAll(scheduler.getTriggersOfJob(jobKey));
+
+    try {
+      for (String groupName : scheduler.getJobGroupNames()) {
+        for (JobKey jobKey : scheduler.getJobKeys(GroupMatcher.jobGroupEquals(groupName))) {
+          result.addAll(scheduler.getTriggersOfJob(jobKey));
+        }
       }
+    } catch (SchedulerException e) {
+      throw new IllegalStateException("Cannot get the job triggers", e);
     }
+
     return result;
   }
 

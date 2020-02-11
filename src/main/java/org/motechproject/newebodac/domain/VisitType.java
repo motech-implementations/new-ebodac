@@ -48,6 +48,9 @@ public class VisitType extends BaseEntity {
   @OneToMany(mappedBy = "visitType", cascade = {CascadeType.REMOVE}, orphanRemoval = true)
   private Set<CampaignMessage> messages;
 
+  @OneToMany(mappedBy = "type", cascade = {CascadeType.REMOVE}, orphanRemoval = true)
+  private Set<Visit> visits;
+
   public VisitType(UUID id) {
     super(id);
   }

@@ -1,0 +1,61 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+    <changeSet author="pmuchowski (generated)" id="1580998634178-11">
+        <createTable tableName="call_detail_extra_params">
+            <column name="ivr_call_id" type="VARCHAR(255)">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="param_value" type="VARCHAR(255)"/>
+            <column name="param_name" type="VARCHAR(255)">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1580998634178-12">
+        <createTable tableName="ivr_call_extra_params">
+            <column name="ivr_call_id" type="VARCHAR(255)">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="param_value" type="VARCHAR(255)"/>
+            <column name="param_name" type="VARCHAR(255)">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1580998634178-13">
+        <addColumn tableName="call_detail">
+            <column name="call_detail_id" type="varchar(255)"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet author="pmuchowski (generated)" id="1580998634178-22">
+        <addForeignKeyConstraint baseColumnNames="ivr_call_id" baseTableName="call_detail_extra_params" constraintName="FKi9xsu54d1vxamw18s65je1aio" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="call_detail" validate="true"/>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1580998634178-23">
+        <addForeignKeyConstraint baseColumnNames="ivr_call_id" baseTableName="ivr_call_extra_params" constraintName="FKpkb5k5ywtnxwo99q9lq05wwy4" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="ivr_call" validate="true"/>
+    </changeSet>
+
+    <changeSet author="pmuchowski (generated)" id="1580998634178-25">
+        <dropNotNullConstraint columnDataType="varchar(255)" columnName="field_name" tableName="ivr_json_field"/>
+    </changeSet>
+
+    <changeSet author="pmuchowski (generated)" id="1580998634178-31">
+        <addColumn tableName="call_detail">
+            <column name="phone" type="varchar(255)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1580998634178-32">
+        <addUniqueConstraint columnNames="provider_call_id" constraintName="UC_IVR_CALLPROVIDER_CALL_ID_COL" tableName="ivr_call"/>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1580998634178-33">
+        <addColumn tableName="ivr_call">
+            <column name="receiver_id" type="varchar(255)"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet author="pmuchowski (generated)" id="1581506007942-13">
+        <addColumn tableName="ivr_call">
+            <column name="message_key" type="varchar(255)"/>
+        </addColumn>
+    </changeSet>
+</databaseChangeLog>

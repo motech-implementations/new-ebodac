@@ -1,0 +1,304 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+    <changeSet author="pmuchowski (generated)" id="1574960459630-9">
+        <createTable tableName="call_config_status_map">
+            <column name="config_id" type="VARCHAR(255)">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="call_status" type="VARCHAR(255)"/>
+            <column name="ivr_call_status" type="VARCHAR(255)">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1574960459630-10">
+        <createTable tableName="call_config">
+            <column name="id" type="VARCHAR(255)">
+                <constraints primaryKey="true" primaryKeyName="call_configPK"/>
+            </column>
+            <column name="create_date" type="datetime"/>
+            <column name="update_date" type="datetime"/>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="provider_config_id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1574960459630-11">
+        <createTable tableName="call_config_callback_params_map">
+            <column name="config_id" type="VARCHAR(255)">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="param_value" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="callback_param" type="VARCHAR(255)">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1574960459630-12">
+        <createTable tableName="call_config_group_by_fields">
+            <column name="config_id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="field_name" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1574960459630-13">
+        <createTable tableName="call_config_language_map">
+            <column name="config_id" type="VARCHAR(255)">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="ivr_language_id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="language_id" type="VARCHAR(255)">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1574960459630-14">
+        <createTable tableName="call_config_message_key_map">
+            <column name="config_id" type="VARCHAR(255)">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="ivr_message_id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="message_key" type="VARCHAR(255)">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1574960459630-15">
+        <createTable tableName="call_config_request_params_map">
+            <column name="config_id" type="VARCHAR(255)">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="param_value" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="request_param" type="VARCHAR(255)">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1574960459630-16">
+        <createTable tableName="call_config_response_params_map">
+            <column name="config_id" type="VARCHAR(255)">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="param_value" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="response_param" type="VARCHAR(255)">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1574960459630-17">
+        <createTable tableName="call_config_url_params_map">
+            <column name="config_id" type="VARCHAR(255)">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="param_value" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="url_param" type="VARCHAR(255)">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1574960459630-18">
+        <createTable tableName="call_detail">
+            <column name="id" type="VARCHAR(255)">
+                <constraints primaryKey="true" primaryKeyName="call_detailPK"/>
+            </column>
+            <column name="create_date" type="datetime"/>
+            <column name="update_date" type="datetime"/>
+            <column name="call_duration" type="DOUBLE"/>
+            <column name="call_status" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="call_status_details" type="VARCHAR(255)"/>
+            <column name="end_timestamp" type="datetime"/>
+            <column name="message_percent_listened" type="DOUBLE"/>
+            <column name="message_time_listened" type="DOUBLE"/>
+            <column name="number_of_attempts" type="INT"/>
+            <column name="provider_call_id" type="VARCHAR(255)"/>
+            <column name="start_timestamp" type="datetime"/>
+            <column name="ivr_call_id" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1574960459630-20">
+        <createTable tableName="ivr_call">
+            <column name="id" type="VARCHAR(255)">
+                <constraints primaryKey="true" primaryKeyName="ivr_callPK"/>
+            </column>
+            <column name="create_date" type="datetime"/>
+            <column name="update_date" type="datetime"/>
+            <column name="phone" type="VARCHAR(255)"/>
+            <column name="provider_call_id" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1574960459630-21">
+        <createTable tableName="ivr_provider_config">
+            <column name="id" type="VARCHAR(255)">
+                <constraints primaryKey="true" primaryKeyName="ivr_provider_configPK"/>
+            </column>
+            <column name="create_date" type="datetime"/>
+            <column name="update_date" type="datetime"/>
+            <column name="auth_required" type="BIT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="http_method" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="json_callback" type="BIT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="json_request" type="BIT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="json_response" type="BIT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password" type="VARCHAR(255)"/>
+            <column name="provider_name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="timestamp_format" type="VARCHAR(255)"/>
+            <column name="url" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="username" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1574960459630-22">
+        <createTable tableName="ivr_provider_config_callback_params">
+            <column name="config_id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="param" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1574960459630-23">
+        <createTable tableName="ivr_provider_config_request_params">
+            <column name="config_id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="param" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1574960459630-24">
+        <createTable tableName="ivr_provider_config_url_params">
+            <column name="config_id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="param" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1574960459630-25">
+        <createTable tableName="ivr_provider_config_vaccinee_fields">
+            <column name="ivr_config_id" type="VARCHAR(255)">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="field_config_id" type="VARCHAR(255)">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1574960459630-27">
+        <addColumn tableName="campaign_message">
+            <column name="send_for_actual_date" type="bit">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1574960459630-28">
+        <addUniqueConstraint columnNames="name" constraintName="UC_CALL_CONFIGNAME_COL" tableName="call_config"/>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1574960459630-29">
+        <addUniqueConstraint columnNames="provider_name" constraintName="UC_IVR_PROVIDER_CONFIGPROVIDER_NAME_COL" tableName="ivr_provider_config"/>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1574960459630-30">
+        <addForeignKeyConstraint baseColumnNames="config_id" baseTableName="call_config_url_params_map" constraintName="FK14rgybfgifhanhrjwo9qw0j11" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="call_config" validate="true"/>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1574960459630-31">
+        <addForeignKeyConstraint baseColumnNames="ivr_call_id" baseTableName="call_detail" constraintName="FK2lqv0ihy2f895vgrkvg332vgg" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="ivr_call" validate="true"/>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1574960459630-32">
+        <addForeignKeyConstraint baseColumnNames="ivr_config_id" baseTableName="ivr_provider_config_vaccinee_fields" constraintName="FK32vkarlxxmfrf46n2ey0thksm" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="ivr_provider_config" validate="true"/>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1574960459630-33">
+        <addForeignKeyConstraint baseColumnNames="config_id" baseTableName="ivr_provider_config_request_params" constraintName="FK4i9ysmgc8qnbc5ns4x4viipfx" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="ivr_provider_config" validate="true"/>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1574960459630-38">
+        <addForeignKeyConstraint baseColumnNames="config_id" baseTableName="call_config_response_params_map" constraintName="FKd51jxpwgm01aoig0upiy75up2" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="call_config" validate="true"/>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1574960459630-39">
+        <addForeignKeyConstraint baseColumnNames="field_config_id" baseTableName="ivr_provider_config_vaccinee_fields" constraintName="FKe4c1wxmhj5ite6ba2hqo3lihw" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="field_config" validate="true"/>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1574960459630-40">
+        <addForeignKeyConstraint baseColumnNames="provider_config_id" baseTableName="call_config" constraintName="FKe8l6grxl157bblnf4udb5qns0" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="ivr_provider_config" validate="true"/>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1574960459630-41">
+        <addForeignKeyConstraint baseColumnNames="config_id" baseTableName="call_config_request_params_map" constraintName="FKecu1qs0qjp1qg22iuk9joshwb" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="call_config" validate="true"/>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1574960459630-42">
+        <addForeignKeyConstraint baseColumnNames="config_id" baseTableName="ivr_provider_config_url_params" constraintName="FKie1owwkkn0m5mcidk4ekwcxtm" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="ivr_provider_config" validate="true"/>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1574960459630-43">
+        <addForeignKeyConstraint baseColumnNames="config_id" baseTableName="call_config_status_map" constraintName="FKjm67n0iqu3d6u18n2iaj682ih" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="call_config" validate="true"/>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1574960459630-44">
+        <addForeignKeyConstraint baseColumnNames="config_id" baseTableName="call_config_message_key_map" constraintName="FKkc3ujfqddpbg0iciqy9auh5t" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="call_config" validate="true"/>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1574960459630-45">
+        <addForeignKeyConstraint baseColumnNames="config_id" baseTableName="ivr_provider_config_callback_params" constraintName="FKo4b3mc058v5y8yvxgqfesflvh" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="ivr_provider_config" validate="true"/>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1574960459630-47">
+        <addForeignKeyConstraint baseColumnNames="config_id" baseTableName="call_config_group_by_fields" constraintName="FKqjp8ubfb9bqi5x9obfgh6q02u" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="call_config" validate="true"/>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1574960459630-48">
+        <addForeignKeyConstraint baseColumnNames="config_id" baseTableName="call_config_callback_params_map" constraintName="FKr3e3fgfx29x5i9tu8cnbggaj3" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="call_config" validate="true"/>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1574960459630-49">
+        <addForeignKeyConstraint baseColumnNames="config_id" baseTableName="call_config_language_map" constraintName="FKtf02u6muydvp558fgf6tji37o" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="call_config" validate="true"/>
+    </changeSet>
+
+    <changeSet author="pmuchowski (generated)" id="1574960459630-51">
+        <createTable tableName="ivr_json_field">
+            <column name="id" type="VARCHAR(255)">
+                <constraints primaryKey="true" primaryKeyName="ivr_json_fieldPK"/>
+            </column>
+            <column name="create_date" type="datetime"/>
+            <column name="update_date" type="datetime"/>
+            <column name="field_name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="field_type" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="callback_config_id" type="VARCHAR(255)"/>
+            <column name="parent_id" type="VARCHAR(255)"/>
+            <column name="request_config_id" type="VARCHAR(255)"/>
+            <column name="response_config_id" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1574960459630-52">
+        <addForeignKeyConstraint baseColumnNames="request_config_id" baseTableName="ivr_json_field" constraintName="FK7p6qy95ufqefimoexesm10odk" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="ivr_provider_config" validate="true"/>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1574960459630-53">
+        <addForeignKeyConstraint baseColumnNames="parent_id" baseTableName="ivr_json_field" constraintName="FK9s1vx75wty293b0rj7glft4j1" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="ivr_json_field" validate="true"/>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1574960459630-55">
+        <addForeignKeyConstraint baseColumnNames="response_config_id" baseTableName="ivr_json_field" constraintName="FKmn8ns4f5q6n1ig60jjt9o631y" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="ivr_provider_config" validate="true"/>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1574960459630-56">
+        <addForeignKeyConstraint baseColumnNames="callback_config_id" baseTableName="ivr_json_field" constraintName="FKr3s04ii0l6c63tgloctxxn6g3" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="ivr_provider_config" validate="true"/>
+    </changeSet>
+</databaseChangeLog>

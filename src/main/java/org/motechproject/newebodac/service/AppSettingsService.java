@@ -19,7 +19,7 @@ public class AppSettingsService {
 
   @PreAuthorize(DefaultPermissions.HAS_MANAGE_APP_SETTINGS_ROLE)
   public AppSettingsDto get() {
-    return MAPPER.toDto(appSettingsRepository.findFirstByOrderByIdAsc());
+    return MAPPER.toDto(getAppSettings());
   }
 
   /**
@@ -29,8 +29,12 @@ public class AppSettingsService {
    */
   @PreAuthorize(DefaultPermissions.HAS_MANAGE_APP_SETTINGS_ROLE)
   public AppSettingsDto update(AppSettingsDto appSettingsDto) {
-    AppSettings appSettings = appSettingsRepository.findFirstByOrderByIdAsc();
+    AppSettings appSettings = getAppSettings();
     MAPPER.update(appSettingsDto, appSettings);
     return MAPPER.toDto(appSettingsRepository.save(appSettings));
+  }
+
+  public AppSettings getAppSettings() {
+    return appSettingsRepository.findFirstByOrderByIdAsc();
   }
 }

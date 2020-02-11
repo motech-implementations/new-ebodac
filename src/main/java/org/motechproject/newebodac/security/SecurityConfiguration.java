@@ -47,7 +47,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             "/manifest.json",
             "/",
             "/api/importJson/**",
-            "/api/register"
+            "/api/register",
+            "/api/ivrCallback/**"
       );
   }
 

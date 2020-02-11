@@ -6,28 +6,11 @@ import { Form } from 'react-final-form';
 import Alert from 'react-s-alert';
 import { withRouter } from 'react-router-dom';
 
-import renderFormField from '../../utils/form/form-utils';
+import renderFormField, { validate } from '../../utils/form/form-utils';
 import { fetchAppSettings, updateAppSettings } from '../../actions/app-settings-actions';
-import { TIME } from '../../constants/field-types';
+import { BOOLEAN, TEXT, TIME } from '../../constants/field-types';
 
 const ALERT_TIMEOUT = 5000;
-
-export const fieldConfig = [{
-  base: true,
-  editable: true,
-  filterable: true,
-  required: true,
-  hidden: false,
-  fieldType: TIME,
-  entity: 'appSettings',
-  displayName: 'IVR Message Time',
-  name: 'ivrMessageTime',
-  fieldOrder: 0,
-  relatedEntity: null,
-  relatedField: null,
-  format: 'HH:mm',
-},
-];
 
 class AppSettings extends Component {
   componentDidMount() {
@@ -42,6 +25,56 @@ class AppSettings extends Component {
     });
   };
 
+  getFields = ({ sendIvrMessages }) => [
+    {
+      base: true,
+      editable: true,
+      filterable: true,
+      required: false,
+      hidden: false,
+      fieldType: BOOLEAN,
+      entity: 'appSettings',
+      displayName: 'Send IVR Messages',
+      name: 'sendIvrMessages',
+      fieldOrder: 0,
+      relatedEntity: null,
+      relatedField: null,
+      format: '',
+    },
+    {
+      base: true,
+      editable: true,
+      filterable: true,
+      required: sendIvrMessages,
+      hidden: !sendIvrMessages,
+      fieldType: TEXT,
+      entity: 'appSettings',
+      displayName: 'Call Config Name',
+      name: 'callConfigName',
+      fieldOrder: 1,
+      relatedEntity: null,
+      relatedField: null,
+      format: '',
+    },
+    {
+      base: true,
+      editable: true,
+      filterable: true,
+      required: sendIvrMessages,
+      hidden: !sendIvrMessages,
+      fieldType: TIME,
+      entity: 'appSettings',
+      displayName: 'IVR Message Time',
+      name: 'ivrMessageTime',
+      fieldOrder: 2,
+      relatedEntity: null,
+      relatedField: null,
+      format: 'HH:mm',
+    },
+  ];
+
+  validate = values => validate(this.getFields(values))(values);
+
   render() {
     const { appSettings, isOnline } = this.props;
     return (
@@ -54,11 +87,12 @@ class AppSettings extends Component {
         <div>
           <Form
             onSubmit={this.onSubmit}
+            validate={this.validate}
             initialValues={appSettings}
-            render={({ handleSubmit }) => (
+            render={({ handleSubmit, values }) => (
               <form onSubmit={handleSubmit} className="modal-fields">
                 <div>
-                  {_.map(fieldConfig, elem => renderFormField(elem))}
+                  {_.map(this.getFields(values), elem => renderFormField(elem))}
                 </div>
                 <div className="text-center">
                   <button
