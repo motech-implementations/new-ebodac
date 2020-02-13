@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import org.motechproject.newebodac.constants.DefaultPermissions;
 import org.motechproject.newebodac.domain.KeyCommunityPerson;
+import org.motechproject.newebodac.domain.enums.EntityType;
 import org.motechproject.newebodac.dto.KeyCommunityPersonDto;
 import org.motechproject.newebodac.exception.EntityNotFoundException;
 import org.motechproject.newebodac.mapper.KeyCommunityPersonMapper;
@@ -22,6 +23,9 @@ public class KeyCommunityPersonService {
   @Autowired
   private KeyCommunityPersonRepository keyCommunityPersonRepository;
 
+  @Autowired
+  private FieldConfigService fieldConfigService;
+
   @PreAuthorize(DefaultPermissions.HAS_KCP_READ_ROLE)
   public List<KeyCommunityPersonDto> getAll() {
     return mapper.toDtos(keyCommunityPersonRepository.findAll());
@@ -32,9 +36,14 @@ public class KeyCommunityPersonService {
     return mapper.toDto(keyCommunityPersonRepository.getOne(id));
   }
 
+  /**
+  * Creates data from dto to object, saves it and returns its Dto.
+  */
   @PreAuthorize(DefaultPermissions.HAS_KCP_WRITE_ROLE)
   public KeyCommunityPersonDto create(KeyCommunityPersonDto keyCommunityPersonDto) {
-    return mapper.toDto(keyCommunityPersonRepository.save(mapper.fromDto(keyCommunityPersonDto)));
+    KeyCommunityPerson newKeyCommunityPerson = mapper.fromDto(keyCommunityPersonDto);
+    fieldConfigService.checkIfUnique(EntityType.PERSON, newKeyCommunityPerson);
+    return mapper.toDto(keyCommunityPersonRepository.save(newKeyCommunityPerson));
   }
 
   /**
@@ -51,7 +60,7 @@ public class KeyCommunityPersonService {
         .orElseThrow(() -> new EntityNotFoundException(
             "Key Community Person with id: {0} not found", id.toString()));
     mapper.update(keyCommunityPersonDto, existingKeyCommunityPerson);
-
+    fieldConfigService.checkIfUnique(EntityType.PERSON, existingKeyCommunityPerson);
     return mapper.toDto(keyCommunityPersonRepository.save(existingKeyCommunityPerson));
   }
 

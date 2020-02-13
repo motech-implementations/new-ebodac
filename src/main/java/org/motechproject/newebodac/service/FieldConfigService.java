@@ -1,14 +1,19 @@
 package org.motechproject.newebodac.service;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+
 import org.motechproject.newebodac.constants.DefaultPermissions;
+import org.motechproject.newebodac.domain.BaseEntity;
 import org.motechproject.newebodac.domain.ExtraField;
 import org.motechproject.newebodac.domain.FieldConfig;
 import org.motechproject.newebodac.domain.enums.EntityType;
 import org.motechproject.newebodac.dto.FieldConfigDto;
 import org.motechproject.newebodac.exception.EntityNotFoundException;
+import org.motechproject.newebodac.exception.NewEbodacException;
+import org.motechproject.newebodac.exception.ValidationException;
 import org.motechproject.newebodac.mapper.FieldConfigMapper;
 import org.motechproject.newebodac.repository.ExtraFieldRepository;
 import org.motechproject.newebodac.repository.FieldConfigRepository;
@@ -93,5 +98,35 @@ public class FieldConfigService {
     extraFieldRepository.deleteAll(extraFields);
 
     fieldConfigRepository.delete(fieldConfig);
+  }
+
+  /**
+   * Checks uniqueness of the field value.
+   * @param entityType type of checked entity.
+   * @param entity checked entity.
+   */
+  public void checkIfUnique(EntityType entityType, BaseEntity entity) {
+    List<FieldConfig> fieldConfigs = fieldConfigRepository.findByEntity(entityType);
+    UUID id = entity.getId();
+    Object fieldValue;
+    for (FieldConfig fieldConfig : fieldConfigs) {
+      if (fieldConfig.getUniqueField()) {
+        String fieldName = fieldConfig.getName();
+        try {
+          Class<?> entityClass = entityType.getEntityClass();
+          Field field = entityClass.getDeclaredField(fieldName);
+          field.setAccessible(true);
+          fieldValue = field.get(entity);
+        } catch (IllegalAccessException | NoSuchFieldException e) {
+          String displayMessage = e + " Field " + fieldName + " not found in entity " + entityType;
+          throw new ValidationException(displayMessage, e);
+        }
+        if (!fieldConfigRepository.checkIfUnique(entityType, id,
+            fieldName, fieldValue)) {
+          String displayMessage = "The value should be unique in field: " + fieldName;
+          throw new NewEbodacException(displayMessage);
+        }
+      }
+    }
   }
 }

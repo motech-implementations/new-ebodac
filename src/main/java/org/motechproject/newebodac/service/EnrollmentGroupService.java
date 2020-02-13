@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.UUID;
 import org.motechproject.newebodac.constants.DefaultPermissions;
 import org.motechproject.newebodac.domain.EnrollmentGroup;
+import org.motechproject.newebodac.domain.enums.EntityType;
 import org.motechproject.newebodac.dto.EnrollmentGroupDto;
 import org.motechproject.newebodac.exception.EntityNotFoundException;
 import org.motechproject.newebodac.exception.RelationViolationException;
@@ -21,6 +22,9 @@ public class EnrollmentGroupService {
   @Autowired
   private EnrollmentGroupRepository enrollmentGroupRepository;
 
+  @Autowired
+  private FieldConfigService fieldConfigService;
+
   @PreAuthorize(DefaultPermissions.HAS_GROUP_READ_ROLE)
   public List<EnrollmentGroupDto> getAll() {
     return MAPPER.toDtos(enrollmentGroupRepository.findAll());
@@ -31,9 +35,15 @@ public class EnrollmentGroupService {
     return MAPPER.toDto(enrollmentGroupRepository.getOne(id));
   }
 
+  /**
+  * Creates data from dto to object, saves it and returns its Dto.
+  */
+
   @PreAuthorize(DefaultPermissions.HAS_GROUP_WRITE_ROLE)
   public EnrollmentGroupDto create(EnrollmentGroupDto enrollmentGroupDto) {
-    return MAPPER.toDto(enrollmentGroupRepository.save(MAPPER.fromDto(enrollmentGroupDto)));
+    EnrollmentGroup newEnrollmentGroup = MAPPER.fromDto(enrollmentGroupDto);
+    fieldConfigService.checkIfUnique(EntityType.GROUP, newEnrollmentGroup);
+    return MAPPER.toDto(enrollmentGroupRepository.save(newEnrollmentGroup));
   }
 
   /**
@@ -50,7 +60,7 @@ public class EnrollmentGroupService {
         .orElseThrow(() -> new EntityNotFoundException(
             "Enrollment Group with id: {0} not found", id.toString()));
     MAPPER.update(enrollmentGroupDto, existingEnrollmentGroup);
-
+    fieldConfigService.checkIfUnique(EntityType.GROUP, existingEnrollmentGroup);
     return MAPPER.toDto(enrollmentGroupRepository.save(existingEnrollmentGroup));
   }
 

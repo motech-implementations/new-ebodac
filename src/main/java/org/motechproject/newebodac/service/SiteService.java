@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.UUID;
 import org.motechproject.newebodac.constants.DefaultPermissions;
 import org.motechproject.newebodac.domain.Site;
+import org.motechproject.newebodac.domain.enums.EntityType;
 import org.motechproject.newebodac.dto.SiteDto;
 import org.motechproject.newebodac.exception.EntityNotFoundException;
 import org.motechproject.newebodac.exception.RelationViolationException;
@@ -21,6 +22,9 @@ public class SiteService {
   @Autowired
   private SiteRepository siteRepository;
 
+  @Autowired
+  private FieldConfigService fieldConfigService;
+
   @PreAuthorize(DefaultPermissions.HAS_SITE_READ_ROLE)
   public List<SiteDto> getAll() {
     return MAPPER.toDtos(siteRepository.findAll());
@@ -31,9 +35,14 @@ public class SiteService {
     return MAPPER.toDto(siteRepository.getOne(id));
   }
 
+  /**
+  * Creates data from dto to object, saves it and returns its Dto.
+  */
   @PreAuthorize(DefaultPermissions.HAS_SITE_WRITE_ROLE)
   public SiteDto create(SiteDto siteDto) {
-    return MAPPER.toDto(siteRepository.save(MAPPER.fromDto(siteDto)));
+    Site newSite = MAPPER.fromDto(siteDto);
+    fieldConfigService.checkIfUnique(EntityType.SITE, newSite);
+    return MAPPER.toDto(siteRepository.save(newSite));
   }
 
   /**
@@ -48,6 +57,7 @@ public class SiteService {
         .orElseThrow(() -> new EntityNotFoundException("Site with id: {0} not found",
             id.toString()));
     MAPPER.update(siteDto, site);
+    fieldConfigService.checkIfUnique(EntityType.SITE, site);
     return MAPPER.toDto(siteRepository.save(site));
   }
 
