@@ -89,7 +89,7 @@ EntityCreate.propTypes = {
   fieldConfig: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   createEntity: PropTypes.func.isRequired,
   entityType: PropTypes.string.isRequired,
-  entities: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  entities: PropTypes.shape({}).isRequired,
   history: PropTypes.shape({
     push: PropTypes.func,
   }).isRequired,
