@@ -17,7 +17,6 @@ public class CsvFieldValueToEnumDto extends BaseDto  {
    * @param enumValue Value of the enum fiedl
    */
   public CsvFieldValueToEnumDto(String fieldValue, String enumValue) {
-    super();
     this.fieldValue = fieldValue;
     this.enumValue = enumValue;
   }
