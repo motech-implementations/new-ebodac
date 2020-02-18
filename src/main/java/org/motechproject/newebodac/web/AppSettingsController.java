@@ -2,6 +2,7 @@ package org.motechproject.newebodac.web;
 
 import javax.validation.Valid;
 import org.motechproject.newebodac.dto.AppSettingsDto;
+import org.motechproject.newebodac.scheduler.GenerateReportsJob;
 import org.motechproject.newebodac.scheduler.SendMessagesJob;
 import org.motechproject.newebodac.service.AppSettingsService;
 import org.motechproject.newebodac.service.SchedulerService;
@@ -39,6 +40,7 @@ public class AppSettingsController extends BaseController {
   public AppSettingsDto update(@RequestBody @Valid AppSettingsDto appSettingsDto) {
     AppSettingsDto settingsDto = appSettingsService.update(appSettingsDto);
     schedulerService.triggerJob(SendMessagesJob.NAME);
+    schedulerService.triggerJob(GenerateReportsJob.NAME);
     return settingsDto;
   }
 }

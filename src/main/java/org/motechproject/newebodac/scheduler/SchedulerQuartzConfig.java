@@ -25,6 +25,9 @@ public class SchedulerQuartzConfig {
   @Autowired
   private SendMessagesJob sendMessagesJob;
 
+  @Autowired
+  private GenerateReportsJob generateReportsJob;
+
   /**
    * This method configures custom schedulerFactoryBean. It loads Quartz properties
    * from application.properties, and sets AutowiringBeanJobFactory which enables
@@ -45,6 +48,7 @@ public class SchedulerQuartzConfig {
 
     List<BaseJob> jobs = new ArrayList<>();
     jobs.add(sendMessagesJob);
+    jobs.add(generateReportsJob);
 
     schedulerFactoryBean.setTriggers(mapToTriggers(jobs));
     schedulerFactoryBean.setJobDetails(mapToJobDetails(jobs));

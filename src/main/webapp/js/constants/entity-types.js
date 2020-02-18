@@ -9,3 +9,4 @@ export const PERMISSION_ENTITY = 'permission';
 export const VISIT_TYPE_ENTITY = 'visitType';
 export const CAMPAIGN_MESSAGE_ENTITY = 'campaignMessage';
 export const USER_ENTITY = 'user';
+export const VACCINEE_CALL_STATUS_REPORT = 'vaccineeCallStatusReport';

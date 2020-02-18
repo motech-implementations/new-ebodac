@@ -25,7 +25,7 @@ class AppSettings extends Component {
     });
   };
 
-  getFields = ({ sendIvrMessages }) => [
+  getFields = ({ sendIvrMessages, generateReports }) => [
     {
       base: true,
       editable: true,
@@ -66,6 +66,36 @@ class AppSettings extends Component {
       entity: 'appSettings',
       displayName: 'IVR Message Time',
       name: 'ivrMessageTime',
+      fieldOrder: 2,
+      relatedEntity: null,
+      relatedField: null,
+      format: 'HH:mm',
+    },
+    {
+      base: true,
+      editable: true,
+      filterable: true,
+      required: false,
+      hidden: false,
+      fieldType: BOOLEAN,
+      entity: 'appSettings',
+      displayName: 'Generate Reports',
+      name: 'generateReports',
+      fieldOrder: 3,
+      relatedEntity: null,
+      relatedField: null,
+      format: '',
+    },
+    {
+      base: true,
+      editable: true,
+      filterable: true,
+      required: generateReports,
+      hidden: !generateReports,
+      fieldType: TIME,
+      entity: 'appSettings',
+      displayName: 'Reports Generation Time',
+      name: 'reportsGenerationTime',
       fieldOrder: 2,
       relatedEntity: null,
       relatedField: null,

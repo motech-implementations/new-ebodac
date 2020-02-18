@@ -37,4 +37,8 @@ public class AppSettingsService {
   public AppSettings getAppSettings() {
     return appSettingsRepository.findFirstByOrderByIdAsc();
   }
+
+  public AppSettings saveAppSettings(AppSettings appSettings) {
+    return appSettingsRepository.save(appSettings);
+  }
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import org.motechproject.newebodac.dto.JobDto;
 import org.motechproject.newebodac.scheduler.BaseJob;
+import org.motechproject.newebodac.scheduler.GenerateReportsJob;
 import org.motechproject.newebodac.scheduler.SendMessagesJob;
 import org.quartz.JobKey;
 import org.quartz.Scheduler;
@@ -23,6 +24,9 @@ public class SchedulerService {
 
   @Autowired
   private SendMessagesJob sendMessagesJob;
+
+  @Autowired
+  private GenerateReportsJob generateReportsJob;
 
   public List<JobDto> getAllJobsDetails() {
     return getAllTriggers().stream().map(this::mapToJobDto).collect(Collectors.toList());
@@ -92,6 +96,7 @@ public class SchedulerService {
   private Trigger getBeanTrigger(String name) {
     List<BaseJob> allBeans = new ArrayList<>();
     allBeans.add(sendMessagesJob);
+    allBeans.add(generateReportsJob);
 
     return allBeans.stream()
         .filter(b -> b.getFullName().equals(name))

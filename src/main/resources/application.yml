@@ -68,3 +68,5 @@ spring:
 scheduled-tasks:
   send-messages:
     interval: 86400 #one day
+  generate-reports:
+    interval: 86400 #one day
