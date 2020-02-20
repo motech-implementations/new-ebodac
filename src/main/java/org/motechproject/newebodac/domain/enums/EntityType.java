@@ -7,6 +7,7 @@ import org.motechproject.newebodac.domain.KeyCommunityPerson;
 import org.motechproject.newebodac.domain.Language;
 import org.motechproject.newebodac.domain.Site;
 import org.motechproject.newebodac.domain.Vaccinee;
+import org.motechproject.newebodac.domain.VaccineeCallStatusReport;
 import org.motechproject.newebodac.domain.Visit;
 import org.motechproject.newebodac.domain.VisitType;
 import org.motechproject.newebodac.domain.security.UserPermission;
@@ -21,7 +22,8 @@ public enum EntityType {
   LANGUAGE("language", Language.class),
   VISIT_TYPE("visitType", VisitType.class),
   ROLE("role", UserRole.class),
-  PERMISSION("permission", UserPermission.class);
+  PERMISSION("permission", UserPermission.class),
+  VACCINEE_CALL_STATUS_REPORT("vaccineeCallStatusReport", VaccineeCallStatusReport.class);
 
   @Getter
   private String name;

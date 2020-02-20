@@ -168,7 +168,7 @@ class CsvConfigPage extends Component {
                 { ({ fields }) => (
                   <div>
                     {fields.map((name, index) => (
-                      <div key={name} className="csvFields">
+                      <div key={name} className="arrayFields">
                         {_.map(this.getFields(fields.value[index], () => mutators.clearDefaultValue(index)), elem => renderFormField({ ...elem, name: `${name}.${elem.name}` }))}
                         {(() => {
                           // eslint-disable-next-line max-len
@@ -179,13 +179,13 @@ class CsvConfigPage extends Component {
                                 <FieldArray name={`${name}.fieldValueMap`}>
                                   { ({ fields: csvValueMapFields }) => (
                                     <div>
-                                      {csvValueMapFields.map(csvValueMapField => (
-                                        <div key={csvValueMapField} className="csvValueMapField">
+                                      {csvValueMapFields.map((csvValueMapField, valueMapIndex) => (
+                                        <div key={csvValueMapField} className="nestedArrayFields">
                                           { _.map(this.getCsvValueMapFields(fieldConfig.relatedField, fieldConfig.relatedEntity), csvValueMap => renderFormField({ ...csvValueMap, name: `${csvValueMapField}.${csvValueMap.name}` })) }
                                           <button
                                             type="button"
                                             className="btn btn-danger"
-                                            onClick={() => csvValueMapFields.remove(index)}
+                                            onClick={() => csvValueMapFields.remove(valueMapIndex)}
                                           >
                                             Delete
                                           </button>
@@ -215,13 +215,13 @@ class CsvConfigPage extends Component {
                                 <FieldArray name={`${name}.enumValueMap`}>
                                   { ({ fields: csvValueEnumMapFields }) => (
                                     <div>
-                                      {csvValueEnumMapFields.map(csvValueMapEnumField => (
-                                        <div key={csvValueMapEnumField} className="csvValueMapField">
-                                          { _.map(this.getCsvValueEnumMapFields(fieldConfig), csvValueEnumMap => renderFormField({ ...csvValueEnumMap, name: `${csvValueMapEnumField}.${csvValueEnumMap.name}` })) }
+                                      {csvValueEnumMapFields.map((enumField, enumIndex) => (
+                                        <div key={enumField} className="nestedArrayFields">
+                                          { _.map(this.getCsvValueEnumMapFields(fieldConfig), csvValueEnumMap => renderFormField({ ...csvValueEnumMap, name: `${enumField}.${csvValueEnumMap.name}` })) }
                                           <button
                                             type="button"
                                             className="btn btn-danger"
-                                            onClick={() => csvValueEnumMapFields.remove(index)}
+                                            onClick={() => csvValueEnumMapFields.remove(enumIndex)}
                                           >
                                             Delete
                                           </button>

@@ -17,7 +17,6 @@ public class JsonFieldValueToEnumDto extends BaseDto {
    * @param enumValue Value of the enum field
    */
   public JsonFieldValueToEnumDto(String fieldValue, String enumValue) {
-    super();
     this.fieldValue = fieldValue;
     this.enumValue = enumValue;
   }

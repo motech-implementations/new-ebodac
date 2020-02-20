@@ -18,7 +18,6 @@ public class CsvFieldValueToEntityDto extends BaseDto {
    * @param entityId id of the entity
    */
   public CsvFieldValueToEntityDto(String fieldValue, UUID entityId) {
-    super();
     this.fieldValue = fieldValue;
     this.entityId = entityId;
   }

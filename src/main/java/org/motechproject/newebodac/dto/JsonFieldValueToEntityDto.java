@@ -18,7 +18,6 @@ public class JsonFieldValueToEntityDto extends BaseDto {
    * @param entityId id of the entity
    */
   public JsonFieldValueToEntityDto(String fieldValue, UUID entityId) {
-    super();
     this.fieldValue = fieldValue;
     this.entityId = entityId;
   }

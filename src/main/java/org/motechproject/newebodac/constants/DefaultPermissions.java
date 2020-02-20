@@ -29,6 +29,8 @@ public class DefaultPermissions {
   private static final String MANAGE_JSON_CONFIG = "ROLE_jsonConfig_MANAGE";
   private static final String MANAGE_APP_SETTINGS = "ROLE_appSettings_MANAGE";
   private static final String MANAGE_VACCINEE_ENROLLMENT = "ROLE_vaccinee_enrollment_MANAGE";
+  private static final String MANAGE_CALL_CONFIG = "ROLE_callConfig_MANAGE";
+  private static final String MANAGE_IVR_PROVIDER_CONFIG = "ROLE_ivrProviderConfig_MANAGE";
 
   public static final String DISPLAY_REPORTS = "ROLE_DISPLAY_REPORTS";
   public static final String HAS_VACCINEE_READ_ROLE = "hasRole('" + VACCINEE_READ + "')";
@@ -61,4 +63,8 @@ public class DefaultPermissions {
       "hasRole('" + MANAGE_APP_SETTINGS + "')";
   public static final String HAS_MANAGE_VACCINEE_ENROLLMENT_ROLE =
       "hasRole('" + MANAGE_VACCINEE_ENROLLMENT + "')";
+  public static final String HAS_MANAGE_CALL_CONFIG_ROLE =
+      "hasRole('" + MANAGE_CALL_CONFIG + "')";
+  public static final String HAS_MANAGE_IVR_PROVIDER_CONFIG_ROLE =
+      "hasRole('" + MANAGE_IVR_PROVIDER_CONFIG + "')";
 }

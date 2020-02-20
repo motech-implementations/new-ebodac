@@ -2,7 +2,10 @@ package org.motechproject.newebodac.web;
 
 import javax.validation.Valid;
 import org.motechproject.newebodac.dto.AppSettingsDto;
+import org.motechproject.newebodac.scheduler.GenerateReportsJob;
+import org.motechproject.newebodac.scheduler.SendMessagesJob;
 import org.motechproject.newebodac.service.AppSettingsService;
+import org.motechproject.newebodac.service.SchedulerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -18,6 +21,9 @@ public class AppSettingsController extends BaseController {
   @Autowired
   private AppSettingsService appSettingsService;
 
+  @Autowired
+  private SchedulerService schedulerService;
+
   @RequestMapping(value = "/appSettings", method = RequestMethod.GET)
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
@@ -25,10 +31,16 @@ public class AppSettingsController extends BaseController {
     return appSettingsService.get();
   }
 
+  /**
+   * Update Application Settings.
+   */
   @RequestMapping(value = "/appSettings", method = RequestMethod.PUT)
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   public AppSettingsDto update(@RequestBody @Valid AppSettingsDto appSettingsDto) {
-    return appSettingsService.update(appSettingsDto);
+    AppSettingsDto settingsDto = appSettingsService.update(appSettingsDto);
+    schedulerService.triggerJob(SendMessagesJob.NAME);
+    schedulerService.triggerJob(GenerateReportsJob.NAME);
+    return settingsDto;
   }
 }

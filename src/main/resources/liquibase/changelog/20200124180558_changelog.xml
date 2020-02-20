@@ -1,0 +1,92 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+    <changeSet author="pmuchowski (generated)" id="1579885564716-12">
+        <addColumn tableName="application_settings">
+            <column name="call_config_name" type="varchar(255)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1579885564716-13">
+        <addColumn tableName="application_settings">
+            <column name="send_ivr_messages" type="bit"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1579885564716-14">
+        <update tableName="application_settings">
+            <column name="send_ivr_messages" valueBoolean="false"/>
+        </update>
+        <addNotNullConstraint columnDataType="boolean" columnName="send_ivr_messages" tableName="application_settings"/>
+    </changeSet>
+
+    <changeSet author="pmuchowski (generated)" id="1579885564716-24">
+        <dropForeignKeyConstraint baseTableName="ivr_provider_config_vaccinee_fields" constraintName="FK32vkarlxxmfrf46n2ey0thksm"/>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1579885564716-25">
+        <dropForeignKeyConstraint baseTableName="ivr_provider_config_vaccinee_fields" constraintName="FKe4c1wxmhj5ite6ba2hqo3lihw"/>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1579885564716-26">
+        <dropTable tableName="ivr_provider_config_vaccinee_fields"/>
+    </changeSet>
+
+    <changeSet author="pmuchowski (generated)" id="1579885564716-27">
+        <createTable tableName="call_config_entity_fields">
+            <column name="call_config_id" type="VARCHAR(255)">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="field_config_id" type="VARCHAR(255)">
+                <constraints primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1579885564716-28">
+        <addForeignKeyConstraint baseColumnNames="call_config_id" baseTableName="call_config_entity_fields" constraintName="FKc8gij8dcrif3k882ohr3kker7" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="call_config" validate="true"/>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1579885564716-29">
+        <addForeignKeyConstraint baseColumnNames="field_config_id" baseTableName="call_config_entity_fields" constraintName="FKd8aauewj5jf8rmwikhs1ed81i" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="field_config" validate="true"/>
+    </changeSet>
+
+    <changeSet author="pmuchowski (generated)" id="1579885564716-41">
+        <insert tableName="user_permission">
+            <column name="id" value="352f282e-998d-4dbe-bc1d-361b780fea7a"/>
+            <column name="display_name" value="MANAGE_CALL_CONFIG"/>
+            <column name="name" value="ROLE_callConfig_MANAGE"/>
+            <column name="readonly" valueBoolean="true"/>
+            <column name="create_date" value="2020-01-30 13:58:44"/>
+            <column name="update_date" value="2020-01-30 13:58:44"/>
+        </insert>
+        <insert tableName="user_role_permissions">
+            <column name="role_id" value="d892e3c6-25eb-4291-abfc-b379aa502bc3"/>
+            <column name="permission_id" value="352f282e-998d-4dbe-bc1d-361b780fea7a"/>
+        </insert>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1579885564716-42">
+        <insert tableName="user_permission">
+            <column name="id" value="9ce82a33-1204-4adf-b00e-bfc13ea760f4"/>
+            <column name="display_name" value="MANAGE_IVR_PROVIDER_CONFIG"/>
+            <column name="name" value="ROLE_ivrProviderConfig_MANAGE"/>
+            <column name="readonly" valueBoolean="true"/>
+            <column name="create_date" value="2020-01-30 13:58:44"/>
+            <column name="update_date" value="2020-01-30 13:58:44"/>
+        </insert>
+        <insert tableName="user_role_permissions">
+            <column name="role_id" value="d892e3c6-25eb-4291-abfc-b379aa502bc3"/>
+            <column name="permission_id" value="9ce82a33-1204-4adf-b00e-bfc13ea760f4"/>
+        </insert>
+    </changeSet>
+
+    <changeSet author="pmuchowski (generated)" id="1580911908102-1">
+        <addNotNullConstraint columnDataType="varchar(255)" columnName="call_status" tableName="call_config_status_map"/>
+    </changeSet>
+
+    <changeSet author="pmuchowski (generated)" id="1580913998665-2">
+        <dropNotNullConstraint columnDataType="varchar(255)" columnName="param_value" tableName="call_config_callback_params_map"/>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1580913998665-3">
+        <dropNotNullConstraint columnDataType="varchar(255)" columnName="param_value" tableName="call_config_request_params_map"/>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1580913998665-4">
+        <dropNotNullConstraint columnDataType="varchar(255)" columnName="param_value" tableName="call_config_response_params_map"/>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1580913998665-5">
+        <dropNotNullConstraint columnDataType="varchar(255)" columnName="param_value" tableName="call_config_url_params_map"/>
+    </changeSet>
+</databaseChangeLog>

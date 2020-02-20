@@ -42,3 +42,15 @@ export const FETCH_APP_SETTINGS = 'fetch_app_settings';
 export const UPDATE_APP_SETTINGS = 'update_app_settings';
 
 export const UPDATE_ENROLLMENT_STATUS = 'update_enrollment_status';
+
+export const FETCH_CALL_CONFIG = 'fetch_call_config';
+export const FETCH_ALL_CALL_CONFIGS = 'fetch_all_call_configs';
+export const CREATE_CALL_CONFIG = 'create_call_config';
+export const SAVE_CALL_CONFIG = 'save_call_config';
+export const DELETE_CALL_CONFIG = 'delete_call_config';
+
+export const FETCH_IVR_PROVIDER_CONFIG = 'fetch_ivr_provider_config';
+export const FETCH_ALL_IVR_PROVIDER_CONFIGS = 'fetch_all_ivr_provider_configs';
+export const CREATE_IVR_PROVIDER_CONFIG = 'create_ivr_provider_config';
+export const SAVE_IVR_PROVIDER_CONFIG = 'save_ivr_provider_config';
+export const DELETE_IVR_PROVIDER_CONFIG = 'delete_ivr_provider_config';

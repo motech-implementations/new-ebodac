@@ -32,6 +32,10 @@ public class CampaignMessage extends BaseEntity {
   private Integer timeOffset;
 
   @NotNull
+  @Column(name = "send_for_actual_date", nullable = false)
+  private Boolean sendForActualDate;
+
+  @NotNull
   @ManyToOne
   @JoinColumn(name = "visit_type_id", nullable = false)
   private VisitType visitType;

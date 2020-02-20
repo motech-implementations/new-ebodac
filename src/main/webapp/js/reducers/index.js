@@ -6,6 +6,8 @@ import registrationReducer from './registrations-reducer';
 import csvConfigReducer from './csv-config-reducer';
 import appSettingsReducer from './app-settings-reducer';
 import jsonConfigReducer from './json-config-reducer';
+import callConfigReducer from './call-config-reducer';
+import ivrProviderConfigReducer from './ivr-provider-config-reducer';
 
 const rootReducer = combineReducers({
   entity: entityReducer,
@@ -15,6 +17,8 @@ const rootReducer = combineReducers({
   csvConfig: csvConfigReducer,
   jsonConfig: jsonConfigReducer,
   appSettings: appSettingsReducer,
+  callConfig: callConfigReducer,
+  ivrProviderConfig: ivrProviderConfigReducer,
 });
 
 export default rootReducer;

@@ -8,5 +8,13 @@ import lombok.Setter;
 @Setter
 public class AppSettingsDto extends BaseDto {
 
+  private Boolean sendIvrMessages = false;
+
+  private String callConfigName;
+
   private LocalTime ivrMessageTime;
+
+  private Boolean generateReports = false;
+
+  private LocalTime reportsGenerationTime;
 }

@@ -1,0 +1,53 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+    <changeSet author="pmuchowski (generated)" id="1581506007942-40">
+        <createTable tableName="vaccinee_call_status_report">
+            <column name="id" type="VARCHAR(255)">
+                <constraints primaryKey="true" primaryKeyName="vaccinee_call_status_reportPK"/>
+            </column>
+            <column name="provider_call_id" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="create_date" type="datetime"/>
+            <column name="update_date" type="datetime"/>
+            <column name="call_duration" type="DOUBLE"/>
+            <column name="expected_duration" type="DOUBLE"/>
+            <column name="message_key" type="VARCHAR(255)"/>
+            <column name="message_percent_listened" type="DOUBLE"/>
+            <column name="message_time_listened" type="DOUBLE"/>
+            <column name="number_of_attempts" type="INT"/>
+            <column name="received_date" type="datetime"/>
+            <column name="send_date" type="datetime"/>
+            <column name="sms_received_date" type="datetime"/>
+            <column name="sms_status" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="receiver_id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sms_not_received" type="bit"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="pmuchowski (generated)" id="1581506007942-41">
+        <addForeignKeyConstraint baseColumnNames="receiver_id" baseTableName="vaccinee_call_status_report" constraintName="FKhjeablsy86ppi1qjbmt3xh77v" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="vaccinee" validate="true"/>
+    </changeSet>
+
+    <changeSet author="pmuchowski (generated)" id="1581506007942-32">
+        <addColumn tableName="application_settings">
+            <column name="generate_reports" type="bit">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1581506007942-33">
+        <addColumn tableName="application_settings">
+            <column name="reports_generation_time" type="time"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1581506007942-34">
+        <addColumn tableName="application_settings">
+            <column name="last_report_generation_date" type="date"/>
+        </addColumn>
+    </changeSet>
+</databaseChangeLog>

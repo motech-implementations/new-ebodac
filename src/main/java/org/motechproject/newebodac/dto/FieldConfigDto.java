@@ -19,21 +19,21 @@ public class FieldConfigDto extends BaseDto {
 
   private String relatedField;
 
-  private Boolean base;
+  private Boolean base = false;
 
-  private Boolean required;
+  private Boolean required = false;
 
-  private Boolean hidden;
+  private Boolean hidden = false;
 
-  private Boolean filterable;
+  private Boolean filterable = true;
 
-  private Boolean editable;
+  private Boolean editable = true;
 
   private Integer fieldOrder;
 
   private String format;
 
   private String pattern;
-  
-  private Boolean uniqueField;
+
+  private Boolean uniqueField = false;
 }

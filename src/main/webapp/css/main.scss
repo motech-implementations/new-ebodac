@@ -574,18 +574,18 @@ select.form-control {
   width: inherit;
 }
 
-.csvFields {
+.arrayFields {
   background-color: lightgray;
   padding: 20px;
   border-radius: 20px;
   margin: 10px 0px;
 }
 
-.csvValueMapField {
+.nestedArrayFields {
   background-color: #9d9d9d;
   padding: 20px;
   border-radius: 20px;
-  margin: 10px 30px;
+  margin: 10px 0px;
 }
 
 .online-indicator {
