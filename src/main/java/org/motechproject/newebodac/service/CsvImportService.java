@@ -23,6 +23,7 @@ import org.motechproject.newebodac.domain.CsvField;
 import org.motechproject.newebodac.domain.KeyCommunityPerson;
 import org.motechproject.newebodac.domain.Vaccinee;
 import org.motechproject.newebodac.domain.Visit;
+import org.motechproject.newebodac.domain.enums.EnrollmentStatus;
 import org.motechproject.newebodac.exception.EntityNotFoundException;
 import org.motechproject.newebodac.helper.EncryptionHelper;
 import org.motechproject.newebodac.repository.CsvConfigRepository;
@@ -60,6 +61,9 @@ public class CsvImportService extends ImportService {
 
   @Autowired
   private EncryptionHelper encryptionHelper;
+
+  @Autowired
+  private EnrollmentService enrollmentService;
 
   /**
    * Processes CSV file with data and returns list of errors.
@@ -164,7 +168,10 @@ public class CsvImportService extends ImportService {
 
           Visit existingVisit = visitRepository
               .getByVaccineeIdAndType(visit.getVaccinee().getId(), visit.getType());
-          if (existingVisit != null) {
+          if (existingVisit == null) {
+            EnrollmentStatus status = enrollmentService.getEnrollmentStatus(correspondingVaccinee);
+            visit.setStatus(status);
+          } else {
             visit.setId(existingVisit.getId());
           }
 
@@ -214,6 +221,7 @@ public class CsvImportService extends ImportService {
     Vaccinee existingVaccinee = vaccineeRepository.findByVaccineeId(vaccinee.getVaccineeId());
     if (existingVaccinee != null) {
       vaccinee.setId(existingVaccinee.getId());
+      enrollmentService.updateEnrollmentStatus(existingVaccinee);
     }
     vaccineeRepository.save(vaccinee);
   }

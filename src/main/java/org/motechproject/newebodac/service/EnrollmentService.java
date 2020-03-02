@@ -7,13 +7,20 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 import org.motechproject.newebodac.constants.DefaultPermissions;
 import org.motechproject.newebodac.domain.AppSettings;
+import org.motechproject.newebodac.domain.Condition;
 import org.motechproject.newebodac.domain.FieldConfig;
+import org.motechproject.newebodac.domain.Vaccinee;
 import org.motechproject.newebodac.domain.Visit;
+import org.motechproject.newebodac.domain.enums.ConditionsResolution;
 import org.motechproject.newebodac.domain.enums.EnrollmentStatus;
+import org.motechproject.newebodac.exception.ConditionCheckException;
 import org.motechproject.newebodac.exception.EnrollmentException;
 import org.motechproject.newebodac.exception.EntityNotFoundException;
+import org.motechproject.newebodac.helper.ConditionCheckHelper;
 import org.motechproject.newebodac.repository.EnrollmentRepository;
 import org.motechproject.newebodac.repository.VisitRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
@@ -21,6 +28,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class EnrollmentService {
+
+  private static final Logger LOGGER = LoggerFactory.getLogger(EnrollmentService.class);
 
   @Autowired
   private VisitRepository visitRepository;
@@ -116,6 +125,69 @@ public class EnrollmentService {
         visitRepository.save(visit);
       }
     });
+  }
+
+  protected EnrollmentStatus getEnrollmentStatus(Vaccinee vaccinee) {
+    boolean shouldEnroll = shouldEnroll(vaccinee);
+
+    if (shouldEnroll) {
+      return EnrollmentStatus.ENROLLED;
+    }
+
+    return EnrollmentStatus.NOT_ENROLLED;
+  }
+
+  protected void updateEnrollmentStatus(Vaccinee vaccinee) {
+    if (vaccinee.getVisits() != null && !vaccinee.getVisits().isEmpty()) {
+      boolean shouldEnroll = shouldEnroll(vaccinee);
+
+      vaccinee.getVisits().forEach(visit -> {
+        updateVisitStatus(visit, shouldEnroll);
+      });
+    }
+  }
+
+  private void updateVisitStatus(Visit visit, boolean shouldEnroll) {
+    if (shouldEnroll && EnrollmentStatus.NOT_ENROLLED.equals(visit.getStatus())) {
+      visit.setStatus(EnrollmentStatus.ENROLLED);
+      visitRepository.save(visit);
+    } else if (!shouldEnroll && EnrollmentStatus.ENROLLED.equals(visit.getStatus())) {
+      visit.setStatus(EnrollmentStatus.NOT_ENROLLED);
+      visitRepository.save(visit);
+    }
+  }
+
+  private boolean shouldEnroll(Vaccinee vaccinee) {
+    AppSettings appSettings = appSettingsService.getAppSettings();
+    Set<Condition> conditions = appSettings.getEnrollmentConditions();
+
+    if (conditions == null || conditions.isEmpty()) {
+      return true;
+    }
+
+    ConditionsResolution conditionsResolution = appSettings.getEnrollmentConditionsResolution();
+
+    for (Condition condition : conditions) {
+      boolean result = checkCondition(condition, vaccinee);
+
+      if (ConditionsResolution.ALL_CONDITIONS_ARE_MET.equals(conditionsResolution) && !result) {
+        return false;
+      } else if (ConditionsResolution.ANY_OF_THE_CONDITIONS_IS_MET.equals(conditionsResolution)
+          && result) {
+        return true;
+      }
+    }
+
+    return ConditionsResolution.ALL_CONDITIONS_ARE_MET.equals(conditionsResolution);
+  }
+
+  private boolean checkCondition(Condition condition, Vaccinee vaccinee) {
+    try {
+      return ConditionCheckHelper.checkCondition(condition, vaccinee);
+    } catch (ConditionCheckException e) {
+      LOGGER.error("Error occurred when checking condition, condition skipped", e);
+      return true;
+    }
   }
 
   private Visit getVisitById(UUID id) {

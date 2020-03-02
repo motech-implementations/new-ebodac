@@ -25,6 +25,9 @@ public class VaccineeService {
   @Autowired
   private FieldConfigService fieldConfigService;
 
+  @Autowired
+  private EnrollmentService enrollmentService;
+
   @PreAuthorize(DefaultPermissions.HAS_VACCINEE_READ_ROLE)
   public List<VaccineeDto> getAll() {
     return mapper.toDtos(vaccineeRepository.findAll());
@@ -61,7 +64,9 @@ public class VaccineeService {
             id.toString()));
     mapper.update(vaccineeDto, vaccinee);
     fieldConfigService.checkIfUnique(EntityType.VACCINEE, vaccinee);
-    return mapper.toDto(vaccineeRepository.save(vaccinee));
+    vaccineeRepository.save(vaccinee);
+    enrollmentService.updateEnrollmentStatus(vaccinee);
+    return mapper.toDto(vaccinee);
   }
 
   /**

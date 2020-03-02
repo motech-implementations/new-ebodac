@@ -17,6 +17,7 @@ import org.motechproject.newebodac.domain.JsonField;
 import org.motechproject.newebodac.domain.KeyCommunityPerson;
 import org.motechproject.newebodac.domain.Vaccinee;
 import org.motechproject.newebodac.domain.Visit;
+import org.motechproject.newebodac.domain.enums.EnrollmentStatus;
 import org.motechproject.newebodac.domain.enums.EntityType;
 import org.motechproject.newebodac.exception.EntityNotFoundException;
 import org.motechproject.newebodac.exception.NewEbodacException;
@@ -50,6 +51,9 @@ public class JsonImportService extends ImportService {
 
   @Autowired
   private EncryptionHelper encryptionHelper;
+
+  @Autowired
+  private EnrollmentService enrollmentService;
 
   /**
    * Fuction deserializes json and saves it to database.
@@ -190,6 +194,7 @@ public class JsonImportService extends ImportService {
     Vaccinee existingVaccinee = vaccineeRepository.findByVaccineeId(vaccinee.getVaccineeId());
     if (existingVaccinee != null) {
       vaccinee.setId(existingVaccinee.getId());
+      enrollmentService.updateEnrollmentStatus(existingVaccinee);
     }
     vaccineeRepository.save(vaccinee);
   }
@@ -208,7 +213,10 @@ public class JsonImportService extends ImportService {
 
         Visit existingVisit = visitRepository
             .getByVaccineeIdAndType(visit.getVaccinee().getId(), visit.getType());
-        if (existingVisit != null) {
+        if (existingVisit == null) {
+          EnrollmentStatus status = enrollmentService.getEnrollmentStatus(correspondingVaccinee);
+          visit.setStatus(status);
+        } else {
           visit.setId(existingVisit.getId());
         }
 
