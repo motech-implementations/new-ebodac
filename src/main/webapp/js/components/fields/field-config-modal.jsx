@@ -74,31 +74,31 @@ const FIELD_TYPE_OPTIONS = [
 
 const FIELDS = [
   {
-    name: 'name', fieldType: 'TEXT', displayName: 'Name', required: true, uniqueField: true,
+    name: 'name', fieldType: TEXT, displayName: 'Name', required: true, uniqueField: true,
   },
   {
-    name: 'fieldType', fieldType: 'ENUM', displayName: 'Field type', required: true, options: FIELD_TYPE_OPTIONS,
+    name: 'fieldType', fieldType: ENUM, displayName: 'Field type', required: true, options: FIELD_TYPE_OPTIONS,
   },
   {
-    name: 'displayName', fieldType: 'TEXT', displayName: 'Display name', required: true,
+    name: 'displayName', fieldType: TEXT, displayName: 'Display name', required: true,
   },
   {
-    name: 'required', fieldType: 'BOOLEAN', displayName: 'Required', required: false,
+    name: 'required', fieldType: BOOLEAN, displayName: 'Required', required: false,
   },
   {
-    name: 'editable', fieldType: 'BOOLEAN', displayName: 'Editable', required: false,
+    name: 'editable', fieldType: BOOLEAN, displayName: 'Editable', required: false,
   },
   {
-    name: 'filterable', fieldType: 'BOOLEAN', displayName: 'Filterable', required: false,
+    name: 'filterable', fieldType: BOOLEAN, displayName: 'Filterable', required: false,
   },
   {
-    name: 'format', fieldType: 'TEXT', displayName: 'Format', required: false,
+    name: 'format', fieldType: TEXT, displayName: 'Format', required: false,
   },
   {
-    name: 'uniqueField', fieldType: 'BOOLEAN', displayName: 'Unique field', required: false,
+    name: 'uniqueField', fieldType: BOOLEAN, displayName: 'Unique field', required: false,
   },
   {
-    name: 'pattern', fieldType: 'TEXT', displayName: 'Pattern', required: false,
+    name: 'pattern', fieldType: TEXT, displayName: 'Pattern', required: false,
   },
 ];
 
@@ -120,7 +120,7 @@ class FieldConfigModal extends React.Component {
           ...values,
           format: _.includes([DATE, DATE_TIME, ENUM, TEXT], values.fieldType)
             ? values.format : undefined,
-          pattern: values.fieldType === 'TEXT' ? values.pattern : undefined,
+          pattern: values.fieldType === TEXT ? values.pattern : undefined,
           fieldOrder: newItemOrder,
           entity: entityType,
         });
@@ -172,7 +172,7 @@ class FieldConfigModal extends React.Component {
                 ...elem,
                 editable: (elem.name !== 'name' && elem.name !== 'fieldType') || !fieldId,
                 hidden: (!_.includes([DATE, DATE_TIME, ENUM, TEXT], values.fieldType) && elem.name === 'format')
-                || (values.fieldType !== 'TEXT' && elem.name === 'pattern'),
+                || (values.fieldType !== TEXT && elem.name === 'pattern'),
                 required: (_.includes([DATE, DATE_TIME, ENUM], values.fieldType) && elem.name === 'format') || elem.required,
               }))}
               <div>

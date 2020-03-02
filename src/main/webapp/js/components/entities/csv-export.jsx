@@ -6,6 +6,9 @@ import PropTypes from 'prop-types';
 import { format as formatDate, parseISO } from 'date-fns';
 
 import { getRelatedEntitiesSelector } from '../../selectors';
+import {
+  DATE, DATE_TIME, ENUM, RELATION,
+} from '../../constants/field-types';
 
 class CsvExport extends Component {
   getRelatedValue = (rawRow, fieldConfig) => {
@@ -20,10 +23,10 @@ class CsvExport extends Component {
     }
 
     switch (fieldConfig.fieldType) {
-      case 'RELATION':
+      case RELATION:
         relatedValue = _.get(this.props.relatedEntities, `${fieldConfig.relatedEntity}.${rawRow[fieldConfig.name]}.${fieldConfig.relatedField}`, null);
         return relatedValue;
-      case 'ENUM':
+      case ENUM:
         _.forEach(fieldConfig.format.split(','), (val) => {
           const chunks = val.split(':');
           if (chunks[0] === relatedValue && chunks.length > 1) {
@@ -31,14 +34,14 @@ class CsvExport extends Component {
           }
         });
         return relatedValue;
-      case 'DATE':
-      case 'DATE_TIME':
+      case DATE:
+      case DATE_TIME:
         relatedValue = formatDate(parseISO(relatedValue), fieldConfig.format);
         return relatedValue;
       default:
         return relatedValue;
     }
-  }
+  };
 
   exportCSV = () => {
     const fieldConfigsSorted = _.sortBy(this.props.fieldConfig, 'fieldOrder');
@@ -85,7 +88,7 @@ const mapStateToProps = (state, props) => ({
 export default connect(mapStateToProps, {})(CsvExport);
 
 CsvExport.propTypes = {
-  relatedEntities: PropTypes.shape(PropTypes.shape({})),
+  relatedEntities: PropTypes.shape({}),
   entityType: PropTypes.string.isRequired,
   fieldConfig: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   entity: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
