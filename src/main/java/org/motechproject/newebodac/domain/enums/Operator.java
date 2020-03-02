@@ -1,0 +1,23 @@
+package org.motechproject.newebodac.domain.enums;
+
+public enum Operator {
+  IS_NULL,
+  IS_NOT_NULL,
+  EQUALS,
+  NOT_EQUALS,
+  GREATER_THAN,
+  GREATER_THAT_EQUAL,
+  LESS_THAN,
+  LESS_THAN_EQUAL,
+  IS_EMPTY,
+  IS_NOT_EMPTY,
+  IS_BLANK,
+  IS_NOT_BLANK,
+  EQUALS_IGNORE_CASE,
+  CONTAINS,
+  CONTAINS_IGNORE_CASE,
+  IS_IN_THE_PAST,
+  IS_IN_THE_FUTURE,
+  IS_NOT_IN_THE_PAST,
+  IS_NOT_IN_THE_FUTURE
+}

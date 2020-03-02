@@ -2,6 +2,7 @@ package org.motechproject.newebodac.mapper;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 import org.apache.commons.lang3.StringUtils;
 import org.mapstruct.Mapper;
@@ -35,6 +36,7 @@ public interface ExtraFieldMapper extends EntityMapper<ExtraFieldDto, ExtraField
    * @param extraField Mapped entity.
    * @return String value of related to fieldType field.
    */
+  @SuppressWarnings("PMD.CyclomaticComplexity")
   default String toValue(ExtraField extraField) {
     String result;
     switch (extraField.getFieldType()) {
@@ -55,10 +57,12 @@ public interface ExtraFieldMapper extends EntityMapper<ExtraFieldDto, ExtraField
         result = Objects.toString(extraField.getBoolVal(), null);
         break;
       case DATE:
-        result = Objects.toString(extraField.getDateVal(), null);
+        result = extraField.getDateVal() == null ? null
+            : extraField.getDateVal().format(DateTimeFormatter.ISO_LOCAL_DATE);
         break;
       case DATE_TIME:
-        result = Objects.toString(extraField.getDatetimeVal(), null);
+        result = extraField.getDatetimeVal() == null ? null
+            : extraField.getDatetimeVal().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
         break;
       default:
         return null;

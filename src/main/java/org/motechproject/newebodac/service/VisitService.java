@@ -3,11 +3,14 @@ package org.motechproject.newebodac.service;
 import java.util.List;
 import java.util.UUID;
 import org.motechproject.newebodac.constants.DefaultPermissions;
+import org.motechproject.newebodac.domain.Vaccinee;
 import org.motechproject.newebodac.domain.Visit;
+import org.motechproject.newebodac.domain.enums.EnrollmentStatus;
 import org.motechproject.newebodac.domain.enums.EntityType;
 import org.motechproject.newebodac.dto.VisitDto;
 import org.motechproject.newebodac.exception.EntityNotFoundException;
 import org.motechproject.newebodac.mapper.VisitMapper;
+import org.motechproject.newebodac.repository.VaccineeRepository;
 import org.motechproject.newebodac.repository.VisitRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -23,6 +26,12 @@ public class VisitService {
 
   @Autowired
   private FieldConfigService fieldConfigService;
+
+  @Autowired
+  private EnrollmentService enrollmentService;
+
+  @Autowired
+  private VaccineeRepository vaccineeRepository;
 
   @PreAuthorize(DefaultPermissions.HAS_VISIT_READ_ROLE)
   public List<VisitDto> getAll() {
@@ -41,6 +50,9 @@ public class VisitService {
   public VisitDto create(VisitDto visitDto) {
     Visit newVisit = MAPPER.fromDto(visitDto);
     fieldConfigService.checkIfUnique(EntityType.VISIT, newVisit);
+    Vaccinee vaccinee = vaccineeRepository.getOne(newVisit.getVaccinee().getId());
+    EnrollmentStatus status = enrollmentService.getEnrollmentStatus(vaccinee);
+    newVisit.setStatus(status);
     return MAPPER.toDto(visitRepository.save(newVisit));
   }
 

@@ -1,0 +1,54 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+    <changeSet author="pmuchowski (generated)" id="1582819441419-31">
+        <createTable tableName="search_condition">
+            <column name="id" type="VARCHAR(255)">
+                <constraints primaryKey="true" primaryKeyName="search_conditionPK"/>
+            </column>
+            <column name="create_date" type="datetime"/>
+            <column name="update_date" type="datetime"/>
+            <column name="bool_val" type="BIT"/>
+            <column name="date_val" type="date"/>
+            <column name="datetime_val" type="datetime"/>
+            <column name="field_type" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="float_val" type="DOUBLE"/>
+            <column name="id_val" type="VARCHAR(255)"/>
+            <column name="int_val" type="INT"/>
+            <column name="operator" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="text_val" type="VARCHAR(255)"/>
+            <column name="app_settings_id" type="VARCHAR(255)"/>
+            <column name="field_config_id" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1582819441419-13">
+        <addColumn tableName="application_settings">
+            <column name="enrollment_conditions_resolution" type="varchar(255)"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet author="pmuchowski (generated)" id="1582819441419-32">
+        <addForeignKeyConstraint baseColumnNames="field_config_id" baseTableName="search_condition" constraintName="FK24bjjuniut78w8dfo01acboxc" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="field_config" validate="true"/>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1582819441419-33">
+        <addForeignKeyConstraint baseColumnNames="app_settings_id" baseTableName="search_condition" constraintName="FKepb8exst78m4fajvinpchpv43" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="application_settings" validate="true"/>
+    </changeSet>
+
+
+    <changeSet author="pmuchowski (generated)" id="1582820497263-23">
+        <dropForeignKeyConstraint baseTableName="condition" constraintName="FKaaun05h61eyxo6glkwdkii7lb"/>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1582820497263-24">
+        <dropForeignKeyConstraint baseTableName="condition" constraintName="FKncn7553dgc6f4g9ya6rjsqvx6"/>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1582820497263-25">
+        <dropTable tableName="condition"/>
+    </changeSet>
+
+
+</databaseChangeLog>

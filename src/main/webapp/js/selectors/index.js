@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import { createSelector } from 'reselect';
 import { VACCINEE_ENTITY, VISIT_ENTITY, VISIT_TYPE_ENTITY } from '../constants/entity-types';
+import { RELATION } from '../constants/field-types';
 
 export const getFieldConfigByEntity = (state, { entityType }) => (
   state.fieldConfig[entityType]
@@ -119,7 +120,8 @@ export const getVisitsByVaccineeId = createSelector(
   filterVisits,
 );
 
-const getRelationFieldConfigs = (state, props) => _.filter(props.fieldConfig, config => config.fieldType === 'RELATION');
+const getRelationFieldConfigs = (state, props) => _.filter(props.fieldConfig,
+  config => config.fieldType === RELATION);
 
 const getRelatedEntities = (entities, fieldConfig) => _.reduce(fieldConfig, (obj, config) => (
   { ...obj, [config.relatedEntity]: entities[config.relatedEntity] }
