@@ -20,6 +20,7 @@ import org.motechproject.newebodac.domain.Visit;
 import org.motechproject.newebodac.domain.enums.EntityType;
 import org.motechproject.newebodac.exception.EntityNotFoundException;
 import org.motechproject.newebodac.exception.NewEbodacException;
+import org.motechproject.newebodac.helper.EncryptionHelper;
 import org.motechproject.newebodac.repository.JsonConfigRepository;
 import org.motechproject.newebodac.repository.KeyCommunityPersonRepository;
 import org.motechproject.newebodac.repository.VaccineeRepository;
@@ -30,6 +31,8 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @Service
 public class JsonImportService extends ImportService {
+
+  private static final String PHONE_NUMBER = "phoneNumber";
 
   private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
@@ -44,6 +47,9 @@ public class JsonImportService extends ImportService {
 
   @Autowired
   private VisitRepository visitRepository;
+
+  @Autowired
+  private EncryptionHelper encryptionHelper;
 
   /**
    * Fuction deserializes json and saves it to database.
@@ -105,7 +111,11 @@ public class JsonImportService extends ImportService {
           deserializedObject.put(fieldConfigName, relatedEnum);
           break;
         default:
-          deserializedObject.put(fieldConfigName, jsonValue);
+          if (PHONE_NUMBER.equals(fieldConfigName)) {
+            deserializedObject.put(fieldConfigName, encryptionHelper.encrypt(jsonValue));
+          } else {
+            deserializedObject.put(fieldConfigName, jsonValue);
+          }
           break;
       }
     }
@@ -133,7 +143,6 @@ public class JsonImportService extends ImportService {
    * Deserializes JSONArray.
    * @param jsonArray array of jsons to deserialize.
    * @param jsonConfig JsonConfig used to deserialize json.
-   * @return Map of errors.
    */
   private void importJsonArray(JSONArray jsonArray, JsonConfig jsonConfig) {
     for (int i = 0; i < jsonArray.length(); i++) {
@@ -202,6 +211,7 @@ public class JsonImportService extends ImportService {
         if (existingVisit != null) {
           visit.setId(existingVisit.getId());
         }
+
         visitRepository.save(visit);
       }
     }

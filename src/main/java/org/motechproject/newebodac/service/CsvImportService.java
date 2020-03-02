@@ -24,6 +24,7 @@ import org.motechproject.newebodac.domain.KeyCommunityPerson;
 import org.motechproject.newebodac.domain.Vaccinee;
 import org.motechproject.newebodac.domain.Visit;
 import org.motechproject.newebodac.exception.EntityNotFoundException;
+import org.motechproject.newebodac.helper.EncryptionHelper;
 import org.motechproject.newebodac.repository.CsvConfigRepository;
 import org.motechproject.newebodac.repository.KeyCommunityPersonRepository;
 import org.motechproject.newebodac.repository.VaccineeRepository;
@@ -41,6 +42,8 @@ import org.supercsv.prefs.CsvPreference;
 @Service
 public class CsvImportService extends ImportService {
 
+  private static final String PHONE_NUMBER = "phoneNumber";
+
   private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
   @Autowired
@@ -55,6 +58,8 @@ public class CsvImportService extends ImportService {
   @Autowired
   private VisitRepository visitRepository;
 
+  @Autowired
+  private EncryptionHelper encryptionHelper;
 
   /**
    * Processes CSV file with data and returns list of errors.
@@ -63,6 +68,7 @@ public class CsvImportService extends ImportService {
    * @param csvConfigId id of the particular CsvConfig
    * @return map with row numbers as keys and errors as values.
    */
+  @SuppressWarnings("PMD.NPathComplexity")
   public Map<Integer, String> importDataFromCsvWithConfig(MultipartFile csvFile,
       UUID csvConfigId) throws IOException {
 
@@ -129,7 +135,12 @@ public class CsvImportService extends ImportService {
             cleanRow.put(csvField.getFieldConfig().getName(), relatedEnum);
             break;
           default:
-            cleanRow.put(csvField.getFieldConfig().getName(), cellValue);
+            if (PHONE_NUMBER.equals(csvField.getFieldConfig().getName())) {
+              cleanRow.put(csvField.getFieldConfig().getName(),
+                  encryptionHelper.encrypt(cellValue));
+            } else {
+              cleanRow.put(csvField.getFieldConfig().getName(), cellValue);
+            }
             break;
         }
       }
@@ -156,6 +167,7 @@ public class CsvImportService extends ImportService {
           if (existingVisit != null) {
             visit.setId(existingVisit.getId());
           }
+
           visitRepository.save(visit);
           break;
         case PERSON:
