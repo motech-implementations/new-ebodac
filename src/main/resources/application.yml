@@ -55,7 +55,7 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL5Dialect
-    show-sql: true
+    show-sql: ${showSqlInLog}
   mail:
     host: ${mailHost}
     username: ${mailUsername}
