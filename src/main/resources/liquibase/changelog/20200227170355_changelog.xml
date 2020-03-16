@@ -39,16 +39,4 @@
         <addForeignKeyConstraint baseColumnNames="app_settings_id" baseTableName="search_condition" constraintName="FKepb8exst78m4fajvinpchpv43" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="application_settings" validate="true"/>
     </changeSet>
 
-
-    <changeSet author="pmuchowski (generated)" id="1582820497263-23">
-        <dropForeignKeyConstraint baseTableName="condition" constraintName="FKaaun05h61eyxo6glkwdkii7lb"/>
-    </changeSet>
-    <changeSet author="pmuchowski (generated)" id="1582820497263-24">
-        <dropForeignKeyConstraint baseTableName="condition" constraintName="FKncn7553dgc6f4g9ya6rjsqvx6"/>
-    </changeSet>
-    <changeSet author="pmuchowski (generated)" id="1582820497263-25">
-        <dropTable tableName="condition"/>
-    </changeSet>
-
-
 </databaseChangeLog>
