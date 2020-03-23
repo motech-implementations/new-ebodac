@@ -98,7 +98,7 @@ public class UserService {
       MAPPER.update(userDto, user);
     }
     if (StringUtils.isNotBlank(userDto.getPassword())) {
-      user.setPassword(passwordEncoder.encode(user.getPassword()));
+      user.setPassword(passwordEncoder.encode(userDto.getPassword()));
     }
     return MAPPER.toDto(userRepository.save(user));
   }
