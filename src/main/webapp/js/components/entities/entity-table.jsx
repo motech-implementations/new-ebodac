@@ -13,7 +13,7 @@ import { getCsvConfigsByEntityType, getEntityArrayByName } from '../../selectors
 
 import getTableColumn from '../../utils/table-utils';
 import CsvExport from './csv-export';
-import { RELATION } from '../../constants/field-types';
+import { COLLECTION, RELATION } from '../../constants/field-types';
 
 class EntityTable extends Component {
   constructor(props) {
@@ -47,7 +47,7 @@ class EntityTable extends Component {
 
   fetchEntityAndRelatedEntities() {
     _.forEach(this.props.fieldConfig, (field) => {
-      if (field.fieldType === RELATION) {
+      if (field.fieldType === RELATION || field.fieldType === COLLECTION) {
         this.props.fetchEntity(field.relatedEntity);
       }
     });
