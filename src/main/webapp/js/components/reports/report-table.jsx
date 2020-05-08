@@ -57,29 +57,21 @@ class ReportTable extends Component {
     );
 
     return (
-      <div className="container">
-        <div className="row margin-top-sm">
-          <div className="col-md-6">
-            <h1>{_.startCase(entityType)}</h1>
-          </div>
-          <CsvExport
-            entity={entity}
-            fieldConfig={fieldConfig}
-            entityType={entityType}
-          />
-        </div>
-        <div className="row">
-          <div className="col-md-12">
-            <ReactTable
-              data={entity}
-              columns={columns}
-              loading={loading}
-              getTheadFilterThProps={() => (
-                { style: { overflow: 'visible' } }
-              )}
-            />
-          </div>
-        </div>
+      <div className="container-fluid">
+        <h1>{_.startCase(entityType)}</h1>
+        <CsvExport
+          entity={entity}
+          fieldConfig={fieldConfig}
+          entityType={entityType}
+        />
+        <ReactTable
+          data={entity}
+          columns={columns}
+          loading={loading}
+          getTheadFilterThProps={() => (
+            { style: { overflow: 'visible' } }
+          )}
+        />
       </div>
     );
   }

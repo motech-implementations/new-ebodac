@@ -69,27 +69,19 @@ class VaccineeEnrollment extends Component {
     const { vaccinees, history } = this.props;
 
     return (
-      <div className="container">
-        <div className="row margin-top-sm">
-          <div className="col-md-6">
-            <h1>Vaccinee enrollment</h1>
-          </div>
-        </div>
-        <div className="row">
-          <div className="col-md-12">
-            <ReactTable
-              data={vaccinees}
-              columns={this.getColumns()}
-              getTdProps={(state, rowInfo) => ({
-                onClick: () => {
-                  if (_.get(rowInfo, 'original.id')) {
-                    history.push(`/visitEnrollment/${rowInfo.original.id}`);
-                  }
-                },
-              })}
-            />
-          </div>
-        </div>
+      <div className="container-fluid">
+        <h1>Vaccinee enrollment</h1>
+        <ReactTable
+          data={vaccinees}
+          columns={this.getColumns()}
+          getTdProps={(state, rowInfo) => ({
+            onClick: () => {
+              if (_.get(rowInfo, 'original.id')) {
+                history.push(`/visitEnrollment/${rowInfo.original.id}`);
+              }
+            },
+          })}
+        />
       </div>
     );
   }

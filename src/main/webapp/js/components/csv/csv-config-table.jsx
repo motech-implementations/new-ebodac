@@ -20,39 +20,31 @@ const columns = [
 ];
 
 const CsvConfigTable = props => (
-  <div className="container">
-    <div className="row margin-top-sm">
-      <div className="col-md-6">
-        <h1>CSV Import Config</h1>
-      </div>
-      <div className="col-md-3 ml-auto">
-        <button
-          type="button"
-          className="btn btn-success btn-lg btn-block"
-          onClick={() => props.history.push('/createCsvConfig')}
-          disabled={!props.isOnline}
-        >
+  <div className="container-fluid">
+    <h1>CSV Import Config</h1>
+    <div className="mx-2 mt-2 mb-3">
+      <button
+        type="button"
+        className="btn btn-success"
+        onClick={() => props.history.push('/createCsvConfig')}
+        disabled={!props.isOnline}
+      >
         Create New
-        </button>
-      </div>
+      </button>
     </div>
-    <div className="row">
-      <div className="col-md-12">
-        <ReactTable
-          data={props.csvConfig}
-          columns={columns}
-          getTdProps={(state, rowInfo) => ({
-            onClick: () => {
-              if (_.get(rowInfo, 'original.id')) {
-                props.history.push(
-                  `/updateCsvConfig/${rowInfo.original.entity}/${rowInfo.original.id}`,
-                );
-              }
-            },
-          })}
-        />
-      </div>
-    </div>
+    <ReactTable
+      data={props.csvConfig}
+      columns={columns}
+      getTdProps={(state, rowInfo) => ({
+        onClick: () => {
+          if (_.get(rowInfo, 'original.id')) {
+            props.history.push(
+              `/updateCsvConfig/${rowInfo.original.entity}/${rowInfo.original.id}`,
+            );
+          }
+        },
+      })}
+    />
   </div>
 );
 

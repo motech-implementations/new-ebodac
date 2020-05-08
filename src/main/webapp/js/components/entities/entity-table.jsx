@@ -68,42 +68,14 @@ class EntityTable extends Component {
       }),
     );
     return (
-      <div className="container">
-        <div className="row margin-top-sm">
-          <div className="col-md-6">
-            <h1>{_.startCase(entityType)}</h1>
-          </div>
-          {this.canRead() && !disableExport && (
-          <CsvExport
-            entity={entity}
-            fieldConfig={fieldConfig}
-            entityType={entityType}
-          />
-          )}
+      <div className="container-fluid">
+        <h1>{_.startCase(entityType)}</h1>
+        <div className="d-flex flex-row">
           {this.canWrite() && (
-            <div className="col-md-2">
-              {!_.isNil(this.props.csvConfigs) && (
-                <button
-                  type="button"
-                  className="btn btn-success btn-lg btn-block"
-                  onClick={() => {
-                    this.props.resetLogoutCounter();
-                    this.props.history.push(`/import/${entityType}`);
-                  }}
-                  disabled={_.isEmpty(this.props.csvConfigs) || !isOnline}
-                  title={_.isEmpty(this.props.csvConfigs)
-                    ? 'You have to create a CSV config for this entity!' : ''}
-                >
-                  Import CSV
-                </button>
-              )}
-            </div>
-          )}
-          {this.canWrite() && (
-            <div className="col-md-2 float-right">
+            <div className="mx-2 mt-2 mb-3">
               <button
                 type="button"
-                className="btn btn-success btn-lg btn-block"
+                className="btn btn-success"
                 onClick={() => {
                   this.props.resetLogoutCounter();
                   this.props.history.push(`/create/${entityType}`);
@@ -114,27 +86,47 @@ class EntityTable extends Component {
               </button>
             </div>
           )}
-        </div>
-        <div className="row">
-          <div className="col-md-12">
-            <ReactTable
-              data={entity}
-              columns={columns}
-              loading={loading}
-              getTheadFilterThProps={() => (
-                { style: { overflow: 'visible' } }
-              )}
-              getTdProps={(state, rowInfo) => ({
-                onClick: () => {
-                  if (_.get(rowInfo, 'original.id') && this.canWrite()) {
-                    this.props.resetLogoutCounter();
-                    this.props.history.push(`/entityEdit/${entityType}/${rowInfo.original.id}`);
-                  }
-                },
-              })}
+          {this.canWrite() && !_.isNil(this.props.csvConfigs) && (
+            <div className="mx-2 mt-2 mb-3">
+              <button
+                type="button"
+                className="btn btn-success"
+                onClick={() => {
+                  this.props.resetLogoutCounter();
+                  this.props.history.push(`/import/${entityType}`);
+                }}
+                disabled={_.isEmpty(this.props.csvConfigs) || !isOnline}
+                title={_.isEmpty(this.props.csvConfigs)
+                  ? 'You have to create a CSV config for this entity!' : ''}
+              >
+                Import CSV
+              </button>
+            </div>
+          )}
+          {this.canRead() && !disableExport && (
+            <CsvExport
+              entity={entity}
+              fieldConfig={fieldConfig}
+              entityType={entityType}
             />
-          </div>
+          )}
         </div>
+        <ReactTable
+          data={entity}
+          columns={columns}
+          loading={loading}
+          getTheadFilterThProps={() => (
+            { style: { overflow: 'visible' } }
+          )}
+          getTdProps={(state, rowInfo) => ({
+            onClick: () => {
+              if (_.get(rowInfo, 'original.id') && this.canWrite()) {
+                this.props.resetLogoutCounter();
+                this.props.history.push(`/entityEdit/${entityType}/${rowInfo.original.id}`);
+              }
+            },
+          })}
+        />
       </div>
     );
   }
