@@ -140,12 +140,12 @@ class IvrProviderConfigForm extends Component {
 
   renderArrayField = fieldConfig => (
     <div key={fieldConfig.name} className={fieldConfig.hidden ? 'd-none' : ''}>
-      <div>{ fieldConfig.displayName }</div>
+      <h5 className="mt-4 mb-2 ml-3">{ fieldConfig.displayName }</h5>
       <FieldArray name={fieldConfig.name}>
         { ({ fields }) => (
           <div>
             {fields.map((name, index) => (
-              <div key={name} className="arrayFields">
+              <div key={name} style={{ width: '450px' }} className="arrayFields">
                 <div className="d-flex flex-row-reverse">
                   <button
                     type="button"
@@ -158,10 +158,10 @@ class IvrProviderConfigForm extends Component {
                 { renderFormField({ fieldType: TEXT, name }) }
               </div>
             ))}
-            <div>
+            <div className="ml-4 mb-3">
               <button
                 type="button"
-                className="btn btn-success my-2"
+                className="btn btn-success"
                 onClick={() => fields.push(fieldConfig.defaultValue || '')}
               >
                 Add
@@ -184,7 +184,7 @@ class IvrProviderConfigForm extends Component {
           { ({ fields }) => (
             <div>
               {fields.map((name, index) => (
-                <div key={name} className={ind % 2 === 0 ? 'arrayFields' : 'nestedArrayFields'}>
+                <div key={name} style={{ width: `${660 - 40 * ind}px` }} className={ind % 2 === 0 ? 'arrayFields' : 'nestedArrayFields'}>
                   { fieldType === TYPE_OBJECT && (
                     <div className="d-flex flex-row-reverse">
                       <button
@@ -222,10 +222,10 @@ class IvrProviderConfigForm extends Component {
                 </div>
               ))}
               { fieldType === TYPE_OBJECT && (
-              <div>
+              <div className="ml-4">
                 <button
                   type="button"
-                  className="btn btn-success my-2"
+                  className="btn btn-success"
                   onClick={() => fields.push({})}
                 >
                   Add
@@ -240,8 +240,8 @@ class IvrProviderConfigForm extends Component {
   };
 
   renderJsonObject = (fieldConfig, values, setFieldValue) => (
-    <div key={fieldConfig.name} className={`nestedArrayFields ${fieldConfig.hidden ? 'd-none' : ''}`}>
-      <div>{ fieldConfig.displayName }</div>
+    <div key={fieldConfig.name} style={{ width: '700px' }} className={`nestedArrayFields ${fieldConfig.hidden ? 'd-none' : ''}`}>
+      <h5 className="mb-2 ml-3">{ fieldConfig.displayName }</h5>
       <SelectField
         key={`${fieldConfig.name}.fieldType`}
         fieldConfig={{
@@ -319,7 +319,7 @@ class IvrProviderConfigForm extends Component {
               </button>
               <button
                 type="button"
-                className="btn btn-danger m-2"
+                className="btn btn-secondary m-2"
                 onClick={() => this.props.history.push('/ivrProviderConfigTable')}
               >
                 Cancel

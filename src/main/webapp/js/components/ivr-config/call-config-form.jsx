@@ -21,6 +21,7 @@ import {
   VACCINEE_ENTITY,
 } from '../../constants/entity-types';
 import TextField from '../../utils/form/text-field';
+import SelectWithCustomValuesField from '../../utils/form/select-with-custom-values-field';
 
 const ARRAY = 'ARRAY';
 
@@ -85,9 +86,9 @@ class CallConfigForm extends Component {
         {
           name: 'key',
           fieldType: RELATION,
-          displayName: 'Message key',
+          displayName: 'Campaign Message',
           relatedEntity: CAMPAIGN_MESSAGE_ENTITY,
-          relatedField: 'messageKey',
+          relatedField: 'name',
           required: true,
         },
         {
@@ -185,12 +186,12 @@ class CallConfigForm extends Component {
 
   renderArrayField = fieldConfig => (
     <div key={fieldConfig.name}>
-      <div>{ fieldConfig.displayName }</div>
+      <h5 className="mt-4 mb-2 ml-3">{ fieldConfig.displayName }</h5>
       <FieldArray name={fieldConfig.name}>
         { ({ fields }) => (
           <div>
             {fields.map((name, index) => (
-              <div key={name} className="nestedArrayFields">
+              <div key={name} style={{ width: '650px' }} className="nestedArrayFields">
                 <div className="d-flex flex-row-reverse">
                   <button
                     type="button"
@@ -203,10 +204,10 @@ class CallConfigForm extends Component {
                 { _.map(fieldConfig.fields, field => renderFormField({ ...field, name: `${name}.${field.name}` })) }
               </div>
             ))}
-            <div>
+            <div className="ml-4 mb-3">
               <button
                 type="button"
-                className="btn btn-success my-2"
+                className="btn btn-success"
                 onClick={() => fields.push(fieldConfig.defaultValue || {})}
               >
                 Add
@@ -236,8 +237,8 @@ class CallConfigForm extends Component {
 
   renderParamsMap = (params, name, displayName) => (
     <div>
-      <div>{displayName}</div>
-      <div className="nestedArrayFields">
+      <h5 className="mt-4 mb-2 ml-3">{displayName}</h5>
+      <div style={{ width: '650px' }} className="nestedArrayFields">
         {_.map(params, param => renderFormField({
           name: `${name}.${param}`,
           fieldType: TEXT,
@@ -247,10 +248,28 @@ class CallConfigForm extends Component {
     </div>
   );
 
+  renderRequestParamsMap = (params, vaccineeFields) => (
+    <div>
+      <h5 className="mt-4 mb-2 ml-3">Request Params Map</h5>
+      <div style={{ width: '650px' }} className="nestedArrayFields">
+        {_.map(params, param => (
+          <SelectWithCustomValuesField
+            key={`requestParamsMap.${param}`}
+            fieldConfig={{
+              name: `requestParamsMap.${param}`,
+              displayName: param,
+              options: [{ value: '<messageKey>', label: 'Message Key' }, ...vaccineeFields],
+            }}
+          />
+        ))}
+      </div>
+    </div>
+  );
+
   renderParamsSelect = (fields, options, name, displayName) => (
     <div>
-      <div>{displayName}</div>
-      <div className="nestedArrayFields">
+      <h5 className="mt-4 mb-2 ml-3">{displayName}</h5>
+      <div style={{ width: '650px' }} className="nestedArrayFields">
         {_.map(fields, field => (
           <SelectField
             key={`${name}.${field.name}`}
@@ -294,7 +313,8 @@ class CallConfigForm extends Component {
     return (
       <div>
         {urlParams && !!urlParams.length && this.renderParamsMap(urlParams, 'urlParamsMap', 'URL Params Map')}
-        {requestParams && !!requestParams.length && this.renderParamsMap(requestParams, 'requestParamsMap', 'Request Params Map')}
+        {requestParams && !!requestParams.length
+          && this.renderRequestParamsMap(requestParams, vaccineeFields)}
         {this.renderParamsSelect(this.getIvrResponseFields(), [...responseOptions, ...vaccineeFields], 'responseParamsMap', 'Response Params Map')}
         {this.renderParamsSelect(this.getCallbackFields(), callbackOptions, 'callbackParamsMap', 'Callback Params Map')}
       </div>
@@ -380,7 +400,7 @@ class CallConfigForm extends Component {
               </button>
               <button
                 type="button"
-                className="btn btn-danger m-2"
+                className="btn btn-secondary m-2"
                 onClick={() => this.props.history.push('/callConfigTable')}
               >
                 Cancel
