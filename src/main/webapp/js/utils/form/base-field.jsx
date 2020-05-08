@@ -26,18 +26,21 @@ const renderField = ({
     ...config, disabled: !editable, id: input.name, value: input.value, onChange, onBlur,
   };
 
-  const className = `input-row ${required ? 'required' : ''} ${hidden ? 'd-none' : ''} ${touched && error ? 'has-error' : ''}`;
-
   return (
-    <div className={className}>
-      <div>
-        { displayName && <span className="col-md-2 col-form-label"><label htmlFor={attr.id}>{ displayName }</label></span> }
-        {renderInput(attr)}
-      </div>
-      <div>
-        <div className="col-md-2" />
-        <div className="help-block col-md-4" style={{ float: 'left' }}>
-          { touched ? error : '' }
+    <div className={`${hidden ? 'd-none' : ''}`}>
+      <div className={`d-flex flex-row input-row ${required ? 'required' : ''}  ${touched && error ? 'has-error' : ''}`}>
+        { displayName && (
+          <span className="col-form-label text-right nebodac-label">
+            <label htmlFor={attr.id}>{ displayName }</label>
+          </span>
+        )}
+        <div className="d-flex flex-column">
+          <div className="nebodac-input">
+            {renderInput(attr)}
+          </div>
+          <div className="help-block">
+            { touched ? error : '' }
+          </div>
         </div>
       </div>
     </div>

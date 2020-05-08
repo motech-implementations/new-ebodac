@@ -353,6 +353,14 @@ a, a:hover, a:focus, a:active, a:visited {
   padding-top: 2px;
   padding-bottom: 10px;
 
+  .col-form-label {
+    padding-bottom: 0;
+
+    label {
+      margin-bottom: 0;
+    }
+  }
+
   &.required {
     .col-form-label:after {
       content: "*";
@@ -367,7 +375,25 @@ a, a:hover, a:focus, a:active, a:visited {
   margin-bottom: 40px;
 }
 
+.nebodac-label {
+  width: 200px;
+  margin-right: 10px;
+}
+
+.nebodac-input {
+  min-width: 300px;
+  max-width: 600px;
+
+  input[type=checkbox] {
+    width: 1.4em;
+    height: 1.4em;
+    margin-top: calc(.375rem + 1px);
+  }
+}
+
 .help-block {
+  min-width: 300px;
+  max-width: 600px;
   display: contents;
   margin-top: 3px;
   margin-bottom: 5px;

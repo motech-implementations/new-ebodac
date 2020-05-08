@@ -66,8 +66,8 @@ class CsvConfigUpdate extends Component {
             Delete config
           </button>
         </div>
-        <div className="input-row required">
-          <span className="col-md-2 col-form-label">Entity</span>
+        <div className="d-flex flex-row input-row">
+          <span className="col-form-label text-right nebodac-label">Entity</span>
           <div style={{ fontSize: '20px' }}>
             {' '}
             {_.startCase(this.props.csvConfig.entity)}
