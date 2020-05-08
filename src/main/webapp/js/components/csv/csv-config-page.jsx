@@ -293,7 +293,7 @@ class CsvConfigPage extends Component {
               </button>
               <button
                 type="button"
-                className="btn btn-danger m-2"
+                className="btn btn-secondary m-2"
                 onClick={() => this.props.history.push('/csvConfigTable')}
               >
                 Cancel

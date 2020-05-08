@@ -39,7 +39,7 @@ class ConfirmModal extends Component {
             </button>
             <button
               type="button"
-              className="btn btn-danger margin-left-sm margin-bottom-md"
+              className="btn btn-secondary margin-left-sm margin-bottom-md"
               onClick={this.hideConfirmModal}
             >
               Cancel

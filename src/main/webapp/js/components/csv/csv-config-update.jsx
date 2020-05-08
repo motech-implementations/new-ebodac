@@ -55,9 +55,11 @@ class CsvConfigUpdate extends Component {
       <div className="container-fluid">
         <div>
           <h1>Update CSV Config</h1>
+        </div>
+        <div className="ml-2 mt-2 mb-3">
           <button
             type="button"
-            className="btn btn-danger float-right"
+            className="btn btn-danger"
             disabled={!isOnline}
             onClick={() => this.openConfirmModal()}
           >

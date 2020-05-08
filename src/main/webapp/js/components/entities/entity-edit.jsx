@@ -73,11 +73,21 @@ class EntityEdit extends Component {
       entityToEdit, fieldConfig, entityType, isOnline, disableDelete,
     } = this.props;
     return (
-      <div className="container">
+      <div className="container-fluid">
         <div>
           <h1>
             {`Edit ${_.startCase(entityType)}`}
           </h1>
+        </div>
+        <div className="ml-2 mt-2 mb-3">
+          <button
+            type="button"
+            className="btn btn-danger"
+            onClick={this.openConfirmModal}
+            disabled={!isOnline || disableDelete}
+          >
+            Delete
+          </button>
         </div>
         <div>
           <Form
@@ -89,21 +99,13 @@ class EntityEdit extends Component {
                 <div>
                   {_.map(fieldConfig, elem => renderFormField({ ...elem, name: (elem.base ? elem.name : `extraFields.${elem.name}.value`) }))}
                 </div>
-                <div className="text-center">
+                <div className="form-buttons-container">
                   <button
                     type="submit"
-                    className="btn btn-success btn-lg margin-top-sm padding-left-lg padding-right-lg margin-right-sm"
+                    className="btn btn-primary"
                     disabled={!isOnline}
                   >
                     Update
-                  </button>
-                  <button
-                    type="button"
-                    className="btn btn-danger btn-lg margin-top-sm padding-left-lg padding-right-lg"
-                    onClick={this.openConfirmModal}
-                    disabled={!isOnline || disableDelete}
-                  >
-                    Delete
                   </button>
                 </div>
               </form>

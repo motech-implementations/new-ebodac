@@ -39,7 +39,7 @@ class EntityCreate extends Component {
   render() {
     const { fieldConfig, entityType, isOnline } = this.props;
     return (
-      <div className="container">
+      <div className="container-fluid">
         <div>
           <h1>
             {`Create ${_.startCase(entityType)}`}
@@ -57,10 +57,10 @@ class EntityCreate extends Component {
                     name: (elem.base ? elem.name : `extraFields.${elem.name}.value`),
                   }))}
                 </div>
-                <div className="text-center">
+                <div className="form-buttons-container">
                   <button
                     type="submit"
-                    className="btn btn-success btn-lg margin-top-sm padding-left-lg padding-right-lg"
+                    className="btn btn-success"
                     disabled={!isOnline}
                   >
                     Create
