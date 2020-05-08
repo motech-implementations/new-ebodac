@@ -44,20 +44,6 @@ const defaultConfig = {
   uniqueField: false,
 };
 
-const customStyles = {
-  content: {
-    top: '62%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)',
-  },
-  overlay: {
-    overflow: 'auto',
-  },
-};
-
 const FIELD_TYPE_OPTIONS = [
   { label: 'Text', value: TEXT },
   { label: 'Long text', value: LONG_TEXT },
@@ -218,11 +204,15 @@ class FieldConfigModal extends React.Component {
       <div className="container-fluid">
         <Modal
           isOpen={modalIsOpen}
-          style={customStyles}
+          className={{
+            base: 'nebodac-confirm-modal',
+            afterOpen: 'nebodac-confirm-modal_after-open',
+            beforeClose: 'nebodac-confirm-modal_before-close',
+          }}
           contentLabel="Field Config"
           onRequestClose={this.props.hideModal}
         >
-          <div style={{ display: 'flex' }}>
+          <div className="d-flex flex-row align-items-center">
             <div
               style={{ verticalAlign: 'text-top' }}
               className="menu-button change"
@@ -235,7 +225,7 @@ class FieldConfigModal extends React.Component {
               <div className="bar2" style={{ backgroundColor: 'black' }} />
               <div className="bar3" style={{ backgroundColor: 'black' }} />
             </div>
-            <h2>Field Config</h2>
+            <h2 className="mb-0">Field Config</h2>
           </div>
           {this.renderFields()}
         </Modal>

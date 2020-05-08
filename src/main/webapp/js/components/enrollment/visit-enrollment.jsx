@@ -80,7 +80,7 @@ class VisitEnrollment extends Component {
     const { visits } = this.props;
 
     return (
-      <div className="container">
+      <div className="container-fluid">
         <div className="row margin-top-sm">
           <div className="col-md-6">
             <h1>Visit enrollment</h1>

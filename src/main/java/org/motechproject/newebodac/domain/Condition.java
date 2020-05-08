@@ -33,6 +33,7 @@ public class Condition extends BaseEntity {
   @Enumerated(EnumType.STRING)
   private Operator operator;
 
+  @NotNull
   @Column(name = "field_type", nullable = false)
   @Enumerated(EnumType.STRING)
   private FieldType fieldType;

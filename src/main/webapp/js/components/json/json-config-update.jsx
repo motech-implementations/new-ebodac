@@ -55,17 +55,19 @@ class JsonConfigUpdate extends Component {
       <div className="container-fluid">
         <div>
           <h1>Update Json Config</h1>
+        </div>
+        <div className="ml-2 mt-2 mb-3">
           <button
             type="button"
-            className="btn btn-danger float-right"
+            className="btn btn-danger"
             onClick={() => this.openConfirmModal()}
             disabled={!isOnline}
           >
             Delete config
           </button>
         </div>
-        <div className="input-row required">
-          <span className="col-md-2 col-form-label">Entity</span>
+        <div className="d-flex flex-row input-row">
+          <span className="col-form-label text-right nebodac-label">Entity</span>
           <div style={{ fontSize: '20px' }}>
             {' '}
             {_.startCase(this.props.jsonConfig.entity)}

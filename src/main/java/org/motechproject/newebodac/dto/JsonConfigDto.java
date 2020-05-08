@@ -11,7 +11,7 @@ import org.motechproject.newebodac.validate.annotations.JsonConfigHasKeyField;
 public class JsonConfigDto extends BaseDto {
 
   @JsonConfigHasKeyField
-  private Set<JsonFieldDto> jsonFields = new HashSet();
+  private Set<JsonFieldDto> jsonFields = new HashSet<>();
 
   private String entity;
 

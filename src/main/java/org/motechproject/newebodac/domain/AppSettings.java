@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.UUID;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -53,7 +52,4 @@ public class AppSettings extends BaseEntity {
   @Column(name = "last_report_generation_date")
   private LocalDate lastReportGenerationDate;
 
-  public AppSettings(UUID id) {
-    super(id);
-  }
 }

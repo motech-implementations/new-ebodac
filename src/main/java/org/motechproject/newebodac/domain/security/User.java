@@ -54,7 +54,7 @@ public class User extends BaseEntity implements UserDetails {
 
   @NotNull
   @Column(name = "enabled", nullable = false)
-  private Boolean enabled;
+  private Boolean enabled = false;
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {

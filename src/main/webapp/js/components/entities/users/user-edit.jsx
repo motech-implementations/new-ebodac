@@ -10,13 +10,14 @@ function UserEdit({ fieldConfig, entityToEdit, match: { params: { id } } }) {
   const isAdmin = entityToEdit.username === 'admin';
   const newFieldConfig = _.map(fieldConfig, elem => ({
     ...elem,
-    editable: (elem.name === 'name' || elem.name === 'email' || elem.name === 'password'),
+    editable: isAdmin ? (elem.name === 'name' || elem.name === 'email' || elem.name === 'password') : elem.editable,
+    required: elem.name === 'password' ? false : elem.required,
   }));
   return (
     <EntityEdit
       entityType={USER_ENTITY}
       entityId={id}
-      fieldConfig={isAdmin ? newFieldConfig : fieldConfig}
+      fieldConfig={newFieldConfig}
       disableDelete={isAdmin}
     />
   );

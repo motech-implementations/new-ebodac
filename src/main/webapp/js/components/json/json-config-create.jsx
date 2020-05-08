@@ -50,15 +50,18 @@ class JsonConfigCreate extends Component {
     return (
       <div className="container-fluid">
         <h1>Create Json Config</h1>
-        <div className="input-row required">
-          <span className="col-md-2 col-form-label">Entity</span>
+        <div className="d-flex flex-row input-row required">
+          <span className="col-form-label text-right nebodac-label">
+            Entity
+          </span>
+          <div className="nebodac-input">
+            <Select
+              options={ENTITY_TYPES}
+              value={this.state.entity}
+              onChange={this.onChange}
+            />
+          </div>
         </div>
-        <Select
-          options={ENTITY_TYPES}
-          value={this.state.entity}
-          onChange={this.onChange}
-          className="my-2"
-        />
         <JsonConfigPage
           isNew
           onSubmit={this.onSubmit}

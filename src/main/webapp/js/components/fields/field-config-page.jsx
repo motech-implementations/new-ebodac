@@ -145,6 +145,7 @@ class FieldConfigPage extends Component {
     const { entityType } = this.props.match.params;
     const { visibleFields, hiddenFields, isOnline } = this.props;
     const { isModalOpen, selectedFieldId } = this.state;
+
     return (
       <div className="container-fluid">
         <FieldConfigModal
@@ -154,24 +155,28 @@ class FieldConfigPage extends Component {
           fieldId={selectedFieldId}
           newItemOrder={visibleFields.length}
         />
-        <div>
-          <button
-            type="button"
-            className="btn btn-primary"
-            onClick={this.saveConfigs}
-            disabled={!isOnline}
-          >
-            Save
-          </button>
-          <button
-            type="button"
-            className="btn btn-success"
-            onClick={this.addConfig}
-            style={{ marginLeft: '20px' }}
-            disabled={!isOnline}
-          >
-            Add
-          </button>
+        <h1>{_.startCase(entityType)}</h1>
+        <div className="d-flex flex-row">
+          <div className="mx-2 mt-2 mb-3">
+            <button
+              type="button"
+              className="btn btn-primary"
+              onClick={this.saveConfigs}
+              disabled={!isOnline}
+            >
+              Save
+            </button>
+          </div>
+          <div className="mx-2 mt-2 mb-3">
+            <button
+              type="button"
+              className="btn btn-success"
+              onClick={this.addConfig}
+              disabled={!isOnline}
+            >
+              Add
+            </button>
+          </div>
         </div>
         <div className="two-coll-dnd">
           <DragDropContext onDragEnd={this.onDragEnd}>

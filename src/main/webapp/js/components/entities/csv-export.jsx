@@ -68,10 +68,10 @@ class CsvExport extends Component {
 
   render() {
     return (
-      <div className="col-md-2">
+      <div className="mx-2 mt-2 mb-3">
         <button
           type="button"
-          className="btn btn-success btn-lg btn-block"
+          className="btn btn-primary"
           onClick={() => this.exportCSV()}
         >
           Export CSV

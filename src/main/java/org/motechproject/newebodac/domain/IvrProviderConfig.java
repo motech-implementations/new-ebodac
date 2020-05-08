@@ -43,7 +43,7 @@ public class IvrProviderConfig extends BaseEntity {
 
   @NotNull
   @Column(name = "auth_required", nullable = false)
-  private Boolean authRequired;
+  private Boolean authRequired = false;
 
   @Column(name = "username")
   private String username;

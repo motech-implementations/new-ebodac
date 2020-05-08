@@ -9,6 +9,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
@@ -29,6 +30,7 @@ public class JsonConfig extends BaseEntity {
   @Enumerated(EnumType.STRING)
   private EntityType entity;
 
+  @NotBlank
   @Column(name = "name", nullable = false, unique = true)
   private String name;
 

@@ -22,67 +22,23 @@ body {
   white-space: pre;
 }
 
-.btn-file {
-  position: relative;
-  overflow: hidden;
-}
-.btn-file input[type=file] {
-  position: relative;
-  top: 0;
-  right: 0;
-  min-width: 100%;
-  min-height: 100%;
-  font-size: 100px;
-  text-align: right;
-  filter: alpha(opacity=0);
-  opacity: 0;
-  outline: none;
-  background: white;
-  cursor: inherit;
-  display: block;
-}
-
-#wrapper {
-  padding-left: 0;
-  position: relative;
-}
-
 #page-wrapper {
   height: calc(100vh - 50px);
   font-family: sans-serif;
   width: 100%;
   padding: 0;
-  position: relative;
+
+  @media(min-width: $r-small-min) {
+    padding-left: 16em;
+  }
 
   .page-header {
     border-bottom: 1px solid $gray-mid;
-
   }
 
   .container-wrapper {
     height: 100%;
     overflow: auto;
-
-    .container-fluid {
-      max-width: 1280px;
-      margin-left: 2em;
-      margin-right: 2em;
-    }
-  }
-}
-
-.panel-footer {
-  background: $gray-mid;
-  float: left;
-  padding: 5px 0px 5px 0px;
-  overflow: hidden;
-  width: 100%;
-  text-align: center;
-
-  .footer-text {
-    vertical-align: center;
-    margin-right: 15%;
-    margin-left: 15%;
   }
 }
 
@@ -95,18 +51,6 @@ body {
 
 .login-container {
   min-height: 600px;
-}
-
-.footer-home {
-  margin-left: -42px;
-  position: absolute;
-  bottom: 0;
-}
-
-@media(min-width: $r-small-min) {
-  #wrapper {
-    padding-left: 16em;
-  }
 }
 
 p {
@@ -179,13 +123,12 @@ a, a:hover, a:focus, a:active, a:visited {
   color: white;
 }
 
-sidebar-collapse {
+.sidebar-collapse {
   transition-duration: 2s;
 }
 
 .container {
   display: inline-block;
-  cursor: pointer;
 }
 
 .menu-button {
@@ -229,13 +172,6 @@ sidebar-collapse {
   .navbar {
     .counter-logout {
       padding-left: 0;
-    }
-  }
-
-  .panel-footer {
-    .footer-text {
-      margin-right: 5%;
-      margin-left: 5%;
     }
   }
 }
@@ -284,10 +220,9 @@ sidebar-collapse {
 @media(min-width: $r-small-min) {
   .side-nav {
     position: fixed;
-    z-index: 1000;
+    z-index: 100;
     top: 54px;
-    left: 16em;
-    margin-left: -16em;
+    left: 0;
     border-right: 1px solid $gray-mid;
 
     border-radius: 0;
@@ -321,7 +256,7 @@ sidebar-collapse {
   bottom: 0;
   overflow-y: auto;
   overflow-x: auto;
-  height: 100vh;
+  height: calc(100vh - 50px);
 
   li {
     border-bottom: 1px solid $gray-mid;
@@ -378,7 +313,7 @@ sidebar-collapse {
 /* Modals */
 .ReactModal__Overlay {
   position: absolute !important;
-  z-index: 10;
+  z-index: 1000;
 
   .nebodac-confirm-modal {
     position: absolute;
@@ -418,6 +353,14 @@ sidebar-collapse {
   padding-top: 2px;
   padding-bottom: 10px;
 
+  .col-form-label {
+    padding-bottom: 0;
+
+    label {
+      margin-bottom: 0;
+    }
+  }
+
   &.required {
     .col-form-label:after {
       content: "*";
@@ -426,7 +369,31 @@ sidebar-collapse {
   }
 }
 
+.form-buttons-container {
+  margin-top: 20px;
+  margin-left: 200px;
+  margin-bottom: 40px;
+}
+
+.nebodac-label {
+  width: 200px;
+  margin-right: 10px;
+}
+
+.nebodac-input {
+  min-width: 300px;
+  max-width: 600px;
+
+  input[type=checkbox] {
+    width: 1.4em;
+    height: 1.4em;
+    margin-top: calc(.375rem + 1px);
+  }
+}
+
 .help-block {
+  min-width: 300px;
+  max-width: 600px;
   display: contents;
   margin-top: 3px;
   margin-bottom: 5px;
@@ -461,13 +428,6 @@ sidebar-collapse {
 }
 
 /* Other Styles */
-
-.form-horizontal {
-  input[type=checkbox] {
-    width: 2em;
-    height: 2em;
-  }
-}
 
 .mobile-chw-row {
   border: 1px solid $gray-light;
@@ -552,11 +512,6 @@ select.form-control {
   span[for] {
     color: #337ab7;
     font-weight: bold;
-  }
-  [type=checkbox] {
-    width: 1.4em;
-    height: 1.4em;
-    float: right;
   }
 }
 

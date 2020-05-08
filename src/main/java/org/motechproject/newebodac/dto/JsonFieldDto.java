@@ -18,9 +18,9 @@ public class JsonFieldDto extends BaseDto {
 
   private String defaultValue;
 
-  private Boolean keyField;
+  private Boolean keyField = false;
 
-  private Set<JsonFieldValueToEntityDto> fieldValueMap = new HashSet();
+  private Set<JsonFieldValueToEntityDto> fieldValueMap = new HashSet<>();
 
-  private Set<JsonFieldValueToEnumDto> enumValueMap = new HashSet();
+  private Set<JsonFieldValueToEnumDto> enumValueMap = new HashSet<>();
 }
