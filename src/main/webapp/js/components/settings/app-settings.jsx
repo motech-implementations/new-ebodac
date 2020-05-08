@@ -31,6 +31,7 @@ import {
 
 const ALERT_TIMEOUT = 5000;
 const ARRAY = 'ARRAY';
+const SEPARATOR = 'SEPARATOR';
 
 class AppSettings extends Component {
   componentDidMount() {
@@ -47,6 +48,10 @@ class AppSettings extends Component {
   };
 
   getFields = ({ sendIvrMessages, generateReports }) => [
+    {
+      fieldType: SEPARATOR,
+      displayName: 'IVR messages settings',
+    },
     {
       fieldType: BOOLEAN,
       displayName: 'Send IVR Messages',
@@ -68,6 +73,10 @@ class AppSettings extends Component {
       format: 'HH:mm',
     },
     {
+      fieldType: SEPARATOR,
+      displayName: 'Enrollment settings',
+    },
+    {
       fieldType: ENUM,
       displayName: 'Enrollment Conditions Resolution',
       name: 'enrollmentConditionsResolution',
@@ -77,6 +86,10 @@ class AppSettings extends Component {
       name: 'enrollmentConditions',
       fieldType: ARRAY,
       displayName: 'Enrollment Conditions',
+    },
+    {
+      fieldType: SEPARATOR,
+      displayName: 'Reports settings',
     },
     {
       fieldType: BOOLEAN,
@@ -181,13 +194,13 @@ class AppSettings extends Component {
   };
 
   renderConditionsArray = (fieldConfig, setFieldValue) => (
-    <div key={fieldConfig.name}>
+    <div className="ml-4" key={fieldConfig.name}>
       <div>{ fieldConfig.displayName }</div>
       <FieldArray name={fieldConfig.name}>
         { ({ fields }) => (
           <div>
             {fields.map((name, index) => (
-              <div key={name} className="arrayFields">
+              <div key={name} style={{ width: '650px' }} className="arrayFields">
                 <div className="d-flex flex-row-reverse">
                   <button
                     type="button"
@@ -257,11 +270,9 @@ class AppSettings extends Component {
   render() {
     const { appSettings, isOnline } = this.props;
     return (
-      <div className="container">
+      <div className="container-fluid">
         <div>
-          <h1>
-            {'Edit App Settings'}
-          </h1>
+          <h1 className="mb-0">Edit App Settings</h1>
         </div>
         <div>
           <Form
@@ -277,15 +288,21 @@ class AppSettings extends Component {
             render={({ handleSubmit, values, form: { mutators: { setFieldValue } } }) => (
               <form onSubmit={handleSubmit} className="modal-fields">
                 <div>
-                  {_.map(this.getFields(values),
-                    elem => (elem.fieldType === ARRAY
-                      ? this.renderConditionsArray(elem, setFieldValue)
-                      : renderFormField(elem)))}
+                  {_.map(this.getFields(values), (elem) => {
+                    switch (elem.fieldType) {
+                      case ARRAY:
+                        return this.renderConditionsArray(elem, setFieldValue);
+                      case SEPARATOR:
+                        return (<h4 key={elem.displayName} className="my-3 ml-1">{elem.displayName}</h4>);
+                      default:
+                        return renderFormField(elem);
+                    }
+                  })}
                 </div>
-                <div className="text-center">
+                <div className="form-buttons-container">
                   <button
                     type="submit"
-                    className="btn btn-success btn-lg margin-top-sm padding-left-lg padding-right-lg margin-right-sm"
+                    className="btn btn-primary"
                     disabled={!isOnline}
                   >
                     Update
