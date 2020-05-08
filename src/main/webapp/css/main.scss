@@ -220,10 +220,9 @@ a, a:hover, a:focus, a:active, a:visited {
 @media(min-width: $r-small-min) {
   .side-nav {
     position: fixed;
-    z-index: 1000;
+    z-index: 100;
     top: 54px;
-    left: 16em;
-    margin-left: -16em;
+    left: 0;
     border-right: 1px solid $gray-mid;
 
     border-radius: 0;
@@ -257,7 +256,7 @@ a, a:hover, a:focus, a:active, a:visited {
   bottom: 0;
   overflow-y: auto;
   overflow-x: auto;
-  height: 100vh;
+  height: calc(100vh - 50px);
 
   li {
     border-bottom: 1px solid $gray-mid;
@@ -314,7 +313,7 @@ a, a:hover, a:focus, a:active, a:visited {
 /* Modals */
 .ReactModal__Overlay {
   position: absolute !important;
-  z-index: 10;
+  z-index: 1000;
 
   .nebodac-confirm-modal {
     position: absolute;
