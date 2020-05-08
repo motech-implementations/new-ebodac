@@ -1,0 +1,24 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+    <changeSet author="pmuchowski (generated)" id="1587737137113-1">
+        <addColumn tableName="campaign_message">
+            <column name="related_date" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet author="pmuchowski (generated)" id="1587737137113-2">
+        <dropColumn columnName="send_for_actual_date" tableName="campaign_message"/>
+    </changeSet>
+
+    <changeSet author="pmuchowski (generated)" id="1587737137113-3">
+        <addNotNullConstraint columnDataType="varchar(255)" columnName="name" tableName="enrollment_group"/>
+    </changeSet>
+
+    <changeSet author="pmuchowski (generated)" id="1587737137113-4">
+        <update tableName="field_config">
+            <column name="format" value="MALE:Male,FEMALE:Female,UNKNOWN:Unknown"/>
+            <where>id='96ca07dc-5ce5-4664-a9e1-51a94dbe55b9'</where>
+        </update>
+    </changeSet>
+</databaseChangeLog>

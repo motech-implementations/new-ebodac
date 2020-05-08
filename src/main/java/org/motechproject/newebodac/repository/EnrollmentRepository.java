@@ -22,6 +22,7 @@ import org.motechproject.newebodac.domain.Vaccinee;
 import org.motechproject.newebodac.domain.Visit;
 import org.motechproject.newebodac.domain.VisitType;
 import org.motechproject.newebodac.domain.enums.EnrollmentStatus;
+import org.motechproject.newebodac.domain.enums.VisitDateType;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -29,7 +30,7 @@ public class EnrollmentRepository {
 
   private static final String MESSAGE_KEY = "messageKey";
   private static final String MESSAGE_ID = "id";
-  private static final String SEND_FOR_ACTUAL_DATE = "sendForActualDate";
+  private static final String RELATED_DATE = "relatedDate";
   private static final String VISIT_TYPE = "visitType";
   private static final String VISITS = "visits";
   private static final String VACCINEE = "vaccinee";
@@ -74,7 +75,7 @@ public class EnrollmentRepository {
       groupByFields.add(path);
     });
 
-    Path<Boolean> sendForActualDateField = root.get(SEND_FOR_ACTUAL_DATE);
+    Path<VisitDateType> relatedDate = root.get(RELATED_DATE);
     Path<Integer> timeOffset = root.get(TIME_OFFSET);
     Path<EnrollmentStatus> status = visitJoin.get(STATUS);
     Path<LocalDate> actualDate = visitJoin.get(DATE);
@@ -83,9 +84,9 @@ public class EnrollmentRepository {
     criteria.multiselect(selectFields);
 
     criteria.where(cb.and(cb.equal(status, EnrollmentStatus.ENROLLED),
-        cb.or(cb.isTrue(sendForActualDateField),
+        cb.or(cb.equal(relatedDate, VisitDateType.ACTUAL_DATE),
             cb.equal(calculateTimeOffset(plannedDate), timeOffset)),
-        cb.or(cb.isFalse(sendForActualDateField),
+        cb.or(cb.equal(relatedDate, VisitDateType.PLANNED_DATE),
             cb.equal(calculateTimeOffset(actualDate), timeOffset))));
 
     criteria.groupBy(groupByFields);

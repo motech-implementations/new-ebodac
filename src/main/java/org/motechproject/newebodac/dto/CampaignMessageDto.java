@@ -16,5 +16,5 @@ public class CampaignMessageDto extends BaseDto {
 
   private UUID visitTypeId;
 
-  private Boolean sendForActualDate;
+  private String relatedDate;
 }
