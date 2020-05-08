@@ -104,9 +104,6 @@ class SideBar extends Component {
 
     return (
       <ul className="nav nav-second-level">
-        <li className="border-none">
-          {this.renderLink('/keyCommunityPersonEnrollment', 'hand-point-right', 'Key Community Person Enrollment')}
-        </li>
         {this.isAuthorizated([MANAGE_VACCINEE_ENROLLMENT])
         && (
           <li className="border-none">
@@ -138,9 +135,6 @@ class SideBar extends Component {
             {this.renderLink(`/viewEntity/${VISIT_TYPE_ENTITY}`, 'hand-point-right', 'Visit Types')}
           </li>
         )}
-        <li className="border-none">
-          {this.renderLink('/boosterVisitGenerator', 'hand-point-right', 'Booster Visit Generator')}
-        </li>
       </ul>
     );
   };
@@ -155,25 +149,7 @@ class SideBar extends Component {
     return (
       <ul className="nav nav-second-level">
         <li className="border-none">
-          {this.renderLink('/userLogs', 'hand-point-right', 'User Logs')}
-        </li>
-        <li className="border-none">
-          {this.renderLink('/primeVaccination', 'hand-point-right', 'Prime Vaccination')}
-        </li>
-        <li className="border-none">
-          {this.renderLink('/clinicVisit', 'hand-point-right', 'Clinic Visit')}
-        </li>
-        <li className="border-none">
-          {this.renderLink('/callLogVaccinees', 'hand-point-right', 'Call Log - Vaccines')}
-        </li>
-        <li className="border-none">
-          {this.renderLink('/callLogCommunityPerson', 'hand-point-right', 'Call Log - Community Person')}
-        </li>
-        <li className="border-none">
-          {this.renderLink('/smsLogVaccinees', 'hand-point-right', 'SMS Log - Vacciness')}
-        </li>
-        <li className="border-none">
-          {this.renderLink('/smsLogCommunityPerson', 'hand-point-right', 'SMS Log - Community Person')}
+          {this.renderLink('/callLogVaccinees', 'hand-point-right', 'Vaccinee Call Status')}
         </li>
       </ul>
     );
@@ -294,17 +270,17 @@ class SideBar extends Component {
         </li>
         <li className="border-none">
           <div className="third-level-item">
+            {this.renderLink(`/fieldConfig/${VISIT_ENTITY}`, 'hand-point-right', 'Visit')}
+          </div>
+        </li>
+        <li className="border-none">
+          <div className="third-level-item">
             {this.renderLink(`/fieldConfig/${KEY_COMMUNITY_PERSON_ENTITY}`, 'hand-point-right', 'Key Community Persons')}
           </div>
         </li>
         <li className="border-none">
           <div className="third-level-item">
             {this.renderLink(`/fieldConfig/${SITE_ENTITY}`, 'hand-point-right', 'Sites')}
-          </div>
-        </li>
-        <li className="border-none">
-          <div className="third-level-item">
-            {this.renderLink(`/fieldConfig/${VISIT_ENTITY}`, 'hand-point-right', 'Visit Schedule')}
           </div>
         </li>
       </ul>
@@ -324,6 +300,13 @@ class SideBar extends Component {
                 {this.renderLink(`/viewEntity/${VACCINEE_ENTITY}`, 'syringe', 'Vaccinees')}
               </li>
             )}
+            <li>
+              <a href="" onClick={this.toggleVisitsCollapsedMenu}>
+                <FontAwesomeIcon icon="glasses" />
+                <span className="icon-text">Visits</span>
+              </a>
+              {this.renderVisitsCollapsedMenu()}
+            </li>
             {this.isAuthorizated(getEntityReadPermission(KEY_COMMUNITY_PERSON_ENTITY))
             && (
               <li>
@@ -336,13 +319,6 @@ class SideBar extends Component {
                 <span className="icon-text">Enrollment</span>
               </a>
               {this.renderEnrollmentCollapsedMenu()}
-            </li>
-            <li>
-              <a href="" onClick={this.toggleVisitsCollapsedMenu}>
-                <FontAwesomeIcon icon="glasses" />
-                <span className="icon-text">Visits</span>
-              </a>
-              {this.renderVisitsCollapsedMenu()}
             </li>
             {this.isAuthorizated(getEntityReadPermission(CAMPAIGN_MESSAGE_ENTITY))
             && (

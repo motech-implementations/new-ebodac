@@ -6,19 +6,9 @@ import '../../css/main.scss';
 import Header from './header';
 import SideBar from './sidebar';
 import Home from './home';
-import KeyCommunityPersonEnrollment from './enrollment/key-community-person-enrollment';
 import VaccineeEnrollment from './enrollment/vaccinee-enrollment';
 import VisitEnrollment from './enrollment/visit-enrollment';
-import VisitSchedule from './visit/visit-schedule';
-import BoosterVisitGenerator from './visit/booster-visit-generator';
-import UserLogs from './reports/user-logs';
-import PrimeVaccination from './reports/prime-vaccination';
-import ClinicVisit from './reports/clinic-visit';
 import CallLogVaccinees from './reports/call-log-vaccinees';
-import CallLogCommunityPerson from './reports/call-log-community-person';
-import SmsLogVaccinees from './reports/sms-log-vaccinees';
-import SmsLogCommunityPerson from './reports/sms-log-community-person';
-import Languages from './settings/languages';
 import RoutePrivate from './helpers/RoutePrivate';
 import EntityRoutePrivate from './helpers/EntityRoutePrivate';
 import ViewEntity from './entities/view-entity';
@@ -27,15 +17,6 @@ import CreateEntityPage from './entities/create-entity-page';
 import EditEntityPage from './entities/edit-entity-page';
 import UserEdit from './entities/users/user-edit';
 import RoleEdit from './entities/roles/role-edit';
-import {
-  MANAGE_FIELD_CONFIG,
-  MANAGE_CSV_CONFIG,
-  MANAGE_APP_SETTINGS,
-  MANAGE_VACCINEE_ENROLLMENT,
-  MANAGE_JSON_CONFIG,
-  MANAGE_CALL_CONFIG,
-  MANAGE_IVR_PROVIDER_CONFIG,
-} from '../constants/permissions';
 import CsvConfigCreate from './csv/csv-config-create';
 import CsvConfigUpdate from './csv/csv-config-update';
 import CsvConfigTable from './csv/csv-config-table';
@@ -50,6 +31,11 @@ import CallConfigUpdate from './ivr-config/call-config-update';
 import IvrProviderConfigTable from './ivr-config/ivr-provider-config-table';
 import IvrProviderConfigCreate from './ivr-config/ivr-provider-config-create';
 import IvrProviderConfigUpdate from './ivr-config/ivr-provider-config-update';
+
+import {
+  MANAGE_FIELD_CONFIG, MANAGE_CSV_CONFIG, MANAGE_APP_SETTINGS, MANAGE_VACCINEE_ENROLLMENT,
+  MANAGE_JSON_CONFIG, MANAGE_CALL_CONFIG, MANAGE_IVR_PROVIDER_CONFIG,
+} from '../constants/permissions';
 import { USER_ENTITY, ROLE_ENTITY } from '../constants/entity-types';
 
 class AppContent extends Component {
@@ -70,110 +56,98 @@ class AppContent extends Component {
       <div>
         <Header toggleSidebarMenu={this.collapseSideBar} className="navbar navbar-inverse navbar-fixed-top" />
         <SideBar sidebarVisible={sidebarVisible} />
-        <div id="wrapper">
-          <div id="page-wrapper">
-            <div className="container-wrapper">
-              <Switch>
-                <RoutePrivate path="/keyCommunityPersonEnrollment" component={KeyCommunityPersonEnrollment} />
-                <RoutePrivate
-                  requiredPermissions={[MANAGE_VACCINEE_ENROLLMENT]}
-                  path="/vaccineeEnrollment"
-                  component={VaccineeEnrollment}
-                />
-                <RoutePrivate
-                  requiredPermissions={[MANAGE_VACCINEE_ENROLLMENT]}
-                  path="/visitEnrollment/:id"
-                  component={VisitEnrollment}
-                />
-                <RoutePrivate path="/visitSchedule" component={VisitSchedule} />
-                <RoutePrivate path="/boosterVisitGenerator" component={BoosterVisitGenerator} />
-                <RoutePrivate path="/userLogs" component={UserLogs} />
-                <RoutePrivate path="/primeVaccination" component={PrimeVaccination} />
-                <RoutePrivate path="/clinicVisit" component={ClinicVisit} />
-                <RoutePrivate path="/callLogVaccinees" component={CallLogVaccinees} />
-                <RoutePrivate path="/callLogCommunityPerson" component={CallLogCommunityPerson} />
-                <RoutePrivate path="/smsLogVaccinees" component={SmsLogVaccinees} />
-                <RoutePrivate path="/smsLogCommunityPerson" component={SmsLogCommunityPerson} />
-                <RoutePrivate path="/languages" component={Languages} />
-                <EntityRoutePrivate readOnly path="/viewEntity/:entityType" component={ViewEntity} />
-                <EntityRoutePrivate path="/create/:entityType" component={CreateEntityPage} />
-                <EntityRoutePrivate path={`/entityEdit/${ROLE_ENTITY}/:id`} component={RoleEdit} />
-                <EntityRoutePrivate path={`/entityEdit/${USER_ENTITY}/:id`} component={UserEdit} />
-                <EntityRoutePrivate path="/entityEdit/:entityType/:id" component={EditEntityPage} />
-                <EntityRoutePrivate path="/import/:entityType/" component={CsvImport} />
-                <RoutePrivate
-                  requiredPermissions={[MANAGE_FIELD_CONFIG]}
-                  path="/fieldConfig/:entityType"
-                  component={FieldConfigPage}
-                />
-                <RoutePrivate
-                  requiredPermissions={[MANAGE_CSV_CONFIG]}
-                  path="/createCsvConfig/"
-                  component={CsvConfigCreate}
-                />
-                <RoutePrivate
-                  requiredPermissions={[MANAGE_CSV_CONFIG]}
-                  path="/updateCsvConfig/:entity/:id"
-                  component={CsvConfigUpdate}
-                />
-                <RoutePrivate
-                  requiredPermissions={[MANAGE_CSV_CONFIG]}
-                  path="/csvConfigTable"
-                  component={CsvConfigTable}
-                />
-                <RoutePrivate
-                  requiredPermissions={[MANAGE_JSON_CONFIG]}
-                  path="/jsonConfigTable"
-                  component={JsonConfigTable}
-                />
-                <RoutePrivate
-                  requiredPermissions={[MANAGE_JSON_CONFIG]}
-                  path="/createJsonConfig/"
-                  component={JsonConfigCreate}
-                />
-                <RoutePrivate
-                  requiredPermissions={[MANAGE_JSON_CONFIG]}
-                  path="/updateJsonConfig/:entity/:id"
-                  component={JsonConfigUpdate}
-                />
-                <RoutePrivate
-                  requiredPermissions={[MANAGE_CALL_CONFIG]}
-                  path="/createCallConfig"
-                  component={CallConfigCreate}
-                />
-                <RoutePrivate
-                  requiredPermissions={[MANAGE_CALL_CONFIG]}
-                  path="/updateCallConfig/:id"
-                  component={CallConfigUpdate}
-                />
-                <RoutePrivate
-                  requiredPermissions={[MANAGE_CALL_CONFIG]}
-                  path="/callConfigTable"
-                  component={CallConfigTable}
-                />
-                <RoutePrivate
-                  requiredPermissions={[MANAGE_IVR_PROVIDER_CONFIG]}
-                  path="/createIvrProviderConfig"
-                  component={IvrProviderConfigCreate}
-                />
-                <RoutePrivate
-                  requiredPermissions={[MANAGE_IVR_PROVIDER_CONFIG]}
-                  path="/updateIvrProviderConfig/:id"
-                  component={IvrProviderConfigUpdate}
-                />
-                <RoutePrivate
-                  requiredPermissions={[MANAGE_IVR_PROVIDER_CONFIG]}
-                  path="/ivrProviderConfigTable"
-                  component={IvrProviderConfigTable}
-                />
-                <RoutePrivate
-                  requiredPermissions={[MANAGE_APP_SETTINGS]}
-                  path="/appSettings"
-                  component={AppSettings}
-                />
-                <RoutePrivate path="/" component={Home} />
-              </Switch>
-            </div>
+        <div id="page-wrapper">
+          <div className="container-wrapper">
+            <Switch>
+              <RoutePrivate
+                requiredPermissions={[MANAGE_VACCINEE_ENROLLMENT]}
+                path="/vaccineeEnrollment"
+                component={VaccineeEnrollment}
+              />
+              <RoutePrivate
+                requiredPermissions={[MANAGE_VACCINEE_ENROLLMENT]}
+                path="/visitEnrollment/:id"
+                component={VisitEnrollment}
+              />
+              <RoutePrivate path="/callLogVaccinees" component={CallLogVaccinees} />
+              <EntityRoutePrivate readOnly path="/viewEntity/:entityType" component={ViewEntity} />
+              <EntityRoutePrivate path="/create/:entityType" component={CreateEntityPage} />
+              <EntityRoutePrivate path={`/entityEdit/${ROLE_ENTITY}/:id`} component={RoleEdit} />
+              <EntityRoutePrivate path={`/entityEdit/${USER_ENTITY}/:id`} component={UserEdit} />
+              <EntityRoutePrivate path="/entityEdit/:entityType/:id" component={EditEntityPage} />
+              <EntityRoutePrivate path="/import/:entityType/" component={CsvImport} />
+              <RoutePrivate
+                requiredPermissions={[MANAGE_FIELD_CONFIG]}
+                path="/fieldConfig/:entityType"
+                component={FieldConfigPage}
+              />
+              <RoutePrivate
+                requiredPermissions={[MANAGE_CSV_CONFIG]}
+                path="/createCsvConfig/"
+                component={CsvConfigCreate}
+              />
+              <RoutePrivate
+                requiredPermissions={[MANAGE_CSV_CONFIG]}
+                path="/updateCsvConfig/:entity/:id"
+                component={CsvConfigUpdate}
+              />
+              <RoutePrivate
+                requiredPermissions={[MANAGE_CSV_CONFIG]}
+                path="/csvConfigTable"
+                component={CsvConfigTable}
+              />
+              <RoutePrivate
+                requiredPermissions={[MANAGE_JSON_CONFIG]}
+                path="/jsonConfigTable"
+                component={JsonConfigTable}
+              />
+              <RoutePrivate
+                requiredPermissions={[MANAGE_JSON_CONFIG]}
+                path="/createJsonConfig/"
+                component={JsonConfigCreate}
+              />
+              <RoutePrivate
+                requiredPermissions={[MANAGE_JSON_CONFIG]}
+                path="/updateJsonConfig/:entity/:id"
+                component={JsonConfigUpdate}
+              />
+              <RoutePrivate
+                requiredPermissions={[MANAGE_CALL_CONFIG]}
+                path="/createCallConfig"
+                component={CallConfigCreate}
+              />
+              <RoutePrivate
+                requiredPermissions={[MANAGE_CALL_CONFIG]}
+                path="/updateCallConfig/:id"
+                component={CallConfigUpdate}
+              />
+              <RoutePrivate
+                requiredPermissions={[MANAGE_CALL_CONFIG]}
+                path="/callConfigTable"
+                component={CallConfigTable}
+              />
+              <RoutePrivate
+                requiredPermissions={[MANAGE_IVR_PROVIDER_CONFIG]}
+                path="/createIvrProviderConfig"
+                component={IvrProviderConfigCreate}
+              />
+              <RoutePrivate
+                requiredPermissions={[MANAGE_IVR_PROVIDER_CONFIG]}
+                path="/updateIvrProviderConfig/:id"
+                component={IvrProviderConfigUpdate}
+              />
+              <RoutePrivate
+                requiredPermissions={[MANAGE_IVR_PROVIDER_CONFIG]}
+                path="/ivrProviderConfigTable"
+                component={IvrProviderConfigTable}
+              />
+              <RoutePrivate
+                requiredPermissions={[MANAGE_APP_SETTINGS]}
+                path="/appSettings"
+                component={AppSettings}
+              />
+              <RoutePrivate path="/" component={Home} />
+            </Switch>
           </div>
         </div>
       </div>
