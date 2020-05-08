@@ -57,7 +57,7 @@ class EntityTable extends Component {
 
   render() {
     const {
-      entity, fieldConfig, entityType, isOnline,
+      entity, fieldConfig, entityType, isOnline, disableExport,
     } = this.props;
     const { loading } = this.state;
     const columns = _.map(
@@ -73,7 +73,7 @@ class EntityTable extends Component {
           <div className="col-md-6">
             <h1>{_.startCase(entityType)}</h1>
           </div>
-          {this.canRead() && (
+          {this.canRead() && !disableExport && (
           <CsvExport
             entity={entity}
             fieldConfig={fieldConfig}
@@ -143,7 +143,7 @@ class EntityTable extends Component {
 const mapStateToProps = (state, props) => ({
   permissions: state.auth.permissions,
   entity: getEntityArrayByName(state, props),
-  csvConfigs: getCsvConfigsByEntityType(state, { entityType: props.match.params.entityType }),
+  csvConfigs: getCsvConfigsByEntityType(state, { entityType: props.entityType }),
   isOnline: state.offline.online,
 });
 
@@ -163,8 +163,10 @@ EntityTable.propTypes = {
     push: PropTypes.func,
   }).isRequired,
   csvConfigs: PropTypes.shape({}),
+  disableExport: PropTypes.bool,
 };
 
 EntityTable.defaultProps = {
   csvConfigs: null,
+  disableExport: false,
 };

@@ -17,6 +17,8 @@ import CreateEntityPage from './entities/create-entity-page';
 import EditEntityPage from './entities/edit-entity-page';
 import UserEdit from './entities/users/user-edit';
 import RoleEdit from './entities/roles/role-edit';
+import ViewUser from './entities/users/view-user';
+import ViewRole from './entities/roles/view-role';
 import CsvConfigCreate from './csv/csv-config-create';
 import CsvConfigUpdate from './csv/csv-config-update';
 import CsvConfigTable from './csv/csv-config-table';
@@ -70,6 +72,8 @@ class AppContent extends Component {
                 component={VisitEnrollment}
               />
               <RoutePrivate path="/callLogVaccinees" component={CallLogVaccinees} />
+              <EntityRoutePrivate readOnly path={`/viewEntity/${ROLE_ENTITY}`} component={ViewRole} />
+              <EntityRoutePrivate readOnly path={`/viewEntity/${USER_ENTITY}`} component={ViewUser} />
               <EntityRoutePrivate readOnly path="/viewEntity/:entityType" component={ViewEntity} />
               <EntityRoutePrivate path="/create/:entityType" component={CreateEntityPage} />
               <EntityRoutePrivate path={`/entityEdit/${ROLE_ENTITY}/:id`} component={RoleEdit} />
