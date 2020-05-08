@@ -39,7 +39,7 @@ public class JsonField extends BaseEntity {
   private String defaultValue;
 
   @Column(name = "key_field")
-  private Boolean keyField;
+  private Boolean keyField = false;
 
   @ElementCollection(fetch = FetchType.LAZY)
   @CollectionTable(name = "json_field_value_map", joinColumns = @JoinColumn(name = "json_field_id"))

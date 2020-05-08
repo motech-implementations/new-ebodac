@@ -8,6 +8,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,6 +22,7 @@ import org.motechproject.newebodac.domain.enums.SmsStatus;
 @Table(name = "vaccinee_call_status_report")
 public class VaccineeCallStatusReport extends BaseEntity {
 
+  @NotBlank
   @Column(name = "provider_call_id", nullable = false)
   private String providerCallId;
 
@@ -53,6 +55,7 @@ public class VaccineeCallStatusReport extends BaseEntity {
   @Column(name = "number_of_attempts")
   private Integer numberOfAttempts;
 
+  @NotNull
   @Column(name = "sms_status", nullable = false)
   @Enumerated(EnumType.STRING)
   private SmsStatus smsStatus;
@@ -61,7 +64,7 @@ public class VaccineeCallStatusReport extends BaseEntity {
   private LocalDateTime smsReceivedDate;
 
   @Column(name = "sms_not_received")
-  private Boolean smsNotReceived;
+  private Boolean smsNotReceived = false;
 
   public VaccineeCallStatusReport(Vaccinee receiver, String providerCallId) {
     this.receiver = receiver;

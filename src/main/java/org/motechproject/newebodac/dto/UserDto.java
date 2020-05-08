@@ -20,5 +20,5 @@ public class UserDto extends BaseDto {
 
   private Set<UUID> roleIds = new HashSet<>();
 
-  private Boolean enabled;
+  private Boolean enabled = false;
 }

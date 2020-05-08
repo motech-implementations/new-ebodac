@@ -54,6 +54,7 @@ public class ExtraField extends BaseEntity {
   @Column(name = "datetime_val")
   private LocalDateTime datetimeVal;
 
+  @NotNull
   @Column(name = "field_type", nullable = false)
   @Enumerated(EnumType.STRING)
   private FieldType fieldType;

@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -19,6 +20,7 @@ import lombok.Setter;
 @Table(name = "enrollment_group")
 public class EnrollmentGroup extends BaseEntity {
 
+  @NotBlank
   @Column(name = "name", nullable = false)
   private String name;
 

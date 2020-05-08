@@ -160,12 +160,11 @@ public class EnrollmentService {
   private boolean shouldEnroll(Vaccinee vaccinee) {
     AppSettings appSettings = appSettingsService.getAppSettings();
     Set<Condition> conditions = appSettings.getEnrollmentConditions();
+    ConditionsResolution conditionsResolution = appSettings.getEnrollmentConditionsResolution();
 
-    if (conditions == null || conditions.isEmpty()) {
+    if (conditionsResolution == null || conditions == null || conditions.isEmpty()) {
       return true;
     }
-
-    ConditionsResolution conditionsResolution = appSettings.getEnrollmentConditionsResolution();
 
     for (Condition condition : conditions) {
       boolean result = checkCondition(condition, vaccinee);

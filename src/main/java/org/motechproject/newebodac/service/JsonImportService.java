@@ -68,17 +68,16 @@ public class JsonImportService extends ImportService {
       if (StringUtils.isNotBlank(jsonConfig.getPathToData())) {
         JSONObject jsonObject = new JSONObject(jsonString);
         Object resolvedJson = resolvePath(jsonConfig.getPathToData(), jsonObject);
+
         if (jsonConfig.getMultipleRecord()) {
           importJsonArray((JSONArray) resolvedJson, jsonConfig);
         } else {
           importJsonWithConfig((JSONObject) resolvedJson, jsonConfig);
         }
+      } else if (jsonConfig.getMultipleRecord()) {
+        importJsonArray(new JSONArray(jsonString), jsonConfig);
       } else {
-        if (jsonConfig.getMultipleRecord()) {
-          importJsonArray(new JSONArray(jsonString), jsonConfig);
-        } else {
-          importJsonWithConfig(new JSONObject(jsonString), jsonConfig);
-        }
+        importJsonWithConfig(new JSONObject(jsonString), jsonConfig);
       }
     } catch (JSONException e) {
       throw new NewEbodacException("Can't parse the json. Check format of the json.", e);
@@ -169,11 +168,9 @@ public class JsonImportService extends ImportService {
    * @return resolved JSONObject or JSON Array.
    */
   private Object resolvePath(String pathToData, JSONObject jsonObject) {
-    if (StringUtils.isNotBlank(pathToData)) {
-      String parsedPath = pathToData.replaceAll("\\.", "/");
-      return jsonObject.optQuery("/" + parsedPath);
-    }
-    return jsonObject;
+    String parsedPath = pathToData.replaceAll("\\.", "/");
+
+    return jsonObject.optQuery("/" + parsedPath);
   }
 
   private BaseEntity getRelatedEntityObject(String cellValue, JsonField jsonField) {

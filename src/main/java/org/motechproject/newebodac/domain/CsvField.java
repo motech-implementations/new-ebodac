@@ -39,7 +39,7 @@ public class CsvField extends BaseEntity {
   private String defaultValue;
 
   @Column(name = "key_field")
-  private Boolean keyField;
+  private Boolean keyField = false;
 
   @ElementCollection(fetch = FetchType.LAZY)
   @CollectionTable(name = "csv_field_value_map", joinColumns = @JoinColumn(name = "csv_field_id"))
