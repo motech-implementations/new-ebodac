@@ -173,6 +173,7 @@ public class CsvImportService extends ImportService {
             visit.setStatus(status);
           } else {
             visit.setId(existingVisit.getId());
+            visit.setStatus(existingVisit.getStatus());
           }
 
           visitRepository.save(visit);
