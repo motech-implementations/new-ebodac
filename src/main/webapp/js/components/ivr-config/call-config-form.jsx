@@ -281,11 +281,16 @@ class CallConfigForm extends Component {
   );
 
   renderProviderParamsMap = (ivrProviderConfigId, vaccineeFields) => {
-    if (!ivrProviderConfigId) {
+    if (!ivrProviderConfigId || !this.props.ivrProviderConfigs) {
       return null;
     }
 
     const ivrProviderConfig = this.props.ivrProviderConfigs[ivrProviderConfigId];
+
+    if (!ivrProviderConfig) {
+      return null;
+    }
+
     const {
       urlParams, jsonRequest, jsonResponse, jsonCallback,
     } = ivrProviderConfig;
