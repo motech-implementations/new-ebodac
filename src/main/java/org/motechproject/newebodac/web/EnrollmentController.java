@@ -1,9 +1,11 @@
 package org.motechproject.newebodac.web;
 
 import java.util.UUID;
+import org.motechproject.newebodac.constants.DefaultPermissions;
 import org.motechproject.newebodac.service.EnrollmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,5 +40,12 @@ public class EnrollmentController extends BaseController {
   @ResponseStatus(HttpStatus.OK)
   public void unenrollVaccinee(@PathVariable("id") UUID id) {
     enrollmentService.unenrollVaccinee(id);
+  }
+
+  @RequestMapping(value = "/enrollment/sendMessages", method = RequestMethod.POST)
+  @ResponseStatus(HttpStatus.OK)
+  @PreAuthorize(DefaultPermissions.HAS_ADMIN_ROLE)
+  public void sendMessagesToVaccinees() {
+    enrollmentService.sendMessagesToVaccinees();
   }
 }
