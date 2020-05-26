@@ -43,9 +43,15 @@ export default (state = initialState, action) => {
       });
     case FETCH_ALL_CSV_CONFIGS:
       return update(state, {
-        $merge: _.chain(payload.data).groupBy('entity').mapValues(val => _.keyBy(val, 'id')).value(),
-        csvConfigFetched: { $set: true },
-        csvConfigFetching: { $set: false },
+        $set: {
+          [VACCINEE_ENTITY]: {},
+          [SITE_ENTITY]: {},
+          [VISIT_ENTITY]: {},
+          [KEY_COMMUNITY_PERSON_ENTITY]: {},
+          ..._.chain(payload.data).groupBy('entity').mapValues(val => _.keyBy(val, 'id')).value(),
+          csvConfigFetched: true,
+          csvConfigFetching: false,
+        },
       });
     case START_FETCH_CSV_CONFIG:
       return update(state, {

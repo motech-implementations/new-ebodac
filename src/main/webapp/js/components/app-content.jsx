@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { Switch } from 'react-router-dom';
 
 import '../../css/main.scss';
@@ -40,12 +42,22 @@ import {
 } from '../constants/permissions';
 import { USER_ENTITY, ROLE_ENTITY } from '../constants/entity-types';
 
+import { fetchAllFieldConfigs } from '../actions/field-config-actions';
+import { fetchAllCsvConfigs } from '../actions/csv-config-actions';
+import { fetchAllJsonConfigs } from '../actions/json-config-actions';
+
 class AppContent extends Component {
   constructor(props) {
     super(props);
     this.state = {
       sidebarVisible: false,
     };
+  }
+
+  componentDidMount() {
+    this.props.fetchAllFieldConfigs();
+    this.props.fetchAllCsvConfigs();
+    this.props.fetchAllJsonConfigs();
   }
 
   collapseSideBar = () => {
@@ -159,4 +171,12 @@ class AppContent extends Component {
   }
 }
 
-export default AppContent;
+export default connect(null, {
+  fetchAllFieldConfigs, fetchAllCsvConfigs, fetchAllJsonConfigs,
+})(AppContent);
+
+AppContent.propTypes = {
+  fetchAllFieldConfigs: PropTypes.func.isRequired,
+  fetchAllCsvConfigs: PropTypes.func.isRequired,
+  fetchAllJsonConfigs: PropTypes.func.isRequired,
+};
