@@ -30,7 +30,8 @@ public class IvrController extends BaseController {
   @RequestMapping("/ivrCallback/{configName}")
   @ResponseStatus(HttpStatus.OK)
   public void saveIvrCallback(@PathVariable("configName") String configName,
-      @RequestParam Map<String, String> ivrData, @RequestBody String json) {
+      @RequestParam(required = false) Map<String, String> ivrData,
+      @RequestBody(required = false) String json) {
     ivrService.saveIvrCallback(configName, ivrData, json);
   }
 }
