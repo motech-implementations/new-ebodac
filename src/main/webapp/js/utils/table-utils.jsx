@@ -10,6 +10,7 @@ import TextCell from './table-cells/text-cell';
 import BoolCell from './table-cells/bool-cell';
 import EnumFilter from './filter/enum-filter';
 import TextFilter from './filter/text-filter';
+import RelationFilter from './filter/relation-filter';
 import {
   DATE,
   DATE_TIME,
@@ -60,50 +61,59 @@ const getTableCell = (item, props) => {
   );
 };
 
-const getTableFilter = (filter, onChange, format, fieldType) => {
+const getTableFilter = (filter, onChange, format, fieldType, relatedEntity, relatedField) => {
   let Filter;
   switch (fieldType) {
     case ENUM:
       Filter = EnumFilter;
+      break;
+    case RELATION:
+      Filter = RelationFilter;
       break;
     default:
       Filter = TextFilter;
   }
 
   return (
-    <Filter filter={filter} onChange={onChange} format={format} />
+    <Filter
+      filter={filter}
+      onChange={onChange}
+      format={format}
+      entityType={relatedEntity}
+      relatedField={relatedField}
+    />
   );
 };
 
 const getTableColumn = (props) => {
   const {
-    name, displayName, filterable, format, fieldType,
+    name, base, displayName, filterable, format, fieldType, relatedEntity, relatedField,
   } = props;
 
   return {
     Header: displayName,
-    accessor: name,
+    accessor: (base ? name : `extraFields.${name}.value`),
     filterable,
     Cell: item => getTableCell(item, props),
     filterMethod: (filter, row) => {
-      let filterValue = false;
       switch (fieldType) {
         case ENUM:
           if (filter.value === 'ALL') {
-            filterValue = true;
-          } else {
-            filterValue = (row[filter.id] === filter.value);
+            return true;
           }
-          break;
+
+          return (row[filter.id] === filter.value);
+        case RELATION:
+          return (_.isEmpty(filter.value) || row[filter.id] === filter.value
+            || _.includes(filter.value, row[filter.id]));
         default:
-          filterValue = _.toString(row[filter.id]).toLowerCase().includes(
+          return _.toString(row[filter.id]).toLowerCase().includes(
             filter.value.trim().toLowerCase(),
           );
       }
-      return filterValue;
     },
     Filter: ({ filter, onChange }) => (
-      getTableFilter(filter, onChange, format, fieldType)
+      getTableFilter(filter, onChange, format, fieldType, relatedEntity, relatedField)
     ),
   };
 };
@@ -112,6 +122,7 @@ export default getTableColumn;
 
 getTableColumn.propTypes = {
   name: PropTypes.string.isRequired,
+  base: PropTypes.bool.isRequired,
   displayName: PropTypes.string.isRequired,
   entity: PropTypes.string.isRequired,
   fieldType: PropTypes.string.isRequired,

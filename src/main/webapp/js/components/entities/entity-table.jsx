@@ -18,6 +18,7 @@ import { COLLECTION, RELATION } from '../../constants/field-types';
 class EntityTable extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       loading: false,
     };
@@ -32,12 +33,6 @@ class EntityTable extends Component {
       this.fetchEntityAndRelatedEntities();
     }
   }
-
-  canRead = () => {
-    const { permissions, entityType } = this.props;
-    const permission = `ROLE_${entityType}_READ`;
-    return _.includes(permissions, permission);
-  };
 
   canWrite = () => {
     const { permissions, entityType } = this.props;
@@ -60,13 +55,8 @@ class EntityTable extends Component {
       entity, fieldConfig, entityType, isOnline, disableExport,
     } = this.props;
     const { loading } = this.state;
-    const columns = _.map(
-      fieldConfig,
-      elem => getTableColumn({
-        ...elem,
-        name: (elem.base ? elem.name : `extraFields.${elem.name}.value`),
-      }),
-    );
+    const columns = _.map(fieldConfig, elem => getTableColumn(elem));
+
     return (
       <div className="container-fluid">
         <h1>{_.startCase(entityType)}</h1>
@@ -103,7 +93,7 @@ class EntityTable extends Component {
               </button>
             </div>
           )}
-          {this.canRead() && !disableExport && (
+          {!disableExport && (
             <CsvExport
               entity={entity}
               fieldConfig={fieldConfig}
