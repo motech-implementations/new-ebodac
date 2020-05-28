@@ -18,6 +18,7 @@ import { COLLECTION, RELATION } from '../../constants/field-types';
 class ReportTable extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       loading: false,
     };
@@ -44,17 +45,9 @@ class ReportTable extends Component {
   }
 
   render() {
-    const {
-      entity, fieldConfig, entityType,
-    } = this.props;
+    const { entity, fieldConfig, entityType } = this.props;
     const { loading } = this.state;
-    const columns = _.map(
-      fieldConfig,
-      elem => getTableColumn({
-        ...elem,
-        name: (elem.base ? elem.name : `extraFields.${elem.name}.value`),
-      }),
-    );
+    const columns = _.map(fieldConfig, elem => getTableColumn(elem));
 
     return (
       <div className="container-fluid">
