@@ -28,9 +28,9 @@ const renderField = ({
 
   return (
     <div className={`${hidden ? 'd-none' : ''}`}>
-      <div className={`d-flex flex-row input-row ${required ? 'required' : ''}  ${touched && error ? 'has-error' : ''}`}>
+      <div className={`d-flex flex-md-row flex-column input-row ${required ? 'required' : ''}  ${touched && error ? 'has-error' : ''}`}>
         { displayName && (
-          <span className="col-form-label text-right nebodac-label">
+          <span className="col-form-label nebodac-label">
             <label htmlFor={attr.id}>{ displayName }</label>
           </span>
         )}
