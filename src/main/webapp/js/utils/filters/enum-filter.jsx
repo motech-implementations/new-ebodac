@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { getOptionsFromEnum } from '../form/form-utils';
+import { getOptionsFromEnum } from '../form-utils';
 import Select from '../inputs/select';
 
 const EnumFilter = (props) => {

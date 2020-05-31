@@ -9,19 +9,19 @@ import 'react-table/react-table.css';
 import { withRouter } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import renderFormField from '../../utils/form/form-utils';
+import renderFormField from '../../utils/form-utils';
 import { RELATION, TEXT, ENUM } from '../../constants/field-types';
 import { getFieldConfigByEntity } from '../../selectors';
 import { fetchEntity } from '../../actions/entity-actions';
 import { fetchAllIvrProviderConfigs } from '../../actions/ivr-provider-config-actions';
-import SelectField from '../../utils/form/select-field';
+import SelectField from '../../utils/fields/select-field';
 import {
   CAMPAIGN_MESSAGE_ENTITY,
   LANGUAGE_ENTITY,
   VACCINEE_ENTITY,
 } from '../../constants/entity-types';
-import TextField from '../../utils/form/text-field';
-import SelectWithCustomValuesField from '../../utils/form/select-with-custom-values-field';
+import TextField from '../../utils/fields/text-field';
+import SelectWithCustomValuesField from '../../utils/fields/select-with-custom-values-field';
 
 const ARRAY = 'ARRAY';
 
@@ -36,21 +36,26 @@ class CallConfigForm extends Component {
     this.props.onSubmit(values);
   };
 
-  getIvrProviders = () => _.map(this.props.ivrProviderConfigs,
-    item => ({ label: item.providerName, value: item.id }));
+  getIvrProviders = () => _.chain(this.props.ivrProviderConfigs)
+    .map(item => ({ label: item.providerName, value: item.id }))
+    .sortBy('label')
+    .value();
 
   getVaccineeFields = () => _.chain(this.props.fieldConfig)
     .filter(item => item.base)
+    .sortBy(['hidden', 'fieldOrder'])
     .map(item => ({ label: item.displayName, value: item.id }))
     .value();
 
-  getGroupByFields = formValues => (_.chain(this.props.fieldConfig)
-    .filter(field => _.includes(formValues.entityFields, field.id)))
+  getGroupByFields = formValues => _.chain(this.props.fieldConfig)
+    .filter(field => _.includes(formValues.entityFields, field.id))
+    .sortBy(['hidden', 'fieldOrder'])
     .map(item => ({ label: item.displayName, value: item.name }))
     .value();
 
-  getFieldsForParamsMap = formValues => (_.chain(this.props.fieldConfig)
-    .filter(field => _.includes(formValues.entityFields, field.id)))
+  getFieldsForParamsMap = formValues => _.chain(this.props.fieldConfig)
+    .filter(field => _.includes(formValues.entityFields, field.id))
+    .sortBy(['hidden', 'fieldOrder'])
     .map(item => ({ label: item.displayName, value: `<${item.name}>` }))
     .value();
 

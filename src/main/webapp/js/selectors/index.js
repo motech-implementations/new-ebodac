@@ -42,8 +42,10 @@ export const getEntityFieldValue = (state,
 
 const getEntityByName = (state, { entityType }) => state.entity[entityType];
 
-const mapToOptions = (options,
-  relatedField) => _.map(options, row => ({ label: row[relatedField], value: row.id }));
+const mapToOptions = (options, relatedField) => _.chain(options)
+  .map(row => ({ label: row[relatedField], value: row.id }))
+  .sortBy('label')
+  .value();
 
 export const getEntityMemberById = (state, { entityType, entityId }) => (
   entityId ? state.entity[entityType][entityId] : {});

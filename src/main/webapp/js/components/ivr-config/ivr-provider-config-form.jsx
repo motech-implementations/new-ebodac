@@ -9,9 +9,9 @@ import 'react-table/react-table.css';
 import { withRouter } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import renderFormField from '../../utils/form/form-utils';
+import renderFormField from '../../utils/form-utils';
 import { TEXT, ENUM, BOOLEAN } from '../../constants/field-types';
-import SelectField from '../../utils/form/select-field';
+import SelectField from '../../utils/fields/select-field';
 
 const ARRAY = 'ARRAY';
 const JSON_OBJ = 'JSON_OBJ';

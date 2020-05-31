@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Form } from 'react-final-form';
 import { connect } from 'react-redux';
 
-import renderFormField from '../../utils/form/form-utils';
+import renderFormField from '../../utils/form-utils';
 import {
   TEXT,
   PASSWORD,

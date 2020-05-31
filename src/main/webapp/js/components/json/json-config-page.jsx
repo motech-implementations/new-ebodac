@@ -8,28 +8,24 @@ import arrayMutators from 'final-form-arrays';
 import 'react-table/react-table.css';
 import { withRouter } from 'react-router-dom';
 
-import renderFormField from '../../utils/form/form-utils';
+import renderFormField from '../../utils/form-utils';
 import {
-  TEXT,
-  ENUM,
-  RELATION,
-  DATE,
-  DATE_TIME,
-  BOOLEAN,
+  TEXT, ENUM, RELATION, DATE, DATE_TIME, BOOLEAN,
 } from '../../constants/field-types';
 import { getFieldConfigByEntity } from '../../selectors';
-import TextField from '../../utils/form/text-field';
-import CheckboxField from '../../utils/form/checkbox-field';
+import TextField from '../../utils/fields/text-field';
+import CheckboxField from '../../utils/fields/checkbox-field';
 
 class JsonConfigPage extends Component {
   onSubmit = (values) => {
     this.props.onSubmit(values);
   };
 
-  getOptions = () => _.map(_.filter(this.props.fieldConfig, 'editable'), v => ({
-    label: v.displayName,
-    value: v.id,
-  }));
+  getOptions = () => _.chain(this.props.fieldConfig)
+    .filter('editable')
+    .sortBy(['hidden', 'fieldOrder'])
+    .map(v => ({ label: v.displayName, value: v.id }))
+    .value();
 
   getFields = (fieldValue) => {
     let hideFormat = true;
