@@ -6,42 +6,47 @@ import { withRouter } from 'react-router-dom';
 import _ from 'lodash';
 
 import 'react-table/react-table.css';
-import { fetchAllIvrProviderConfigs } from '../../actions/ivr-provider-config-actions';
+import { getJsonConfigArray } from '../../selectors';
+import { fetchAllJsonConfigs } from '../../actions/json-config-actions';
 
 const columns = [
   {
-    Header: 'Provider Name',
-    accessor: 'providerName',
+    Header: 'Name',
+    accessor: 'name',
+  },
+  {
+    Header: 'Entity type',
+    accessor: 'entity',
   },
 ];
 
-class IvrProviderConfigTable extends Component {
+class JsonConfigTable extends Component {
   componentDidMount() {
-    this.props.fetchAllIvrProviderConfigs();
+    this.props.fetchAllJsonConfigs();
   }
 
   render() {
     return (
       <div>
-        <h1>IVR Provider Config</h1>
+        <h1>Json Import Config</h1>
         <div className="mx-2 mt-2 mb-3">
           <button
             type="button"
             className="btn btn-success"
-            onClick={() => this.props.history.push('/createIvrProviderConfig')}
+            onClick={() => this.props.history.push('/createJsonConfig')}
             disabled={!this.props.isOnline}
           >
             Create New
           </button>
         </div>
         <ReactTable
-          data={_.values(this.props.ivrProviderConfigs)}
+          data={this.props.jsonConfig}
           columns={columns}
           getTdProps={(state, rowInfo) => ({
             onClick: () => {
               if (_.get(rowInfo, 'original.id')) {
                 this.props.history.push(
-                  `/updateIvrProviderConfig/${rowInfo.original.id}`,
+                  `/updateJsonConfig/${rowInfo.original.entity}/${rowInfo.original.id}`,
                 );
               }
             },
@@ -53,19 +58,19 @@ class IvrProviderConfigTable extends Component {
 }
 
 const mapStateToProps = state => ({
-  ivrProviderConfigs: state.ivrProviderConfig.ivrProviderConfigs,
+  jsonConfig: getJsonConfigArray(state),
   isOnline: state.offline.online,
 });
 
 export default withRouter(
-  connect(mapStateToProps, { fetchAllIvrProviderConfigs })(IvrProviderConfigTable),
+  connect(mapStateToProps, { fetchAllJsonConfigs })(JsonConfigTable),
 );
 
-IvrProviderConfigTable.propTypes = {
-  fetchAllIvrProviderConfigs: PropTypes.func.isRequired,
+JsonConfigTable.propTypes = {
   isOnline: PropTypes.bool.isRequired,
-  ivrProviderConfigs: PropTypes.shape({}).isRequired,
+  jsonConfig: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   history: PropTypes.shape({
     push: PropTypes.func,
   }).isRequired,
+  fetchAllJsonConfigs: PropTypes.func.isRequired,
 };

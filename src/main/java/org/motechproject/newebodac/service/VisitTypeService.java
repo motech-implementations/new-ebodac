@@ -31,12 +31,12 @@ public class VisitTypeService {
   @Autowired
   private FieldConfigService fieldConfigService;
 
-  @PreAuthorize(DefaultPermissions.HAS_VISIT_TYPE_READ_ROLE)
+  @PreAuthorize(DefaultPermissions.HAS_VISIT_TYPE_OR_VISIT_READ_ROLE)
   public List<VisitTypeDto> getAll() {
     return MAPPER.toDtos(visitTypeRepository.findAll());
   }
 
-  @PreAuthorize(DefaultPermissions.HAS_VISIT_TYPE_READ_ROLE)
+  @PreAuthorize(DefaultPermissions.HAS_VISIT_TYPE_OR_VISIT_READ_ROLE)
   public VisitTypeDto findById(UUID id) {
     return MAPPER.toDto(visitTypeRepository.getOne(id));
   }

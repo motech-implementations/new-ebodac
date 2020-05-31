@@ -8,30 +8,28 @@ import arrayMutators from 'final-form-arrays';
 import 'react-table/react-table.css';
 import { withRouter } from 'react-router-dom';
 
-import renderFormField from '../../utils/form/form-utils';
+import renderFormField from '../../utils/form-utils';
 import {
-  TEXT,
-  ENUM,
-  RELATION,
-  DATE,
-  DATE_TIME,
-  BOOLEAN,
+  TEXT, ENUM, RELATION, DATE, DATE_TIME, BOOLEAN,
 } from '../../constants/field-types';
 import { getFieldConfigByEntity } from '../../selectors';
-import TextField from '../../utils/form/text-field';
+import TextField from '../../utils/fields/text-field';
+import CheckboxField from '../../utils/fields/checkbox-field';
 
-class CsvConfigPage extends Component {
+class JsonConfigPage extends Component {
   onSubmit = (values) => {
     this.props.onSubmit(values);
   };
 
-  getOptions = () => _.map(_.filter(this.props.fieldConfig, 'editable'), v => ({
-    label: v.displayName,
-    value: v.id,
-  }));
+  getOptions = () => _.chain(this.props.fieldConfig)
+    .filter('editable')
+    .sortBy(['hidden', 'fieldOrder'])
+    .map(v => ({ label: v.displayName, value: v.id }))
+    .value();
 
-  getFields = (fieldValue, clearDefaultValue) => {
+  getFields = (fieldValue) => {
     let hideFormat = true;
+
     const fieldConfig = this.props.fieldConfig[fieldValue.fieldConfigId];
     if (fieldConfig && (fieldConfig.fieldType === DATE || fieldConfig.fieldType === DATE_TIME)) {
       hideFormat = false;
@@ -44,12 +42,11 @@ class CsvConfigPage extends Component {
         displayName: 'Field name',
         required: true,
         options: this.getOptions(),
-        onChange: clearDefaultValue,
       },
       {
         name: 'fieldName',
         fieldType: TEXT,
-        displayName: 'CSV field name',
+        displayName: 'Json field name',
         required: true,
       },
       {
@@ -77,7 +74,7 @@ class CsvConfigPage extends Component {
     ];
   };
 
-  getCsvValueMapFields = (relatedField, relatedEntity) => [
+  getJsonValueMapFields = (relatedField, relatedEntity) => [
     {
       name: 'entityId',
       fieldType: RELATION,
@@ -89,12 +86,12 @@ class CsvConfigPage extends Component {
     {
       name: 'fieldValue',
       fieldType: TEXT,
-      displayName: 'CSV value',
+      displayName: 'Json value',
       required: true,
     },
   ];
 
-  getCsvValueEnumMapFields = fieldConfig => [
+  getJsonValueEnumMapFields = fieldConfig => [
     {
       name: 'enumValue',
       fieldType: ENUM,
@@ -105,7 +102,7 @@ class CsvConfigPage extends Component {
     {
       name: 'fieldValue',
       fieldType: TEXT,
-      displayName: 'CSV value',
+      displayName: 'Json value',
       required: true,
     },
   ];
@@ -114,46 +111,43 @@ class CsvConfigPage extends Component {
     let hasKeyField = false;
     const errors = {};
 
-    _.forEach(_.get(values, 'csvFields', []), (field) => {
+    _.forEach(_.get(values, 'jsonFields', []), (field) => {
       if (field.keyField === true) {
         hasKeyField = true;
       }
     });
 
-    errors.csvFields = [];
-    _.forEach(values.csvFields, (csvField, key) => {
-      _.forEach(this.getFields(csvField), (config) => {
-        const val = csvField[config.name];
+    errors.jsonFields = [];
+    _.forEach(values.jsonFields, (jsonField, key) => {
+      _.forEach(this.getFields(jsonField), (config) => {
+        const val = jsonField[config.name];
 
         if (config.required && !config.hidden && (_.isNil(val) || val === '')) {
-          errors.csvFields[key] = { [config.name]: `${config.displayName} is required` };
+          errors.jsonFields[key] = { [config.name]: `${config.displayName} is required` };
         }
       });
     });
     if (!hasKeyField) {
       errors.keyField = 'You must add at least one unique field (or combination of fields) '
-      + 'that can be used to identify and update the entity';
+        + 'that can be used to identify and update the entity';
     }
     return errors;
   };
 
   render() {
     const { entityType, isOnline } = this.props;
+
     return (
       <div className="modal-form">
         <Form
           onSubmit={this.onSubmit}
-          initialValues={this.props.csvConfig}
+          initialValues={this.props.jsonConfig}
           validate={this.validate}
           mutators={{
-            clearDefaultValue: ([index], state, utils) => {
-              utils.changeValue(state, `csvFields[${index}].defaultValue`, () => undefined);
-              utils.changeValue(state, `csvFields[${index}].format`, () => undefined);
-            },
             ...arrayMutators,
           }}
           render={({
-            handleSubmit, invalid, errors, dirty, form: { mutators },
+            handleSubmit, invalid, errors, dirty,
           }) => (
             <form onSubmit={handleSubmit}>
               <TextField
@@ -161,15 +155,28 @@ class CsvConfigPage extends Component {
                 placeholder="Name"
                 disabled={!this.props.isNew}
                 fieldConfig={{
-                  name: 'name', displayName: 'CSV Name', required: true,
+                  name: 'name', displayName: 'Json Name', required: true,
                 }}
               />
-              <FieldArray name="csvFields">
+              <TextField
+                key="pathToData"
+                placeholder="Path to Data"
+                fieldConfig={{
+                  name: 'pathToData', displayName: 'Path To Data', required: false,
+                }}
+              />
+              <CheckboxField
+                key="multipleRecord"
+                fieldConfig={{
+                  name: 'multipleRecord', displayName: 'Is data a multiple record?', required: false,
+                }}
+              />
+              <FieldArray name="jsonFields">
                 { ({ fields }) => (
                   <div>
                     {fields.map((name, index) => (
                       <div key={name} className="arrayFields">
-                        {_.map(this.getFields(fields.value[index], () => mutators.clearDefaultValue(index)), elem => renderFormField({ ...elem, name: `${name}.${elem.name}` }))}
+                        {_.map(this.getFields(fields.value[index]), elem => renderFormField({ ...elem, name: `${name}.${elem.name}` }))}
                         {(() => {
                           // eslint-disable-next-line max-len
                           const fieldConfig = this.props.fieldConfig[fields.value[index].fieldConfigId];
@@ -177,15 +184,16 @@ class CsvConfigPage extends Component {
                             return (
                               <div>
                                 <FieldArray name={`${name}.fieldValueMap`}>
-                                  { ({ fields: csvValueMapFields }) => (
+                                  { ({ fields: jsonValueMapFields }) => (
                                     <div>
-                                      {csvValueMapFields.map((csvValueMapField, valueMapIndex) => (
-                                        <div key={csvValueMapField} className="nestedArrayFields">
-                                          { _.map(this.getCsvValueMapFields(fieldConfig.relatedField, fieldConfig.relatedEntity), csvValueMap => renderFormField({ ...csvValueMap, name: `${csvValueMapField}.${csvValueMap.name}` })) }
+                                      {jsonValueMapFields.map((jsonValueMapField, jsonMapIndex) => (
+                                        <div key={jsonValueMapField} className="nestedArrayFields">
+                                          { _.map(this.getJsonValueMapFields(fieldConfig.relatedField, fieldConfig.relatedEntity), jsonValueMap => renderFormField({ ...jsonValueMap, name: `${jsonValueMapField}.${jsonValueMap.name}` })) }
                                           <button
                                             type="button"
                                             className="btn btn-danger"
-                                            onClick={() => csvValueMapFields.remove(valueMapIndex)}
+                                            onClick={() => jsonValueMapFields.remove(jsonMapIndex)}
+                                            disabled={!isOnline}
                                           >
                                             Delete
                                           </button>
@@ -195,12 +203,12 @@ class CsvConfigPage extends Component {
                                         <button
                                           type="button"
                                           className="btn btn-success my-2"
-                                          onClick={() => csvValueMapFields.push({
+                                          onClick={() => jsonValueMapFields.push({
                                             entityId: '',
                                             fieldValue: '',
                                           })}
                                         >
-                                          Add CSV value
+                                          Add Json value
                                         </button>
                                       </div>
                                     </div>
@@ -213,15 +221,15 @@ class CsvConfigPage extends Component {
                             return (
                               <div>
                                 <FieldArray name={`${name}.enumValueMap`}>
-                                  { ({ fields: csvValueEnumMapFields }) => (
+                                  { ({ fields: jsonValueEnumMapFields }) => (
                                     <div>
-                                      {csvValueEnumMapFields.map((enumField, enumIndex) => (
-                                        <div key={enumField} className="nestedArrayFields">
-                                          { _.map(this.getCsvValueEnumMapFields(fieldConfig), csvValueEnumMap => renderFormField({ ...csvValueEnumMap, name: `${enumField}.${csvValueEnumMap.name}` })) }
+                                      {jsonValueEnumMapFields.map((jsonEnumField, enumIndex) => (
+                                        <div key={jsonEnumField} className="nestedArrayFields">
+                                          { _.map(this.getJsonValueEnumMapFields(fieldConfig), jsonValueEnumMap => renderFormField({ ...jsonValueEnumMap, name: `${jsonEnumField}.${jsonValueEnumMap.name}` })) }
                                           <button
                                             type="button"
                                             className="btn btn-danger"
-                                            onClick={() => csvValueEnumMapFields.remove(enumIndex)}
+                                            onClick={() => jsonValueEnumMapFields.remove(enumIndex)}
                                           >
                                             Delete
                                           </button>
@@ -231,12 +239,12 @@ class CsvConfigPage extends Component {
                                         <button
                                           type="button"
                                           className="btn btn-success my-2"
-                                          onClick={() => csvValueEnumMapFields.push({
+                                          onClick={() => jsonValueEnumMapFields.push({
                                             enumValue: '',
                                             fieldValue: '',
                                           })}
                                         >
-                                          Add CSV value
+                                          Add Json value
                                         </button>
                                       </div>
                                     </div>
@@ -251,24 +259,21 @@ class CsvConfigPage extends Component {
                           type="button"
                           className="btn btn-danger"
                           onClick={() => fields.remove(index)}
-                          disabled={!isOnline
-                            || (this.props.fieldConfig[fields.value[index].fieldConfigId]
-                              ? this.props.fieldConfig[fields.value[index].fieldConfigId].required
-                              : false)}
+                          disabled={!isOnline}
                         >
-                                    Delete
+                          Delete
                         </button>
                       </div>
                     ))}
                     { errors.keyField && dirty && (
-                    <div className="has-error">
-                      { errors.keyField }
-                    </div>
+                      <div className="has-error">
+                        { errors.keyField }
+                      </div>
                     )}
                     <button
                       type="button"
                       className="btn btn-success mr-2 d-inline-block"
-                      disabled={!entityType || !isOnline}
+                      disabled={!entityType}
                       onClick={() => {
                         fields.push({
                           fieldConfigId: '',
@@ -279,7 +284,7 @@ class CsvConfigPage extends Component {
                         });
                       }}
                     >
-                              Add field config
+                      Add field config
                     </button>
                   </div>
                 )}
@@ -294,7 +299,7 @@ class CsvConfigPage extends Component {
               <button
                 type="button"
                 className="btn btn-secondary m-2"
-                onClick={() => this.props.history.push('/csvConfigTable')}
+                onClick={() => this.props.history.push('/jsonConfigTable')}
               >
                 Cancel
               </button>
@@ -312,12 +317,12 @@ const mapStateToProps = (state, props) => ({
 });
 
 export default withRouter(
-  connect(mapStateToProps)(CsvConfigPage),
+  connect(mapStateToProps)(JsonConfigPage),
 );
 
-CsvConfigPage.propTypes = {
+JsonConfigPage.propTypes = {
   isOnline: PropTypes.bool.isRequired,
-  csvConfig: PropTypes.shape(),
+  jsonConfig: PropTypes.shape(),
   fieldConfig: PropTypes.shape(),
   entityType: PropTypes.string.isRequired,
   history: PropTypes.shape({
@@ -328,8 +333,8 @@ CsvConfigPage.propTypes = {
 };
 
 
-CsvConfigPage.defaultProps = {
-  csvConfig: {},
+JsonConfigPage.defaultProps = {
+  jsonConfig: {},
   fieldConfig: {},
   isNew: false,
 };

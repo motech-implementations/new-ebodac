@@ -8,9 +8,9 @@ import DateCell from './table-cells/date-cell';
 import CollectionCell from './table-cells/collection-cell';
 import TextCell from './table-cells/text-cell';
 import BoolCell from './table-cells/bool-cell';
-import EnumFilter from './filter/enum-filter';
-import TextFilter from './filter/text-filter';
-import RelationFilter from './filter/relation-filter';
+import EnumFilter from './filters/enum-filter';
+import TextFilter from './filters/text-filter';
+import RelationFilter from './filters/relation-filter';
 import {
   DATE,
   DATE_TIME,

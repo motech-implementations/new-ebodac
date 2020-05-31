@@ -14,6 +14,7 @@ import { getCsvConfigsByEntityType, getEntityArrayByName } from '../../selectors
 import getTableColumn from '../../utils/table-utils';
 import CsvExport from './csv-export';
 import { COLLECTION, RELATION } from '../../constants/field-types';
+import { getEntityReadPermission, getEntityWritePermission } from '../../utils/permission-helper';
 
 class EntityTable extends Component {
   constructor(props) {
@@ -34,15 +35,22 @@ class EntityTable extends Component {
     }
   }
 
+  canRead = (entityType) => {
+    const { permissions } = this.props;
+    const permission = getEntityReadPermission(entityType);
+    return _.includes(permissions, permission);
+  };
+
   canWrite = () => {
     const { permissions, entityType } = this.props;
-    const permission = `ROLE_${entityType}_WRITE`;
+    const permission = getEntityWritePermission(entityType);
     return _.includes(permissions, permission);
   };
 
   fetchEntityAndRelatedEntities() {
     _.forEach(this.props.fieldConfig, (field) => {
-      if (field.fieldType === RELATION || field.fieldType === COLLECTION) {
+      if ((field.fieldType === RELATION || field.fieldType === COLLECTION)
+        && this.canRead(field.relatedEntity)) {
         this.props.fetchEntity(field.relatedEntity);
       }
     });
@@ -58,7 +66,7 @@ class EntityTable extends Component {
     const columns = _.map(fieldConfig, elem => getTableColumn(elem));
 
     return (
-      <div className="container-fluid">
+      <div>
         <h1>{_.startCase(entityType)}</h1>
         <div className="d-flex flex-row">
           {this.canWrite() && (

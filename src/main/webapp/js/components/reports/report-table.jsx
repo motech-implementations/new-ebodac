@@ -50,7 +50,7 @@ class ReportTable extends Component {
     const columns = _.map(fieldConfig, elem => getTableColumn(elem));
 
     return (
-      <div className="container-fluid">
+      <div>
         <h1>{_.startCase(entityType)}</h1>
         <CsvExport
           entity={entity}

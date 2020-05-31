@@ -6,7 +6,7 @@ import _ from 'lodash';
 import { connect } from 'react-redux';
 
 import ConfirmModal from '../comfirm-modal';
-import renderFormField, { validate } from '../../utils/form/form-utils';
+import renderFormField, { validate } from '../../utils/form-utils';
 import { getFieldConfigById } from '../../selectors';
 import {
   createFieldConfig,
@@ -201,7 +201,7 @@ class FieldConfigModal extends React.Component {
   render() {
     const { modalIsOpen } = this.props;
     return (
-      <div className="container-fluid">
+      <div>
         <Modal
           isOpen={modalIsOpen}
           className={{

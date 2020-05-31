@@ -43,14 +43,13 @@ body {
 }
 
 .page-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: calc(100vh - 50px);
+  height: 100vh;
+  overflow: auto;
 }
 
 .login-container {
-  min-height: 600px;
+  max-width: 500px;
+  overflow: auto;
 }
 
 p {
@@ -371,13 +370,26 @@ a, a:hover, a:focus, a:active, a:visited {
 
 .form-buttons-container {
   margin-top: 20px;
-  margin-left: 200px;
   margin-bottom: 40px;
+  margin-left: 190px;
+
+  @media(min-width: $r-medium-min) {
+    margin-left: 260px;
+  }
 }
 
 .nebodac-label {
-  width: 200px;
+  width: 100%;
   margin-right: 10px;
+
+  @media(min-width: $r-small-min) {
+    text-align: right;
+    width: 180px;
+  }
+
+  @media(min-width: $r-medium-min) {
+    width: 250px;
+  }
 }
 
 .nebodac-input {

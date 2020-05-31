@@ -2,29 +2,18 @@ import _ from 'lodash';
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import TextField from './text-field';
-import TextareaField from './textarea-field';
-import CheckboxField from './checkbox-field';
-import DateField from './date-field';
-import TimeField from './time-field';
-import SelectField from './select-field';
-import NonEditableField from './non-editable-field';
-import RelationField from './relation-field';
+import TextField from './fields/text-field';
+import TextareaField from './fields/textarea-field';
+import CheckboxField from './fields/checkbox-field';
+import DateField from './fields/date-field';
+import TimeField from './fields/time-field';
+import SelectField from './fields/select-field';
+import NonEditableField from './fields/non-editable-field';
+import RelationField from './fields/relation-field';
 import {
-  TEXT,
-  LONG_TEXT,
-  INTEGER,
-  FLOAT,
-  BOOLEAN,
-  DATE,
-  DATE_TIME,
-  ENUM,
-  RELATION,
-  COLLECTION,
-  VACCINATION_DATE,
-  PASSWORD,
-  TIME,
-} from '../../constants/field-types';
+  TEXT, LONG_TEXT, INTEGER, FLOAT, BOOLEAN, DATE, DATE_TIME,
+  ENUM, RELATION, COLLECTION, VACCINATION_DATE, PASSWORD, TIME,
+} from '../constants/field-types';
 
 export const getOptionsFromEnum = (format) => {
   if (!format) {

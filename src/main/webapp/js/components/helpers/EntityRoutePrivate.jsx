@@ -10,19 +10,22 @@ import {
 } from '../../utils/permission-helper';
 
 const EntityRoutePrivate = ({ readOnly, ...props }) => {
-  const getRole = () => {
+  const getPermissions = () => {
     const entityType = _.get(props, 'computedMatch.params.entityType', null);
+
     if (entityType && readOnly) {
-      return getEntityReadPermission(entityType);
+      return [getEntityReadPermission(entityType)];
     }
+
     if (entityType) {
-      return getEntityWritePermission(entityType);
+      return [getEntityWritePermission(entityType)];
     }
+
     return [];
   };
 
   return (
-    <RoutePrivate {...props} requiredPermissions={getRole()} />
+    <RoutePrivate {...props} requiredPermissions={getPermissions()} />
   );
 };
 

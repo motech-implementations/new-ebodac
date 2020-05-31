@@ -9,8 +9,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import arrayMutators from 'final-form-arrays';
 import { withRouter } from 'react-router-dom';
 
-import SelectField from '../../utils/form/select-field';
-import renderFormField, { validate } from '../../utils/form/form-utils';
+import SelectField from '../../utils/fields/select-field';
+import renderFormField, { validate } from '../../utils/form-utils';
 import { fetchAppSettings, updateAppSettings } from '../../actions/app-settings-actions';
 import { fetchEntity } from '../../actions/entity-actions';
 import {
@@ -142,11 +142,12 @@ class AppSettings extends Component {
         operators = [];
     }
 
-    return _.map(operators, op => ({ value: op, label: op }));
+    return _.map(operators, op => ({ value: op, label: _.startCase(op.toLowerCase()) }));
   };
 
   getConditionFields = () => _.chain(this.props.vaccineeFields)
     .filter(item => item.fieldType !== COLLECTION && item.fieldType !== VACCINATION_DATE)
+    .sortBy(['hidden', 'fieldOrder'])
     .map(item => ({ label: item.displayName, value: item.id }))
     .value();
 
@@ -270,7 +271,7 @@ class AppSettings extends Component {
   render() {
     const { appSettings, isOnline } = this.props;
     return (
-      <div className="container-fluid">
+      <div>
         <div>
           <h1 className="mb-0">Edit App Settings</h1>
         </div>

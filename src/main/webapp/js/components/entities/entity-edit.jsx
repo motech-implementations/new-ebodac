@@ -7,7 +7,7 @@ import Alert from 'react-s-alert';
 import { withRouter } from 'react-router-dom';
 
 import { getEntityMemberById } from '../../selectors';
-import renderFormField, { validate } from '../../utils/form/form-utils';
+import renderFormField, { validate } from '../../utils/form-utils';
 import { updateEntity, deleteEntity } from '../../actions/entity-actions';
 import ConfirmModal from '../comfirm-modal';
 
@@ -73,7 +73,7 @@ class EntityEdit extends Component {
       entityToEdit, fieldConfig, entityType, isOnline, disableDelete,
     } = this.props;
     return (
-      <div className="container-fluid">
+      <div>
         <div>
           <h1>
             {`Edit ${_.startCase(entityType)}`}

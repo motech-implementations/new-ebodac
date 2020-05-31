@@ -4,6 +4,7 @@ import org.motechproject.newebodac.exception.EnrollmentException;
 import org.motechproject.newebodac.exception.EntityNotFoundException;
 import org.motechproject.newebodac.exception.NewEbodacException;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -39,5 +40,12 @@ public class GlobalErrorHandling extends AbstractErrorHandling {
   @ResponseBody
   public ErrorResponse entityNotFoundException(EntityNotFoundException ex) {
     return logAndGetErrorResponse(ex);
+  }
+
+  @ExceptionHandler(AccessDeniedException.class)
+  @ResponseStatus(HttpStatus.FORBIDDEN)
+  @ResponseBody
+  public ErrorResponse handleAccessDeniedException(AccessDeniedException ex) {
+    return logAndGetErrorResponse("Access denied", ex);
   }
 }

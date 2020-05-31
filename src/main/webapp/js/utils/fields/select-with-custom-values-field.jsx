@@ -55,8 +55,8 @@ class SelectWithCustomValues extends Component {
     return (
       <div className="input-group" style={{ backgroundColor: 'white', borderRadius: '.25rem' }}>
         <Input {...attributes} onChange={this.onChange} autoFocus={this.state.focusInput} />
-        <div className="input-group-append">
-          <button type="button" className="btn btn-outline-danger" onClick={this.showSelect}>
+        <div className="input-group-append" style={{ zIndex: 0 }}>
+          <button type="button" className="btn btn-outline-danger" style={{ zIndex: 0 }} onClick={this.showSelect}>
             <FontAwesomeIcon icon="times" />
           </button>
         </div>

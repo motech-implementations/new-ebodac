@@ -6,14 +6,14 @@ import _ from 'lodash';
 import { withRouter } from 'react-router-dom';
 import Alert from 'react-s-alert';
 
-import CsvConfigPage from './csv-config-page';
-import { getCsvConfigById } from '../../selectors';
-import { deleteCsvConfig, saveCsvConfig } from '../../actions/csv-config-actions';
+import JsonConfigPage from './json-config-page';
+import { getJsonConfigById } from '../../selectors';
+import { deleteJsonConfig, saveJsonConfig } from '../../actions/json-config-actions';
 import ConfirmModal from '../comfirm-modal';
 
 const ALERT_TIMEOUT = 5000;
 
-class CsvConfigUpdate extends Component {
+class JsonConfigUpdate extends Component {
   constructor(props) {
     super(props);
 
@@ -31,37 +31,37 @@ class CsvConfigUpdate extends Component {
   };
 
   deleteConfig = () => {
-    this.props.deleteCsvConfig(this.props.csvConfig.entity, this.props.csvConfig.id, () => {
-      Alert.success('CSV config has been deleted!', {
+    this.props.deleteJsonConfig(this.props.jsonConfig.entity, this.props.jsonConfig.id, () => {
+      Alert.success('Json config has been deleted!', {
         timeout: ALERT_TIMEOUT,
       });
-      this.props.history.push('/csvConfigTable');
+      this.props.history.push('/jsonConfigTable');
     });
   };
 
   onSubmit = (values) => {
-    this.props.saveCsvConfig(this.props.csvConfig.entity, values, () => {
-      Alert.success('CSV config has been updated!', {
+    this.props.saveJsonConfig(this.props.jsonConfig.entity, values, () => {
+      Alert.success('Json config has been updated!', {
         timeout: ALERT_TIMEOUT,
       });
-      this.props.history.push('/csvConfigTable');
+      this.props.history.push('/jsonConfigTable');
     });
   };
 
   render() {
-    const { isOnline } = this.props;
     const { openConfirmModal } = this.state;
+    const { isOnline } = this.props;
     return (
-      <div className="container-fluid">
+      <div>
         <div>
-          <h1>Update CSV Config</h1>
+          <h1>Update Json Config</h1>
         </div>
         <div className="ml-2 mt-2 mb-3">
           <button
             type="button"
             className="btn btn-danger"
-            disabled={!isOnline}
             onClick={() => this.openConfirmModal()}
+            disabled={!isOnline}
           >
             Delete config
           </button>
@@ -70,18 +70,18 @@ class CsvConfigUpdate extends Component {
           <span className="col-form-label text-right nebodac-label">Entity</span>
           <div style={{ fontSize: '20px' }}>
             {' '}
-            {_.startCase(this.props.csvConfig.entity)}
+            {_.startCase(this.props.jsonConfig.entity)}
             {' '}
           </div>
         </div>
-        <CsvConfigPage
+        <JsonConfigPage
           onSubmit={this.onSubmit}
-          entityType={this.props.csvConfig.entity}
-          csvConfig={this.props.csvConfig}
+          entityType={this.props.jsonConfig.entity}
+          jsonConfig={this.props.jsonConfig}
         />
         <ConfirmModal
           showModal={openConfirmModal}
-          modalText="Are you sure to delete csv Config?"
+          modalText="Are you sure to delete json Config?"
           onConfirm={() => this.deleteConfig()}
           onHide={() => this.hideConfirmModal()}
         />
@@ -91,19 +91,19 @@ class CsvConfigUpdate extends Component {
 }
 
 const mapStateToProps = (state, props) => ({
-  csvConfig: getCsvConfigById(state,
-    { entity: props.match.params.entity, csvConfigId: props.match.params.id }),
+  jsonConfig: getJsonConfigById(state,
+    { entity: props.match.params.entity, jsonConfigId: props.match.params.id }),
   fieldConfig: state.fieldConfig,
   isOnline: state.offline.online,
 });
 
 export default withRouter(
-  connect(mapStateToProps, { deleteCsvConfig, saveCsvConfig })(CsvConfigUpdate),
+  connect(mapStateToProps, { deleteJsonConfig, saveJsonConfig })(JsonConfigUpdate),
 );
 
-CsvConfigUpdate.propTypes = {
+JsonConfigUpdate.propTypes = {
   isOnline: PropTypes.bool.isRequired,
-  csvConfig: PropTypes.shape({
+  jsonConfig: PropTypes.shape({
     id: PropTypes.string,
     entity: PropTypes.string,
   }).isRequired,
@@ -113,8 +113,8 @@ CsvConfigUpdate.propTypes = {
       entity: PropTypes.string,
     }),
   }).isRequired,
-  deleteCsvConfig: PropTypes.func.isRequired,
-  saveCsvConfig: PropTypes.func.isRequired,
+  deleteJsonConfig: PropTypes.func.isRequired,
+  saveJsonConfig: PropTypes.func.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func,
   }).isRequired,

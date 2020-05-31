@@ -7,7 +7,7 @@ import Alert from 'react-s-alert';
 import { withRouter } from 'react-router-dom';
 
 import { createEntity } from '../../actions/entity-actions';
-import renderFormField, { validate } from '../../utils/form/form-utils';
+import renderFormField, { validate } from '../../utils/form-utils';
 
 const ALERT_TIMEOUT = 5000;
 
@@ -39,7 +39,7 @@ class EntityCreate extends Component {
   render() {
     const { fieldConfig, entityType, isOnline } = this.props;
     return (
-      <div className="container-fluid">
+      <div>
         <div>
           <h1>
             {`Create ${_.startCase(entityType)}`}

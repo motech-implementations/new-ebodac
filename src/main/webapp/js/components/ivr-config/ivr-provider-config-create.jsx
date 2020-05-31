@@ -22,7 +22,7 @@ class IvrProviderConfigCreate extends Component {
 
   render() {
     return (
-      <div className="container-fluid">
+      <div>
         <h1>Create IVR Provider Config</h1>
         <IvrProviderConfigPage
           onSubmit={this.onSubmit}

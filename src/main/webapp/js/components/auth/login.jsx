@@ -63,15 +63,13 @@ class Login extends Component {
 
   render() {
     return (
-      <div className="page-container">
-        <div className="login-container">
-          <div className="row">
-            <div className="col-md-4 offset-md-4">
+      <div className="page-container container-fluid">
+        <div className="d-flex flex-column align-items-center">
+          <div className="login-container mb-2">
+            <div>
               <img className="img-fluid" alt="logo" src="images/EBODAClogo.jpg" />
             </div>
-          </div>
-          <div className="row ">
-            <div className="col-md-4 offset-md-4">
+            <div className="d-flex flex-column">
               <div className="card">
                 <div className="card-header bg-info">
                   <div>Sign In</div>
@@ -99,10 +97,8 @@ class Login extends Component {
                           icon="lock"
                           component={Login.renderField}
                         />
-                        <div className="input-row text-center">
-                          <div className="col-sm-12">
-                            <button type="submit" className="btn btn-secondary" disabled={invalid}>Login</button>
-                          </div>
+                        <div className="d-flex justify-content-center">
+                          <button type="submit" className="btn btn-secondary" disabled={invalid}>Login</button>
                         </div>
                       </form>
                     )}
