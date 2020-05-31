@@ -35,12 +35,10 @@ public class LanguageService {
   @Autowired
   private FieldConfigService fieldConfigService;
 
-  @PreAuthorize(DefaultPermissions.HAS_LANGUAGE_READ_ROLE)
   public List<LanguageDto> getAll() {
     return MAPPER.toDtos(languageRepository.findAll());
   }
 
-  @PreAuthorize(DefaultPermissions.HAS_LANGUAGE_READ_ROLE)
   public LanguageDto findById(UUID id) {
     return MAPPER.toDto(languageRepository.getOne(id));
   }

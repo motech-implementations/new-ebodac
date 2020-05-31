@@ -40,11 +40,11 @@ import {
   MANAGE_FIELD_CONFIG, MANAGE_CSV_CONFIG, MANAGE_APP_SETTINGS, MANAGE_VACCINEE_ENROLLMENT,
   MANAGE_JSON_CONFIG, MANAGE_CALL_CONFIG, MANAGE_IVR_PROVIDER_CONFIG,
 } from '../constants/permissions';
-import { USER_ENTITY, ROLE_ENTITY } from '../constants/entity-types';
+import { USER_ENTITY, ROLE_ENTITY, VACCINEE_ENTITY } from '../constants/entity-types';
 
 import { fetchAllFieldConfigs } from '../actions/field-config-actions';
 import { fetchAllCsvConfigs } from '../actions/csv-config-actions';
-import { fetchAllJsonConfigs } from '../actions/json-config-actions';
+import { getEntityReadPermission } from '../utils/permission-helper';
 
 class AppContent extends Component {
   constructor(props) {
@@ -57,7 +57,6 @@ class AppContent extends Component {
   componentDidMount() {
     this.props.fetchAllFieldConfigs();
     this.props.fetchAllCsvConfigs();
-    this.props.fetchAllJsonConfigs();
   }
 
   collapseSideBar = () => {
@@ -66,6 +65,7 @@ class AppContent extends Component {
 
   render() {
     const { sidebarVisible } = this.state;
+
     return (
       <div>
         <Header toggleSidebarMenu={this.collapseSideBar} className="navbar navbar-inverse navbar-fixed-top" />
@@ -84,7 +84,11 @@ class AppContent extends Component {
                   path="/visitEnrollment/:id"
                   component={VisitEnrollment}
                 />
-                <RoutePrivate path="/callLogVaccinees" component={CallLogVaccinees} />
+                <RoutePrivate
+                  requiredPermissions={[getEntityReadPermission(VACCINEE_ENTITY)]}
+                  path="/callLogVaccinees"
+                  component={CallLogVaccinees}
+                />
                 <EntityRoutePrivate readOnly path={`/viewEntity/${ROLE_ENTITY}`} component={ViewRole} />
                 <EntityRoutePrivate readOnly path={`/viewEntity/${USER_ENTITY}`} component={ViewUser} />
                 <EntityRoutePrivate readOnly path="/viewEntity/:entityType" component={ViewEntity} />
@@ -174,11 +178,10 @@ class AppContent extends Component {
 }
 
 export default connect(null, {
-  fetchAllFieldConfigs, fetchAllCsvConfigs, fetchAllJsonConfigs,
+  fetchAllFieldConfigs, fetchAllCsvConfigs,
 })(AppContent);
 
 AppContent.propTypes = {
   fetchAllFieldConfigs: PropTypes.func.isRequired,
   fetchAllCsvConfigs: PropTypes.func.isRequired,
-  fetchAllJsonConfigs: PropTypes.func.isRequired,
 };

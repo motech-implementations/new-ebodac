@@ -44,12 +44,28 @@ class SideBar extends Component {
     };
   }
 
-  isAuthorizated = (requiredPermissions) => {
+  hasPermission = (requiredPermission) => {
     const { permissions } = this.props;
+
+    return _.includes(permissions, requiredPermission);
+  };
+
+  hasAnyPermission = (requiredPermissions) => {
+    const { permissions } = this.props;
+
     if (_.isEmpty(requiredPermissions)) {
       return true;
     }
-    return _.every(requiredPermissions, permission => _.includes(permissions, permission));
+
+    return _.some(requiredPermissions, permission => _.includes(permissions, permission));
+  };
+
+  hasReadPermission = entityType => this.hasPermission(getEntityReadPermission(entityType));
+
+  hasAnyReadPermission = (entityTypes) => {
+    const permissions = _.map(entityTypes, entityType => getEntityReadPermission(entityType));
+
+    return this.hasAnyPermission(permissions);
   };
 
   toggleEnrollmentCollapsedMenu = (event) => {
@@ -104,7 +120,7 @@ class SideBar extends Component {
 
     return (
       <ul className="nav nav-second-level">
-        {this.isAuthorizated([MANAGE_VACCINEE_ENROLLMENT])
+        {this.hasPermission(MANAGE_VACCINEE_ENROLLMENT)
         && (
           <li className="border-none">
             {this.renderLink('/vaccineeEnrollment', 'hand-point-right', 'Vaccinee Enrollment')}
@@ -123,16 +139,22 @@ class SideBar extends Component {
 
     return (
       <ul className="nav nav-second-level">
-        {this.isAuthorizated(getEntityReadPermission(VISIT_ENTITY))
+        {this.hasReadPermission(VISIT_ENTITY)
         && (
           <li className="border-none">
             {this.renderLink(`/viewEntity/${VISIT_ENTITY}`, 'hand-point-right', 'Visits')}
           </li>
         )}
-        {this.isAuthorizated(getEntityReadPermission(VISIT_TYPE_ENTITY))
+        {this.hasReadPermission(VISIT_TYPE_ENTITY)
         && (
           <li className="border-none">
             {this.renderLink(`/viewEntity/${VISIT_TYPE_ENTITY}`, 'hand-point-right', 'Visit Types')}
+          </li>
+        )}
+        {this.hasReadPermission(SITE_ENTITY)
+        && (
+          <li className="border-none">
+            {this.renderLink(`/viewEntity/${SITE_ENTITY}`, 'hand-point-right', 'Sites')}
           </li>
         )}
       </ul>
@@ -164,13 +186,13 @@ class SideBar extends Component {
 
     return (
       <ul className="nav nav-second-level">
-        {this.isAuthorizated(getEntityReadPermission(ROLE_ENTITY))
+        {this.hasReadPermission(ROLE_ENTITY)
         && (
           <li className="border-none">
             {this.renderLink(`/viewEntity/${ROLE_ENTITY}`, 'hand-point-right', 'Roles')}
           </li>
         )}
-        {this.isAuthorizated(getEntityReadPermission(USER_ENTITY))
+        {this.hasReadPermission(USER_ENTITY)
         && (
           <li className="border-none">
             {this.renderLink(`/viewEntity/${USER_ENTITY}`, 'hand-point-right', 'Users')}
@@ -189,13 +211,13 @@ class SideBar extends Component {
 
     return (
       <ul className="nav nav-second-level">
-        {this.isAuthorizated(getEntityReadPermission(LANGUAGE_ENTITY))
+        {this.hasPermission(MANAGE_APP_SETTINGS)
         && (
           <li className="border-none">
-            {this.renderLink(`/viewEntity/${LANGUAGE_ENTITY}`, 'hand-point-right', 'Languages')}
+            {this.renderLink('/appSettings', 'hand-point-right', 'App Settings')}
           </li>
         )}
-        {this.isAuthorizated([MANAGE_FIELD_CONFIG])
+        {this.hasPermission(MANAGE_FIELD_CONFIG)
         && (
           <li>
             <a href="" onClick={this.toggleFieldsCollapsedMenu}>
@@ -205,49 +227,28 @@ class SideBar extends Component {
             {this.renderFieldsCollapsedMenu()}
           </li>
         )}
-        {this.isAuthorizated(getEntityReadPermission(SITE_ENTITY))
-        && (
-          <li className="border-none">
-            {this.renderLink(`/viewEntity/${SITE_ENTITY}`, 'hand-point-right', 'Sites')}
-          </li>
-        )}
-        {this.isAuthorizated([MANAGE_CSV_CONFIG])
+        {this.hasPermission(MANAGE_CSV_CONFIG)
         && (
           <li className="border-none">
             {this.renderLink('/csvConfigTable', 'hand-point-right', 'CSV Import Config')}
           </li>
         )}
-        {this.isAuthorizated([MANAGE_JSON_CONFIG])
+        {this.hasPermission(MANAGE_JSON_CONFIG)
         && (
           <li className="border-none">
-            <Link to="/jsonConfigTable">
-              <FontAwesomeIcon icon="hand-point-right" />
-              <span className="icon-text">Json Import Config</span>
-            </Link>
+            {this.renderLink('/jsonConfigTable', 'hand-point-right', 'Json Import Config')}
           </li>
         )}
-        {this.isAuthorizated([MANAGE_IVR_PROVIDER_CONFIG])
+        {this.hasPermission(MANAGE_IVR_PROVIDER_CONFIG)
         && (
           <li className="border-none">
-            <Link to="/ivrProviderConfigTable">
-              <FontAwesomeIcon icon="hand-point-right" />
-              <span className="icon-text">IVR Provider Config</span>
-            </Link>
+            {this.renderLink('/ivrProviderConfigTable', 'hand-point-right', 'IVR Provider Config')}
           </li>
         )}
-        {this.isAuthorizated([MANAGE_CALL_CONFIG])
+        {this.hasPermission(MANAGE_CALL_CONFIG)
         && (
           <li className="border-none">
-            <Link to="/callConfigTable">
-              <FontAwesomeIcon icon="hand-point-right" />
-              <span className="icon-text">IVR Call Config</span>
-            </Link>
-          </li>
-        )}
-        {this.isAuthorizated([MANAGE_APP_SETTINGS])
-        && (
-          <li className="border-none">
-            {this.renderLink('/appSettings', 'hand-point-right', 'App Settings')}
+            {this.renderLink('/callConfigTable', 'hand-point-right', 'IVR Call Config')}
           </li>
         )}
       </ul>
@@ -294,47 +295,55 @@ class SideBar extends Component {
       <div className={`sidebar-collapse ${sidebarVisible ? 'collapse' : ''}`}>
         <div>
           <ul className="nav navbar-nav side-nav">
-            {this.isAuthorizated(getEntityReadPermission(VACCINEE_ENTITY))
+            {this.hasReadPermission(VACCINEE_ENTITY)
             && (
               <li>
                 {this.renderLink(`/viewEntity/${VACCINEE_ENTITY}`, 'syringe', 'Vaccinees')}
               </li>
             )}
-            <li>
-              <a href="" onClick={this.toggleVisitsCollapsedMenu}>
-                <FontAwesomeIcon icon="glasses" />
-                <span className="icon-text">Visits</span>
-              </a>
-              {this.renderVisitsCollapsedMenu()}
-            </li>
-            {this.isAuthorizated(getEntityReadPermission(KEY_COMMUNITY_PERSON_ENTITY))
+            {(this.hasAnyReadPermission([VISIT_ENTITY, VISIT_TYPE_ENTITY, SITE_ENTITY]))
+            && (
+              <li>
+                <a href="" onClick={this.toggleVisitsCollapsedMenu}>
+                  <FontAwesomeIcon icon="glasses" />
+                  <span className="icon-text">Visits</span>
+                </a>
+                {this.renderVisitsCollapsedMenu()}
+              </li>
+            )}
+            {this.hasReadPermission(KEY_COMMUNITY_PERSON_ENTITY)
             && (
               <li>
                 {this.renderLink(`/viewEntity/${KEY_COMMUNITY_PERSON_ENTITY}`, 'key', 'Key Community Persons')}
               </li>
             )}
-            <li>
-              <a href="" onClick={this.toggleEnrollmentCollapsedMenu}>
-                <FontAwesomeIcon icon="user-plus" />
-                <span className="icon-text">Enrollment</span>
-              </a>
-              {this.renderEnrollmentCollapsedMenu()}
-            </li>
-            {this.isAuthorizated(getEntityReadPermission(CAMPAIGN_MESSAGE_ENTITY))
+            {this.hasPermission(MANAGE_VACCINEE_ENROLLMENT)
+            && (
+              <li>
+                <a href="" onClick={this.toggleEnrollmentCollapsedMenu}>
+                  <FontAwesomeIcon icon="user-plus" />
+                  <span className="icon-text">Enrollment</span>
+                </a>
+                {this.renderEnrollmentCollapsedMenu()}
+              </li>
+            )}
+            {this.hasReadPermission(CAMPAIGN_MESSAGE_ENTITY)
             && (
               <li>
                 {this.renderLink(`/viewEntity/${CAMPAIGN_MESSAGE_ENTITY}`, 'envelope', 'Message Campaigns')}
               </li>
             )}
-            <li>
-              <a href="" onClick={this.toggleReportsCollapsedMenu}>
-                <FontAwesomeIcon icon="file" />
-                <span className="icon-text">Reports</span>
-              </a>
-              {this.renderReportsCollapsedMenu()}
-            </li>
-            {(this.isAuthorizated(getEntityReadPermission(ROLE_ENTITY))
-              || this.isAuthorizated(getEntityReadPermission(USER_ENTITY)))
+            {(this.hasReadPermission(VACCINEE_ENTITY))
+            && (
+              <li>
+                <a href="" onClick={this.toggleReportsCollapsedMenu}>
+                  <FontAwesomeIcon icon="file" />
+                  <span className="icon-text">Reports</span>
+                </a>
+                {this.renderReportsCollapsedMenu()}
+              </li>
+            )}
+            {(this.hasAnyReadPermission([ROLE_ENTITY, USER_ENTITY]))
             && (
               <li>
                 <a href="" onClick={this.toggleUserManagementCollapsedMenu}>
@@ -344,19 +353,29 @@ class SideBar extends Component {
                 {this.renderUserManagementCollapsedMenu()}
               </li>
             )}
-            {this.isAuthorizated(getEntityReadPermission(GROUP_ENTITY))
+            {this.hasReadPermission(GROUP_ENTITY)
             && (
               <li>
                 {this.renderLink(`/viewEntity/${GROUP_ENTITY}`, 'layer-group', 'Enrollment group')}
               </li>
             )}
-            <li>
-              <a href="" onClick={this.toggleSettingsCollapsedMenu}>
-                <FontAwesomeIcon icon="cog" />
-                <span className="icon-text">Settings</span>
-              </a>
-              {this.renderSettingsCollapsedMenu()}
-            </li>
+            {this.hasReadPermission(LANGUAGE_ENTITY)
+            && (
+              <li>
+                {this.renderLink(`/viewEntity/${LANGUAGE_ENTITY}`, 'hand-point-right', 'Languages')}
+              </li>
+            )}
+            {this.hasAnyPermission([MANAGE_APP_SETTINGS, MANAGE_FIELD_CONFIG, MANAGE_CSV_CONFIG,
+              MANAGE_JSON_CONFIG, MANAGE_IVR_PROVIDER_CONFIG, MANAGE_CALL_CONFIG])
+            && (
+              <li>
+                <a href="" onClick={this.toggleSettingsCollapsedMenu}>
+                  <FontAwesomeIcon icon="cog" />
+                  <span className="icon-text">Settings</span>
+                </a>
+                {this.renderSettingsCollapsedMenu()}
+              </li>
+            )}
           </ul>
         </div>
       </div>

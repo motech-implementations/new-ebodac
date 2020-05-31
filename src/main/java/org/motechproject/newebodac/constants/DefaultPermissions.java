@@ -53,7 +53,8 @@ public class DefaultPermissions {
   public static final String HAS_ROLE_WRITE_ROLE = "hasRole('" + ROLE_WRITE + "')";
   public static final String HAS_USER_READ_ROLE = "hasRole('" + USER_READ + "')";
   public static final String HAS_USER_WRITE_ROLE = "hasRole('" + USER_WRITE + "')";
-  public static final String HAS_VISIT_TYPE_READ_ROLE = "hasRole('" + VISIT_TYPE_READ + "')";
+  public static final String HAS_VISIT_TYPE_OR_VISIT_READ_ROLE =
+      "hasAnyRole('" + VISIT_TYPE_READ + "','" + VISIT_READ + "')";
   public static final String HAS_VISIT_TYPE_WRITE_ROLE = "hasRole('" + VISIT_TYPE_WRITE + "')";
   public static final String HAS_MANAGE_FIELD_CONFIG_ROLE =
       "hasRole('" + MANAGE_FIELD_CONFIG + "')";
