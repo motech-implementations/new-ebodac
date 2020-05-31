@@ -201,7 +201,7 @@ class FieldConfigModal extends React.Component {
   render() {
     const { modalIsOpen } = this.props;
     return (
-      <div className="container-fluid">
+      <div>
         <Modal
           isOpen={modalIsOpen}
           className={{

@@ -22,7 +22,7 @@ class IvrProviderConfigTable extends Component {
 
   render() {
     return (
-      <div className="container-fluid">
+      <div>
         <h1>IVR Provider Config</h1>
         <div className="mx-2 mt-2 mb-3">
           <button

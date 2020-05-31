@@ -69,7 +69,7 @@ class VaccineeEnrollment extends Component {
     const { vaccinees, history } = this.props;
 
     return (
-      <div className="container-fluid">
+      <div>
         <h1>Vaccinee enrollment</h1>
         <ReactTable
           data={vaccinees}

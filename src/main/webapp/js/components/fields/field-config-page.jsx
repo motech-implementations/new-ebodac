@@ -147,7 +147,7 @@ class FieldConfigPage extends Component {
     const { isModalOpen, selectedFieldId } = this.state;
 
     return (
-      <div className="container-fluid">
+      <div>
         <FieldConfigModal
           modalIsOpen={isModalOpen}
           hideModal={this.hideModal}

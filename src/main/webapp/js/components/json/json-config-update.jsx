@@ -52,7 +52,7 @@ class JsonConfigUpdate extends Component {
     const { openConfirmModal } = this.state;
     const { isOnline } = this.props;
     return (
-      <div className="container-fluid">
+      <div>
         <div>
           <h1>Update Json Config</h1>
         </div>

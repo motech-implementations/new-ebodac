@@ -39,7 +39,7 @@ class EntityCreate extends Component {
   render() {
     const { fieldConfig, entityType, isOnline } = this.props;
     return (
-      <div className="container-fluid">
+      <div>
         <div>
           <h1>
             {`Create ${_.startCase(entityType)}`}

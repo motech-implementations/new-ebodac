@@ -58,7 +58,7 @@ class EntityTable extends Component {
     const columns = _.map(fieldConfig, elem => getTableColumn(elem));
 
     return (
-      <div className="container-fluid">
+      <div>
         <h1>{_.startCase(entityType)}</h1>
         <div className="d-flex flex-row">
           {this.canWrite() && (

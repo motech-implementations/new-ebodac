@@ -52,7 +52,7 @@ class CsvConfigUpdate extends Component {
     const { isOnline } = this.props;
     const { openConfirmModal } = this.state;
     return (
-      <div className="container-fluid">
+      <div>
         <div>
           <h1>Update CSV Config</h1>
         </div>

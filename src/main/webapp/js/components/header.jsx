@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import '../../css/main.scss';
@@ -16,9 +17,9 @@ class Header extends Component {
     };
   }
 
-  onSignout = (event) => {
+  onSignout = () => {
     this.props.signoutUser();
-    event.preventDefault();
+    this.props.history.push('/');
   };
 
   collapseSideBar = () => {
@@ -36,12 +37,10 @@ class Header extends Component {
         <div className="topnav">
           <div className="d-flex float-right">
             <CounterLogout />
-            <div>
-              <a href="" onClick={() => this.onSignout()}>
-                <FontAwesomeIcon icon="sign-out-alt" />
-                <span className="icon-text"> Logout </span>
-              </a>
-            </div>
+            <button className="btn ml-1" type="button" style={{ color: '#f2f2f2' }} onClick={() => this.onSignout()}>
+              <FontAwesomeIcon icon="sign-out-alt" />
+              <span className="icon-text"> Logout </span>
+            </button>
           </div>
           <div
             style={{ verticalAlign: 'text-top' }}
@@ -70,11 +69,16 @@ const mapStateToProps = state => ({
   isOnline: state.offline.online,
 });
 
-export default connect(mapStateToProps, { signoutUser, resetLogoutCounter })(Header);
+export default withRouter(
+  connect(mapStateToProps, { signoutUser, resetLogoutCounter })(Header),
+);
 
 Header.propTypes = {
   toggleSidebarMenu: PropTypes.func.isRequired,
   signoutUser: PropTypes.func.isRequired,
   resetLogoutCounter: PropTypes.func.isRequired,
   isOnline: PropTypes.bool.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
 };

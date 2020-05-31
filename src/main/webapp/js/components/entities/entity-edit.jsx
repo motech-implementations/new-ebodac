@@ -73,7 +73,7 @@ class EntityEdit extends Component {
       entityToEdit, fieldConfig, entityType, isOnline, disableDelete,
     } = this.props;
     return (
-      <div className="container-fluid">
+      <div>
         <div>
           <h1>
             {`Edit ${_.startCase(entityType)}`}

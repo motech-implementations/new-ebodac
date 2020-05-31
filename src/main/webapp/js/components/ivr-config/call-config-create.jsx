@@ -22,7 +22,7 @@ class CallConfigCreate extends Component {
 
   render() {
     return (
-      <div className="container-fluid">
+      <div>
         <h1>Create Call Config</h1>
         <CallConfigPage
           onSubmit={this.onSubmit}

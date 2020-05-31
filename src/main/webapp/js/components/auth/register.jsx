@@ -96,41 +96,35 @@ class Register extends Component {
 
   render() {
     return (
-      <div className="page-container">
-        <div className="login-container">
-          <div className="row">
-            <div className="col-md-4 offset-md-4">
+      <div className="page-container container-fluid">
+        <div className="d-flex justify-content-center">
+          <div className="login-container">
+            <div>
               <img className="img-fluid" alt="logo" src="images/EBODAClogo.jpg" />
             </div>
-          </div>
-          <div className="row ">
-            <div className="col-md-4 offset-md-4">
-              <div className="card">
-                <div className="card-header bg-info">
-                  <div>Sign In</div>
-                </div>
-                <div className="card-body">
-                  { this.renderSuccess() }
-                  <Form
-                    onSubmit={this.onSubmit}
-                    validate={this.validate}
-                    render={({ handleSubmit, invalid, form: { reset } }) => (
-                      <form
-                        onSubmit={(event) => {
-                          handleSubmit(event);
-                          reset();
-                        }}
-                      >
-                        {_.map(REGISTER_FIELDS, elem => renderFormField(elem))}
-                        <div className="input-row text-center">
-                          <div className="col-sm-12">
-                            <button type="submit" className="btn btn-secondary" disabled={invalid}>Register</button>
-                          </div>
-                        </div>
-                      </form>
-                    )}
-                  />
-                </div>
+            <div className="card">
+              <div className="card-header bg-info">
+                <div>Sign In</div>
+              </div>
+              <div className="card-body">
+                { this.renderSuccess() }
+                <Form
+                  onSubmit={this.onSubmit}
+                  validate={this.validate}
+                  render={({ handleSubmit, invalid, form: { reset } }) => (
+                    <form
+                      onSubmit={(event) => {
+                        handleSubmit(event);
+                        reset();
+                      }}
+                    >
+                      {_.map(REGISTER_FIELDS, elem => renderFormField(elem))}
+                      <div className="d-flex justify-content-center">
+                        <button type="submit" className="btn btn-secondary" disabled={invalid}>Register</button>
+                      </div>
+                    </form>
+                  )}
+                />
               </div>
             </div>
           </div>

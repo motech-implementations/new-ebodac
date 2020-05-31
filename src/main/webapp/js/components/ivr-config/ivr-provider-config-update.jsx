@@ -51,7 +51,7 @@ class IvrProviderConfigUpdate extends Component {
     const { openConfirmModal } = this.state;
 
     return (
-      <div className="container-fluid">
+      <div>
         <div>
           <h1>Update IVR Provider Config</h1>
         </div>

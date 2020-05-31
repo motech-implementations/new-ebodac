@@ -22,7 +22,7 @@ class CallConfigTable extends Component {
 
   render() {
     return (
-      <div className="container-fluid">
+      <div>
         <h1>IVR Call Config</h1>
         <div className="mx-2 mt-2 mb-3">
           <button

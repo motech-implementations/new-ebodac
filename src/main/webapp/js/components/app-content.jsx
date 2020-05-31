@@ -72,98 +72,100 @@ class AppContent extends Component {
         <SideBar sidebarVisible={sidebarVisible} />
         <div id="page-wrapper">
           <div className="container-wrapper">
-            <Switch>
-              <RoutePrivate
-                requiredPermissions={[MANAGE_VACCINEE_ENROLLMENT]}
-                path="/vaccineeEnrollment"
-                component={VaccineeEnrollment}
-              />
-              <RoutePrivate
-                requiredPermissions={[MANAGE_VACCINEE_ENROLLMENT]}
-                path="/visitEnrollment/:id"
-                component={VisitEnrollment}
-              />
-              <RoutePrivate path="/callLogVaccinees" component={CallLogVaccinees} />
-              <EntityRoutePrivate readOnly path={`/viewEntity/${ROLE_ENTITY}`} component={ViewRole} />
-              <EntityRoutePrivate readOnly path={`/viewEntity/${USER_ENTITY}`} component={ViewUser} />
-              <EntityRoutePrivate readOnly path="/viewEntity/:entityType" component={ViewEntity} />
-              <EntityRoutePrivate path="/create/:entityType" component={CreateEntityPage} />
-              <EntityRoutePrivate path={`/entityEdit/${ROLE_ENTITY}/:id`} component={RoleEdit} />
-              <EntityRoutePrivate path={`/entityEdit/${USER_ENTITY}/:id`} component={UserEdit} />
-              <EntityRoutePrivate path="/entityEdit/:entityType/:id" component={EditEntityPage} />
-              <EntityRoutePrivate path="/import/:entityType/" component={CsvImport} />
-              <RoutePrivate
-                requiredPermissions={[MANAGE_FIELD_CONFIG]}
-                path="/fieldConfig/:entityType"
-                component={FieldConfigPage}
-              />
-              <RoutePrivate
-                requiredPermissions={[MANAGE_CSV_CONFIG]}
-                path="/createCsvConfig/"
-                component={CsvConfigCreate}
-              />
-              <RoutePrivate
-                requiredPermissions={[MANAGE_CSV_CONFIG]}
-                path="/updateCsvConfig/:entity/:id"
-                component={CsvConfigUpdate}
-              />
-              <RoutePrivate
-                requiredPermissions={[MANAGE_CSV_CONFIG]}
-                path="/csvConfigTable"
-                component={CsvConfigTable}
-              />
-              <RoutePrivate
-                requiredPermissions={[MANAGE_JSON_CONFIG]}
-                path="/jsonConfigTable"
-                component={JsonConfigTable}
-              />
-              <RoutePrivate
-                requiredPermissions={[MANAGE_JSON_CONFIG]}
-                path="/createJsonConfig/"
-                component={JsonConfigCreate}
-              />
-              <RoutePrivate
-                requiredPermissions={[MANAGE_JSON_CONFIG]}
-                path="/updateJsonConfig/:entity/:id"
-                component={JsonConfigUpdate}
-              />
-              <RoutePrivate
-                requiredPermissions={[MANAGE_CALL_CONFIG]}
-                path="/createCallConfig"
-                component={CallConfigCreate}
-              />
-              <RoutePrivate
-                requiredPermissions={[MANAGE_CALL_CONFIG]}
-                path="/updateCallConfig/:id"
-                component={CallConfigUpdate}
-              />
-              <RoutePrivate
-                requiredPermissions={[MANAGE_CALL_CONFIG]}
-                path="/callConfigTable"
-                component={CallConfigTable}
-              />
-              <RoutePrivate
-                requiredPermissions={[MANAGE_IVR_PROVIDER_CONFIG]}
-                path="/createIvrProviderConfig"
-                component={IvrProviderConfigCreate}
-              />
-              <RoutePrivate
-                requiredPermissions={[MANAGE_IVR_PROVIDER_CONFIG]}
-                path="/updateIvrProviderConfig/:id"
-                component={IvrProviderConfigUpdate}
-              />
-              <RoutePrivate
-                requiredPermissions={[MANAGE_IVR_PROVIDER_CONFIG]}
-                path="/ivrProviderConfigTable"
-                component={IvrProviderConfigTable}
-              />
-              <RoutePrivate
-                requiredPermissions={[MANAGE_APP_SETTINGS]}
-                path="/appSettings"
-                component={AppSettings}
-              />
-              <RoutePrivate path="/" component={Home} />
-            </Switch>
+            <div className="container-fluid">
+              <Switch>
+                <RoutePrivate
+                  requiredPermissions={[MANAGE_VACCINEE_ENROLLMENT]}
+                  path="/vaccineeEnrollment"
+                  component={VaccineeEnrollment}
+                />
+                <RoutePrivate
+                  requiredPermissions={[MANAGE_VACCINEE_ENROLLMENT]}
+                  path="/visitEnrollment/:id"
+                  component={VisitEnrollment}
+                />
+                <RoutePrivate path="/callLogVaccinees" component={CallLogVaccinees} />
+                <EntityRoutePrivate readOnly path={`/viewEntity/${ROLE_ENTITY}`} component={ViewRole} />
+                <EntityRoutePrivate readOnly path={`/viewEntity/${USER_ENTITY}`} component={ViewUser} />
+                <EntityRoutePrivate readOnly path="/viewEntity/:entityType" component={ViewEntity} />
+                <EntityRoutePrivate path="/create/:entityType" component={CreateEntityPage} />
+                <EntityRoutePrivate path={`/entityEdit/${ROLE_ENTITY}/:id`} component={RoleEdit} />
+                <EntityRoutePrivate path={`/entityEdit/${USER_ENTITY}/:id`} component={UserEdit} />
+                <EntityRoutePrivate path="/entityEdit/:entityType/:id" component={EditEntityPage} />
+                <EntityRoutePrivate path="/import/:entityType/" component={CsvImport} />
+                <RoutePrivate
+                  requiredPermissions={[MANAGE_FIELD_CONFIG]}
+                  path="/fieldConfig/:entityType"
+                  component={FieldConfigPage}
+                />
+                <RoutePrivate
+                  requiredPermissions={[MANAGE_CSV_CONFIG]}
+                  path="/createCsvConfig/"
+                  component={CsvConfigCreate}
+                />
+                <RoutePrivate
+                  requiredPermissions={[MANAGE_CSV_CONFIG]}
+                  path="/updateCsvConfig/:entity/:id"
+                  component={CsvConfigUpdate}
+                />
+                <RoutePrivate
+                  requiredPermissions={[MANAGE_CSV_CONFIG]}
+                  path="/csvConfigTable"
+                  component={CsvConfigTable}
+                />
+                <RoutePrivate
+                  requiredPermissions={[MANAGE_JSON_CONFIG]}
+                  path="/jsonConfigTable"
+                  component={JsonConfigTable}
+                />
+                <RoutePrivate
+                  requiredPermissions={[MANAGE_JSON_CONFIG]}
+                  path="/createJsonConfig/"
+                  component={JsonConfigCreate}
+                />
+                <RoutePrivate
+                  requiredPermissions={[MANAGE_JSON_CONFIG]}
+                  path="/updateJsonConfig/:entity/:id"
+                  component={JsonConfigUpdate}
+                />
+                <RoutePrivate
+                  requiredPermissions={[MANAGE_CALL_CONFIG]}
+                  path="/createCallConfig"
+                  component={CallConfigCreate}
+                />
+                <RoutePrivate
+                  requiredPermissions={[MANAGE_CALL_CONFIG]}
+                  path="/updateCallConfig/:id"
+                  component={CallConfigUpdate}
+                />
+                <RoutePrivate
+                  requiredPermissions={[MANAGE_CALL_CONFIG]}
+                  path="/callConfigTable"
+                  component={CallConfigTable}
+                />
+                <RoutePrivate
+                  requiredPermissions={[MANAGE_IVR_PROVIDER_CONFIG]}
+                  path="/createIvrProviderConfig"
+                  component={IvrProviderConfigCreate}
+                />
+                <RoutePrivate
+                  requiredPermissions={[MANAGE_IVR_PROVIDER_CONFIG]}
+                  path="/updateIvrProviderConfig/:id"
+                  component={IvrProviderConfigUpdate}
+                />
+                <RoutePrivate
+                  requiredPermissions={[MANAGE_IVR_PROVIDER_CONFIG]}
+                  path="/ivrProviderConfigTable"
+                  component={IvrProviderConfigTable}
+                />
+                <RoutePrivate
+                  requiredPermissions={[MANAGE_APP_SETTINGS]}
+                  path="/appSettings"
+                  component={AppSettings}
+                />
+                <RoutePrivate path="/" component={Home} />
+              </Switch>
+            </div>
           </div>
         </div>
       </div>

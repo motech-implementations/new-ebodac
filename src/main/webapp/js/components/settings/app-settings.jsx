@@ -270,7 +270,7 @@ class AppSettings extends Component {
   render() {
     const { appSettings, isOnline } = this.props;
     return (
-      <div className="container-fluid">
+      <div>
         <div>
           <h1 className="mb-0">Edit App Settings</h1>
         </div>

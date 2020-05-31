@@ -51,7 +51,7 @@ class CallConfigUpdate extends Component {
     const { openConfirmModal } = this.state;
 
     return (
-      <div className="container-fluid">
+      <div>
         <div>
           <h1>Update Call Config</h1>
         </div>

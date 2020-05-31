@@ -43,14 +43,13 @@ body {
 }
 
 .page-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: calc(100vh - 50px);
+  height: 100vh;
+  overflow: auto;
 }
 
 .login-container {
-  min-height: 600px;
+  max-width: 500px;
+  overflow: auto;
 }
 
 p {

@@ -20,7 +20,7 @@ const columns = [
 ];
 
 const JsonConfigTable = props => (
-  <div className="container-fluid">
+  <div>
     <h1>Json Import Config</h1>
     <div className="mx-2 mt-2 mb-3">
       <button

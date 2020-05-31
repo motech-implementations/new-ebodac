@@ -20,7 +20,7 @@ const columns = [
 ];
 
 const CsvConfigTable = props => (
-  <div className="container-fluid">
+  <div>
     <h1>CSV Import Config</h1>
     <div className="mx-2 mt-2 mb-3">
       <button

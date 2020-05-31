@@ -48,7 +48,7 @@ class JsonConfigCreate extends Component {
 
   render() {
     return (
-      <div className="container-fluid">
+      <div>
         <h1>Create Json Config</h1>
         <div className="d-flex flex-row input-row required">
           <span className="col-form-label text-right nebodac-label">
